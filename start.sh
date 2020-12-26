@@ -1,6 +1,6 @@
 # Vorbereitung
 # git checkout release
-# git pull
+git pull
 
 #-------------------------
 # Bau des WebpageImage
