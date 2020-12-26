@@ -4,7 +4,7 @@ services:
   #---------------------------------------
   # Proxy
   nginx-proxy:
-    image: nginx
+    image: jwilder/nginx-proxy
     ports:
       - "80:80"
       - "443:443"
@@ -24,8 +24,6 @@ services:
     volumes:
       - /Docker/DB:/var/lib/mysql
     restart: always
-    ports:
-      - "3308:3306"
 
   #---------------------------------------
   # Wiki
@@ -36,23 +34,23 @@ services:
     volumes:
       - /Docker/wiki:/var/lib/MediaWiki
     environment:
-      - "VIRTUAL_HOST=wiki"
+      - "VIRTUAL_HOST=wiki.chrisubuntu"
       - "VIRTUAL_PORT=8081"
     restart: always
-    expose:
-      - 80
+    ports:
+      - "8080:80"
 
   #---------------------------------------
   # Webpage
   Webpage:
     image: webpageimage:0.1
     environment:
-      - "VIRTUAL_HOST=web"
+      - "VIRTUAL_HOST=web.chrisubuntu"
       - "VIRTUAL_PORT=8080"
     restart: always
     command: python manage.py runserver 0.0.0.0:8080
-    expose:
-      - 8080
+    ports:
+      - "8081:8080"
     volumes:
       - /Docker/Webpage:/webpage
     depends_on:
