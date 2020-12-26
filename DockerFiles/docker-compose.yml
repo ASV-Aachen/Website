@@ -11,6 +11,7 @@ services:
     volumes:
       - /Docker/nginx/config:/etc/ngnix
       - /Docker/nginx/certificate:/etc/ssl/private
+      - /var/run/docker.sock:/tmp/docker.sock
 
   #---------------------------------------
   # Datenbank
