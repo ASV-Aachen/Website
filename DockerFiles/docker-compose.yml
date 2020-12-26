@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  #---------------------------------------
+  # Proxy
+  nginx-proxy:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /Docker/nginx/config:/etc/ngnix
+      - /Docker/nginx/certificate:/etc/ssl/private
+
+  #---------------------------------------
+  # Datenbank
+  db:
+    image: mysql
+    environment:
+      MYSQL_Name: TESTDB
+      MYSQL_User: Webpage
+      MYSQL_PASSWORD: IMATESTPAGE
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    volumes:
+      - /Docker/DB:/var/lib/mysql
+    restart: always
+    ports:
+      - "3308:3306"
+
+  #---------------------------------------
+  # Wiki
+  wiki:
+    image: mediawiki
+    links:
+      - db
+    volumes:
+      - /Docker/wiki:/var/lib/MediaWiki
+    environment:
+      - "VIRTUAL_HOST=wiki.domain.com"
+      - "VIRTUAL_PORT=8080"
+    restart: always
+
+
+
+  #---------------------------------------
+  # Webpage
+  Webpage:
+    image: webpageimage:0.1
+    environment:
+      - "VIRTUAL_HOST=web.domain.com"
+      - "VIRTUAL_PORT=8080"
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8080
+    volumes:
+      - /Docker/Webpage:webpage
+    depends_on:
+      - db
+      - nginx-proxy
+
+
+
+
+volumes:
+  db_data: {}
+  wiki_data: {}
+  page_data: {}
