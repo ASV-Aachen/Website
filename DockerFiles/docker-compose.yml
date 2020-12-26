@@ -54,7 +54,7 @@ services:
     expose:
       - 8080
     volumes:
-      - /Docker/Webpage:webpage
+      - /Docker/Webpage:/webpage
     depends_on:
       - db
       - nginx-proxy
