@@ -36,28 +36,28 @@ services:
     volumes:
       - /Docker/wiki:/var/lib/MediaWiki
     environment:
-      - "VIRTUAL_HOST=wiki.domain.com"
-      - "VIRTUAL_PORT=8080"
+      - "VIRTUAL_HOST=wiki"
+      - "VIRTUAL_PORT=8081"
     restart: always
-
-
+    expose:
+      - 80
 
   #---------------------------------------
   # Webpage
   Webpage:
     image: webpageimage:0.1
     environment:
-      - "VIRTUAL_HOST=web.domain.com"
+      - "VIRTUAL_HOST=web"
       - "VIRTUAL_PORT=8080"
     restart: always
     command: python manage.py runserver 0.0.0.0:8080
+    expose:
+      - 8080
     volumes:
       - /Docker/Webpage:webpage
     depends_on:
       - db
       - nginx-proxy
-
-
 
 
 volumes:
