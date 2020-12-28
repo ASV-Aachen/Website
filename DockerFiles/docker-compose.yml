@@ -37,6 +37,7 @@ services:
     volumes:
       # Store certificates in ./letsencrypt/acme.json
       - /Docker/letsencrypt:/letsencrypt
+      - /Docker/Proxy:/config
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -77,6 +78,7 @@ services:
       - traefik.enable=true
       - traefik.port = 41500
       - traefik.frontend.rule=Host:wiki.chrisubuntu.local
+      - traefik.http.routers.wiki.rule=Host(`wiki.chrisubuntu.local`)
   #---------------------------------------
   # Webpage
   Webpage:
@@ -97,6 +99,7 @@ services:
       - traefik.enable=true
       - traefik.port = 41500
       - traefik.frontend.rule=Host:chrisubuntu.local
+      - traefik.http.routers.Webpage.rule=Host(`chrisubuntu.local`)
 
 volumes:
   db_data: {}
