@@ -98,9 +98,9 @@ services:
       - backend
     labels:
       - traefik.enable=true
-      - traefik.http.routers.wiki.rule=Host(`chrisubuntu`)
+      - traefik.http.routers.Webpage.rule=Host(`chrisubuntu`)
       # Tell Traefik to use the port 12345 to connect to `my-container`
-      - traefik.http.services.wiki.loadbalancer.server.port=4151
+      - traefik.http.services.Webpage.loadbalancer.server.port=4151
 
 
 volumes:
