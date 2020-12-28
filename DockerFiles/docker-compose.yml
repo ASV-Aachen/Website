@@ -64,11 +64,11 @@ services:
     volumes:
       - /Docker/wiki:/var/lib/MediaWiki
     restart: always
-    ports:
-      - 40511:80
     depends_on:
       - db
       - reverse-proxy
+    expose:
+      -80
     networks:
       - traefik
       - backend
@@ -84,8 +84,8 @@ services:
     image: webpageimage:0.1
     restart: always
     command: python manage.py runserver 0.0.0.0:8080
-    ports:
-      - 40510:8080
+    expose:
+      -8080
     volumes:
       - /Docker/Webpage:/webpage
     depends_on:
