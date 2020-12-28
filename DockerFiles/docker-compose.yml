@@ -76,6 +76,8 @@ services:
     labels:
         # The labels are usefull for Traefik only
       - traefik.enable=true
+      - "traefik.http.routers.whoami.rule=Host(`chrisubuntu.local`)"
+      - "traefik.http.routers.whoami.entrypoints=web"
 
   #---------------------------------------
   # Webpage
