@@ -73,10 +73,11 @@ services:
     labels:
         # The labels are usefull for Traefik only
       - traefik.enable=true
-      - traefik.docker.network=traefik
+      - traefik.docker.network=web
       # Get the routes from http
       - traefik.backend=wiki
-      - traefik.frontend.rule=Path:/wiki/
+      - traefik.frontend.rule=Host:blog.chrisubuntu
+      - traefik.port=80
 
   #---------------------------------------
   # Webpage
