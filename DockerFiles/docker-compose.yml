@@ -76,9 +76,7 @@ services:
     labels:
         # The labels are usefull for Traefik only
       - traefik.enable=true
-      - traefik.port = 41500
-      - traefik.frontend.rule=Host:wiki.chrisubuntu.local
-      - traefik.http.routers.wiki.rule=Host(`wiki.chrisubuntu.local`)
+
   #---------------------------------------
   # Webpage
   Webpage:
@@ -97,9 +95,7 @@ services:
       - backend
     labels:
       - traefik.enable=true
-      - traefik.port = 41500
-      - traefik.frontend.rule=Host:chrisubuntu.local
-      - traefik.http.routers.Webpage.rule=Host(`chrisubuntu.local`)
+
 
 volumes:
   db_data: {}
