@@ -75,7 +75,7 @@ services:
       - traefik.enable=true
       - traefik.docker.network=traefik
       # Get the routes from http
-      - traefik.http.routers.wiki.rule=Host(`chrisubuntu:40511`)
+      - traefik.http.routers.wiki.rule=Path('/wiki')
       - traefik.http.routers.wiki.entrypoints=web
 
   #---------------------------------------
@@ -99,7 +99,7 @@ services:
       - traefik.enable=true
       - traefik.docker.network=traefik
       # Get the routes from http
-      - traefik.http.routers.Webpage.rule=Host(`chrisubuntu:40510`)
+      - traefik.http.routers.Webpage.rule=Path(`/`)
       - traefik.http.routers.Webpage.entrypoints=web
 
 
