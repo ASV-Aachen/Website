@@ -67,17 +67,16 @@ services:
     depends_on:
       - db
       - reverse-proxy
-    expose:
-      - 80
+    ports:
+      - 4150:80
     networks:
       - traefik
       - backend
     labels:
         # The labels are usefull for Traefik only
       - traefik.enable=true
-      - traefik.docker.network=web
-      # Get the routes from http
-      - traefik.http.routers.wiki.rule=Host(`chrisubuntu.local`) && Path(`/wiki/`)
+      - traefik.port = 41500
+      - traefik.frontend.rule=Host:wiki.chrisubuntu.local
   #---------------------------------------
   # Webpage
   Webpage:
@@ -95,11 +94,9 @@ services:
       - traefik
       - backend
     labels:
-      # The labels are usefull for Traefik only
       - traefik.enable=true
-      - traefik.docker.network=traefik
-      # Get the routes from http
-      - traefik.http.routers.Webpage.rule=Host(`chrisubuntu.local`)
+      - traefik.port = 41500
+      - traefik.frontend.rule=Host:chrisubuntu.local
 
 volumes:
   db_data: {}
