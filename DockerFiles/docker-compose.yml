@@ -7,6 +7,9 @@ networks:
   # network for the app
   backend:
 
+providers:
+  docker: {}
+
 services:
   #---------------------------------------
   # Proxy
@@ -75,8 +78,8 @@ services:
       - traefik.enable=true
       - traefik.docker.network=traefik
       # Get the routes from http
-      - traefik.http.routers.wiki.rule=Path('/wiki')
-      - traefik.http.routers.wiki.entrypoints=web
+      - traefik.frontend.rule=PathPrefixStrip:/wiki
+      - traefik.port=80
 
   #---------------------------------------
   # Webpage
