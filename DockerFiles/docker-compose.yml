@@ -76,8 +76,9 @@ services:
     labels:
         # The labels are usefull for Traefik only
       - traefik.enable=true
-      - "traefik.http.routers.whoami.rule=Host(`chrisubuntu.local`)"
-      - "traefik.http.routers.whoami.entrypoints=web"
+      - "traefik.http.routers.wiki.rule=Host(`chrisubuntu`) && Path(`/wiki/`)"
+      # Tell Traefik to use the port 12345 to connect to `my-container`
+      - traefik.http.services.wiki.loadbalancer.server.port=4150
 
   #---------------------------------------
   # Webpage
@@ -85,8 +86,8 @@ services:
     image: webpageimage:0.1
     restart: always
     command: python manage.py runserver 0.0.0.0:8080
-    expose:
-      - 8080
+    ports:
+      - 4151:8080
     volumes:
       - /Docker/Webpage:/webpage
     depends_on:
@@ -97,6 +98,9 @@ services:
       - backend
     labels:
       - traefik.enable=true
+      - "traefik.http.routers.wiki.rule=Host(`chrisubuntu`)"
+      # Tell Traefik to use the port 12345 to connect to `my-container`
+      - traefik.http.services.wiki.loadbalancer.server.port=4151
 
 
 volumes:
