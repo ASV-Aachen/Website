@@ -1,6 +1,6 @@
 # Vorbereitung
 # git checkout release
-git pull
+# git pull
 
 #-------------------------
 # Bau des WebpageImage
@@ -13,4 +13,4 @@ cd ../
 echo "-----------------------------------------"
 cd ./DockerFiles
 echo "start von Docker Compose"
-docker-compose up
+docker-compose up -d

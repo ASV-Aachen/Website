@@ -1,5 +1,12 @@
 version: '3.3'
 
+networks:
+  # enable connection with Traefik
+  traefik:
+    external: true
+  # network for the app
+  backend:
+
 services:
   #---------------------------------------
   # Proxy
@@ -7,13 +14,27 @@ services:
     # The official v2 Traefik docker image
     image: traefik:v2.3
     # Enables the web UI and tells Traefik to listen to docker
-    command: --api.insecure=true --providers.docker
+    command:
+      # Only for development environment
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      # Get Docker as the provider
+      - "--providers.docker=true"
+      # Avoid that all containers are exposed
+      - "--providers.docker.exposedbydefault=false"
+      # Settle the ports for the entry points
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web-secure.address=:443"
     ports:
       # The HTTP port
       - "80:80"
+      # HTTPS
+      - "443:443"
       # The Web UI (enabled by --api.insecure=true)
       - "8080:8080"
     volumes:
+      # Store certificates in ./letsencrypt/acme.json
+      - /Docker/letsencrypt:/letsencrypt
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -29,6 +50,8 @@ services:
     volumes:
       - /Docker/DB:/var/lib/mysql
     restart: always
+    networks:
+      - backend
 
   #---------------------------------------
   # Wiki
@@ -44,6 +67,16 @@ services:
     depends_on:
       - db
       - reverse-proxy
+    networks:
+      - traefik
+      - backend
+    labels:
+      - # The labels are usefull for Traefik only
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik"
+        # Get the routes from http
+        - "traefik.http.routers.wiki.rule=Host(`chrisubuntu/wiki`)"
+        - "traefik.http.routers.wiki.entrypoints=web"
 
   #---------------------------------------
   # Webpage
@@ -58,12 +91,17 @@ services:
     depends_on:
       - db
       - reverse-proxy
-
-  whoami:
-    # A container that exposes an API to show its IP address
-    image: traefik/whoami
+    networks:
+      - traefik
+      - backend
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+      - # The labels are usefull for Traefik only
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik"
+        # Get the routes from http
+        - "traefik.http.routers.Webpage.rule=Host(`chrisubuntu`)"
+        - "traefik.http.routers.Webpage.entrypoints=web"
+
 
 volumes:
   db_data: {}
