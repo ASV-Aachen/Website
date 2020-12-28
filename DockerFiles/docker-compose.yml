@@ -75,8 +75,8 @@ services:
       - traefik.enable=true
       - traefik.docker.network=traefik
       # Get the routes from http
-      - traefik.frontend.rule=PathPrefixStrip:/wiki
-      - traefik.port=80
+      - traefik.backend=wiki
+      - traefik.frontend.rule=Path:/wiki/
 
   #---------------------------------------
   # Webpage
@@ -99,9 +99,8 @@ services:
       - traefik.enable=true
       - traefik.docker.network=traefik
       # Get the routes from http
-      - traefik.http.routers.Webpage.rule=Path(`/`)
-      - traefik.http.routers.Webpage.entrypoints=web
-
+      - traefik.backend=Webpage
+      - traefik.frontend.rule=Host:whoami.docker.localhost
 
 volumes:
   db_data: {}
