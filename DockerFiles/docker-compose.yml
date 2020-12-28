@@ -7,6 +7,8 @@ networks:
   # network for the app
   backend:
 
+
+
 services:
   #---------------------------------------
   # Proxy
@@ -75,8 +77,7 @@ services:
       - traefik.enable=true
       - traefik.docker.network=web
       # Get the routes from http
-      - traefik.http.routers.my-container.rule=Host(`chrisubuntu.local/wiki`)
-
+      - traefik.http.routers.wiki.rule=Host(`chrisubuntu.local`) && Path('/wiki/')
   #---------------------------------------
   # Webpage
   Webpage:
@@ -98,7 +99,7 @@ services:
       - traefik.enable=true
       - traefik.docker.network=traefik
       # Get the routes from http
-      - traefik.http.routers.my-container.rule=Host(`chrisubuntu.local`)
+      - traefik.http.routers.Webpage.rule=Host(`chrisubuntu.local`)
 
 volumes:
   db_data: {}
