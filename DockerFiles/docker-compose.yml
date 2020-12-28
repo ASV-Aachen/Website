@@ -3,18 +3,19 @@ version: '3.3'
 services:
   #---------------------------------------
   # Proxy
-  nginx-proxy:
-    image: jwilder/nginx-proxy
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.3
+    # Enables the web UI and tells Traefik to listen to docker
+    command: --api.insecure=true --providers.docker
     ports:
+      # The HTTP port
       - "80:80"
-      - "443:443"
-    expose:
-      - 80
-      - 443
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
     volumes:
-      - /Docker/nginx/config:/etc/ngnix
-      - /Docker/nginx/certificate:/etc/ssl/private
-      - /var/run/docker.sock:/tmp/docker.sock
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
 
   #---------------------------------------
   # Datenbank
@@ -37,38 +38,35 @@ services:
       - db
     volumes:
       - /Docker/wiki:/var/lib/MediaWiki
-    environment:
-      - "VIRTUAL_HOST=wiki.chrisubuntu"
-      - "VIRTUAL_PORT=8081"
     restart: always
     ports:
-      - "40511:80"
+      - 40511:80
+    depends_on:
+      - db
+      - nginx-proxy
 
   #---------------------------------------
   # Webpage
   Webpage:
     image: webpageimage:0.1
-    environment:
-      - "VIRTUAL_HOST=web.chrisubuntu"
-      - "VIRTUAL_PORT=8080"
     restart: always
     command: python manage.py runserver 0.0.0.0:8080
     ports:
-      - "40510:8080"
+      - 40510:8080
     volumes:
       - /Docker/Webpage:/webpage
     depends_on:
       - db
       - nginx-proxy
 
+  whoami:
+    # A container that exposes an API to show its IP address
+    image: traefik/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
 
 volumes:
   db_data: {}
   wiki_data: {}
   page_data: {}
 
-
-networks:
-  default:
-    external:
-      name: nginx-proxy
