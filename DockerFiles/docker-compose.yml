@@ -77,7 +77,7 @@ services:
       - traefik.enable=true
       - traefik.docker.network=web
       # Get the routes from http
-      - traefik.http.routers.wiki.rule=Host(`chrisubuntu.local`) && Path('/wiki/')
+      - traefik.http.routers.wiki.rule=Host(`chrisubuntu.local`) && Path(`/wiki/`)
   #---------------------------------------
   # Webpage
   Webpage:
