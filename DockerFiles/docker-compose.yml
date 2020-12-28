@@ -76,7 +76,7 @@ services:
     labels:
         # The labels are usefull for Traefik only
       - traefik.enable=true
-      - "traefik.http.routers.wiki.rule=Host(`chrisubuntu`) && Path(`/wiki/`)"
+      - traefik.http.routers.wiki.rule=Host(`chrisubuntu`) && Path(`/wiki/`)
       # Tell Traefik to use the port 12345 to connect to `my-container`
       - traefik.http.services.wiki.loadbalancer.server.port=4150
 
@@ -98,7 +98,7 @@ services:
       - backend
     labels:
       - traefik.enable=true
-      - "traefik.http.routers.wiki.rule=Host(`chrisubuntu`)"
+      - traefik.http.routers.wiki.rule=Host(`chrisubuntu`)
       # Tell Traefik to use the port 12345 to connect to `my-container`
       - traefik.http.services.wiki.loadbalancer.server.port=4151
 
