@@ -3,6 +3,10 @@
 # git pull
 
 #-------------------------
+# Bau das Netzwerk
+docker network create traefik
+
+#-------------------------
 # Bau des WebpageImage
 cd Webpage
 docker build -t webpageimage:0.1 .
