@@ -7,9 +7,6 @@ networks:
   # network for the app
   backend:
 
-providers:
-  docker: {}
-
 services:
   #---------------------------------------
   # Proxy
