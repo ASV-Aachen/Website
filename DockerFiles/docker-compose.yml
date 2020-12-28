@@ -43,7 +43,7 @@ services:
       - 40511:80
     depends_on:
       - db
-      - nginx-proxy
+      - reverse-proxy
 
   #---------------------------------------
   # Webpage
@@ -57,7 +57,7 @@ services:
       - /Docker/Webpage:/webpage
     depends_on:
       - db
-      - nginx-proxy
+      - reverse-proxy
 
   whoami:
     # A container that exposes an API to show its IP address
