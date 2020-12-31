@@ -44,6 +44,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - traefik
+    labels:
+      - "traefik.http.routers.foundation-proxy-root.rule=Path(`/`)"
+      - "traefik.http.middlewares.foundation-proxy-root.redirectregex.regex=.*"
+      - "traefik.http.middlewares.foundation-proxy-root.redirectregex.replacement=/webpage"
+      - "traefik.http.routers.foundation-proxy-root.middlewares=foundation-proxy-root@docker"
 
   #---------------------------------------
   # Datenbank
@@ -75,8 +80,6 @@ services:
     depends_on:
       - db
       - reverse-proxy
-    ports:
-      - 4150:80
     networks:
       - traefik
       - backend
@@ -113,8 +116,8 @@ services:
       - "traefik.http.routers.webpage.entrypoints=web"
       - "traefik.http.routers.webpage.rule=PathPrefix(`/webpage{regex:$$|/.*}`)"
       - "traefik.http.services.webpage.loadbalancer.server.port=8080"
-      #- "traefik.http.routers.webpage.middlewares=app2-stripprefix"
-      #- "traefik.http.middlewares.webpage-stripprefix.stripprefix.prefixes=/webpage"
+      - "traefik.http.routers.webpage.middlewares=webpage-stripprefix"
+      - "traefik.http.middlewares.webpage-stripprefix.stripprefix.prefixes=/webpage"
 
 
 
