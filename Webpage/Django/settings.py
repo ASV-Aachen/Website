@@ -80,7 +80,7 @@ DATABASES = {
             'USER': 'Webpage',
             'PASSWORD': 'IMATESTPAGE',
             'HOST': 'db',   # Or an IP Address that your DB is hosted on
-            'PORT': '3308',
+            'PORT': '3306',
         }
 }
 
