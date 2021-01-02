@@ -1,0 +1,127 @@
+version: '3.3'
+
+networks:
+  # enable connection with Traefik
+  traefik:
+    external: true
+    driver: overlay
+  # network for the app
+  backend:
+
+
+
+services:
+  #---------------------------------------
+  # Proxy
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.3
+    # Enables the web UI and tells Traefik to listen to docker
+    command:
+      # Only for development environment
+      - --log.level=INFO
+      - --api.insecure=true
+      # Get Docker as the provider
+      - --providers.docker=true
+      # Avoid that all containers are exposed
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=traefik
+      - --entryPoints.web.address=:80
+    security_opt:
+      - label:type:docker_t
+    ports:
+      # The HTTP port
+      - "80:80"
+      # HTTPS
+      - "443:443"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      # Store certificates in ./letsencrypt/acme.json
+      - /Volumes/Transcend/Docker/letsencrypt:/letsencrypt
+      # - /Volumes/Transcend/Docker/Proxy:/config
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - traefik
+    labels:
+      - "traefik.http.routers.reverse-proxy.rule=Path(`/`)"
+      - "traefik.http.middlewares.reverse-proxy.redirectregex.regex=.*"
+      - "traefik.http.middlewares.reverse-proxy.redirectregex.replacement=/webpage"
+      - "traefik.http.routers.reverse-proxy.middlewares=reverse-proxy"
+
+  #---------------------------------------
+  # Datenbank
+  db:
+    image: mariadb:latest
+    user: mysql
+    environment:
+      MYSQL_DATABASE: "TESTDB"
+      MYSQL_USER: "Webpage"
+      MYSQL_PASSWORD: "IMATESTPAGE"
+      MYSQL_ROOT_PASSWORD: "my-secret-pw"
+      MYSQL_ROOT_HOST: "%"
+      # - MYSQL_HOST= %
+    volumes:
+      - /Volumes/Transcend/Docker/DB:/var/lib/mysql
+    restart: always
+    ports:
+      - 3306
+    networks:
+      - backend
+
+  #---------------------------------------
+  # Wiki
+  wiki:
+    image: mediawiki
+    links:
+      - db
+    volumes:
+      - /Volumes/Transcend/Docker/wiki:/var/lib/MediaWiki
+    restart: always
+    depends_on:
+      - db
+      - reverse-proxy
+    networks:
+      - traefik
+      - backend
+    labels:
+        # The labels are usefull for Traefik only
+      - "traefik.enable=true"
+      - "traefik.http.routers.wiki.entrypoints=web"
+      - "traefik.http.routers.wiki.rule=PathPrefix(`/wiki{regex:$$|/.*}`)"
+      - "traefik.http.services.wiki.loadbalancer.server.port=80"
+      - "traefik.http.routers.wiki.middlewares=wiki-stripprefix"
+      - "traefik.http.middlewares.wiki-stripprefix.stripprefix.prefixes=/wiki"
+
+
+  #---------------------------------------
+  # Webpage
+  webpage:
+    image: webpageimage:0.1
+    restart: always
+    command: >
+      bash -c "python manage.py migrate
+      && python manage.py runserver 0.0.0.0:8080"
+    ports:
+      - 4151:8080
+    volumes:
+      - /Volumes/Transcend/Docker/Webpage:/webpage
+    depends_on:
+      - db
+      - reverse-proxy
+    networks:
+      - traefik
+      - backend
+    labels:
+      # The labels are usefull for Traefik only
+      - traefik.enable=true
+      # - "traefik.http.routers.portainer.rule=Host(`localhost`)"
+      - "traefik.http.routers.webpage.entrypoints=web"
+      - "traefik.http.routers.webpage.rule=PathPrefix(`/webpage{regex:$$|/.*}`)"
+      - "traefik.http.services.webpage.loadbalancer.server.port=8080"
+      - "traefik.http.routers.webpage.middlewares=webpage-stripprefix"
+      - "traefik.http.middlewares.webpage-stripprefix.stripprefix.prefixes=/webpage"
+
+volumes:
+  db_data: {}
