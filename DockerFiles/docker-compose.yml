@@ -45,21 +45,23 @@ services:
     networks:
       - traefik
     labels:
-      - "traefik.http.routers.foundation-proxy-root.rule=Path(`/`)"
-      - "traefik.http.middlewares.foundation-proxy-root.redirectregex.regex=.*"
-      - "traefik.http.middlewares.foundation-proxy-root.redirectregex.replacement=/webpage"
-      - "traefik.http.routers.foundation-proxy-root.middlewares=foundation-proxy-root@docker"
+      - "traefik.http.routers.reverse-proxy.rule=Path(`/`)"
+      - "traefik.http.middlewares.reverse-proxy.redirectregex.regex=.*"
+      - "traefik.http.middlewares.reverse-proxy.redirectregex.replacement=/webpage"
+      - "traefik.http.routers.reverse-proxy.middlewares=reverse-proxy"
 
   #---------------------------------------
   # Datenbank
   db:
-    image: mysql
+    image: mariadb:latest
     user: mysql
     environment:
-      MYSQL_Name: TESTDB
-      MYSQL_User: Webpage
-      MYSQL_PASSWORD: IMATESTPAGE
-      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: "TESTDB"
+      MYSQL_USER: "Webpage"
+      MYSQL_PASSWORD: "IMATESTPAGE"
+      MYSQL_ROOT_PASSWORD: "my-secret-pw"
+      MYSQL_ROOT_HOST: "%"
+      # - MYSQL_HOST= %
     volumes:
       - /Volumes/Transcend/Docker/DB:/var/lib/mysql
     restart: always
@@ -98,7 +100,9 @@ services:
   webpage:
     image: webpageimage:0.1
     restart: always
-    command: python manage.py runserver 0.0.0.0:8080
+    command: >
+      bash -c "python manage.py migrate
+      && python manage.py runserver 0.0.0.0:8080"
     ports:
       - 4151:8080
     volumes:
@@ -119,10 +123,5 @@ services:
       - "traefik.http.routers.webpage.middlewares=webpage-stripprefix"
       - "traefik.http.middlewares.webpage-stripprefix.stripprefix.prefixes=/webpage"
 
-
-
 volumes:
   db_data: {}
-  wiki_data: {}
-  page_data: {}
-
