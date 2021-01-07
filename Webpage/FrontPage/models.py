@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from ..Mitglieder.models import Profile
 
 # Infos über das aktuelle Jahr
@@ -18,5 +19,5 @@ class InfoPage(models.Model):
 class Blogeintrag(models.Model):
     Titel = models.CharField(max_length=200)
     Text = models.TextField()
-    Autor = models.ForeignKey(Profile)
+    Autor = models.ForeignKey(User)
     Datum = models.DateField(auto_created=True)

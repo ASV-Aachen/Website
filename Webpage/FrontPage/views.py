@@ -9,9 +9,14 @@ def MainPage(request):
     :param request:
     :return: Die Website
     """
-    # Eingeloggte Mitglieder bekommen eine andere Homepagemit eigenen Links und eigenen Hinweisen
-    if(request.user.is_authenticated):
-        return render(request, "Home_LoggedIn.html")
+    # Eingeloggte Mitglieder bekommen eine andere Homepagemit eigenen Links und eigenen Hinweisen (TODO)
+    if request.user.is_authenticated:
+        CurrentUser = request.user
+        CurrentUser.first_name()
+        return render(request, "Home_LoggedIn.html", context={
+                "News": Blogeintrag.objects.all().order_by('-id')[:5],
+                "UserName": CurrentUser.first_name()
+            })
     return render(request, template_name="Home_NotLoggedIn.html", context={"News": Blogeintrag.objects.all().order_by('-id')[:5]})
 
 
@@ -25,7 +30,7 @@ def loginFunction(request):
     :param request:
     :return:
     """
-    if (request.method == "POST"):
+    if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
@@ -34,7 +39,7 @@ def loginFunction(request):
             return redirect("/")
         else:
             return redirect("/login")
-    if (request.method =="GET"):
+    if request.method =="GET":
         return render(request, template_name="login.html")
 
 
