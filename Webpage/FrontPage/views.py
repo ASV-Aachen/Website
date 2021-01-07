@@ -44,6 +44,12 @@ def loginFunction(request):
 
 # Einzelne News Page (DONE)
 def EinzelNews(request):
+    """
+    Je nach ID gibt das System eine spezielle News zurück.
+    Alle News müssen Offen sein
+    :param request:
+    :return:
+    """
     try:
         id = request.GET.get('id', '')
         return render(request, template_name="newsPage.html", context={'News': Blogeintrag.objects.get(id=id)})
