@@ -12,8 +12,5 @@ from django.shortcuts import render
 # Bearbeiten
 # TODO
 
-# login
-# TODO
-
 # Passwort ändern
 # TODO

@@ -1,4 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class Position(models.Model):
     Titel = models.CharField(max_length=70, null=False, primary_key=True)
@@ -12,11 +16,10 @@ class Status(models.Model):
 class Login(models.Model):
     Passwort = models.TextField()
     Salt = models.TextField()
-    User = models.ForeignKey(User)
+    User = models.ForeignKey(Profile)
 
-class User(models.Model):
-    Vorname = models.CharField(max_length=45)
-    Nachname = models.CharField(max_length=45)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     Heimatstadt = models.CharField(max_length=45)
     PLZ = models.IntegerField()
     Land = models.CharField(max_length=70)
@@ -31,8 +34,18 @@ class User(models.Model):
 
     Darfbearbeiten = models.BooleanField()
 
+# Receiver Funktionen zum einarbeiten der neuen USER
+@receiver(post_save, sender=Profile)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=Profile)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
 
 class PositionImVerein(models.Model):
     ErnennungsDatum = models.date(null=False)
     Position = models.ForeignKey(Position)
-    Mitglied = models.ForeignKey(User)
+    Mitglied = models.ForeignKey(Profile)

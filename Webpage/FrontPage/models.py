@@ -1,5 +1,5 @@
 from django.db import models
-from ..Mitglieder.models import User
+from ..Mitglieder.models import Profile
 
 # Infos über das aktuelle Jahr
 class Jahresinfo(models.Model):
@@ -18,5 +18,5 @@ class InfoPage(models.Model):
 class Blogeintrag(models.Model):
     Titel = models.CharField(max_length=200)
     Text = models.TextField()
-    Autor = models.ForeignKey(User)
+    Autor = models.ForeignKey(Profile)
     Datum = models.DateField(auto_created=True)
