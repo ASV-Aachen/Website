@@ -24,9 +24,11 @@ class User(models.Model):
     PositionImVerein = models.models.ManyToManyField(Position, through="PositionImVerein")
     Status = models.ForeignKey(Status, null=False)
     Eintrittsdatum = models.DateField()
-    # Konto (TODO)
+    # Konto Gehört zur Bierkasse #23 (TODO)
     EMail = models.EmailField(null=False)
     HandyNummer = models.CharField(max_length=100)
+
+
     Darfbearbeiten = models.BooleanField()
 
 

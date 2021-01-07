@@ -1,5 +1,5 @@
 from django.db import models
-from Mitglieder.models import User
+from ..Mitglieder.models import User
 
 # Infos über das aktuelle Jahr
 class Jahresinfo(models.Model):
