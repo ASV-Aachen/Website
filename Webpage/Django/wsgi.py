@@ -8,9 +8,10 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/wsgi/
 """
 
 import os
-
+from django.conf import settings
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Django.settings')
 
 application = get_wsgi_application()
+
