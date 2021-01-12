@@ -13,26 +13,21 @@ class Status(models.Model):
     Beschreibung = models.TextField()
 # ---------------------------------------------------------------
 
-class Login(models.Model):
-    Passwort = models.TextField()
-    Salt = models.TextField()
-    User = models.ForeignKey(Profile)
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     Heimatstadt = models.CharField(max_length=45)
     PLZ = models.IntegerField()
     Land = models.CharField(max_length=70)
     # Bild (TODO)
-    PositionImVerein = models.models.ManyToManyField(Position, through="PositionImVerein")
-    Status = models.ForeignKey(Status, null=False)
+    PositionImVerein = models.ManyToManyField(Position, through="PositionImVerein")
+    Status = models.ForeignKey(Status, null=False, on_delete=models.RESTRICT)
     Eintrittsdatum = models.DateField()
     # Konto Gehört zur Bierkasse #23 (TODO)
     EMail = models.EmailField(null=False)
     HandyNummer = models.CharField(max_length=100)
 
 
-    Darfbearbeiten = models.BooleanField()
+    # Darfbearbeiten = models.BooleanField()
 
 # Receiver Funktionen zum einarbeiten der neuen USER
 @receiver(post_save, sender=Profile)
@@ -46,6 +41,6 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class PositionImVerein(models.Model):
-    ErnennungsDatum = models.date(null=False)
-    Position = models.ForeignKey(Position)
-    Mitglied = models.ForeignKey(Profile)
+    ErnennungsDatum = models.DateField(null=False)
+    Position = models.ForeignKey(Position, on_delete=models.CASCADE)
+    Mitglied = models.ForeignKey(Profile, on_delete=models.CASCADE)
