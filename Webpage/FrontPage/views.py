@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .models import Blogeintrag
+from .models import *
 
 # Frontpage (DONE)
 def MainPage(request):
@@ -12,12 +12,12 @@ def MainPage(request):
     # Eingeloggte Mitglieder bekommen eine andere Homepagemit eigenen Links und eigenen Hinweisen (TODO)
     if request.user.is_authenticated:
         CurrentUser = request.user
-        CurrentUser.first_name()
+        Name = CurrentUser.first_name
         return render(request, "Home_LoggedIn.html", context={
-                "News": Blogeintrag.objects.all().order_by('-id')[:5],
-                "UserName": CurrentUser.first_name()
+                "News": BlogEintrag.objects.all().order_by('-id')[:5],
+                "UserName": Name
             })
-    return render(request, template_name="Home_NotLoggedIn.html", context={"News": Blogeintrag.objects.all().order_by('-id')[:5]})
+    return render(request, template_name="Home_NotLoggedIn.html", context={"News": BlogEintrag.objects.all().order_by('-id')[:5]})
 
 
 # loginFunktion (DONE)
@@ -57,7 +57,7 @@ def EinzelNews(request):
     """
     try:
         id = request.GET.get('id', '')
-        return render(request, template_name="newsPage.html", context={'News': Blogeintrag.objects.get(id=id)})
+        return render(request, template_name="newsPage.html", context={'News': BlogEintrag.objects.get(id=id)})
     except:
         return redirect("/")
 
