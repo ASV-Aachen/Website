@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .models import *
@@ -59,5 +61,23 @@ def EinzelNews(request):
         id = request.GET.get('id', '')
         return render(request, template_name="newsPage.html", context={'News': BlogEintrag.objects.get(id=id)})
     except:
-        return redirect("/")
+        return redirect("ASV")
 
+def NeueNews(request):
+    if request.user.is_authenticated():
+        if request.POST:
+            # Neue Nachricht eingefügt
+            User = request.user
+            Titel = request.POST.get('Titel', '')
+            Text = request.POST.get('Text', '')
+            Datum = date.today()
+
+            NewText = BlogEintrag(Titel=Titel, Text=Text, Autor=User, Datum=Datum)
+            NewText.save()
+            pass
+        if request.GET:
+            # Editor
+            return render(request, template_name="NewNews.html")
+            pass
+    else:
+        return redirect('ASV')

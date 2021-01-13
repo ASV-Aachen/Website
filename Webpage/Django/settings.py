@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'FrontPage',
     'Mitglieder',
     'django.contrib.sites',
+    'djangocms_text_ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,11 @@ STATICFILES_DIRS = (
 # STATIC_ROOT = '/webpage/'
 # os.path.join(BASE_DIR, 'staticfiles')
 
+
+
+# Settings for the Editor
+CKEDITOR_SETTINGS = {
+    'language': '{{ language }}',
+    'toolbar': 'CMS',
+    'skin': 'moono-lisa',
+}
