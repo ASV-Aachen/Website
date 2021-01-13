@@ -38,15 +38,39 @@ def loginFunction(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("/")
+            return redirect("ASV")
         else:
-            return redirect("/login")
+            return redirect("login")
     if request.method =="GET":
         return render(request, template_name="login.html")
 
 
 # Alle News (TODO)
+def News(request):
+    try:
+        Seite = request.GET.get('Seite', '')
+        maxSeiten = request.GET['MaxSeiten']
+        obersteNews = ((Seite-1)*5)
+        context = {
+            "AktuelleID": Seite,
+            "maxSeiten": maxSeiten,
+            "News": BlogEintrag.objects.all().order_by('-id')[obersteNews:obersteNews+5]
+        }
+    except:
+        Seite = 1
+        obersteNews = 0
+        idAnzahl = len(BlogEintrag.objects.all())
+        MaxSeiten = idAnzahl / 5
 
+        context = {
+            "AktuelleID": Seite,
+            "maxSeiten": MaxSeiten,
+            "News": BlogEintrag.objects.all().order_by('-id')[obersteNews:obersteNews+5]
+        }
+
+    return render(request, template_name="News.html", context=context)
+
+    pass
 
 
 # Einzelne News Page (DONE)
@@ -68,8 +92,8 @@ def NeueNews(request):
         if request.POST:
             # Neue Nachricht eingefügt
             User = request.user
-            Titel = request.POST.get('Titel', '')
-            Text = request.POST.get('Text', '')
+            Titel = request.POST['Titel']
+            Text = request.POST['Text']
             Datum = date.today()
 
             NewText = BlogEintrag(Titel=Titel, Text=Text, Autor=User, Datum=Datum)
