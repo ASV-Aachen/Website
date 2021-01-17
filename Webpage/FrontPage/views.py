@@ -4,6 +4,28 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .models import *
 
+# Object for Header logged in and not logged in (name and url)
+def GetMenu(request):
+    if (request.user.is_authenticated):
+        Object = [{
+            "link":"",
+            "Name":"Mitgliedererzeichnis"
+        },{
+            "link":"",
+            "Name":"Einstellungen"
+        },{
+            "link":"",
+            "Name":"Mein ASV"
+        }]
+    else:
+        Object = [{
+            "link":"/login",
+            "Name":"Login"
+        }]
+        pass
+    return Object
+
+
 # Frontpage (DONE)
 def MainPage(request):
     """
@@ -12,14 +34,13 @@ def MainPage(request):
     :return: Die Website
     """
     # Eingeloggte Mitglieder bekommen eine andere Homepagemit eigenen Links und eigenen Hinweisen (TODO)
-    if request.user.is_authenticated:
-        CurrentUser = request.user
-        Name = CurrentUser.first_name
-        return render(request, "Home_LoggedIn.html", context={
-                "News": BlogEintrag.objects.all().order_by('-id')[:5],
-                "UserName": Name
-            })
-    return render(request, template_name="Home_NotLoggedIn.html", context={"News": BlogEintrag.objects.all().order_by('-id')[:5]})
+    CurrentUser = request.user
+    Name = CurrentUser.first_name
+    return render(request, "FrontPage.html", context={
+            "News": BlogEintrag.objects.all().order_by('-id')[:5],
+            "UserName": Name,
+            "UserLinks": GetMenu(request)
+        })
 
 
 # loginFunktion (DONE)
@@ -101,7 +122,7 @@ def NeueNews(request):
             pass
         if request.GET:
             # Editor
-            return render(request, template_name="NewNews.html")
+            return render(request, template_name="NewsEdit.html")
             pass
     else:
         return redirect('ASV')

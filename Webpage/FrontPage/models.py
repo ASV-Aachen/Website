@@ -2,9 +2,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib.auth.models import User
 
-# Infos über das aktuelle Jahr
-from djangocms_text_ckeditor.fields import HTMLField
 
+# Infos über das aktuelle Jahr
 
 class Jahresinfo(models.Model):
     Jahr = models.IntegerField(primary_key=True)
@@ -23,6 +22,6 @@ def get_sentinel_user():
 # Modell für alle Blogeinträge
 class BlogEintrag(models.Model):
     Titel = models.CharField(max_length=200)
-    Text = HTMLField(blank=False)
+    Text = models.TextField()
     Autor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
     Datum = models.DateField(auto_created=True)

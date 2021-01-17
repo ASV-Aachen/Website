@@ -29,7 +29,7 @@ def Einstellungen(request):
     if request.user.is_authenticated():
         if request.GET:
             id = request.user.id
-            return render(request, template_name="MitgliedBearbeiten.html", context={'News': Profile.objects.get(id=id)})
+            return render(request, template_name="Einstellungen.html", context={'News': Profile.objects.get(id=id)})
         if request.POST:
             id = request.user.id
             AktuellerNutzer = Profile.objects.get(id=id)

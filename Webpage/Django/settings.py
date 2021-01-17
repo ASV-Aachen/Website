@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'FrontPage',
     'Mitglieder',
-    'django.contrib.sites',
-    'djangocms_text_ckeditor',
+    # 'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +142,5 @@ CKEDITOR_SETTINGS = {
     'toolbar': 'CMS',
     'skin': 'moono-lisa',
 }
+
+SITE_ID = 2
