@@ -17,7 +17,9 @@
         <!-- /.container -->
         <!-- Bootstrap core JavaScript
     ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
+<!-- Placed at the end of the document so the pages load faster -->
+        {% include "HeadAndToes.html" with UserLinks=UserLinks%}
+
         <div class="container">
             <div class="row">
                 {{% for News in AlleNews %}}
@@ -27,12 +29,10 @@
                     <hr/>
                     <dl> 
                         {{% News.Artikel %}}
-</dl>
+                    </dl>
                 </div>
                 {{% endfor %}}
             </div>
-            {% extends "HeadAndToes.html" with UserLinks=UserLinks %}
-
         </div>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/popper.js"></script>

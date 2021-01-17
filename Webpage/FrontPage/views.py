@@ -2,6 +2,7 @@ from datetime import date
 
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from django.template import Context, Template
 from .models import *
 
 # Object for Header logged in and not logged in (name and url)
@@ -39,7 +40,7 @@ def MainPage(request):
     return render(request, "FrontPage.html", context={
             "News": BlogEintrag.objects.all().order_by('-id')[:5],
             "UserName": Name,
-            "UserLinks": GetMenu(request)
+            "UserLinks": Context(GetMenu(request))
         })
 
 
@@ -75,7 +76,8 @@ def News(request):
         context = {
             "AktuelleID": Seite,
             "maxSeiten": maxSeiten,
-            "News": BlogEintrag.objects.all().order_by('-id')[obersteNews:obersteNews+5]
+            "News": BlogEintrag.objects.all().order_by('-id')[obersteNews:obersteNews+5],
+            "UserLinks": GetMenu(request)
         }
     except:
         Seite = 1
@@ -86,7 +88,8 @@ def News(request):
         context = {
             "AktuelleID": Seite,
             "maxSeiten": MaxSeiten,
-            "News": BlogEintrag.objects.all().order_by('-id')[obersteNews:obersteNews+5]
+            "News": BlogEintrag.objects.all().order_by('-id')[obersteNews:obersteNews+5],
+            "UserLinks": GetMenu(request)
         }
 
     return render(request, template_name="News.html", context=context)
@@ -104,7 +107,7 @@ def EinzelNews(request):
     """
     try:
         id = request.GET.get('id', '')
-        return render(request, template_name="newsPage.html", context={'News': BlogEintrag.objects.get(id=id)})
+        return render(request, template_name="newsPage.html", context={'News': BlogEintrag.objects.get(id=id), "UserLinks": GetMenu(request)})
     except:
         return redirect("ASV")
 
