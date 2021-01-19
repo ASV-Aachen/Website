@@ -341,3 +341,7 @@ Sessionx.vim
 tags
 # Persistent undo
 [._]*.un~
+
+Webpage/FrontPage/templates/pinegrow.json
+
+Webpage/FrontPage/templates/_pgbackup/
