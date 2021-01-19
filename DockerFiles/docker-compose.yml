@@ -44,11 +44,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - traefik
-    labels:
-      - "traefik.http.routers.reverse-proxy.rule=Path(`/`)"
-      - "traefik.http.middlewares.reverse-proxy.redirectregex.regex=.*"
-      - "traefik.http.middlewares.reverse-proxy.redirectregex.replacement=/webpage"
-      - "traefik.http.routers.reverse-proxy.middlewares=reverse-proxy"
 
   #---------------------------------------
   # Datenbank
@@ -101,7 +96,9 @@ services:
     image: webpageimage:0.1
     restart: always
     command: >
-      bash -c "python manage.py migrate
+
+      bash -c "python manage.py makemigrations
+      && python manage.py migrate
       && python manage.py runserver 0.0.0.0:8080"
     ports:
       - 4151:8080
@@ -118,6 +115,7 @@ services:
       - traefik.enable=true
       # - "traefik.http.routers.portainer.rule=Host(`localhost`)"
       - "traefik.http.routers.webpage.entrypoints=web"
+      # - "traefik.http.routers.webpage.rule=PathPrefix(`/*`)"
       - "traefik.http.routers.webpage.rule=PathPrefix(`/webpage{regex:$$|/.*}`)"
       - "traefik.http.services.webpage.loadbalancer.server.port=8080"
       - "traefik.http.routers.webpage.middlewares=webpage-stripprefix"

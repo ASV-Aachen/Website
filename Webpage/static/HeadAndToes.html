@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Blog Template for Bootstrap</title>
+        <!-- Bootstrap core CSS -->
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+        <link href="blog.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <header class="blog-header py-3">
+                <div class="row flex-nowrap justify-content-between align-items-center">
+                    <div class="col-4 pt-1">
+                        <img src="Bilder/standert.png" style="width: 60%;">
+                    </div>
+                    <div class="col-4 text-center">
+                        <a class="blog-header-logo text-dark" href="#">ASV Aachen</a>
+                    </div>
+                    <div class="col-4 d-flex justify-content-end align-items-center">
+</div>
+                </div>
+            </header>
+            <div class="nav-scroller py-1 mb-2">
+                <nav class="nav d-flex justify-content-between">
+                    <a class="p-2 text-muted" href="#">Der Verein</a>
+                    <a class="p-2 text-muted" href="#">Schiffe und Jollen</a>
+                    <a class="p-2 text-muted" href="#">Ausbildung</a>
+                    <a class="p-2 text-muted" href="#">Kontakt</a>
+                    <a class="p-2 text-muted" href="#">Termine</a>
+                    <div class="dropdown"> 
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                    Mein ASV               </button>                         
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
+                            {{% for Links in UserLinks %}}
+                            <a class="dropdown-item" href="Links.link">Links.Name</a> 
+                            {{% endfor %}}
+                        </div>                         
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- /.container -->
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <div class="container" id="Body">
+            {% block content %}
+            {% endblock %}
+</div>
+        <div class="container" data-pg-name="Footer" id="Footer">
+            <footer style="text-align: center;">
+                Made with ❤️ and 🖥
+</footer>
+        </div>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/popper.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>
