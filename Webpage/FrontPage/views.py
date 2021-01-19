@@ -125,7 +125,7 @@ def NeueNews(request):
             pass
         if request.GET:
             # Editor
-            return render(request, template_name="NewsEdit.html")
+            return render(request, template_name="NewNews.html")
             pass
     else:
         return redirect('ASV')
