@@ -9,13 +9,13 @@ from .models import *
 def GetMenu(request):
     if (request.user.is_authenticated):
         Object = [{
-            "link":"",
+            "link":"#",
             "Name":"Mitgliedererzeichnis"
         },{
-            "link":"",
+            "link":"#",
             "Name":"Einstellungen"
         },{
-            "link":"",
+            "link":"#",
             "Name":"Mein ASV"
         }]
     else:
@@ -40,7 +40,7 @@ def MainPage(request):
     return render(request, "FrontPage.html", context={
             "News": BlogEintrag.objects.all().order_by('-id')[:5],
             "UserName": Name,
-            "UserLinks": Context(GetMenu(request))
+            "UserLinks": GetMenu(request)
         })
 
 

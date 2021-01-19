@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
+        {% load static %}
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,10 +9,10 @@
         <meta name="author" content="">
         <title>Blog Template for Bootstrap</title>
         <!-- Bootstrap core CSS -->
-        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-        <link href="blog.css" rel="stylesheet">
+        <link href="{% static 'blog.css' %}" rel="stylesheet">
     </head>
     <body>
         <div class="container">
@@ -48,9 +49,9 @@
             Neues aus dem Verein </h3>
                     {% for New in News %}
                         <div class="blog-post">
-                            <h2 class="blog-post-title">{ New.Titel }</h2>
-                            <p class="blog-post-meta">{ New.Date } by { New.Autor }</p>
-                            { New.Artikel }
+                            <h2 class="blog-post-title">{{ New.Titel }}</h2>
+                            <p class="blog-post-meta">{{ New.Date }} by {{ New.Autor }}</p>
+                            {{ New.Text }}
                         </div>
                     {% endfor %}
                     <!-- /.blog-post -->
@@ -79,16 +80,15 @@
                         </ol>
                     </div>
                 </aside>
-                <!-- /.blog-sidebar -->
             </div>
             <!-- /.row -->
         </main>
         <!-- /.container -->
-        <!-- Bootstrap core JavaScript
-    ================================================== -->
+        <!-- Bootstrap core JavaScript ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/popper.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
+
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/popper.js' %}"></script>
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     </body>
 </html>
