@@ -1,0 +1,46 @@
+version: '3.3'
+
+services:
+  db:
+    image: mariadb:latest
+    user: mysql
+    environment:
+      MYSQL_DATABASE: "TESTDB"
+      MYSQL_USER: "Webpage"
+      MYSQL_PASSWORD: "IMATESTPAGE"
+      MYSQL_ROOT_PASSWORD: "my-secret-pw"
+      MYSQL_ROOT_HOST: "%"
+      # - MYSQL_HOST= %
+    volumes:
+      - /Volumes/Transcend/Docker/DB:/var/lib/mysql
+    restart: always
+    ports:
+      - 3306
+
+  wiki:
+    image: mediawiki
+    links:
+      - db
+    volumes:
+      - /Volumes/Transcend/Docker/wiki:/var/lib/MediaWiki
+    restart: always
+    depends_on:
+      - db
+
+  webpage:
+    image: webpageimage:local
+    restart: always
+    command: >
+
+      bash -c "python manage.py makemigrations
+      && python manage.py migrate
+      && python manage.py runserver 0.0.0.0:8080"
+    ports:
+      - 4151:8080
+    volumes:
+      - /Volumes/Transcend/Docker/Webpage:/webpage
+    depends_on:
+      - db
+
+volumes:
+  db_data: {}
