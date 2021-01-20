@@ -10,13 +10,16 @@ def GetMenu(request):
     if (request.user.is_authenticated):
         Object = [{
             "link":"#",
+            "Name":"Mein ASV"
+        },{
+            "link":"/wiki",
+            "Name":"Wiki"
+        },{
+            "link":"#",
             "Name":"Mitgliedererzeichnis"
         },{
             "link":"#",
             "Name":"Einstellungen"
-        },{
-            "link":"#",
-            "Name":"Mein ASV"
         },{
             "link":"#",
             "Name":"logout"
