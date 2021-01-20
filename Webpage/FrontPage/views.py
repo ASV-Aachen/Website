@@ -1,6 +1,6 @@
 from datetime import date
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.template import Context, Template
 from .models import *
@@ -17,6 +17,9 @@ def GetMenu(request):
         },{
             "link":"#",
             "Name":"Mein ASV"
+        },{
+            "link":"#",
+            "Name":"logout"
         }]
     else:
         Object = [{
@@ -54,6 +57,8 @@ def loginFunction(request):
     :param request:
     :return:
     """
+    if(request.user.is_authenticated):
+        redirect("ASV")
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -66,6 +71,11 @@ def loginFunction(request):
     if request.method =="GET":
         return render(request, template_name="login.html")
 
+def logoutFunktion(request):
+    if request.user.is_authenticated:
+        logout(request)
+
+    redirect("ASV")
 
 # Alle News (TODO)
 def News(request):
