@@ -134,6 +134,7 @@ STATICFILES_DIRS = (
 # STATIC_ROOT = '/webpage/'
 # os.path.join(BASE_DIR, 'staticfiles')
 
+# FORCE_SCRIPT_NAME = "/webpage/"
 
 
 # Settings for the Editor
