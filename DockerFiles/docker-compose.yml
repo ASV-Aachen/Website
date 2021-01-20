@@ -113,19 +113,9 @@ services:
     labels:
       # The labels are usefull for Traefik only
       - traefik.enable=true
-      # - "traefik.http.routers.portainer.rule=Host(`localhost`)"
       - "traefik.http.routers.webpage.entrypoints=web"
 
       - "traefik.http.routers.webpage.rule=PathPrefix(`/`)"
-      # - "traefik.http.routers.webpage.rule=PathPrefix(`/webpage{regex:$$|/.*}`)"
-      # - "traefik.http.services.webpage.loadbalancer.server.port=8080"
-
-      # - "traefik.http.routers.webpage.middlewares=add-context"
-      # - "traefik.http.middlewares.add-context.redirectregex.regex=^http:\\/\\/([^\\/]+)\\/?$$"
-      # - "traefik.http.middlewares.add-context.redirectregex.replacement=http://$$1/webpage"
-
-      # - "traefik.http.routers.webpage.middlewares=webpage-stripprefix"
-      # - "traefik.http.middlewares.webpage-stripprefix.stripprefix.prefixes=/webpage"
 
 volumes:
 
