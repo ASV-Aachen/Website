@@ -41,13 +41,20 @@ def MainPage(request):
     :return: Die Website
     """
     # Eingeloggte Mitglieder bekommen eine andere Homepagemit eigenen Links und eigenen Hinweisen (TODO)
-    CurrentUser = request.user
-    Name = CurrentUser.first_name
-    return render(request, "FrontPage.html", context={
-            "News": BlogEintrag.objects.all().order_by('-id')[:5],
-            "UserName": Name,
-            "UserLinks": GetMenu(request)
-        })
+    if (request.user.is_authenticated):    
+        CurrentUser = request.user
+        Name = CurrentUser.first_name
+        return render(request, "FrontPage.html", context={
+                "News": BlogEintrag.objects.all().order_by('-id')[:5],
+                "UserName": Name,
+                "UserLinks": GetMenu(request)
+            })
+    else:    
+        CurrentUser = request.user
+        return render(request, "FrontPage.html", context={
+                "News": BlogEintrag.objects.all().order_by('-id')[:5],
+                "UserLinks": GetMenu(request)
+            })
 
 
 # loginFunktion (DONE)
