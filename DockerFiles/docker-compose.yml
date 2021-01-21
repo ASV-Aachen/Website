@@ -48,20 +48,21 @@ services:
   #---------------------------------------------------------------------------------------
   # Datenbank
   #---------------------------------------------------------------------------------------
-
   db:
-    image: mariadb:latest
-    user: mysql
-    #environment:
-      #MYSQL_ROOT_PASSWORD: "my-secret-pw"
-      #MYSQL_ROOT_HOST: "%"
-      # - MYSQL_HOST= %
+    image: mariadb
+    user: root
+    environment:
+      MYSQL_ROOT_PASSWORD: "my-secret-pw"
+      MYSQL_ROOT_HOST: "%"
     volumes:
-      - /Volumes/Transcend/Docker/DB:/var/lib/mysql
+      # - /Volumes/Transcend/Docker/DB:/var/lib/mysql
+      - /Volumes/Transcend/Docker/DB:/bitnami/mariadb
+      # - mariaDB:/bitnami/mariadb
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    restart: always
+    restart: unless-stopped
     ports:
       - 3306
+    # command: chmod -R 775 /docker-entrypoint-initdb.d
     networks:
       - backend
 
@@ -126,12 +127,12 @@ services:
     image: quay.io/keycloak/keycloak:latest
     restart: always
     environment:
-      DB_VENDOR: MYSQL
+      DB_VENDOR: MariaDB
       DB_ADDR: db
-      DB_DATABASE: keycloak
+      DB_DATABASE: KeycloackDB
 
-      DB_USER: keycloak
-      DB_PASSWORD: password
+      DB_USER: Keycloack
+      DB_PASSWORD: my-secret-pw
 
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: Pa55w0rd
@@ -147,6 +148,6 @@ services:
       - "traefik.http.middlewares.wiki-stripprefix.stripprefix.prefixes=/SSO"
 
 
-
 volumes:
-  db_data: {}
+  mariaDB:
+    driver: local
