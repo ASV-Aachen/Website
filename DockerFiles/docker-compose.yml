@@ -11,12 +11,12 @@ networks:
 
 
 services:
-  #---------------------------------------
+  #---------------------------------------------------------------------------------------
   # Proxy
+  #---------------------------------------------------------------------------------------
+
   reverse-proxy:
-    # The official v2 Traefik docker image
     image: traefik:v2.3
-    # Enables the web UI and tells Traefik to listen to docker
     command:
       # Only for development environment
       - --log.level=INFO
@@ -45,28 +45,30 @@ services:
     networks:
       - traefik
 
-  #---------------------------------------
+  #---------------------------------------------------------------------------------------
   # Datenbank
+  #---------------------------------------------------------------------------------------
+
   db:
     image: mariadb:latest
     user: mysql
-    environment:
-      MYSQL_DATABASE: "TESTDB"
-      MYSQL_USER: "Webpage"
-      MYSQL_PASSWORD: "IMATESTPAGE"
-      MYSQL_ROOT_PASSWORD: "my-secret-pw"
-      MYSQL_ROOT_HOST: "%"
+    #environment:
+      #MYSQL_ROOT_PASSWORD: "my-secret-pw"
+      #MYSQL_ROOT_HOST: "%"
       # - MYSQL_HOST= %
     volumes:
       - /Volumes/Transcend/Docker/DB:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
     ports:
       - 3306
     networks:
       - backend
 
-  #---------------------------------------
+  #---------------------------------------------------------------------------------------
   # Wiki
+  #---------------------------------------------------------------------------------------
+
   wiki:
     image: mediawiki
     links:
@@ -77,6 +79,7 @@ services:
     depends_on:
       - db
       - reverse-proxy
+      - SSO
     networks:
       - traefik
       - backend
@@ -90,23 +93,23 @@ services:
       - "traefik.http.middlewares.wiki-stripprefix.stripprefix.prefixes=/wiki"
 
 
-  #---------------------------------------
+  #---------------------------------------------------------------------------------------
   # Webpage
+  #---------------------------------------------------------------------------------------
+
   webpage:
     image: webpageimage:0.1
     restart: always
     command: >
-
       bash -c "python manage.py makemigrations
       && python manage.py migrate
       && python manage.py runserver 0.0.0.0:8080"
-    ports:
-      - 4151:8080
     volumes:
       - /Volumes/Transcend/Docker/Webpage:/webpage
     depends_on:
       - db
       - reverse-proxy
+      - SSO
     networks:
       - traefik
       - backend
@@ -114,9 +117,36 @@ services:
       # The labels are usefull for Traefik only
       - traefik.enable=true
       - "traefik.http.routers.webpage.entrypoints=web"
-
       - "traefik.http.routers.webpage.rule=PathPrefix(`/`)"
 
-volumes:
+  #---------------------------------------------------------------------------------------
+  # SSO - Keycloak
+  #---------------------------------------------------------------------------------------
+  SSO:
+    image: quay.io/keycloak/keycloak:latest
+    restart: always
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: db
+      DB_DATABASE: keycloak
 
+      DB_USER: keycloak
+      DB_PASSWORD: password
+
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+    networks:
+      - traefik
+      - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wiki.entrypoints=web"
+      - "traefik.http.routers.wiki.rule=PathPrefix(`/SSO{regex:$$|/.*}`)"
+      - "traefik.http.services.wiki.loadbalancer.server.port=80"
+      - "traefik.http.routers.wiki.middlewares=wiki-stripprefix"
+      - "traefik.http.middlewares.wiki-stripprefix.stripprefix.prefixes=/SSO"
+
+
+
+volumes:
   db_data: {}
