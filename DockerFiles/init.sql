@@ -1,16 +1,15 @@
 
 -- Wiki
-CREATE user 'wiki'@'%' WITH PASSWORD = 'my-secret-pw';
+CREATE USER 'wiki'@'%' IDENTIFIED BY 'my-secret-pw';
 CREATE DATABASE wikiDB;
-GRANT ALL PRIVILEGES ON DATABASE wikiDB to wiki;
-
+GRANT ALL PRIVILEGES ON wikiDB.* to 'wiki'@'%';
 
 -- Website
-CREATE user 'website'@'%' WITH PASSWORD = 'my-secret-pw';
+CREATE USER 'website'@'%' IDENTIFIED BY 'my-secret-pw';
 CREATE DATABASE websiteDB;
-GRANT ALL PRIVILEGES ON DATABASE websiteDB to website;
+GRANT ALL PRIVILEGES ON websiteDB.* to 'website'@'%';
 
 -- Keycloak
-CREATE USER 'Keycloack'@'%' WITH PASSWORD = 'my-secret-pw';
+CREATE USER 'Keycloack'@'%' IDENTIFIED BY 'my-secret-pw';
 CREATE DATABASE KeycloackDB;
-GRANT ALL PRIVILEGES ON DATABASE KeycloackDB TO Keycloack;
+GRANT ALL PRIVILEGES ON KeycloackDB.* TO 'Keycloack'@'%';
