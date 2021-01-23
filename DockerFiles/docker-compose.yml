@@ -49,22 +49,24 @@ services:
   # Datenbank
   #---------------------------------------------------------------------------------------
   db:
-    image: mariadb
-    user: root
+    image: mariadb:latest
+    # user: root
     environment:
       MYSQL_ROOT_PASSWORD: "my-secret-pw"
-      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_HOST: "localhost"
     volumes:
-      # - /Volumes/Transcend/Docker/DB:/var/lib/mysql
-      - /Volumes/Transcend/Docker/DB:/bitnami/mariadb
+      - mariaDB:/var/lib/mysql
+      # - /Volumes/Transcend/Docker/DB:/bitnami/mariadb
       # - mariaDB:/bitnami/mariadb
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: unless-stopped
+    command: mysqld --innodb-buffer-pool-size=256M
     ports:
       - 3306
-    # command: chmod -R 775 /docker-entrypoint-initdb.d
     networks:
       - backend
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "--silent" ]
 
   #---------------------------------------------------------------------------------------
   # Wiki
@@ -76,7 +78,7 @@ services:
       - db
     volumes:
       - /Volumes/Transcend/Docker/wiki:/var/lib/MediaWiki
-    restart: always
+    # restart: always
     depends_on:
       - db
       - reverse-proxy
@@ -95,6 +97,40 @@ services:
 
 
   #---------------------------------------------------------------------------------------
+  # SSO - Keycloak
+  #---------------------------------------------------------------------------------------
+  SSO:
+    image: jboss/keycloak:latest
+    restart: always
+    environment:
+      DB_VENDOR: MARIADB
+      DB_ADDR: db
+      DB_DATABASE: KeycloackDB
+      DB_USER: Keycloack
+      DB_PASSWORD: my-secret-pw
+      # Keycloack Admin Settings
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      # Proxy
+      # KEYCLOAK_FRONTEND_URL: http://localhost:8080/sso
+      PROXY_ADDRESS_FORWARDING: "true"
+    networks:
+      - traefik
+      - backend
+
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.SSO.entrypoints=web"
+      - "traefik.http.routers.SSO.rule=PathPrefix(`/sso{regex:$$|/.*}`)"
+      - "traefik.http.services.SSO.loadbalancer.server.port=8080"
+      - "traefik.http.routers.SSO.middlewares=SSO-stripprefix"
+      - "traefik.http.middlewares.SSO-stripprefix.stripprefix.prefixes=/sso"
+    depends_on:
+      - db
+
+
+
+  #---------------------------------------------------------------------------------------
   # Webpage
   #---------------------------------------------------------------------------------------
 
@@ -104,7 +140,7 @@ services:
     command: >
       bash -c "python manage.py makemigrations
       && python manage.py migrate
-      && python manage.py runserver 0.0.0.0:8080"
+      && python manage.py runserver 0.0.0.0:80"
     volumes:
       - /Volumes/Transcend/Docker/Webpage:/webpage
     depends_on:
@@ -118,35 +154,8 @@ services:
       # The labels are usefull for Traefik only
       - traefik.enable=true
       - "traefik.http.routers.webpage.entrypoints=web"
-      - "traefik.http.routers.webpage.rule=PathPrefix(`/`)"
-
-  #---------------------------------------------------------------------------------------
-  # SSO - Keycloak
-  #---------------------------------------------------------------------------------------
-  SSO:
-    image: quay.io/keycloak/keycloak:latest
-    restart: always
-    environment:
-      DB_VENDOR: MariaDB
-      DB_ADDR: db
-      DB_DATABASE: KeycloackDB
-
-      DB_USER: Keycloack
-      DB_PASSWORD: my-secret-pw
-
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: Pa55w0rd
-    networks:
-      - traefik
-      - backend
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.wiki.entrypoints=web"
-      - "traefik.http.routers.wiki.rule=PathPrefix(`/SSO{regex:$$|/.*}`)"
-      - "traefik.http.services.wiki.loadbalancer.server.port=80"
-      - "traefik.http.routers.wiki.middlewares=wiki-stripprefix"
-      - "traefik.http.middlewares.wiki-stripprefix.stripprefix.prefixes=/SSO"
-
+      - "traefik.http.routers.webpage.rule=PathPrefix(`/*`)"
+      - "traefik.http.services.webpage.loadbalancer.server.port=80"
 
 volumes:
   mariaDB:
