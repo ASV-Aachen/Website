@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('FrontPage.urls'))
+    path('', include('FrontPage.urls')),
+    path('keycloak/', include('django_keycloak.urls')),
 ]
