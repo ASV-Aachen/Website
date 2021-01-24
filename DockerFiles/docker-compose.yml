@@ -4,7 +4,7 @@ networks:
   # enable connection with Traefik
   traefik:
     external: true
-    driver: overlay
+    # driver: overlay
   # network for the app
   backend:
 
@@ -142,7 +142,7 @@ services:
     command: >
       bash -c "python manage.py makemigrations
       && python manage.py migrate
-      && python manage.py runserver 0.0.0.0:80"
+      && python manage.py runserver 0.0.0.0:8080"
     volumes:
       - /Volumes/Transcend/Docker/Webpage:/webpage
     depends_on:
@@ -157,7 +157,7 @@ services:
       - traefik.enable=true
       - "traefik.http.routers.webpage.entrypoints=web"
       - "traefik.http.routers.webpage.rule=PathPrefix(`/*`)"
-      - "traefik.http.services.webpage.loadbalancer.server.port=80"
+      - "traefik.http.services.webpage.loadbalancer.server.port=8080"
 
 volumes:
   mariaDB:
