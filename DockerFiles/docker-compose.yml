@@ -117,14 +117,16 @@ services:
     networks:
       - traefik
       - backend
-
+    volumes:
+      - ./standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
+      - ./standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
     labels:
       - traefik.enable=true
       - "traefik.http.routers.SSO.entrypoints=web"
       - "traefik.http.routers.SSO.rule=PathPrefix(`/sso{regex:$$|/.*}`)"
       - "traefik.http.services.SSO.loadbalancer.server.port=8080"
-      - "traefik.http.routers.SSO.middlewares=SSO-stripprefix"
-      - "traefik.http.middlewares.SSO-stripprefix.stripprefix.prefixes=/sso"
+      #- "traefik.http.routers.SSO.middlewares=SSO-stripprefix"
+      #- "traefik.http.middlewares.SSO-stripprefix.stripprefix.prefixes=/sso"
     depends_on:
       - db
 
