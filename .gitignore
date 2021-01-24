@@ -239,3 +239,5 @@ tags
 */_pgbackup/
 
 */.idea
+
+.idea/
