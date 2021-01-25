@@ -10,3 +10,4 @@ setuptools~=50.3.2
 mysqlclient~=2.0.2
 djangocms-text-ckeditor
 django-keycloak
+python-jose

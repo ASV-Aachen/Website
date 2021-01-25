@@ -114,12 +114,14 @@ services:
       # Proxy
       # KEYCLOAK_FRONTEND_URL: http://localhost:8080/sso
       PROXY_ADDRESS_FORWARDING: "true"
+      KEYCLOAK_IMPORT: "/tmp/realm.json"
     networks:
       - traefik
       - backend
     volumes:
       - ./standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
       - ./standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
+      - ./realm.json:/tmp/realm.json
     labels:
       - traefik.enable=true
       - "traefik.http.routers.SSO.entrypoints=web"
