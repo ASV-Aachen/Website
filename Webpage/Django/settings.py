@@ -16,6 +16,15 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+# Keyclpack settings
+auth_uri = "http://chrisubuntu/auth/realms/sample"
+client_id = "Website"
+public_uri = "http://chrisubuntu/"
+
+from bossoidc.settings import *
+configure_oidc(auth_uri, client_id, public_uri)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -40,7 +49,15 @@ INSTALLED_APPS = [
     'FrontPage',
     'Mitglieder',
     # 'django.contrib.sites',
+    'bossoidc',
+    'djangooidc',
+    'demo',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'bossoidc.backend.OpenIdConnectBackend',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
