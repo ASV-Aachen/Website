@@ -11,4 +11,4 @@ stop                           stop docker-compose and network
 ```
 
 * Wer unter Windows entwickelt und keine Makefiles ausfuehren kann, kann in die Makefile schauen oder in den `./bin/` Ordner. Dort sind alle commands gelistet.
-* Beispiel: `./bin/start`
+* Beispiel: `./bin/start` ( cd bin && sh start.sh funktioniert nicht )
