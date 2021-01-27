@@ -3,7 +3,7 @@ version: '3.3'
 networks:
   # enable connection with Traefik
   traefik:
-    external: true
+    # external: true
     # driver: overlay
   # network for the app
   backend:
@@ -102,8 +102,6 @@ services:
       && python manage.py runserver 0.0.0.0:8080"
     ports:
       - 4151:8080
-    volumes:
-      - /Volumes/Transcend/Docker/Webpage:/webpage
     depends_on:
       - db
       - reverse-proxy
