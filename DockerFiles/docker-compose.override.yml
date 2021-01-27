@@ -1,0 +1,76 @@
+version: '3.3'
+
+networks:
+  # enable connection with Traefik
+  traefik:
+    external: true
+
+services:
+  #---------------------------------------
+  # proxy
+  # Anpassen der Ports und Mounted Volumes auf dem NAS Proxy
+
+  reverse-proxy:
+    # Enables the web UI and tells Traefik to listen to docker
+    #command:
+      # Avoid that all containers are exposed
+     # - --entryPoints.web.address=:80
+    ports:
+      # The HTTP port
+      - 11100:80
+      # HTTPS
+      - 11101:443
+      # The Web UI (enabled by --api.insecure=true)
+      - 11102:8080
+    volumes:
+      # Store certificates in ./letsencrypt/acme.json
+      - /volume1/docker/ASV/letsencrypt:/letsencrypt
+      # - /volume1/docker/ASV/Proxy:/config
+
+  #---------------------------------------
+  # Datenbank
+  db:
+    # user: root
+
+    volumes:
+      - /volume1/docker/ASV/DB:/var/lib/mysql
+      # - /volume1/docker/ASV/Website/DockerFiles/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+
+  #---------------------------------------
+  # PHPMyAdmin version
+  phpmyadmin:
+    image: phpmyadmin:latest
+    user: root
+    networks:
+      - backend
+    ports:
+      - 11104:80
+      - 11105:443
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - PMA_HOST=db
+      - DATABASE_ALLOW_NO_PASSWORD=true
+
+  #---------------------------------------
+  # Wiki
+  wiki:
+    volumes:
+    - /volume1/docker/ASV/wiki:/var/lib/MediaWiki
+
+
+  #---------------------------------------
+  # Webpage
+  webpage:
+    ports:
+      - 4151:8080
+    volumes:
+      - /volume1/docker/ASV/Website/Webpage:/webpage
+#  volume1/docker/Pusteblume/letsencrypt:
+#  volume1/docker/Pusteblume/DB:
+#  volume1/docker/Pusteblume/Webpage:
+volumes:
+  mariaDB:
+    driver: local

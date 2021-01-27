@@ -34,11 +34,36 @@ SECRET_KEY = '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['chrisubuntu', 'localhost']
+ALLOWED_HOSTS = ['chrisubuntu', 'localhost', '192.168.2.5']
+
+# Keycloak
+KEYCLOAK_OIDC_PROFILE_MODEL = 'django_keycloak.RemoteUserOpenIdConnectProfile'
+
+KEYCLOAK_BEARER_AUTHENTICATION_EXEMPT_PATHS = [
+    'admin', 'accounts',
+    ]
+
+CONFIG_DIR = os.path.join(os.path.dirname(__file__),os.pardir)
+
+KEYCLOAK_CLIENT_PUBLIC_KEY = """
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkmKKj61ukyS8TWXqjP42SkW/IhYCVgmRB6ooZaUMrEsseJMU+CvFsPs+JQVCN6snbyO4eytytXkCjzykrYq0YKUx+WivfAWmCDFvzryJ8qmRjeBvEj6CEWsGW7vVU0sNzSmJs71mgomQXsaVKnOd5aHDiLttgmzKpvEn/dg87p4BH1FlKR2/agU8tfDRmVO3bXGqiQjlYhq3k8F50K6SKQ8/AEWfMl5OZ9tpSrj9s1tOBa2GOafYSB7D3EV7M1mZ3swiNeU6FPWGmk5SAjcrVbemNRSzz5028I0oPGPj9VMdW3IZu9PSEJCMZ8CQmddyAi1xZYsyplgjXkPpvHmJAwIDAQAB
+-----END PUBLIC KEY-----"""
+
+
+KEYCLOAK_CONFIG = {
+    'KEYCLOAK_REALM': 'your-realm',
+    'KEYCLOAK_CLIENT_ID': 'your-client',
+    'KEYCLOAK_DEFAULT_ACCESS': 'ALLOW', # DENY or ALLOW
+    'KEYCLOAK_AUTHORIZATION_CONFIG': os.path.join(CONFIG_DIR , 'authorization-config.json'),
+    'KEYCLOAK_METHOD_VALIDATE_TOKEN': 'DECODE',
+    'KEYCLOAK_SERVER_URL': 'http://192.168.2.5:11100/sso/auth/',
+    'KEYCLOAK_CLIENT_SECRET_KEY': 'your-secret-key',
+    'KEYCLOAK_CLIENT_PUBLIC_KEY': KEYCLOAK_CLIENT_PUBLIC_KEY,
+}
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -67,6 +92,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_keycloak.middleware.BaseKeycloakMiddleware',
+    'django_keycloak.middleware.RemoteUserAuthenticationMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django_keycloak.auth.backends.KeycloakAuthorizationCodeBackend',
 ]
 
 ROOT_URLCONF = 'Django.urls'

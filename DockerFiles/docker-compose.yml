@@ -31,11 +31,11 @@ services:
       - label:type:docker_t
     ports:
       # The HTTP port
-      - "80:80"
+      - "11100:80"
       # HTTPS
-      - "443:443"
+      - "11101:443"
       # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
+      - "11102:8080"
     volumes:
       # Store certificates in ./letsencrypt/acme.json
       - /Volumes/Transcend/Docker/letsencrypt:/letsencrypt
@@ -114,12 +114,14 @@ services:
       # Proxy
       # KEYCLOAK_FRONTEND_URL: http://localhost:8080/sso
       PROXY_ADDRESS_FORWARDING: "true"
+      KEYCLOAK_IMPORT: "/tmp/realm.json"
     networks:
       - traefik
       - backend
     volumes:
       - ./standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
       - ./standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
+      - ./realm.json:/tmp/realm.json
     labels:
       - traefik.enable=true
       - "traefik.http.routers.SSO.entrypoints=web"
