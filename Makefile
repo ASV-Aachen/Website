@@ -9,3 +9,6 @@ start: ## Start network && build && docker-compose up
 .PHONY: stop
 stop: ## stop docker-compose and network
 	./bin/stop.sh
+
+clean: ## clean containers and images
+	./bin/clean.sh
