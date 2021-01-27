@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # Zum root verzeichnis wechseln
-cd ../
 
 
 #-------------------------

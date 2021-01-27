@@ -4,8 +4,8 @@ help:
 
 
 start: ## Start network && build && docker-compose up
-	./bin/start
+	./bin/start.sh
 
 .PHONY: stop
 stop: ## stop docker-compose and network
-	./bin/stop
+	./bin/stop.sh
