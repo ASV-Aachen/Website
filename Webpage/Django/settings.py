@@ -25,7 +25,7 @@ SECRET_KEY = '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['chrisubuntu', 'localhost']
+ALLOWED_HOSTS = ['chrisubuntu', 'localhost', '192.168.2.5']
 
 # Keycloak
 KEYCLOAK_OIDC_PROFILE_MODEL = 'django_keycloak.RemoteUserOpenIdConnectProfile'
@@ -48,7 +48,7 @@ KEYCLOAK_CONFIG = {
     'KEYCLOAK_DEFAULT_ACCESS': 'ALLOW', # DENY or ALLOW
     'KEYCLOAK_AUTHORIZATION_CONFIG': os.path.join(CONFIG_DIR , 'authorization-config.json'),
     'KEYCLOAK_METHOD_VALIDATE_TOKEN': 'DECODE',
-    'KEYCLOAK_SERVER_URL': 'http://chrisubuntu/sso/auth/',
+    'KEYCLOAK_SERVER_URL': 'http://192.168.2.5:11100/sso/auth/',
     'KEYCLOAK_CLIENT_SECRET_KEY': 'your-secret-key',
     'KEYCLOAK_CLIENT_PUBLIC_KEY': KEYCLOAK_CLIENT_PUBLIC_KEY,
 }

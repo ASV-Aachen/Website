@@ -31,11 +31,11 @@ services:
       - label:type:docker_t
     ports:
       # The HTTP port
-      - "80:80"
+      - "11100:80"
       # HTTPS
-      - "443:443"
+      - "11101:443"
       # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
+      - "11102:8080"
     volumes:
       # Store certificates in ./letsencrypt/acme.json
       - /Volumes/Transcend/Docker/letsencrypt:/letsencrypt

@@ -20,4 +20,4 @@ SET GLOBAL innodb_file_format = Barracuda;
 SET GLOBAL innodb_file_per_table = on;
 SET GLOBAL innodb_default_row_format = dynamic;
 SET GLOBAL innodb_large_prefix = 1;
-SET GLOBAL innodb_file_format_max = Barracuda;
+SET GLOBAL innodb_file_format_max = Barracuda;@
