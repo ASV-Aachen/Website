@@ -25,11 +25,10 @@ SECRET_KEY = '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chrisubuntu', 'localhost', '192.168.2.5']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -79,8 +78,8 @@ WSGI_APPLICATION = 'Django.wsgi.application'
 DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'TESTDB',
-            'USER': 'root',
+            'NAME': 'websiteDB',
+            'USER': 'website',
             'PASSWORD': 'my-secret-pw',
             'HOST': 'db',   # Or an IP Address that your DB is hosted on
             'PORT': 3306,

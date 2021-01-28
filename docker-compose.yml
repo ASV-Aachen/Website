@@ -3,20 +3,20 @@ version: '3.3'
 networks:
   # enable connection with Traefik
   traefik:
-    # external: true
-    # driver: overlay
-  # network for the app
+    name: traefik
+  # network for the Database
   backend:
+    name: backend
 
 
 
 services:
-  #---------------------------------------
+  #---------------------------------------------------------------------------------------
   # Proxy
+  #---------------------------------------------------------------------------------------
+
   reverse-proxy:
-    # The official v2 Traefik docker image
     image: traefik:v2.3
-    # Enables the web UI and tells Traefik to listen to docker
     command:
       # Only for development environment
       - --log.level=INFO
@@ -31,52 +31,58 @@ services:
       - label:type:docker_t
     ports:
       # The HTTP port
-      - "80:80"
+      - "11100:80"
       # HTTPS
-      - "443:443"
+      - "11101:443"
       # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
+      - "11102:8080"
     volumes:
       # Store certificates in ./letsencrypt/acme.json
-      - /Volumes/Transcend/Docker/letsencrypt:/letsencrypt
+      - traefik:/letsencrypt
       # - /Volumes/Transcend/Docker/Proxy:/config
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - traefik
 
-  #---------------------------------------
+  #---------------------------------------------------------------------------------------
   # Datenbank
+  #---------------------------------------------------------------------------------------
   db:
     image: mariadb:latest
-    user: mysql
+    # user: root
     environment:
-      MYSQL_DATABASE: "TESTDB"
-      MYSQL_USER: "Webpage"
-      MYSQL_PASSWORD: "IMATESTPAGE"
       MYSQL_ROOT_PASSWORD: "my-secret-pw"
-      MYSQL_ROOT_HOST: "%"
-      # - MYSQL_HOST= %
+      MYSQL_ROOT_HOST: "localhost"
     volumes:
-      - /Volumes/Transcend/Docker/DB:/var/lib/mysql
-    restart: always
+      - mariaDB:/var/lib/mysql
+      # - /Volumes/Transcend/Docker/DB:/bitnami/mariadb
+      - mariaDB:/bitnami/mariadb
+      - ./InitFiles/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+    command: mysqld --innodb-buffer-pool-size=256M
     ports:
       - 3306
     networks:
       - backend
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "--silent" ]
 
-  #---------------------------------------
+  #---------------------------------------------------------------------------------------
   # Wiki
+  #---------------------------------------------------------------------------------------
+
   wiki:
     image: mediawiki
     links:
       - db
     volumes:
-      - /Volumes/Transcend/Docker/wiki:/var/lib/MediaWiki
-    restart: always
+      - wiki:/var/lib/MediaWiki
+    # restart: always
     depends_on:
       - db
       - reverse-proxy
+      - SSO
     networks:
       - traefik
       - backend
@@ -90,19 +96,61 @@ services:
       - "traefik.http.middlewares.wiki-stripprefix.stripprefix.prefixes=/wiki"
 
 
-  #---------------------------------------
+  #---------------------------------------------------------------------------------------
+  # SSO - Keycloak
+  #---------------------------------------------------------------------------------------
+  SSO:
+    image: jboss/keycloak:latest
+    restart: always
+    environment:
+      DB_VENDOR: MARIADB
+      DB_ADDR: db
+      DB_DATABASE: KeycloackDB
+      DB_USER: Keycloack
+      DB_PASSWORD: my-secret-pw
+      # Keycloack Admin Settings
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      # Proxy
+      # KEYCLOAK_FRONTEND_URL: http://localhost:8080/sso
+      PROXY_ADDRESS_FORWARDING: "true"
+      # KEYCLOAK_IMPORT: "/tmp/realm.json"
+    networks:
+      - traefik
+      - backend
+    volumes:
+      - ./InitFiles/standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
+      - ./InitFiles/standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
+      # - ./InitFiles/realm.json:/tmp/realm.json
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.SSO.entrypoints=web"
+      - "traefik.http.routers.SSO.rule=PathPrefix(`/sso{regex:$$|/.*}`)"
+      - "traefik.http.services.SSO.loadbalancer.server.port=8080"
+      #- "traefik.http.routers.SSO.middlewares=SSO-stripprefix"
+      #- "traefik.http.middlewares.SSO-stripprefix.stripprefix.prefixes=/sso"
+    depends_on:
+      - db
+
+
+
+  #---------------------------------------------------------------------------------------
   # Webpage
+  #---------------------------------------------------------------------------------------
+
   webpage:
     image: webpageimage:0.1
     restart: always
     command: >
-
       bash -c "python manage.py makemigrations
       && python manage.py migrate
       && python manage.py runserver 0.0.0.0:8080"
+    volumes:
+      - website:/webpage
     depends_on:
       - db
       - reverse-proxy
+      - SSO
     networks:
       - traefik
       - backend
@@ -110,10 +158,19 @@ services:
       # The labels are usefull for Traefik only
       - traefik.enable=true
       - "traefik.http.routers.webpage.entrypoints=web"
-      - "traefik.http.routers.webpage.rule=PathPrefix(`/*`)"
+      - "traefik.http.routers.webpage.rule=PathPrefix(`/`)"
       - "traefik.http.services.webpage.loadbalancer.server.port=8080"
-      
 
 volumes:
-
-  db_data: {}
+  mariaDB:
+    driver: local
+    name: mariaDB
+  wiki:
+    driver: local
+    name: wiki
+  website:
+    driver: local
+    name: website
+  traefik:
+    driver: local
+    name: traefik

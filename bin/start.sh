@@ -5,7 +5,8 @@
 
 #-------------------------
 # Bau das Netzwerk
-docker network create traefik
+# docker network create traefik
+# nicht mehr notwendig
 
 #-------------------------
 # Bau des WebpageImage
