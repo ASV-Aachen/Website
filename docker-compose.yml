@@ -3,10 +3,10 @@ version: '3.3'
 networks:
   # enable connection with Traefik
   traefik:
-    # external: true
-    # driver: overlay
-  # network for the app
+    name: traefik
+  # network for the Database
   backend:
+    name: backend
 
 
 
@@ -38,7 +38,7 @@ services:
       - "11102:8080"
     volumes:
       # Store certificates in ./letsencrypt/acme.json
-      - /Volumes/Transcend/Docker/letsencrypt:/letsencrypt
+      - traefik:/letsencrypt
       # - /Volumes/Transcend/Docker/Proxy:/config
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
@@ -114,14 +114,14 @@ services:
       # Proxy
       # KEYCLOAK_FRONTEND_URL: http://localhost:8080/sso
       PROXY_ADDRESS_FORWARDING: "true"
-      KEYCLOAK_IMPORT: "/tmp/realm.json"
+      # KEYCLOAK_IMPORT: "/tmp/realm.json"
     networks:
       - traefik
       - backend
     volumes:
       - ./InitFiles/standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
       - ./InitFiles/standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
-      - ./InitFiles/realm.json:/tmp/realm.json
+      # - ./InitFiles/realm.json:/tmp/realm.json
     labels:
       - traefik.enable=true
       - "traefik.http.routers.SSO.entrypoints=web"
@@ -164,5 +164,13 @@ services:
 volumes:
   mariaDB:
     driver: local
+    name: mariaDB
   wiki:
     driver: local
+    name: wiki
+  website:
+    driver: local
+    name: website
+  traefik:
+    driver: local
+    name: traefik
