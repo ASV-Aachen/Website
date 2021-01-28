@@ -100,8 +100,6 @@ services:
       bash -c "python manage.py makemigrations
       && python manage.py migrate
       && python manage.py runserver 0.0.0.0:8080"
-    ports:
-      - 4151:8080
     depends_on:
       - db
       - reverse-proxy
@@ -112,8 +110,9 @@ services:
       # The labels are usefull for Traefik only
       - traefik.enable=true
       - "traefik.http.routers.webpage.entrypoints=web"
-
-      - "traefik.http.routers.webpage.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.webpage.rule=PathPrefix(`/*`)"
+      - "traefik.http.services.webpage.loadbalancer.server.port=8080"
+      
 
 volumes:
 
