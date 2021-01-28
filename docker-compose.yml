@@ -3,7 +3,7 @@ version: '3.3'
 networks:
   # enable connection with Traefik
   traefik:
-    external: true
+    # external: true
     # driver: overlay
   # network for the app
   backend:
@@ -57,8 +57,8 @@ services:
     volumes:
       - mariaDB:/var/lib/mysql
       # - /Volumes/Transcend/Docker/DB:/bitnami/mariadb
-      # - mariaDB:/bitnami/mariadb
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mariaDB:/bitnami/mariadb
+      - ./InitFiles/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: unless-stopped
     command: mysqld --innodb-buffer-pool-size=256M
     ports:
@@ -77,7 +77,7 @@ services:
     links:
       - db
     volumes:
-      - /Volumes/Transcend/Docker/wiki:/var/lib/MediaWiki
+      - wiki:/var/lib/MediaWiki
     # restart: always
     depends_on:
       - db
@@ -119,9 +119,9 @@ services:
       - traefik
       - backend
     volumes:
-      - ./standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
-      - ./standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
-      - ./realm.json:/tmp/realm.json
+      - ./InitFiles/standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
+      - ./InitFiles/standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
+      - ./InitFiles/realm.json:/tmp/realm.json
     labels:
       - traefik.enable=true
       - "traefik.http.routers.SSO.entrypoints=web"
@@ -158,9 +158,11 @@ services:
       # The labels are usefull for Traefik only
       - traefik.enable=true
       - "traefik.http.routers.webpage.entrypoints=web"
-      - "traefik.http.routers.webpage.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.webpage.rule=PathPrefix(`/*`)"
       - "traefik.http.services.webpage.loadbalancer.server.port=8080"
 
 volumes:
   mariaDB:
+    driver: local
+  wiki:
     driver: local
