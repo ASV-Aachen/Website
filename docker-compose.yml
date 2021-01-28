@@ -146,7 +146,7 @@ services:
       && python manage.py migrate
       && python manage.py runserver 0.0.0.0:8080"
     volumes:
-      - /Volumes/Transcend/Docker/Webpage:/webpage
+      - website:/webpage
     depends_on:
       - db
       - reverse-proxy
