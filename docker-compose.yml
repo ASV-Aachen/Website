@@ -158,7 +158,7 @@ services:
       # The labels are usefull for Traefik only
       - traefik.enable=true
       - "traefik.http.routers.webpage.entrypoints=web"
-      - "traefik.http.routers.webpage.rule=PathPrefix(`/*`)"
+      - "traefik.http.routers.webpage.rule=PathPrefix(`/`)"
       - "traefik.http.services.webpage.loadbalancer.server.port=8080"
 
 volumes:
