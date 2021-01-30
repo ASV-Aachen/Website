@@ -25,7 +25,7 @@ services:
       - --providers.docker=true
       # Avoid that all containers are exposed
       - --providers.docker.exposedbydefault=false
-      - --providers.docker.network=traefik
+      - --providers.docker.network=website_traefik
       - --entryPoints.web.address=:80
     security_opt:
       - label:type:docker_t
