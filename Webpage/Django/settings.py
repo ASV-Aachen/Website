@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import json
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +28,27 @@ SECRET_KEY = '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
 DEBUG = True
 
 ALLOWED_HOSTS = ['chrisubuntu', 'localhost', '192.168.2.5']
+HOST = "localhost:11100"
+
+
+# Conection to Keycloak as OIDC
+
+OIDC_RP_CLIENT_ID = 'website'
+OIDC_RP_CLIENT_SECRET = '0c69bf7f-973e-468d-8ac1-00000166147e'
+OIDC_RP_SIGN_ALGO = 'RS256'
+OIDC_OP_JWKS_ENDPOINT = 'http://localhost:11100/sso/auth/realms/ASV/protocol/openid-connect/certs'
+OIDC_RP_SCOPES = 'openid email profile'
+
+OIDC_OP_AUTHORIZATION_ENDPOINT = 'http://localhost:11100/sso/auth/realms/ASV/protocol/openid-connect/auth'
+OIDC_OP_TOKEN_ENDPOINT = 'http://localhost:11100/sso/auth/realms/ASV/protocol/openid-connect/token'
+OIDC_OP_USER_ENDPOINT = 'http://localhost:11100/sso/auth/realms/ASV/protocol/openid-connect/userinfo'
+
+# Provided by mozilla-django-oidc
+LOGIN_URL = reverse_lazy('oidc_authentication_callback')
+
+# App urls
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Application definition
@@ -39,7 +62,13 @@ INSTALLED_APPS = [
     'FrontPage',
     'Mitglieder',
     # 'django.contrib.sites',
+    'mozilla_django_oidc',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -69,22 +69,11 @@ def loginFunction(request):
     """
     if(request.user.is_authenticated):
         redirect("ASV")
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect("ASV")
-        else:
-            return redirect("login")
-    if request.method =="GET":
-        return render(request, template_name="login.html")
+    return redirect("oidc_authentication_init")
 
 def logoutFunktion(request):
     if request.user.is_authenticated:
-        logout(request)
-
+        return redirect("oidc_logout")
     redirect("ASV")
 
 # Alle News (TODO)

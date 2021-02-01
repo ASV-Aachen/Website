@@ -58,7 +58,7 @@ services:
       - mariaDB:/var/lib/mysql
       # - /Volumes/Transcend/Docker/DB:/bitnami/mariadb
       - mariaDB:/bitnami/mariadb
-      - ./InitFiles/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./InitFiles/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: unless-stopped
     command: mysqld --innodb-buffer-pool-size=256M
     ports:
@@ -119,8 +119,8 @@ services:
       - traefik
       - backend
     volumes:
-      - ./InitFiles/standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
-      - ./InitFiles/standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
+      - ./InitFiles/sso/standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
+      - ./InitFiles/sso/standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
       # - ./InitFiles/realm.json:/tmp/realm.json
     labels:
       - traefik.enable=true
@@ -147,6 +147,7 @@ services:
       && python manage.py runserver 0.0.0.0:8080"
     volumes:
       - website:/webpage
+      # - ./InitFiles/Webpage/ssoInit.json:/Django/ssoInit.json
     depends_on:
       - db
       - reverse-proxy
