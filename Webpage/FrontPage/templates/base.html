@@ -1,7 +1,8 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
     <head>
-        {% load static %}
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,7 +18,7 @@
     <body>
         <div class="container">
             {% include "HeadAndToes.html"%}
-</div>
+        </div>
         <div class="container">
             <div class="row mb-2">
                 <div class="col-md-6">
@@ -45,19 +46,7 @@
         <main role="main" class="container">
             <div class="row">
                 <div class="col-md-8 blog-main">
-                    <h3 class="pb-3 mb-4 font-italic border-bottom">
-            Neues aus dem Verein </h3>
-                    {% for New in News %}
-                        <div class="blog-post">
-                            <h2 class="blog-post-title">{{ New.Titel }}</h2>
-                            <p class="blog-post-meta">{{ New.Date }} by {{ New.Autor }}</p>
-                            {{ New.Text }}
-                        </div>
-                    {% endfor %}
-                    <!-- /.blog-post -->
-                    <nav class="blog-pagination">
-                        <a class="btn btn-outline-primary" href="#">Older</a>
-                    </nav>
+                    {% block content %} {% endblock content %}
                 </div>
                 <!-- /.blog-main -->
                 <aside class="col-md-4 blog-sidebar">
