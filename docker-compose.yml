@@ -146,6 +146,7 @@ services:
       && python manage.py runserver 0.0.0.0:8080"
     volumes:
       - website:/webpage
+      - ./Webpage:/opt/Webpage
     depends_on:
       - db
       - reverse-proxy
