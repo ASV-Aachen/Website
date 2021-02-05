@@ -27,7 +27,7 @@ SECRET_KEY = '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['chrisubuntu', 'localhost', '192.168.2.5']
+ALLOWED_HOSTS = ['Christians-Air', 'localhost']
 HOST = "localhost:11100"
 
 
@@ -36,12 +36,12 @@ HOST = "localhost:11100"
 OIDC_RP_CLIENT_ID = 'website'
 OIDC_RP_CLIENT_SECRET = '0c69bf7f-973e-468d-8ac1-00000166147e'
 OIDC_RP_SIGN_ALGO = 'RS256'
-OIDC_OP_JWKS_ENDPOINT = 'http://localhost:11100/sso/auth/realms/ASV/protocol/openid-connect/certs'
+OIDC_OP_JWKS_ENDPOINT = 'http://Christians-Air:11100/sso/auth/realms/ASV/protocol/openid-connect/certs'
 OIDC_RP_SCOPES = 'openid email profile'
 
-OIDC_OP_AUTHORIZATION_ENDPOINT = 'http://localhost:11100/sso/auth/realms/ASV/protocol/openid-connect/auth'
-OIDC_OP_TOKEN_ENDPOINT = 'http://localhost:11100/sso/auth/realms/ASV/protocol/openid-connect/token'
-OIDC_OP_USER_ENDPOINT = 'http://localhost:11100/sso/auth/realms/ASV/protocol/openid-connect/userinfo'
+OIDC_OP_AUTHORIZATION_ENDPOINT =    'http://Christians-Air:11100/sso/auth/realms/ASV/protocol/openid-connect/auth'
+OIDC_OP_TOKEN_ENDPOINT =            'http://christians-air:11100/sso/auth/realms/ASV/protocol/openid-connect/token'
+OIDC_OP_USER_ENDPOINT =             'http://christians-air:11100/sso/auth/realms/ASV/protocol/openid-connect/userinfo'
 
 # Provided by mozilla-django-oidc
 LOGIN_URL = reverse_lazy('oidc_authentication_callback')
@@ -78,6 +78,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'mozilla_django_oidc.middleware.SessionRefresh',
 ]
 
 ROOT_URLCONF = 'Django.urls'
