@@ -36,12 +36,16 @@ HOST = "localhost:11100"
 OIDC_RP_CLIENT_ID = 'website'
 OIDC_RP_CLIENT_SECRET = '0c69bf7f-973e-468d-8ac1-00000166147e'
 OIDC_RP_SIGN_ALGO = 'RS256'
+
+# OIDC_RP_IDP_SIGN_KEY = '-----BEGIN CERTIFICATE-----  -----END CERTIFICATE-----'
+
 OIDC_OP_JWKS_ENDPOINT = 'http://Christians-Air:11100/sso/auth/realms/ASV/protocol/openid-connect/certs'
 OIDC_RP_SCOPES = 'openid email profile'
 
 OIDC_OP_AUTHORIZATION_ENDPOINT =    'http://Christians-Air:11100/sso/auth/realms/ASV/protocol/openid-connect/auth'
 OIDC_OP_TOKEN_ENDPOINT =            'http://christians-air:11100/sso/auth/realms/ASV/protocol/openid-connect/token'
 OIDC_OP_USER_ENDPOINT =             'http://christians-air:11100/sso/auth/realms/ASV/protocol/openid-connect/userinfo'
+
 
 # Provided by mozilla-django-oidc
 LOGIN_URL = reverse_lazy('oidc_authentication_callback')
