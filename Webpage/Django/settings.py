@@ -27,8 +27,7 @@ SECRET_KEY = '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['Christians-Air', 'localhost']
-HOST = "localhost:11100"
+ALLOWED_HOSTS = ['Christians-Air']
 
 
 # Conection to Keycloak as OIDC
@@ -178,3 +177,29 @@ CKEDITOR_SETTINGS = {
 }
 
 SITE_ID = 2
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'mozilla_django_oidc': {
+            'handlers': ['console'],
+            'level': 'DEBUG'
+        },
+    },
+}
