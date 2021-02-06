@@ -46,7 +46,7 @@ def MainPage(request):
     if (request.user.is_authenticated):    
         CurrentUser = request.user
         Name = CurrentUser.first_name
-        return render(request, "FrontPage.html", context={
+        return render(request, "home.html", context={
                 "News": BlogEintrag.objects.all().order_by('-id')[:5],
                 "UserName": Name,
                 "UserLinks": GetMenu(request)

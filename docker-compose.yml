@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 
 networks:
   # enable connection with Traefik
@@ -142,12 +142,11 @@ services:
     image: webpageimage:0.1
     restart: always
     command: >
-      bash -c "python manage.py makemigrations
-      && python manage.py migrate
+      bash -c "python manage.py migrate
       && python manage.py runserver 0.0.0.0:8080"
     volumes:
       - website:/webpage
-      # - ./InitFiles/Webpage/ssoInit.json:/Django/ssoInit.json
+      - ./Webpage:/opt/Webpage
     depends_on:
       - db
       - reverse-proxy
