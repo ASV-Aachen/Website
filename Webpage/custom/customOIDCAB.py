@@ -38,10 +38,11 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         sub = claims.get('preferred_username')
         if not sub:
             return self.UserModel.objects.none()
-
         try:
             profile = User.objects.get(username=sub)
-            return profile.user
+            profileListe = []
+            profileListe.append(profile)
+            return profileListe
 
         except User.DoesNotExist:
             return self.UserModel.objects.none()
