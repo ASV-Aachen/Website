@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.template import Context, Template
 from .models import *
+from django.http import HttpResponse
+from django.contrib.auth.models import Permission
 
 # Object for Header logged in and not logged in (name and url)
 def GetMenu(request):
@@ -73,7 +75,10 @@ def loginFunction(request):
 
 def logoutFunktion(request):
     if request.user.is_authenticated:
-        return redirect("oidc_logout")
+        # TODO: redirect to sso/auth/realms/ASV/account/#/
+
+        return render(request, template_name="UserTest.html")
+        # return redirect("oidc_logout")
     redirect("ASV")
 
 # Alle News (TODO)
@@ -121,7 +126,7 @@ def EinzelNews(request):
         return redirect("ASV")
 
 def NeueNews(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         if request.POST:
             # Neue Nachricht eingefügt
             User = request.user
@@ -138,3 +143,29 @@ def NeueNews(request):
             pass
     else:
         return redirect('ASV')
+
+def UserTest(request):
+    Text = ""
+    if request.user.is_authenticated:
+        Text = "<h1>Angemeldet!</h1> \n"
+        user = request.user
+        Text += (user.get_username())
+        Text += ("<br>")
+        Text += user.email
+        Text += ("<br>")
+
+        perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(user=user)]
+        l_as_list = list(user.groups.values_list('name',flat = True))
+
+        Text += ("Groups: " +  ' - '.join(str(e) for e in l_as_list))
+        Text += ("<br>Permissions: " + ' - '.join(str(e) for e in perm_tuple))
+
+        Text += ("<br>")
+
+        roles = user
+
+        
+        pass
+    else:
+        Text = "<h1>Nicht angemeldet!</h1> \n"
+    return HttpResponse(Text)

@@ -24,4 +24,6 @@ class BlogEintrag(models.Model):
     Titel = models.CharField(max_length=200)
     Text = models.TextField()
     Autor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
+    
     Datum = models.DateField(auto_created=True)
+

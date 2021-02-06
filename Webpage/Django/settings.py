@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['Christians-Air']
 # Conection to Keycloak as OIDC
 
 OIDC_RP_CLIENT_ID = 'website'
-OIDC_RP_CLIENT_SECRET = '0c69bf7f-973e-468d-8ac1-00000166147e'
+OIDC_RP_CLIENT_SECRET = 'b1ee32b5-1da6-463d-b01a-90f771fd7bcb'
 OIDC_RP_SIGN_ALGO = 'RS256'
 
 # OIDC_RP_IDP_SIGN_KEY = '-----BEGIN CERTIFICATE-----  -----END CERTIFICATE-----'
@@ -68,8 +68,11 @@ INSTALLED_APPS = [
     'mozilla_django_oidc',
 ]
 
+
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
+    'custom.customOIDCAB.MyOIDCAB',
     'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
 )
 
@@ -179,27 +182,5 @@ CKEDITOR_SETTINGS = {
 SITE_ID = 2
 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'WARNING',
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-            'propagate': False,
-        },
-        'mozilla_django_oidc': {
-            'handlers': ['console'],
-            'level': 'DEBUG'
-        },
-    },
-}
+
+

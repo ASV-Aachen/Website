@@ -9,7 +9,8 @@ class Position(models.Model):
     Beschreibung = models.TextField(null=True)
 # ---------------------------------------------------------------
 class Status(models.Model):
-    Titel = models.CharField(max_length=70, null=False, primary_key=True)
+    Titel = models.CharField(max_length=70, null=False, 
+    primary_key=True)
     Beschreibung = models.TextField()
 # ---------------------------------------------------------------
 
