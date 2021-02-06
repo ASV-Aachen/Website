@@ -30,14 +30,16 @@ ALLOWED_HOSTS = ['chrisubuntu', 'localhost', '192.168.2.5']
 
 # Application definition
 INSTALLED_APPS = [
+    'web.apps.webConfig',
+    'Mitglieder.apps.MitgliederConfig',
+    # 'web',
+    # 'Mitglieder',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'FrontPage',
-    'Mitglieder',
     # 'django.contrib.sites',
 ]
 
@@ -56,7 +58,7 @@ ROOT_URLCONF = 'Django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

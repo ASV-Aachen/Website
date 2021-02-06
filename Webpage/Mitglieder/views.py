@@ -4,23 +4,26 @@ from .models import Profile
 # Create your views here.
 
 # View um die eigenen einstellungen zu bearbeiten
+def index(request):
+    return render(request, "Mitglieder/dashboard.html")
+
 
 # Mitgliederverzeichnis
 def Migliederverzeichnis(request):
     if request.user.is_authenticated():
         context = {'Personen': Profile.objects.all()}
-        return render(request, template_name="Mitgliderverzeichnis.html", context=context)
+        return render(request, template_name="Mitglieder/Mitgliderverzeichnis.html", context=context)
     else:
-        return redirect("ASV")
+        return redirect("index")
 
 # Anzeige für den Einzelnen Nutzer
 def EinzelNutzer(request):
     if request.user.is_authenticated():
         User = request.GET.get('id', '')
         context = {'User': Profile.objects.get(id=User)}
-        return render(request, template_name="Nutzer.html", context=context)
+        return render(request, template_name="Mitglieder/Nutzer.html", context=context)
     else:
-        return redirect("ASV")
+        return redirect("index")
     pass
 
 
@@ -42,10 +45,10 @@ def Einstellungen(request):
             AktuellerNutzer.HandyNummer = request.POST.get("HandyNummer")
             AktuellerNutzer.save()
 
-            return redirect("ASV")
+            return redirect("index")
             pass
     else:
-        return redirect("ASV")
+        return redirect("index")
 
 
 # Passwort ändern

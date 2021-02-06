@@ -1,12 +1,12 @@
-version: '3.3'
+version: '3.7'
 
 networks:
   # enable connection with Traefik
   traefik:
-    # name: traefik
+    name: traefik
   # network for the Database
   backend:
-    # name: backend
+    name: backend
 
 
 
@@ -25,7 +25,7 @@ services:
       - --providers.docker=true
       # Avoid that all containers are exposed
       - --providers.docker.exposedbydefault=false
-      - --providers.docker.network=website_traefik
+      - --providers.docker.network=traefik
       - --entryPoints.web.address=:80
     security_opt:
       - label:type:docker_t
@@ -164,13 +164,13 @@ services:
 volumes:
   mariaDB:
     driver: local
-    # name: mariaDB
+    name: mariaDB
   wiki:
     driver: local
-    # name: wiki
+    name: wiki
   website:
     driver: local
-    # name: website
+    name: website
   traefik:
     driver: local
-    # name: traefik
+    name: traefik

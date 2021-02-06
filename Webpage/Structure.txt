@@ -1,0 +1,57 @@
+Webpage
+├── manage.py
+├── django
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── Mitglieder (besser: member or users)
+│   ├── migrations
+│   ├── templates
+│   │   └── Mitglieder
+│   │       ├── index.html (z.B: dashboard)  
+│   │       └── ...
+│   ├── static
+│   │   └── Mitgieder
+│   │       └── ...
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── test.py
+│   ├── urls.py
+│   └── views.py
+├── web
+│   ├── migrations
+│   ├── templates
+│   │   └── web
+│   │       ├── index.html   
+│   │       ├── login.html
+│   │       ├── NewNews.html
+│   │       ├── News.html
+│   │       ├── NewsPage.html
+│   │       └── ...
+│   ├── static
+│   │   └── web
+│   │       └── ...
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── test.py
+│   ├── urls.py
+│   └── views.py
+├── static
+│   ├── assets
+│   ├── Bilder
+│   ├── bootstrap
+│   ├── CSS
+│   ├── Fonts
+│   └── JS
+├── templates
+│   ├── includes
+│   │   ├── header.html
+│   │   ├── footer.html
+│   │   └── ...
+│   ├── base.html
+│   ├── custom.html
+│   └── ...
+└── requirements.txt
