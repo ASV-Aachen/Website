@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker-compose exec webpage python3 manage.py makemigrations
+docker-compose exec -T webpage python3 manage.py makemigrations
