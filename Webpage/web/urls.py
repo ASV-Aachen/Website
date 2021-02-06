@@ -22,8 +22,9 @@ app_name: 'web'
 # TODO: Mein ASV sollte natürlich der interne Bereich sein, Mitglieder muss noch umgesetzt werden
  
 urlpatterns = [
-    path('', views.MainPage, name="index"),
+    path('', views.MainPage, name="FrontPage"),
     path('login', views.loginFunction, name="login"),
     path('news', views.EinzelNews, name="News"),
-    path('MeinASV', include('Mitglieder.urls'))
+    path('unfertig', views.unfertig, name='unfertig'),
+
 ]

@@ -9,19 +9,19 @@ from .models import *
 def GetMenu(request):
     if (request.user.is_authenticated):
         Object = [{
-            "link":"#",
+            "link":"/MeinASV",
             "Name":"Mein ASV"
         },{
             "link":"/wiki",
             "Name":"Wiki"
         },{
-            "link":"#",
+            "link":"/unfertig",
             "Name":"Mitgliedererzeichnis"
         },{
-            "link":"#",
+            "link":"/unfertig",
             "Name":"Einstellungen"
         },{
-            "link":"#",
+            "link":"/unfertig",
             "Name":"Logout"
         }]
     else:
@@ -68,16 +68,16 @@ def loginFunction(request):
     :return:
     """
     if(request.user.is_authenticated):
-        redirect("index")
+        redirect("FrontPage")
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("index")
+            return redirect("FrontPage")
         else:
-            return redirect("index")
+            return redirect("FrontPage")
     if request.method =="GET":
         return render(request, template_name="web/login.html")
 
@@ -85,7 +85,7 @@ def logoutFunktion(request):
     if request.user.is_authenticated:
         logout(request)
 
-    redirect("index")
+    redirect("FrontPage")
 
 # Alle News (TODO)
 def News(request):
@@ -129,7 +129,7 @@ def EinzelNews(request):
         id = request.GET.get('id', '')
         return render(request, template_name="web/newsPage.html", context={'News': BlogEintrag.objects.get(id=id), "UserLinks": GetMenu(request)})
     except:
-        return redirect("index")
+        return redirect("FrontPage")
 
 def NeueNews(request):
     if request.user.is_authenticated():
@@ -148,4 +148,7 @@ def NeueNews(request):
             return render(request, template_name="web/NewNews.html")
             pass
     else:
-        return redirect('index')
+        return redirect('FrontPage')
+
+def unfertig(request):
+    return render(request, "web/unfertig.html", {})

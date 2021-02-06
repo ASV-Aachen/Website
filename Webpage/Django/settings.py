@@ -32,8 +32,6 @@ ALLOWED_HOSTS = ['chrisubuntu', 'localhost', '192.168.2.5']
 INSTALLED_APPS = [
     'web.apps.webConfig',
     'Mitglieder.apps.MitgliederConfig',
-    # 'web',
-    # 'Mitglieder',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -145,4 +143,4 @@ CKEDITOR_SETTINGS = {
     'skin': 'moono-lisa',
 }
 
-SITE_ID = 2
+# SITE_ID = 2
