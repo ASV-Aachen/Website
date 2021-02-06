@@ -12,3 +12,9 @@ stop: ## stop docker-compose and network
 
 clean: ## clean containers and images
 	./bin/clean.sh
+
+makemigrations: ## Generate Migrations for Django models
+	./bin/makemigrations.sh	
+
+migrate: ## Migrate Django models
+	./bin/migrate.sh
