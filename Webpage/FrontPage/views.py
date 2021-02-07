@@ -3,10 +3,15 @@ from datetime import date
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.template import Context, Template
+from django.template.base import logger
 from .models import *
 from django.http import HttpResponse
 from django.contrib.auth.models import Permission
 from django.conf import settings
+import urllib.parse
+import logging
+import os
+
 
 # Object for Header logged in and not logged in (name and url)
 def GetMenu(request):
@@ -77,10 +82,14 @@ def loginFunction(request):
 def logoutFunktion(request):
     if request.user.is_authenticated:
         # TODO: redirect to sso/auth/realms/ASV/account/#/
+        logout(request)
+        
+        Host = os.environ["Host"]
 
-        return render(request, template_name="UserTest.html")
-        # return redirect("oidc_logout")
-    redirect("ASV")
+        TestUrl = "sso/auth/realms/ASV/protocol/openid-connect/logout?redirect_uri=" + Host
+
+        return redirect(TestUrl)
+    return redirect("ASV")
 
 # Alle News (TODO)
 def News(request):

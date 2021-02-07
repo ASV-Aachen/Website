@@ -52,7 +52,7 @@ LOGIN_URL = reverse_lazy('oidc_authentication_callback')
 
 # App urls
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = Host + "/auth/realms/ASV/protocol/openid-connect/logout?redirect_uri=" + Host
 
 
 # Application definition
