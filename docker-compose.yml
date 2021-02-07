@@ -114,7 +114,7 @@ services:
       # Proxy
       # KEYCLOAK_FRONTEND_URL: http://localhost:8080/sso
       PROXY_ADDRESS_FORWARDING: "true"
-      # KEYCLOAK_IMPORT: "/tmp/realm.json"
+      KEYCLOAK_IMPORT: "/tmp/realm.json"
     networks:
       - traefik
       - backend
@@ -148,12 +148,17 @@ services:
       - website:/webpage
       - ./Webpage:/opt/Webpage
     environment: 
+      # Einstellungen für die Verbindung zum Keycloak
+      # Host muss in der Form "http://HOSTNAME:PORT" gesetzt werden. ACHTUNG, kein Localhost. Im Zweifel den Namen des Computers im Netzwerk nutzen. 
       Host: http://Christians-Air:11100
       ALLOWED_HOSTS: "Christians-Air"
+
+      # Einstellung für den Client im Keycloak. 
       OIDC_RP_CLIENT_ID: 'website'
-      OIDC_RP_CLIENT_SECRET: 'b1ee32b5-1da6-463d-b01a-90f771fd7bcb'
+      OIDC_RP_CLIENT_SECRET: 'ac4ce327-78da-48f3-b121-9dd25c0158bf'
       OIDC_RP_SIGN_ALGO: 'RS256'
       
+      # Secret Key fürs Django
       SECRET_KEY: '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
 
     depends_on:
