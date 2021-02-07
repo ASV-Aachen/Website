@@ -22,28 +22,29 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['Christians-Air']
+Host = os.environ["Host"]
+ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
 
 
 # Conection to Keycloak as OIDC
 
-OIDC_RP_CLIENT_ID = 'website'
-OIDC_RP_CLIENT_SECRET = 'b1ee32b5-1da6-463d-b01a-90f771fd7bcb'
-OIDC_RP_SIGN_ALGO = 'RS256'
+OIDC_RP_CLIENT_ID = os.environ["OIDC_RP_CLIENT_ID"]
+OIDC_RP_CLIENT_SECRET = os.environ["OIDC_RP_CLIENT_SECRET"]
+OIDC_RP_SIGN_ALGO = os.environ["OIDC_RP_SIGN_ALGO"]
 
 # OIDC_RP_IDP_SIGN_KEY = '-----BEGIN CERTIFICATE-----  -----END CERTIFICATE-----'
 
-OIDC_OP_JWKS_ENDPOINT = 'http://Christians-Air:11100/sso/auth/realms/ASV/protocol/openid-connect/certs'
+OIDC_OP_JWKS_ENDPOINT = Host + '/sso/auth/realms/ASV/protocol/openid-connect/certs'
 OIDC_RP_SCOPES = 'openid email profile'
 
-OIDC_OP_AUTHORIZATION_ENDPOINT =    'http://Christians-Air:11100/sso/auth/realms/ASV/protocol/openid-connect/auth'
-OIDC_OP_TOKEN_ENDPOINT =            'http://christians-air:11100/sso/auth/realms/ASV/protocol/openid-connect/token'
-OIDC_OP_USER_ENDPOINT =             'http://christians-air:11100/sso/auth/realms/ASV/protocol/openid-connect/userinfo'
+OIDC_OP_AUTHORIZATION_ENDPOINT =    Host + '/sso/auth/realms/ASV/protocol/openid-connect/auth'
+OIDC_OP_TOKEN_ENDPOINT =            Host + '/sso/auth/realms/ASV/protocol/openid-connect/token'
+OIDC_OP_USER_ENDPOINT =             Host + '/sso/auth/realms/ASV/protocol/openid-connect/userinfo'
 
 
 # Provided by mozilla-django-oidc

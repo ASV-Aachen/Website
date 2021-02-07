@@ -147,6 +147,15 @@ services:
     volumes:
       - website:/webpage
       - ./Webpage:/opt/Webpage
+    environment: 
+      Host: http://Christians-Air:11100
+      ALLOWED_HOSTS: "Christians-Air"
+      OIDC_RP_CLIENT_ID: 'website'
+      OIDC_RP_CLIENT_SECRET: 'b1ee32b5-1da6-463d-b01a-90f771fd7bcb'
+      OIDC_RP_SIGN_ALGO: 'RS256'
+      
+      SECRET_KEY: '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
+
     depends_on:
       - db
       - reverse-proxy
