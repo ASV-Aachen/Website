@@ -57,15 +57,19 @@ LOGOUT_REDIRECT_URL = Host + "/auth/realms/ASV/protocol/openid-connect/logout?re
 
 # Application definition
 INSTALLED_APPS = [
+    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tinymce',
+    # 'django.contrib.sites',
+
+    # ASV-Apps
     'FrontPage',
     'Mitglieder',
-    # 'django.contrib.sites',
     'mozilla_django_oidc',
 ]
 
@@ -114,13 +118,13 @@ WSGI_APPLICATION = 'Django.wsgi.application'
 
 DATABASES = {
     'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'websiteDB',
-            'USER': 'website',
-            'PASSWORD': 'my-secret-pw',
-            'HOST': 'db',   # Or an IP Address that your DB is hosted on
-            'PORT': 3306,
-        }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'websiteDB',
+        'USER': 'website',
+        'PASSWORD': 'my-secret-pw',
+        'HOST': 'db',   # Or an IP Address that your DB is hosted on
+        'PORT': 3306,
+    }
 }
 
 
@@ -172,16 +176,29 @@ STATICFILES_DIRS = (
 
 # FORCE_SCRIPT_NAME = "/webpage/"
 
+MEDIA_ROOT = "/media/"
+MEDIA_URL = "/media/"
 
-# Settings for the Editor
-CKEDITOR_SETTINGS = {
-    'language': '{{ language }}',
-    'toolbar': 'CMS',
-    'skin': 'moono-lisa',
-}
+FILEBROWSER_DIRECTORY = ""
+
 
 SITE_ID = 2
 
 
+"""TinyMCE"""
 
-
+TINYMCE_DEFAULT_CONFIG = {
+    "height": "320px",
+    "width": "960px",
+    "menubar": "file edit view insert format tools table help",
+    "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
+        "fullscreen insertdatetime media table paste code help wordcount spellchecker",
+    "toolbar": "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
+        "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor "
+        "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | "
+        "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | "
+        "a11ycheck ltr rtl | showcomments addcomment code",
+    "custom_undo_redo_levels": 10,
+}
+TINYMCE_SPELLCHECKER = False    # TODO: Prüfen ob Schreibprüfung implementiert werden kann.
+TINYMCE_COMPRESSOR = True

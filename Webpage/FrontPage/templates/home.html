@@ -5,8 +5,8 @@
     {% for New in News %}
         <div class="blog-post">
             <h2 class="blog-post-title">{{ New.Titel }}</h2>
-            <p class="blog-post-meta">{{ New.Date }} by {{ New.Autor }}</p>
-            {{ New.Text }}
+            <small class="blog-post-meta">{{ New.DatumErstellt | date:"F d, Y"}}  {% if user.is_authenticated %} by {{ New.Autor }} {% endif %}</small>
+            <p class="article-content">{{ New.Inhalt | safe }}</p>
         </div>
     {% endfor %}
     <!-- /.blog-post -->

@@ -10,3 +10,7 @@ setuptools~=50.3.2
 mysqlclient~=2.0.2
 mozilla-django-oidc
 pyOpenSSL
+django-tinymce4-lite
+django-filebrowser-no-grappelli
+Pillow
+social-auth-app-django
