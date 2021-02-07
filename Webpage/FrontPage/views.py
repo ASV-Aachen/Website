@@ -12,6 +12,9 @@ def GetMenu(request):
             "link":"#",
             "Name":"Mein ASV"
         },{
+            "link":"/arbeitsstundenausschreibung",
+            "Name":"Arbeitsstundenausschreibung"
+        },{
             "link":"/wiki",
             "Name":"Wiki"
         },{
@@ -51,7 +54,7 @@ def MainPage(request):
             })
     else:    
         CurrentUser = request.user
-        return render(request, "FrontPage.html", context={
+        return render(request, "home.html", context={
                 "News": BlogEintrag.objects.all().order_by('-id')[:5],
                 "UserLinks": GetMenu(request)
             })

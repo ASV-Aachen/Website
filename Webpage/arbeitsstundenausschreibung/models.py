@@ -12,13 +12,6 @@ class Boot(models.Model):
         return self.Name
 
 
-class Arbeitskategorie(models.Model):
-    Name = models.CharField(max_length=256)
-
-    def __str__(self):
-        return self.Name
-
-
 class Tag(models.Model):
     Name = models.CharField(max_length=256)
 
@@ -29,10 +22,9 @@ class Tag(models.Model):
 class Arbeitsstundenausschreibung(models.Model):
     Titel = models.CharField(max_length=512)
     Beschreibung = models.TextField()
-    Boote = models.ManyToManyField(Boot)
-    Kategorien = models.ManyToManyField(Arbeitskategorie)
+    Boote = models.ManyToManyField(Boot, blank=True)
     Tags = models.ManyToManyField(Tag, blank=True)
-    Verantwortlich = models.ManyToManyField(Profile)
+    Verantwortlich = models.ManyToManyField(Profile, blank=True)
 
     def __str__(self):
         return self.Titel
