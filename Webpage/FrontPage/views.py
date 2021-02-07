@@ -51,7 +51,7 @@ def MainPage(request):
             })
     else:    
         CurrentUser = request.user
-        return render(request, "FrontPage.html", context={
+        return render(request, "home.html", context={
                 "News": BlogEintrag.objects.all().order_by('-id')[:5],
                 "UserLinks": GetMenu(request)
             })
