@@ -16,28 +16,27 @@
     </div>
 </div>
   <nav class="navbar navbar-expand-md navbar-light bg-light">
-                  <a href="#" class="navbar-brand"></a>
-                      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-
-                      <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <div class="navbar-nav ml-auto">
-                          <a class="nav-item nav-link active" href="{% url 'login' %}">Logintest - Der Verein</a>
-                          <a class="nav-item nav-link" href="{% url 'unfertig' %}">Schiffe und Jollen</a>
-                          <a class="nav-item nav-link" href="{% url 'unfertig' %}">Ausbildung</a>
-                          <a class="nav-item nav-link" href="{% url 'unfertig' %}">Kontakt</a>
-                          <a class="nav-item nav-link" href="{% url 'unfertig' %}">Termine</a>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Mein ASV
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            {% for Links in UserLinks %}
-                                <a class="dropdown-item" href="{{ Links.link }}">{{ Links.Name }} </a>
-                            {% endfor %}
-                            </div>
-                        </div>
-                      </div>
-                    </nav>
+    <a href="#" class="navbar-brand"></a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link active" href="{% url 'unfertig' %}">Der Verein</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Schiffe und Jollen</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Ausbildung</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Kontakt</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Termine</a>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Mein ASV
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for Links in UserLinks %}
+          <a class="dropdown-item" href="{{ Links.link }}">{{ Links.Name }} </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </nav>
