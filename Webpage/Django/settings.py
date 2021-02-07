@@ -139,13 +139,11 @@ STATICFILES_DIRS = (
 
 # FORCE_SCRIPT_NAME = "/webpage/"
 
+MEDIA_ROOT = "/media/"
+MEDIA_URL = "/media/"
 
-# Settings for the Editor
-CKEDITOR_SETTINGS = {
-    'language': '{{ language }}',
-    'toolbar': 'CMS',
-    'skin': 'moono-lisa',
-}
+FILEBROWSER_DIRECTORY = ""
+
 
 SITE_ID = 2
 
