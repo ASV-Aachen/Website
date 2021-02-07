@@ -156,31 +156,28 @@ def NeueNews(request):
 
 # Kleine Debug Test Seite: Zeigt an ob eine Person angemeldet ist und wenn ja, welche Permissions und Gruppen der Nutzer hat.
 # Wird nur im Debug Modus gezeigt.
-def UserTest(request):
-    if (settings.DEBUG):            
-        Text = ""
-        if request.user.is_authenticated:
-            Text = "<h1>Angemeldet!</h1> \n"
-            user = request.user
-            Text += (user.get_username())
-            Text += ("<br>")
-            Text += user.email
-            Text += ("<br>")
+def UserTest(request):       
+    Text = ""
+    if request.user.is_authenticated:
+        Text = "<h1>Angemeldet!</h1> \n"
+        user = request.user
+        Text += (user.get_username())
+        Text += ("<br>")
+        Text += user.email
+        Text += ("<br>")
 
-            perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(user=user)]
-            l_as_list = list(user.groups.values_list('name',flat = True))
+        perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(user=user)]
+        l_as_list = list(user.groups.values_list('name',flat = True))
 
-            Text += ("Groups: " +  ' - '.join(str(e) for e in l_as_list))
-            Text += ("<br>Permissions: " + ' - '.join(str(e) for e in perm_tuple))
+        Text += ("Groups: " +  ' - '.join(str(e) for e in l_as_list))
+        Text += ("<br>Permissions: " + ' - '.join(str(e) for e in perm_tuple))
 
-            Text += ("<br>")
+        Text += ("<br>")
 
-            roles = user
+        roles = user
 
-            
-            pass
-        else:
-            Text = "<h1>Nicht angemeldet!</h1> \n"
-        return HttpResponse(Text)
+        
+        pass
     else:
-        return redirect('ASV')
+        Text = "<h1>Nicht angemeldet!</h1> \n"
+    return HttpResponse(Text)
