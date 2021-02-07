@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'FrontPage',
     'Mitglieder',
+    'arbeitsstundenausschreibung'
     # 'django.contrib.sites',
 ]
 
