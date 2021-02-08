@@ -13,7 +13,24 @@ Beim ersten Start vom Keycloak müssen einige Einstellungen angepasst werden:
 
 #### Verbindung zum SSO
 1. Unter Clients -> Website -> Credentials muss ein neues Secret erstellt werden (Button rechts daneben)
-1. Secret kopieren und in der Docker-Compose unter __OIDC_RP_CLIENT_SECRET__ eintragen.
+1. `docker-compose.override.yml` Datei erstellen und folgenden Inhalt dort hinein kopieren:
+```
+version: '3.7'
+
+services:  
+  webpage:
+    environment: 
+      # Einstellungen für die Verbindung zum Keycloak
+      # Host muss in der Form "http://HOSTNAME:PORT" gesetzt werden. 
+      # ACHTUNG, kein Localhost. Im Zweifel den Namen des Computers im Netzwerk nutzen. 
+      Host: http://192.168.0.XXX:11100
+      ALLOWED_HOSTS: "192.168.0.XXX"
+
+      # Einstellung für den Client im Keycloak. 
+      OIDC_RP_CLIENT_SECRET: 'xxx-xxx-x-xx'
+
+```
+1. Secret kopieren und in dieser Docker-Compose Datei unter __OIDC_RP_CLIENT_SECRET__ eintragen.
 1. __Host__ und __ALLOWED_HOSTS__ in der Docker-Compose eintragen.
 1. Website neu starten
 #### Admin
