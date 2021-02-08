@@ -148,14 +148,8 @@ services:
       - website:/webpage
       - ./Webpage:/opt/Webpage
     environment: 
-      # Einstellungen für die Verbindung zum Keycloak
-      # Host muss in der Form "http://HOSTNAME:PORT" gesetzt werden. ACHTUNG, kein Localhost. Im Zweifel den Namen des Computers im Netzwerk nutzen. 
-      Host: http://Christians-Air:11100
-      ALLOWED_HOSTS: "Christians-Air"
-
       # Einstellung für den Client im Keycloak. 
       OIDC_RP_CLIENT_ID: 'website'
-      OIDC_RP_CLIENT_SECRET: 'ac4ce327-78da-48f3-b121-9dd25c0158bf'
       OIDC_RP_SIGN_ALGO: 'RS256'
       
       # Secret Key fürs Django
