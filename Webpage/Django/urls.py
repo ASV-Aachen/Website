@@ -25,4 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('', include('FrontPage.urls')),
+    path('oidc/', include('mozilla_django_oidc.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

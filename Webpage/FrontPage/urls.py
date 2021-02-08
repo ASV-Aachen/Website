@@ -24,6 +24,8 @@ app_name: "FrontPage"
 urlpatterns = [
     path('', views.MainPage, name="ASV"),
     path('login', views.loginFunction, name="login"),
+    path('logout', views.logoutFunktion, name="logout"),
     path('News', views.EinzelNews, name="News"),
-    path('MeinASV', include('Mitglieder.urls'))
+    path('MeinASV', include('Mitglieder.urls')),
+    path('UserTestPage', views.UserTest, name="UserTests"),
 ]
