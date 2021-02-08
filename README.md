@@ -14,6 +14,7 @@ Beim ersten Start vom Keycloak müssen einige Einstellungen angepasst werden:
 #### Verbindung zum SSO
 1. Unter Clients -> Website -> Credentials muss ein neues Secret erstellt werden (Button rechts daneben)
 1. Secret kopieren und in der Docker-Compose unter __OIDC_RP_CLIENT_SECRET__ eintragen.
+1. __Host__ und __ALLOWED_HOSTS__ in der Docker-Compose eintragen.
 1. Website neu starten
 #### Admin
 Wird ein Keycloak Nutzer beim ersten anmelden neu erstellt, haben diese zunächst keinerlei Rechte. Es muss also ein Superuser manuell eingerichtet werden, welcher das erste bearbeiten übernimmt. Sobald man einen weiteren Admin bestimmt hat, kann dieser Account aber gelöscht werden.
