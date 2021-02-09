@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+import os
 
 class Position(models.Model):
     Titel = models.CharField(max_length=70, null=False, primary_key=True)
@@ -13,22 +13,23 @@ class Status(models.Model):
     primary_key=True)
     Beschreibung = models.TextField()
 # ---------------------------------------------------------------
-
+# Finde den Path zum Bild
+def get_image_path(instance, filename):
+    return os.path.join('photos', str(instance.id), filename)
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    Heimatstadt = models.CharField(max_length=45)
+    
+    Heimatstadt = models.CharField(max_length=100)
     PLZ = models.IntegerField()
     Land = models.CharField(max_length=70)
-    # Bild (TODO)
+    
+    profile_image = models.ImageField(upload_to=get_image_path, blank=True, null=True)
+
     PositionImVerein = models.ManyToManyField(Position, through="PositionImVerein")
     Status = models.ForeignKey(Status, null=False, on_delete=models.RESTRICT)
     Eintrittsdatum = models.DateField()
     # Konto Gehört zur Bierkasse #23 (TODO)
-    EMail = models.EmailField(null=False)
     HandyNummer = models.CharField(max_length=100)
-
-
-    # Darfbearbeiten = models.BooleanField()
 
 # Receiver Funktionen zum einarbeiten der neuen USER
 @receiver(post_save, sender=Profile)
