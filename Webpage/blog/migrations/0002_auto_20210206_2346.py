@@ -8,7 +8,7 @@ import tinymce.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('FrontPage', '0001_initial'),
+        ('blog', '0001_initial'),
     ]
 
     operations = [

@@ -45,19 +45,19 @@ class Migration(migrations.Migration):
                 ('Eintrittsdatum', models.DateField()),
                 ('EMail', models.EmailField(max_length=254)),
                 ('HandyNummer', models.CharField(max_length=100)),
-                ('PositionImVerein', models.ManyToManyField(through='Mitglieder.PositionImVerein', to='Mitglieder.Position')),
-                ('Status', models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to='Mitglieder.status')),
+                ('PositionImVerein', models.ManyToManyField(through='member.PositionImVerein', to='member.Position')),
+                ('Status', models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to='member.Status')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(
             model_name='positionimverein',
             name='Mitglied',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Mitglieder.profile'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='member.profile'),
         ),
         migrations.AddField(
             model_name='positionimverein',
             name='Position',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Mitglieder.position'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='member.position'),
         ),
     ]

@@ -1,0 +1,43 @@
+<!--FrontPage/templates/HeadAndToes.html-->
+<!doctype html>
+{% load static %}
+
+
+<div class="py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1">
+          <a href="{% url 'ASV' %}">
+            <img src="{% static 'Bilder/standert.png' %}" style="width: 60%;">
+          </a>  
+        </div>
+        <div class="col-4 text-center">
+            <a class="header-logo text-dark" href="{% url 'ASV' %}">ASV Aachen</a>
+        <!--<div class="col-4 d-flex justify-content-end align-items-center">
+     </div>-->
+    </div>
+</div>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a href="#" class="navbar-brand"></a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link active" href="{% url 'unfertig' %}">Der Verein</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Schiffe und Jollen</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Ausbildung</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Kontakt</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Termine</a>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Mein ASV
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for Links in UserLinks %}
+          <a class="dropdown-item" href="{{ Links.link }}">{{ Links.Name }} </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </nav>

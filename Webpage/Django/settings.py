@@ -57,20 +57,21 @@ LOGOUT_REDIRECT_URL = Host + "/auth/realms/ASV/protocol/openid-connect/logout?re
 
 # Application definition
 INSTALLED_APPS = [
-    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tinymce',
     # 'django.contrib.sites',
 
     # ASV-Apps
-    'FrontPage',
-    'Mitglieder',
+    'web',
+    'blog',
+    'member',
     'mozilla_django_oidc',
+    'tinymce',
+    'filebrowser',
 ]
 
 
@@ -97,7 +98,7 @@ ROOT_URLCONF = 'Django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

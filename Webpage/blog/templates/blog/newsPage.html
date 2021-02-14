@@ -22,11 +22,11 @@
             {% include "HeadAndToes.html" with UserLinks=UserLinks%}
 </div>
         <div class="container">
-            <h1>{{% News.Titel %}}</h1>
-            <small>{{% News.Date %}}</small>
+            <h1>{{ New.Titel }}</h1>
+            <small>{{ New.Date }}</small>
             <hr/>
             <dl> 
-                {{% News.Artikel %}}
+                {{ New.Artikel }}
 </dl>
         </div>
         <script src="assets/js/jquery.min.js"></script>

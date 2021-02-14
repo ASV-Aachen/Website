@@ -14,13 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.urls import path
+from django.urls import path, include
 from . import views
 
-app_name: "Mitglieder"
+app_name: "web"
+
+# TODO: Mein ASV sollte natürlich der interne Bereich sein, Mitglieder muss noch umgesetzt werden
 
 urlpatterns = [
-    path('Mitgliederverzeichnis', views.Migliederverzeichnis, name="Mitgliedererzeichnis"),
-    path('User', views.EinzelNutzer, name="User"),
-    path('Einstellungen', views.Einstellungen, name="Einstellungen")
+    path('', views.MainPage, name="ASV"),
+    path('login', views.loginFunction, name="login"),
+    path('logout', views.logoutFunktion, name="logout"),
+    #path('MeinASV', include('Mitglieder.urls')),
+    path('UserTestPage', views.UserTest, name="UserTests"),
+    path('unfertig', views.unfertig, name='unfertig'),
 ]
