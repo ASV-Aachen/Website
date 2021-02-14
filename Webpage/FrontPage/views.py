@@ -12,7 +12,7 @@ def GetMenu(request):
             "link":"#",
             "Name":"Mein ASV"
         },{
-            "link":"/arbeitsstundenausschreibung",
+            "link":"/arbeitsstunden",
             "Name":"Arbeitsstundenausschreibung"
         },{
             "link":"/wiki",

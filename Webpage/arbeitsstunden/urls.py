@@ -17,7 +17,7 @@ Including another URLconf
 from django.urls import path, include
 from . import views
 
-app_name: "arbeitsstundenausschreibung"
+app_name: "arbeitsstunden"
 
 
 urlpatterns = [
