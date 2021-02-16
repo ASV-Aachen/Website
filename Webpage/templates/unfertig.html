@@ -1,0 +1,10 @@
+<!--web/template/web/unfertig.html-->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    {% block message_inside %}
+        <p>Dieser Programmteil ist leider noch nicht fertig!</p>
+        <a href="{% url 'ASV' %}">Zurück zur Homepage</a>
+    {% endblock message_inside %}
+{% endblock content %}

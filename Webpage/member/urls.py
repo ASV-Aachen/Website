@@ -13,19 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
-from filebrowser.sites import site
 
+from django.urls import path
+from . import views
+
+app_name: "member"
 
 urlpatterns = [
-    path('', include('web.urls')),
-    path('admin/', admin.site.urls),
-    path('news/', include('blog.urls')),
-    path('mitglieder/', include('member.urls')),
-    path('admin/filebrowser/', site.urls),
-    path('tinymce/', include('tinymce.urls')),
-    path('oidc/', include('mozilla_django_oidc.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', views.index, name="MeinASV"),
+    path('Mitgliederverzeichnis', views.Migliederverzeichnis, name="Mitgliedererzeichnis"),
+    path('User', views.EinzelNutzer, name="User"),
+    path('Einstellungen', views.Einstellungen, name="Einstellungen")
+]
