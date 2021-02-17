@@ -5,8 +5,16 @@
 
 {% block content %}
   <h1>Mein ASV</h1>
-  <h2>Dashboard</h2>
-    {% for Profil in Personen%}
-        Test: {{Profil.user.first_name}}
-    {% endfor%}
+  <h2>Mitgliederverzeichnis</h2>
+  
+  <div id="Verzeichnis">
+        {% for Profil in Personen%}
+            <img src="{{Profil.profile_image.url}}">         
+            <div id="Name"> {{Profil.user.first_name}} {{Profil.user.last_name}} </div>
+            <div id="Status"> {{Profil.get_Status_display}} </div>
+            <br>
+            <div id="Gruppen">  </div>
+        {% endfor%}
+  </div>
+    
  {% endblock %}
