@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<title>{% block title %} Mein ASV - Mitgliederverzeichnis {% endblock %}</title>
+
+
+{% block content %}
+  <h1>Mein ASV</h1>
+  <h2>Dashboard</h2>
+    {% for Profil in Personen%}
+        Test: {{Profil.user.first_name}}
+    {% endfor%}
+ {% endblock %}
