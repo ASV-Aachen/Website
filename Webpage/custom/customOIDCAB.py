@@ -4,8 +4,21 @@ from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 import logging
 from member.models import Profile, Status, PositionImVerein
 import datetime
+from django.contrib.auth.models import Group, Permission
 
 #{'sub': '03c991c1-c6cc-4af7-8092-bb6d794e3ec2', 'email_verified': True, 'name': 'christian baltzer', 'preferred_username': 'chris', 'given_name': 'christian', 'family_name': 'baltzer', 'email': 'christian@baltzer.de'}
+
+def updateGroupandRole(user, claims):
+    # Gruppen laden
+    user.groups.clear()
+    for i in claims.get('groups'):
+        NewGroup, created = Group.objects.get_or_create(name = i)
+        # NewGroup.save()
+        user.groups.add(NewGroup)
+        pass
+
+    return user
+    pass
 
 class MyOIDCAB(OIDCAuthenticationBackend):
     def create_user(self, claims):
@@ -20,8 +33,10 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         user.username = claims.get('preferred_username', '')
 
         user.email = claims.get('email', '')
-        
+ 
         user.save()
+
+        user = updateGroupandRole(user, claims)
         
         profile = Profile(user=user, Status = 1,Eintrittsdatum=datetime.date(1997, 10, 19))
         profile.save()
@@ -35,6 +50,8 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         user.last_name = claims.get('family_name', '')
 
         user.email = claims.get('email', '')
+        
+        user = updateGroupandRole(user, claims)
         
         user.save()
 
