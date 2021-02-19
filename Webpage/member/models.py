@@ -42,6 +42,9 @@ class Profile(models.Model):
     Eintrittsdatum = models.DateField()
     # Konto Gehört zur Bierkasse #23 (TODO)
     HandyNummer = models.CharField(max_length=100, null=True, default='0000000')
+
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name
     
 
 
