@@ -34,7 +34,7 @@ class Profile(models.Model):
     PLZ = models.IntegerField(null=True, default=00000)
     Land = models.CharField(max_length=70, null=True, default='Germany')
     
-    profile_image = models.ImageField(upload_to=get_image_path, blank=True, null=True)
+    profile_image = models.ImageField(upload_to='profile', blank=True, null=True)
 
     PositionImVerein = models.ManyToManyField(Position, through="PositionImVerein")
     Status = models.PositiveSmallIntegerField(choices=Status, null=True, blank=True)
