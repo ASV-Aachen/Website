@@ -38,7 +38,7 @@ def Einstellungen(request):
         Profil = get_object_or_404(Profile, user=request.user)
 
         if request.method == "POST":
-            form = changePersonalInfo(request.POST, instance=Profil)
+            form = changePersonalInfo(request.POST, request.FILES, instance=Profil)
             
             if form.is_valid():
 
