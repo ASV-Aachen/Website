@@ -1,6 +1,9 @@
 #from django.contrib.auth import authenticate
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Profile
+from django.contrib.auth.models import User
+from .forms import changePersonalInfo
+
 
 # Create your views here.
 
@@ -32,23 +35,21 @@ def EinzelNutzer(request):
 # Bearbeiten
 def Einstellungen(request):
     if (request.user.is_authenticated):
-        if request.GET:
-            id = request.user.id
-            return render(request, template_name="member/Einstellungen.html", context={'News': Profile.objects.get(id=id)})
-        if request.POST:
-            id = request.user.id
-            AktuellerNutzer = Profile.objects.get(id=id)
+        Profil = get_object_or_404(Profile, user=request.user)
 
-            AktuellerNutzer.Heimatstadt = request.POST.get('Heimatstadt')
-            AktuellerNutzer.PLZ = request.POST.get("PLZ")
-            AktuellerNutzer.Land = request.POST.get("Land")
+        if request.method == "POST":
+            form = changePersonalInfo(request.POST, instance=Profil)
+            
+            if form.is_valid():
 
-            AktuellerNutzer.EMail = request.POST.get("EMail")
-            AktuellerNutzer.HandyNummer = request.POST.get("HandyNummer")
-            AktuellerNutzer.save()
+                form.save(commit=False)
+                form.instance.user_id = request.user.id
+                form.save()
 
-            return redirect("ASV")
-            pass
+                return redirect("ASV")
+        else:
+            form = changePersonalInfo(instance=Profil)
+        return render(request, "member/Einstellungen.html", {"form": form})
     else:
         return redirect("ASV")
 
