@@ -26,6 +26,13 @@ class Profile(models.Model):
     EMail = models.EmailField(null=False)
     HandyNummer = models.CharField(max_length=100)
 
+    @property
+    def Anzeigename(self):
+        return self.user.first_name + " " + self.user.last_name
+
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name
+
 
     # Darfbearbeiten = models.BooleanField()
 

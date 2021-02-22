@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">{{arbeitseinheit.Projekt}}</h3>
+    <h4>{{arbeitseinheit.Beschreibung}}</h4>
+
+    Gesamte Arbeitszeit: {{arbeitseinheit.Arbeitszeit}}h
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mitglied</th>
+                <th>Arbeitszeit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for arbeitsbeteiligung in arbeitseinheit.arbeitsbeteiligung_set.all %}
+                <tr>
+                    <td>{{arbeitsbeteiligung.Arbeitsleistender.Anzeigename}}</td>
+                    <td>{{arbeitsbeteiligung.Arbeitszeit}}h</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

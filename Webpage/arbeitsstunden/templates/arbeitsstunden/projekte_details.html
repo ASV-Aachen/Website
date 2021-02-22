@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">{{projekt.Saison.Jahr}} {{projekt.Name}}</h3>
+    <h4 class="mt-3 mb-3">Verantwortliche</h4>
+    {% for verantwortlicher in projekt.Verantwortlich.all %}
+        <a href="#" class="link">@{{ verantwortlicher.Anzeigename }}</a>
+    {% endfor %}
+    <h4 class="mt-3 mb-3">Beschreibung</h4>
+    <p>{{projekt.Beschreibung}}</p>
+    <p>Arbeitszeit: {{projekt.Arbeitszeit}}h</p>
+    <h4 class="mt-3 mb-3">Arbeitseinheiten</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Arbeitseinheit</th>
+                <th>Arbeitszeit</th>
+                <th>Mitglied</th>
+                <th>Ausschreibung</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for arbeitseinheit in arbeitseinheiten.all %}
+                <tr>
+                    <td><a href="{% url 'arbeitseinheit_details' pk=arbeitseinheit.id %}" class="btn btn-link">Details</a></td>
+                    <td>{{arbeitseinheit.Beschreibung}}</td>
+                    <td>{{arbeitseinheit.Arbeitszeit}}h</td>
+                    <td></td>
+                    <td>
+                        {% if arbeitseinheit.Ausschreibung %}
+                            <a href="{% url 'ausschreibung_edit' pk=arbeitseinheit.Ausschreibung.id %}"%}>Ausschreibung</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% for arbeitsbeteiligung in arbeitseinheit.arbeitsbeteiligung_set.all %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>{{arbeitsbeteiligung.Arbeitszeit}}h</td>
+                        <td>{{arbeitsbeteiligung.Arbeitsleistender.Anzeigename}}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

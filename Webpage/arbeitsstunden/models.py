@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from django.db import models
 
 # Create your models here.
@@ -23,6 +25,11 @@ class Projekt(models.Model):
     Beschreibung = models.TextField(blank=True)
     Verantwortlich = models.ManyToManyField(Profile)
 
+    @property
+    def Arbeitszeit(self):
+        arbeitseinheiten = Arbeitseinheit.objects.filter(Projekt=self)
+        return sum(arbeitseinheit.Arbeitszeit for arbeitseinheit in arbeitseinheiten)
+
     def __str__(self):
         return str(self.Saison) + ": " + self.Name
 
@@ -43,11 +50,22 @@ class Arbeitseinheit(models.Model):
     Projekt = models.ForeignKey(Projekt, on_delete=models.RESTRICT)
     Beschreibung = models.CharField(max_length=1024)
     Beteiligte = models.ManyToManyField(Profile, through="Arbeitsbeteiligung")
+    Datum = models.DateField()
     Ausschreibung = models.ForeignKey(Arbeitsstundenausschreibung, on_delete=models.SET_NULL, blank=True, null=True)
+
+    @property
+    def Arbeitszeit(self):
+        return sum(beteiligung.Arbeitszeit for beteiligung in self.Beteiligte.through.objects.all())
+
+    def __str__(self):
+        return str(self.Projekt) + ": " + self.Beschreibung
 
 
 class Arbeitsbeteiligung(models.Model):
     Arbeitseinheit = models.ForeignKey(Arbeitseinheit, on_delete=models.RESTRICT)
     Arbeitsleistender = models.ForeignKey(Profile, on_delete=models.RESTRICT)
     Arbeitszeit = models.FloatField()
+
+    def __str__(self):
+        return str(self.Arbeitsleistender) + ": " + str(self.Arbeitszeit) + "h bei " + str(self.Arbeitseinheit)
 
