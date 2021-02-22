@@ -38,11 +38,20 @@
 </head>
 
 <body class="${properties.kcBodyClass!}">
-## Hallo Welt ##
+## Henk's Testversion ##
 <div class="${properties.kcLoginClass!}">
     <div id="kc-header" class="${properties.kcHeaderClass!}">
         <div id="kc-header-wrapper"
-             class="${properties.kcHeaderWrapperClass!}">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</div>
+             class="${properties.kcHeaderWrapperClass!} row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1">
+                <img src="${url.resourcesPath}/img/standert.png" style="width: 60%;">
+            </div>
+            <div class="col-4 text-center">
+               ${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}
+            </div>
+        </div>
+    </div>
+</div>
     </div>
     <div class="${properties.kcFormCardClass!}">
         <header class="${properties.kcFormHeaderClass!}">
