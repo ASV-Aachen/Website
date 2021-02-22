@@ -14,36 +14,6 @@ import logging
 import os
 
 
-
-
-# Object for Header logged in and not logged in (name and url)
-def GetMenu(request):
-    if (request.user.is_authenticated):
-        Object = [{
-            "link":"/mitglieder",
-            "Name":"Mein ASV"
-        },{
-            "link":"/wiki",
-            "Name":"Wiki"
-        },{
-            "link":"/unfertig",
-            "Name":"Mitgliedererzeichnis"
-        },{
-            "link":"/unfertig",
-            "Name":"Einstellungen"
-        },{
-            "link":"/logout",
-            "Name":"logout"
-        }]
-    else:
-        Object = [{
-            "link":"/login",
-            "Name":"Login"
-        }]
-        pass
-    return Object
-
-
 # Frontpage (DONE)
 def MainPage(request):
     """
@@ -58,13 +28,11 @@ def MainPage(request):
         return render(request, "home.html", context={
                 "News": BlogEintrag.objects.all().order_by('-id')[:5],
                 "UserName": Name,
-                "UserLinks": GetMenu(request)
             })
     else:    
         CurrentUser = request.user
         return render(request, "home.html", context={
                 "News": BlogEintrag.objects.all().order_by('-id')[:5],
-                "UserLinks": GetMenu(request)
             })
 
 
