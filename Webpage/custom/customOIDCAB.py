@@ -36,7 +36,8 @@ class MyOIDCAB(OIDCAuthenticationBackend):
  
         user.save()
 
-        user = updateGroupandRole(user, claims)
+        try:
+            user = updateGroupandRole(user, claims)
         
         profile = Profile(user=user, Status = 1,Eintrittsdatum=datetime.date(1997, 10, 19))
         profile.save()
@@ -51,7 +52,8 @@ class MyOIDCAB(OIDCAuthenticationBackend):
 
         user.email = claims.get('email', '')
         
-        user = updateGroupandRole(user, claims)
+        try:
+            user = updateGroupandRole(user, claims)
         
         user.save()
 
