@@ -1,0 +1,54 @@
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+class Position(models.Model):
+    Titel = models.CharField(max_length=70, null=False, primary_key=True)
+    Beschreibung = models.TextField(null=True)
+# ---------------------------------------------------------------
+class Status(models.Model):
+    Titel = models.CharField(max_length=70, null=False, 
+    primary_key=True)
+    Beschreibung = models.TextField()
+# ---------------------------------------------------------------
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    Heimatstadt = models.CharField(max_length=45)
+    PLZ = models.IntegerField()
+    Land = models.CharField(max_length=70)
+    # Bild (TODO)
+    PositionImVerein = models.ManyToManyField(Position, through="PositionImVerein")
+    Status = models.ForeignKey(Status, null=False, on_delete=models.RESTRICT)
+    Eintrittsdatum = models.DateField()
+    # Konto Gehört zur Bierkasse #23 (TODO)
+    EMail = models.EmailField(null=False)
+    HandyNummer = models.CharField(max_length=100)
+
+    @property
+    def Anzeigename(self):
+        return self.user.first_name + " " + self.user.last_name
+
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name
+
+
+    # Darfbearbeiten = models.BooleanField()
+
+# Receiver Funktionen zum einarbeiten der neuen USER
+@receiver(post_save, sender=Profile)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=Profile)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+
+class PositionImVerein(models.Model):
+    ErnennungsDatum = models.DateField(null=False)
+    Position = models.ForeignKey(Position, on_delete=models.CASCADE)
+    Mitglied = models.ForeignKey(Profile, on_delete=models.CASCADE)

@@ -241,3 +241,11 @@ tags
 */.idea
 
 .idea/
+.vscode/
+docker-compose.override.yml
+henkstart.sh
+henkstop.sh
+henkclean.sh
+henkmigrate.sh
+henkmigrations.sh
+

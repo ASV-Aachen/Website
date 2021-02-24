@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 import crispy_forms
+import json
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +23,37 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['chrisubuntu', 'localhost', '192.168.2.5']
+Host = os.environ["Host"]
+ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
+
+
+# Conection to Keycloak as OIDC
+
+OIDC_RP_CLIENT_ID = os.environ["OIDC_RP_CLIENT_ID"]
+OIDC_RP_CLIENT_SECRET = os.environ["OIDC_RP_CLIENT_SECRET"]
+OIDC_RP_SIGN_ALGO = os.environ["OIDC_RP_SIGN_ALGO"]
+
+# OIDC_RP_IDP_SIGN_KEY = '-----BEGIN CERTIFICATE-----  -----END CERTIFICATE-----'
+
+OIDC_OP_JWKS_ENDPOINT = Host + '/sso/auth/realms/ASV/protocol/openid-connect/certs'
+OIDC_RP_SCOPES = 'openid email profile'
+
+OIDC_OP_AUTHORIZATION_ENDPOINT =    Host + '/sso/auth/realms/ASV/protocol/openid-connect/auth'
+OIDC_OP_TOKEN_ENDPOINT =            Host + '/sso/auth/realms/ASV/protocol/openid-connect/token'
+OIDC_OP_USER_ENDPOINT =             Host + '/sso/auth/realms/ASV/protocol/openid-connect/userinfo'
+
+
+# Provided by mozilla-django-oidc
+LOGIN_URL = reverse_lazy('oidc_authentication_callback')
+
+# App urls
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = Host + "/auth/realms/ASV/protocol/openid-connect/logout?redirect_uri=" + Host
 
 
 # Application definition
@@ -42,7 +69,23 @@ INSTALLED_APPS = [
     'Mitglieder',
     'arbeitsstunden'
     # 'django.contrib.sites',
+
+    # ASV-Apps
+    'web',
+    'blog',
+    'member',
+    'mozilla_django_oidc',
+    'tinymce',
+    'filebrowser',
 ]
+
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'custom.customOIDCAB.MyOIDCAB',
+    'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+)
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
@@ -54,6 +97,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'mozilla_django_oidc.middleware.SessionRefresh',
 ]
 
 ROOT_URLCONF = 'Django.urls'
@@ -61,7 +105,7 @@ ROOT_URLCONF = 'Django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,13 +126,13 @@ WSGI_APPLICATION = 'Django.wsgi.application'
 
 DATABASES = {
     'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'websiteDB',
-            'USER': 'website',
-            'PASSWORD': 'my-secret-pw',
-            'HOST': 'db',   # Or an IP Address that your DB is hosted on
-            'PORT': 3306,
-        }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'websiteDB',
+        'USER': 'website',
+        'PASSWORD': 'my-secret-pw',
+        'HOST': 'db',   # Or an IP Address that your DB is hosted on
+        'PORT': 3306,
+    }
 }
 
 
@@ -140,12 +184,29 @@ STATICFILES_DIRS = (
 
 # FORCE_SCRIPT_NAME = "/webpage/"
 
+MEDIA_ROOT = "/media/"
+MEDIA_URL = "/media/"
 
-# Settings for the Editor
-CKEDITOR_SETTINGS = {
-    'language': '{{ language }}',
-    'toolbar': 'CMS',
-    'skin': 'moono-lisa',
-}
+FILEBROWSER_DIRECTORY = ""
+
 
 SITE_ID = 2
+
+
+"""TinyMCE"""
+
+TINYMCE_DEFAULT_CONFIG = {
+    "height": "320px",
+    "width": "960px",
+    "menubar": "file edit view insert format tools table help",
+    "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
+        "fullscreen insertdatetime media table paste code help wordcount spellchecker",
+    "toolbar": "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
+        "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor "
+        "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | "
+        "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | "
+        "a11ycheck ltr rtl | showcomments addcomment code",
+    "custom_undo_redo_levels": 10,
+}
+TINYMCE_SPELLCHECKER = False    # TODO: Prüfen ob Schreibprüfung implementiert werden kann.
+TINYMCE_COMPRESSOR = True

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="pb-3 mb-4 font-italic border-bottom">Neues aus dem Verein</h3>
+
+<div class="container">
+            <div class="row">
+                {% for New in News %}
+                <div class="container">
+                    <h1>{{ New.Titel }}</h1>
+                    <small>{{ New.Date }} by {{ New.Autor }}</small>
+                    <hr/>
+                    <dl> 
+                        {{ New.Artikel }}
+                    </dl>
+                </div>
+                {% endfor %}
+            </div>
+</div>
+{% endblock content %}
+

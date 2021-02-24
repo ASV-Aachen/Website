@@ -13,21 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
-from filebrowser.sites import site
 
+from django.urls import path, include
+from . import views
+
+app_name: "blog"
+
+# TODO: Mein ASV sollte natürlich der interne Bereich sein, Mitglieder muss noch umgesetzt werden
 
 urlpatterns = [
-    path('', include('web.urls')),
-    path('admin/', admin.site.urls),
-    path('', include('FrontPage.urls')),
-    path('arbeitsstunden', include('arbeitsstunden.urls')),
-    path('news/', include('blog.urls')),
-    path('mitglieder/', include('member.urls')),
-    path('admin/filebrowser/', site.urls),
-    path('tinymce/', include('tinymce.urls')),
-    path('oidc/', include('mozilla_django_oidc.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', views.News, name="news"),
+    path('frontpage/', views.NewsforFrontPage, name="newsforfrontpage"),
+    path('add/', views.AddNews, name="addnews"),
+]
