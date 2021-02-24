@@ -56,4 +56,11 @@ Der Quellcode-Ordner `Webpage` wird als Volume in den Webpage-Container eingebun
 
 Mehr zu Migrationen steht hier: https://docs.djangoproject.com/en/3.1/topics/migrations/
 
+### Namenskonventionen für Apps, Modelle Variablen etc. 
+* Alle Begriffe im Backend für Apps, Variablen Modelle etc. werden in englisch ohne Großbuchstaben beschrieben.
+* Alle für den User sichtbare Begriffe im Frontend wie Links, Menüepunkte etc. werden in deutsch, die urls ohne Großbuchstaben, definiert.
+
+
+
+
 
