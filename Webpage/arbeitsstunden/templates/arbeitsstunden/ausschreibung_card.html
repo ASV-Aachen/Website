@@ -15,6 +15,11 @@
                 <i class="bi bi-clock"></i> {{ausschreibung.Umfang}}
             </p>
         {% endif %}
+        {% if ausschreibung.Fertigstellungstermin %}
+            <p class="card-text">
+                <i class="bi bi-calendar-check"></i> {{ausschreibung.Fertigstellungstermin|date:"d.m.Y"}}
+            </p>
+        {% endif %}
         {% for profil in ausschreibung.Projekt.Verantwortlich.all %}
             <p><a href="#" class="card-link">@{{ profil.user.first_name }} {{ profil.user.last_name }}</a></p>
         {% endfor %}
