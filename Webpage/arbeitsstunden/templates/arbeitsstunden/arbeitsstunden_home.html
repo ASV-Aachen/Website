@@ -22,7 +22,7 @@
                 <th>Datum</th>
                 <th>Arbeitszeit (in h)</th>
                 <th>Projekt</th>
-                <th>Beschreibung</th>
+                <th>Arbeitseinheit</th>
             </tr>
         </thead>
         <tbody>
@@ -30,8 +30,8 @@
                 <tr>
                     <td>{{beteiligung.Arbeitseinheit.Datum|date:"d.m.Y"}}</td>
                     <td>{{beteiligung.Arbeitszeit}}</td>
-                    <td>{{beteiligung.Arbeitseinheit.Projekt.Name}}</td>
-                    <td>{{beteiligung.Arbeitseinheit.Beschreibung}}</td>
+                    <td><a href="{% url 'projekte_detail' pk=beteiligung.Arbeitseinheit.Projekt.id %}">{{beteiligung.Arbeitseinheit.Projekt.Name}}</a></td>
+                    <td><a href="{% url 'arbeitseinheit_details' pk=beteiligung.Arbeitseinheit.id %}">{{beteiligung.Arbeitseinheit.Beschreibung}}</a></td>
                 </tr>
             {% endfor %}
         </tbody>

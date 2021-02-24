@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">{{arbeitseinheit.Projekt.Saison}}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'projekte_detail' pk=arbeitseinheit.Projekt.id %}">{{arbeitseinheit.Projekt.Name}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{arbeitseinheit.Beschreibung}}</li>
+      </ol>
+    </nav>
+
     <h3 class="pb-3 mb-4 font-italic border-bottom">{{arbeitseinheit.Projekt}}</h3>
     <h4>{{arbeitseinheit.Beschreibung}}</h4>
 

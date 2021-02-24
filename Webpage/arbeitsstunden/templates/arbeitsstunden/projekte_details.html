@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">{{projekt.Saison}}</a></li>
+        <li class="breadcrumb-item active">{{projekt.Name}}</li>
+      </ol>
+    </nav>
+
     <h3 class="pb-3 mb-4 font-italic border-bottom">{{projekt.Saison}}: {{projekt.Name}}</h3>
     <h4 class="mt-3 mb-3">Verantwortliche</h4>
     {% for verantwortlicher in projekt.Verantwortlich.all %}
