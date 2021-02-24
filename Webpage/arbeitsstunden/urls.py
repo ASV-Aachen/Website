@@ -23,6 +23,7 @@ app_name: "arbeitsstunden"
 urlpatterns = [
     path('/', views.arbeitsstunden_home, name="arbeitsstunden_home"),
     path('/ausschreibungen', views.ausschreibungen_overview, name="ausschreibungen_overview"),
+    path('/ausschreibungen/<int:pk>', views.ausschreibung_details, name="ausschreibung_details"),
     path('ausschreibungen/new', views.createNewAusschreibung, name="ausschreibung_new"),
     path('ausschreibungen/edit/<int:pk>', views.editAusschreibung, name='ausschreibung_edit'),
     path('ausschreibungen/delete/<int:pk>', views.deleteAusschreibung, name='ausschreibung_delete'),

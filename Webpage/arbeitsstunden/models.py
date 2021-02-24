@@ -55,7 +55,7 @@ class Arbeitseinheit(models.Model):
 
     @property
     def Arbeitszeit(self):
-        return sum(beteiligung.Arbeitszeit for beteiligung in self.Beteiligte.through.objects.all())
+        return sum(beteiligung.Arbeitszeit for beteiligung in Arbeitsbeteiligung.objects.filter(Arbeitseinheit_id=self.id))
 
     def __str__(self):
         return str(self.Projekt) + ": " + self.Beschreibung

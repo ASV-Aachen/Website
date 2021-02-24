@@ -10,10 +10,17 @@
                 <span class="badge badge-info">{{ tag.Name }}</span>
             {% endfor %}
         </p>
+        {% if ausschreibung.Umfang %}
+            <p class="card-text">
+                <i class="bi bi-clock"></i> {{ausschreibung.Umfang}}
+            </p>
+        {% endif %}
         {% for profil in ausschreibung.Projekt.Verantwortlich.all %}
             <p><a href="#" class="card-link">@{{ profil.user.first_name }} {{ profil.user.last_name }}</a></p>
         {% endfor %}
-        <!--<a href="#" class="card-link">Details ansehen</a>//-->
-        <a href="{% url 'ausschreibung_edit' pk=ausschreibung.pk %}" class="card-link">Bearbeiten</a>
+        {% if not disable_details_button %}
+            <p><a href="{% url 'ausschreibung_details' pk=ausschreibung.pk %}" class="card-link">Details ansehen</a></p>
+        {% endif %}
+        <p><a href="{% url 'ausschreibung_edit' pk=ausschreibung.pk %}" class="card-link">Bearbeiten</a></p>
     </div>
 </div>

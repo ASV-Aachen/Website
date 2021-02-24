@@ -1,5 +1,7 @@
 from functools import reduce
 
+from django.db.models import F
+from django.db.models.functions import Coalesce
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
@@ -19,18 +21,27 @@ def arbeitsstunden_home(request):
     user = request.user
     profile = Profile.objects.get(user=user)
     aktuelle_saison = get_aktuelle_saison()
-    beteiligungen_aktuelle_saison = Arbeitsbeteiligung.objects.filter(Arbeitsleistender=profile,
-                                                                      Arbeitseinheit__Projekt__Saison__Jahr=aktuelle_saison.Jahr)
+    beteiligungen_aktuelle_saison = Arbeitsbeteiligung.objects.\
+            filter(Arbeitsleistender=profile, Arbeitseinheit__Projekt__Saison__Jahr=aktuelle_saison.Jahr).\
+            order_by(F("Arbeitseinheit__Datum").desc())
 
     geleistete_stunden = sum(beteiligung.Arbeitszeit for beteiligung in beteiligungen_aktuelle_saison)
     soll_arbeitsstunden = 40
-    anteil_arbeitsstunden_erledigt_prozent = int((geleistete_stunden / soll_arbeitsstunden) * 100)
+    anteil_arbeitsstunden_erledigt_prozent = min(100, int((geleistete_stunden / soll_arbeitsstunden) * 100))
 
     return render(request, "arbeitsstunden/arbeitsstunden_home.html", context={
         "beteiligungen": beteiligungen_aktuelle_saison,
         "geleisteteArbeitsstunden": geleistete_stunden,
         "soll_arbeitsstunden": soll_arbeitsstunden,
         "anteil_arbeitsstunden_erledigt_prozent": anteil_arbeitsstunden_erledigt_prozent
+    })
+
+def ausschreibung_details(request, pk):
+    check_authentication_redirect_if_fails(request)
+
+    ausschreibung = get_object_or_404(Arbeitsstundenausschreibung, pk=pk)
+    return render(request, "arbeitsstunden/ausschreibung_details.html", context={
+        "ausschreibung": ausschreibung
     })
 
 
@@ -49,6 +60,7 @@ def projekte_overview(request):
     return render(request, "arbeitsstunden/projekte_overview.html", context={
         "projekte": projekte
     })
+
 
 def projekte_detail(request, pk):
     check_authentication_redirect_if_fails(request)

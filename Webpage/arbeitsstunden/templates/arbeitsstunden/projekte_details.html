@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h3 class="pb-3 mb-4 font-italic border-bottom">{{projekt.Saison.Jahr}} {{projekt.Name}}</h3>
+    <h3 class="pb-3 mb-4 font-italic border-bottom">{{projekt.Saison}}: {{projekt.Name}}</h3>
     <h4 class="mt-3 mb-3">Verantwortliche</h4>
     {% for verantwortlicher in projekt.Verantwortlich.all %}
         <a href="#" class="link">@{{ verantwortlicher.Anzeigename }}</a>
@@ -23,7 +23,7 @@
         <tbody>
             {% for arbeitseinheit in arbeitseinheiten.all %}
                 <tr>
-                    <td><a href="{% url 'arbeitseinheit_details' pk=arbeitseinheit.id %}" class="btn btn-link">Details</a></td>
+                    <td><a href="{% url 'arbeitseinheit_details' pk=arbeitseinheit.id %}"><i class="bi bi-arrow-right-circle-fill"></i></a></td>
                     <td>{{arbeitseinheit.Beschreibung}}</td>
                     <td>{{arbeitseinheit.Arbeitszeit}}h</td>
                     <td></td>

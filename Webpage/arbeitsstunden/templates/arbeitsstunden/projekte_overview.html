@@ -18,7 +18,7 @@
             <tbody>
                 {% for projekt in saison_projekte.projekte %}
                     <tr>
-                        <td><a href="{% url 'projekte_detail' pk=projekt.id %}" class="btn btn-link">Details</a></td>
+                        <td><a href="{% url 'projekte_detail' pk=projekt.id %}"><i class="bi bi-arrow-right-circle-fill"></i></a></td>
                         <td>{{projekt.Name}}</td>
                         <td>{{projekt.Beschreibung|truncatechars:50}}</td>
                         <td>{{projekt.Arbeitszeit}}</td>
