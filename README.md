@@ -6,7 +6,7 @@ Repo für die Website des ASV Aachen
 Beim ersten Start vom Keycloak müssen einige Einstellungen angepasst werden:
 1. Keycloak Admin Console unter "/sso/auth" öffnen und mit den Zugangsdaten für den Admin aus der Docker-Compose einloggen.
 1. der Realm ASV sollte bereits geladen sein. Falls nicht muss die Realm.json Datei importiert werden (unten links gibt es einen Import Button), die entsprechende Datei liegt unter initfiles/sso/realms.json. 
-1. Unter User muss ein erster Nutzer angelegt werden. 
+1. Unter User muss ein erster Nutzer angelegt werden. Auch wenn nur das Feld "Username" als required markiert ist sind "Email" und "Password" (unter Credentials) erforderlich.  
 1. Keycloak ist fertig eingerichtet. Zum Testen kann man sich unter "/login" anmelden. Der Django User wird dabei beim ersten Anmelden automatisch erstellt. 
 
 ### Website
