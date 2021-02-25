@@ -38,11 +38,19 @@
 </head>
 
 <body class="${properties.kcBodyClass!}">
-## Hallo Welt ##
-<div class="${properties.kcLoginClass!}">
+  <div class="${properties.kcLoginClass!}">
     <div id="kc-header" class="${properties.kcHeaderClass!}">
         <div id="kc-header-wrapper"
-             class="${properties.kcHeaderWrapperClass!}">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</div>
+            class="${properties.kcHeaderWrapperClass!}">
+            <div class="col-4 pt-1">
+                <a href="{% url 'ASV' %}">
+                    <img src="${url.resourcesPath}/img/standert.png" style="width: 60%;">
+                </a>  
+            </div>
+            <div class="col-4 text-center text-dark">
+                ${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}
+            </div>
+        </div>
     </div>
     <div class="${properties.kcFormCardClass!}">
         <header class="${properties.kcFormHeaderClass!}">

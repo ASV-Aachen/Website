@@ -1,5 +1,21 @@
+body {
+    display: flex;
+    flex-flow: row wrap;
+    padding-left: 0em;
+    padding-top: 0em;
+    margin: 0em;
+    background: white url("../img/AGIV.jpg") no-repeat center fixed;
+    font-family: Arial, sans-serif;
+ 
+ }
+ 
+
+
+
 .login-pf body {
-    background: url("../img/AGIV.jpg") no-repeat center center fixed;
+    /*background: url("../img/AGIV.jpg") no-repeat center center fixed;*/
+    /*background: white url("..img//background.gif") repeat;*/
+
     background-size: cover;
     height: 100%;
 }
