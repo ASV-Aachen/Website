@@ -2,7 +2,7 @@
 from django.contrib.auth.models import User
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 import logging
-from member.models import Profile, Status, PositionImVerein
+from member.models import profile, position_in_the_club
 import datetime
 from django.contrib.auth.models import Group, Permission
 
@@ -42,7 +42,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
             pass
         
 
-        profile = Profile(user=user, Status = 1,Eintrittsdatum=datetime.date(1997, 10, 19))
+        profile = profile(user=user, Status = 1,Eintrittsdatum=datetime.date(1997, 10, 19))
         profile.save()
 
         # user.save()
