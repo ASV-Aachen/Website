@@ -14,3 +14,4 @@ django-tinymce4-lite
 django-filebrowser-no-grappelli
 Pillow
 social-auth-app-django
+django-phonenumber-field[phonenumbers]

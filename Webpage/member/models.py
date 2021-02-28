@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import os
+from phonenumber_field.modelfields import PhoneNumberField
 
 class Position(models.Model):
     titel = models.CharField(max_length=70, null=False, primary_key=True)
@@ -36,7 +37,10 @@ class profile(models.Model):
     
     entry_date = models.DateField()
     # Konto Gehört zur Bierkasse #23 (TODO)
-    phone_number = models.CharField(max_length=100, null=True, default='0000000')
+
+    # Pluggin: https://github.com/stefanfoulis/django-phonenumber-field
+    phone = PhoneNumberField(null=True, blank=True, unique=False)
+    mobile = PhoneNumberField(null=True, blank=True, unique=False)
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
