@@ -1,6 +1,6 @@
 #from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Profile
+from .models import profile
 from django.contrib.auth.models import User
 from .forms import changePersonalInfo
 
@@ -14,18 +14,18 @@ def index(request):
     return render(request, "member/dashboard.html")
 
 # Mitgliederverzeichnis
-def Migliederverzeichnis(request):
+def member_directory(request):
     if (request.user.is_authenticated):
-        context = {'Personen': Profile.objects.all()}
+        context = {'personen': profile.objects.all()}
         return render(request, template_name="member/Mitgliderverzeichnis.html", context=context)
     else:
         return redirect("ASV")
 
 # Anzeige für den Einzelnen Nutzer
-def EinzelNutzer(request):
+def single_user(request):
     if (request.user.is_authenticated):
         User = request.GET.get('id', '')
-        context = {'User': Profile.objects.get(id=User)}
+        context = {'User': profile.objects.get(id=User)}
         return render(request, template_name="member/Nutzer.html", context=context)
     else:
         return redirect("ASV")
@@ -33,9 +33,9 @@ def EinzelNutzer(request):
 
 
 # Bearbeiten
-def Einstellungen(request):
+def settings(request):
     if (request.user.is_authenticated):
-        Profil = get_object_or_404(Profile, user=request.user)
+        Profil = get_object_or_404(profile, user=request.user)
 
         if request.method == "POST":
             form = changePersonalInfo(request.POST, request.FILES, instance=Profil)
@@ -52,7 +52,3 @@ def Einstellungen(request):
         return render(request, "member/Einstellungen.html", {"form": form})
     else:
         return redirect("ASV")
-
-
-# Passwort ändern
-# TODO

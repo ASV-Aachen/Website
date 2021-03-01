@@ -21,7 +21,7 @@ app_name: "member"
 
 urlpatterns = [
     path('', views.index, name="MeinASV"),
-    path('Mitgliederverzeichnis', views.Migliederverzeichnis, name="Mitgliedererzeichnis"),
-    path('User', views.EinzelNutzer, name="User"),
-    path('Einstellungen', views.Einstellungen, name="Einstellungen")
+    path('Mitgliederverzeichnis', views.member_directory, name="Mitgliedererzeichnis"),
+    path('User', views.single_user, name="User"),
+    path('Einstellungen', views.settings, name="Einstellungen")
 ]

@@ -10,15 +10,15 @@
   <h2>Mitgliederverzeichnis</h2>
   
   <div id="Verzeichnis">
-        {% for Profil in Personen%}
+        {% for profil in personen%}
         <div id="Nutzer">
-            {% if Profil.profile_image%}
-                <img src="{{Profil.profile_image.url}}">
+            {% if profil.profile_image%}
+                <img src="{{profil.profile_image.url}}">
             {% else %}
                 <img src="{% static 'Bilder/standard_profile_picture.png' %}" >
             {% endif %}
-            <div id="Name"> {{Profil.user.first_name}} {{Profil.user.last_name}} </div>
-            <div id="Status"> {{Profil.get_Status_display}} </div>
+            <div id="Name"> {{profil.user.first_name}} {{Profil.user.last_name}} </div>
+            <div id="Status"> {{profil.get_Status_display}} </div>
             <br>
             <div id="Gruppen"> Gruppen </div>
         </div>
