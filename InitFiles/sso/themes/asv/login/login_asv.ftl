@@ -1,4 +1,4 @@
-<#import "template_asv.ftl" as layout>
+<#import "template.ftl" as layout>
 <@layout.registrationLayout displayMessage=!messagesPerField.existsError('username','password') displayInfo=realm.password && realm.registrationAllowed && !registrationDisabled??; section>
     <#if section = "header">
         ${msg("loginAccountTitle")}
@@ -56,7 +56,9 @@
                   </div>
 
                   <div id="kc-form-buttons" class="${properties.kcFormGroupClass!}">
+                  start button
                       <input type="hidden" id="id-hidden-input" name="credentialId"> <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>
+                  stop button
                       <input tabindex="4" class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}" name="login" id="kc-login" type="submit" value=" ">${msg("doLogIn")}
                   </div>
             </form>

@@ -1,24 +1,137 @@
-body {
-    display: flex;
-    flex-flow: row wrap;
-    padding-left: 0em;
-    padding-top: 0em;
-    margin: 0em;
-    background: white url("../img/AGIV.jpg") no-repeat center fixed;
-    font-family: Arial, sans-serif;
- 
- }
- 
+
+:root {
+  --pf-global--palette--black-100: #fafafa;
+  --pf-global--palette--black-150: #f5f5f5;
+  --pf-global--palette--black-200: #ededed;
+  --pf-global--palette--black-300: #d2d2d2;
+  --pf-global--palette--black-400: #b8bbbe;
+  --pf-global--palette--black-500: #8a8d90;
+  --pf-global--palette--black-600: #737679;
+  --pf-global--palette--black-700: #4f5255;
+  --pf-global--palette--black-800: #3c3f42;
+  --pf-global--palette--black-850: #212427;
+  --pf-global--palette--black-900: #151515;
+  --pf-global--palette--black-1000: #030303;
+  --pf-global--palette--gold-100: #f9e0a2;
+  --pf-global--palette--gold-200: #f6d173;
+  --pf-global--palette--gold-300: #f4c145;
+  --pf-global--palette--gold-400: #f0ab00;
+  --pf-global--palette--gold-500: #c58c00;
+  --pf-global--palette--gold-600: #795600;
+  --pf-global--palette--gold-700: #3d2c00;
+/*********************************************
+/*  Anpassung des Farbchemas
+/*
+*/
+/*  --pf-global--primary-color--100: #8a8d90; /* auf --pf-global--palette--black-500 gesetzt */
+/*  --pf-global--primary-color--200: #4f5255; /* auf --pf-global--palette--black-700 gesetzt */
+/*  --pf-c-form-control--placeholder--Color: #4f5255; /* auf --pf-global--palette--black-700 gesetzt */
+    --pf-c-button--m-primary--BackgroundColor: #8a8d90;
+    --pf-c-button--m-primary--hover--BackgroundColor: #4f5255;
+
+    --pf-c-form__label--FontSize: 1.2em;
+
+}
 
 
+/* Change for Customization */
+
+html {
+    text-align: center;
+}
+
+/* Button in grau */
+/*.pf-c-button.pf-m-primary {
+    background-color: #8a8d90;
+    background-color: var(--pf-global--palette--black-500);
+}
+.pf-c-button.pf-m-primary:hover {
+    background-color: #4f5255;
+    background-color: var(--pf-global--palette--black-700);
+}*/
+
+.login-pf-settings {
+    font-size: 1.2em;
+}
+
+a {
+    color: var(--pf-global--primary-color--100);
+}
+
+a:focus,
+a:hover {
+    color: var(--pf-global--primary-color--200);
+
+}
+a:focus {
+ outline:5px auto -webkit-focus-ring-color;
+ outline-offset:-2px
+}
+
+
+.login-pf {
+    background: white;
+}
+.login-pf-page {
+    padding-top: 0px;
+}
+
+/*.login-pf-page::before {
+    content: url("../img/standert.png");
+    content: url("../img/standert.png") 'ASV';
+    zoom:50%;
+    background-size: 100px !important;
+    width: 100px !important;
+    height: 100px !important;
+    visibility: visible;
+    display: block;
+}*/
+
+
+.login-pf-page-header::before {
+    content: 'ASV in Aachen';
+    font-size: 2.5em;
+    line-height: auto;
+    margin-bottom: 1.5em;
+    text-shadow: 2px 2px var(--pf-global--palette--black-700);
+}
+
+/*.checkbox input[type=checkbox]:checked {
+    content: "X";
+    background-color: #8cad2d;
+}
+*/
+/* Customized Zone End */
 
 .login-pf body {
-    /*background: url("../img/AGIV.jpg") no-repeat center center fixed;*/
-    /*background: white url("..img//background.gif") repeat;*/
+    padding: 0 0 5em 0;
 
-    background-size: cover;
-    height: 100%;
+    margin: 0em auto 0em auto;
+    max-width: 768px;
+    background: var(--pf-global--palette--black-300);
+
+
+    /*background: inherit; /*var(--pf-global--palette--black-500);*/
+    /*background: white url("../img/AGIV.jpg") no-repeat center center fixed;*/
+    /*background: url("../img/AGIV.jpg") no-repeat center center fixed;*/
+    /*background: white url("..img/background.gif") repeat;*/
+    font-family: Arial, sans-serif;
+
+    background-size: 100% auto; /*cover;*/
+    height: auto;
 }
+
+.login-pf-page-header{
+    width:100%;
+    background: grey url('../img/AGIV.jpg') no-repeat center center;
+    background-size: cover;
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
+    padding-right: 2em;
+    padding-left: 3em;
+
+}
+
 
 /*IE compatibility*/
 .pf-c-form-control {
@@ -27,7 +140,7 @@ body {
     border-width: 1px;
     border-width: var(--pf-global--BorderWidth--sm);;
     border-color: #EDEDED #EDEDED #8A8D90 #EDEDED;
-    border-color: var(--pf-global--BorderColor--300) var(--pf-global--BorderColor--300) var(--pf-global--BorderColor--200) var(--pf-global--BorderColor--300);
+    border-color: var(--pf-global--BorderColor--300) var(--pf-global--BorderColor--300) var(--pf-global--BorderColor--200) var(--pf-global--BorderColor--300);*/
     background-color: #FFFFFF;
     background-color: var(--pf-global--BackgroundColor--100);
     height: 36px;
@@ -149,14 +262,14 @@ body {
 /* default - IE compatibility */
 .pf-m-primary {
     color: #FFFFFF;
-    background-color: #0066CC;
-    background-color: var(--pf-global--primary-color--100);
+    background-color: #8a8d90; /*background-color: #0066CC;*/
+    background-color: var(--pf-global--primary-color--100);*/
 }
 
 /* default - IE compatibility */
 .pf-m-primary:hover {
-    background-color: #004080;
-    background-color: var(--pf-global--primary-color--200);
+    background-color: #c4c600; /*background-color: #004080;*/
+    background-color: var(--pf-global--primary-color--200);*/
 }
 
 /* default - IE compatibility */
@@ -227,7 +340,7 @@ a#kc-current-locale-link::after {
 }
 
 .login-pf a:hover {
-    color: #0099d3;
+    color: var(--pf-global--primary-color--200); /* color: #0099d3 */;
 }
 
 #kc-logo {
@@ -236,6 +349,7 @@ a#kc-current-locale-link::after {
 
 #kc-logo-wrapper {
     background-image: url(../img/AGIV.jpg);
+    background-size: contain;
     background-repeat: no-repeat;
     height: 63px;
     width: 300px;
@@ -251,7 +365,7 @@ div.kc-logo-text {
 }
 
 div.kc-logo-text span {
-    display: none;
+    /*display: none;*/
 }
 
 #kc-header {
@@ -261,12 +375,14 @@ div.kc-logo-text span {
 }
 
 #kc-header-wrapper {
-    font-size: 29px;
+    font-size: 2.5em;
     text-transform: uppercase;
     letter-spacing: 3px;
     line-height: 1.2em;
-    padding: 62px 10px 20px;
+/*    padding: 62px 10px 20px;*/
     white-space: normal;
+    text-shadow: 2px 2px var(  --pf-global--palette--black-700);
+
 }
 
 #kc-content {
@@ -293,8 +409,12 @@ div.kc-logo-text span {
     margin-top: 20px;
 }
 
+#kc-form {
+    margin-top: 10px;
+}
 #kc-form-wrapper {
     margin-top: 10px;
+    height: auto;
 }
 
 #kc-info {
@@ -302,9 +422,11 @@ div.kc-logo-text span {
 }
 
 #kc-info-wrapper {
-    font-size: 13px;
+    font-size: 1em;
     padding: 15px 35px;
-    background-color: #F0F0F0;
+/*    background-color: #F0F0F0;*/
+    background-color: var(--pf-global--palette--black-200);
+
 }
 
 #kc-form-options span {
@@ -313,7 +435,7 @@ div.kc-logo-text span {
 
 #kc-form-options .checkbox {
     margin-top: 0;
-    color: #72767b;
+    color: var(--pf-global--primary-color--100); #8a8d90; /*#72767b;*/
 }
 
 #kc-terms-text {
@@ -490,6 +612,9 @@ ul#kc-totp-supported-apps {
         position: absolute;
         width: 100%;
     }
+    .login-pf-page .login-pf-header h1 {
+    font-size: 24px;
+    }
 
     .login-pf .container {
         padding-right: 80px;
@@ -508,19 +633,27 @@ ul#kc-totp-supported-apps {
         background: white;
     }
 
+    .login-pf-page-header::before {
+        font-size: 1.5em;
+        line-height: auto;
+        margin-bottom: 0em;
+        text-shadow: 2px 2px var(--pf-global--palette--black-700);*/
+    }
+
     #kc-header {
         padding-left: 15px;
         padding-right: 15px;
         float: none;
-        text-align: left;
     }
 
     #kc-header-wrapper {
-        font-size: 16px;
-        font-weight: bold;
-        padding: 20px 60px 0 0;
-        color: #72767b;
+        font-size: 1.5em;
+        text-shadow: 2px 2px var(  --pf-global--palette--black-700);
         letter-spacing: 0;
+        text-transform: uppercase;
+        line-height: 1.2em;
+        white-space: normal;
+
     }
 
     div.kc-logo-text {
@@ -543,6 +676,9 @@ ul#kc-totp-supported-apps {
         padding-top: 15px;
         padding-bottom: 15px;
     }
+    .login-pf-page .login-pf-header h1 {
+    font-size: 1.8em;
+}
 
     #kc-locale {
         position: absolute;
@@ -658,9 +794,10 @@ ul#kc-totp-supported-apps {
 .card-pf {
     margin: 0 auto;
     box-shadow: var(--pf-global--BoxShadow--lg);
+
     padding: 0 20px;
     max-width: 500px;
-    border-top: 4px solid;
+    border-top: 0px solid;
     border-color: #0066CC; /* default - IE compatibility */
     border-color: var(--pf-global--primary-color--100);
 }
