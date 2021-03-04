@@ -6,7 +6,7 @@ Repo für die Website des ASV Aachen
 Beim ersten Start vom Keycloak müssen einige Einstellungen angepasst werden:
 1. Keycloak Admin Console unter "/sso/auth" öffnen und mit den Zugangsdaten für den Admin aus der Docker-Compose einloggen.
 1. der Realm ASV sollte bereits geladen sein. Falls nicht muss die Realm.json Datei importiert werden (unten links gibt es einen Import Button), die entsprechende Datei liegt unter initfiles/sso/realms.json. 
-1. Unter User muss ein erster Nutzer angelegt werden. 
+1. Unter User muss ein erster Nutzer angelegt werden. Auch wenn nur das Feld "Username" als required markiert ist sind "Email" und "Password" (unter Credentials) erforderlich.  
 1. Keycloak ist fertig eingerichtet. Zum Testen kann man sich unter "/login" anmelden. Der Django User wird dabei beim ersten Anmelden automatisch erstellt. 
 
 ### Website
@@ -55,5 +55,12 @@ stop                           stop docker-compose and network
 Der Quellcode-Ordner `Webpage` wird als Volume in den Webpage-Container eingebunden, sodass Änderungen ohne neustarten des Containers vom Django-Server übernommen werden. Werden Änderungen an Models vorgenommen, können diese mit `make makemigrations` und anschließendem `make migrate` eingepflegt werden. Die Migrationen sind danach auch im Quellcode-Ordner verfügbar und können (bzw. sollten) mit committet werden.
 
 Mehr zu Migrationen steht hier: https://docs.djangoproject.com/en/3.1/topics/migrations/
+
+### Namenskonventionen für Apps, Modelle Variablen etc. 
+* Alle Begriffe im Backend für Apps, Variablen Modelle etc. werden in englisch ohne Großbuchstaben beschrieben.
+* Alle für den User sichtbare Begriffe im Frontend wie Links, Menüepunkte etc. werden in deutsch, die urls ohne Großbuchstaben, definiert.
+
+
+
 
 
