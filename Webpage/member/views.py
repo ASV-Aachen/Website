@@ -1,6 +1,9 @@
 #from django.contrib.auth import authenticate
-from django.shortcuts import render, redirect
-from .models import Profile
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import profile
+from django.contrib.auth.models import User
+from .forms import changePersonalInfo
+
 
 # Create your views here.
 
@@ -11,18 +14,18 @@ def index(request):
     return render(request, "member/dashboard.html")
 
 # Mitgliederverzeichnis
-def Migliederverzeichnis(request):
+def member_directory(request):
     if (request.user.is_authenticated):
-        context = {'Personen': Profile.objects.all()}
+        context = {'personen': profile.objects.all()}
         return render(request, template_name="member/Mitgliderverzeichnis.html", context=context)
     else:
         return redirect("ASV")
 
 # Anzeige für den Einzelnen Nutzer
-def EinzelNutzer(request):
+def single_user(request):
     if (request.user.is_authenticated):
         User = request.GET.get('id', '')
-        context = {'User': Profile.objects.get(id=User)}
+        context = {'User': profile.objects.get(id=User)}
         return render(request, template_name="member/Nutzer.html", context=context)
     else:
         return redirect("ASV")
@@ -30,28 +33,22 @@ def EinzelNutzer(request):
 
 
 # Bearbeiten
-def Einstellungen(request):
+def settings(request):
     if (request.user.is_authenticated):
-        if request.GET:
-            id = request.user.id
-            return render(request, template_name="member/Einstellungen.html", context={'News': Profile.objects.get(id=id)})
-        if request.POST:
-            id = request.user.id
-            AktuellerNutzer = Profile.objects.get(id=id)
+        Profil = get_object_or_404(profile, user=request.user)
 
-            AktuellerNutzer.Heimatstadt = request.POST.get('Heimatstadt')
-            AktuellerNutzer.PLZ = request.POST.get("PLZ")
-            AktuellerNutzer.Land = request.POST.get("Land")
+        if request.method == "POST":
+            form = changePersonalInfo(request.POST, request.FILES, instance=Profil)
+            
+            if form.is_valid():
 
-            AktuellerNutzer.EMail = request.POST.get("EMail")
-            AktuellerNutzer.HandyNummer = request.POST.get("HandyNummer")
-            AktuellerNutzer.save()
+                form.save(commit=False)
+                form.instance.user_id = request.user.id
+                form.save()
 
-            return redirect("ASV")
-            pass
+                return redirect("ASV")
+        else:
+            form = changePersonalInfo(instance=Profil)
+        return render(request, "member/Einstellungen.html", {"form": form})
     else:
         return redirect("ASV")
-
-
-# Passwort ändern
-# TODO

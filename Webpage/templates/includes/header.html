@@ -34,9 +34,16 @@
           Mein ASV
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          {% for Links in UserLinks %}
-          <a class="dropdown-item" href="{{ Links.link }}">{{ Links.Name }} </a>
-          {% endfor %}
+          {% if request.user.is_authenticated %}
+            <a class="dropdown-item" href="{% url 'MeinASV' %}"> Mein ASV </a>
+            <a class="dropdown-item" href="/wiki"> Wiki </a>
+            <a class="dropdown-item" href="#"> Cloud </a>
+            <a class="dropdown-item" href="{% url 'Mitgliedererzeichnis' %}"> Mitgliedererzeichnis </a>
+            <a class="dropdown-item" href="{% url 'Einstellungen' %}"> Einstellungen </a>
+            <a class="dropdown-item" href="{% url 'logout' %}"> Logout </a>
+          {% else %}
+            <a class="dropdown-item" href="{% url 'login' %}"> Login </a>
+          {% endif %}
         </div>
       </div>
     </div>
