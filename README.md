@@ -5,10 +5,13 @@ Repo für die Website des ASV Aachen
 ### SSO
 Beim ersten Start vom Keycloak müssen einige Einstellungen angepasst werden:
 1. Keycloak Admin Console unter "/sso/auth" öffnen und mit den Zugangsdaten für den Admin aus der Docker-Compose einloggen.
-1. der Realm ASV sollte bereits geladen sein. Falls nicht muss die Realm.json Datei importiert werden (unten links gibt es einen Import Button), die entsprechende Datei liegt unter initfiles/sso/realms.json. 
-1. Unter User muss ein erster Nutzer angelegt werden. Auch wenn nur das Feld "Username" als required markiert ist sind "Email" und "Password" (unter Credentials) erforderlich.
-1. Look and Feel ist auf ASV angepasst. Hierzu müssen unter General die Themen "asv" ausgewählt und die deutsche Sprache als Standard eingestellt werden. Überschriften ändern:können ggf. geändert werden: ASV Realm: Name: ASV; Anzeigename und HTML-Anzeigebereich: "Mitgliederbereich". Master Realm: General: Name: ASV; Anzeigename und HTML-Anzeigebereich: "Nutzermanagement". Das Thema kann im Ordner "InitFiles/sso/thems/asv" weiter customized werden.       
-1. Keycloak ist fertig eingerichtet. Zum Testen kann man sich unter "/login" anmelden. Der Django User wird dabei beim ersten Anmelden automatisch erstellt. 
+2. der Realm ASV sollte bereits geladen sein. Falls nicht muss die Realm.json Datei importiert werden (unten links gibt es einen Import Button), die entsprechende Datei liegt unter initfiles/sso/realms.json. 
+3. Unter User muss ein erster Nutzer angelegt werden. Auch wenn nur das Feld "Username" als required markiert ist sind "Email" und "Password" (unter Credentials) erforderlich.
+4. Look and Feel ist auf ASV angepasst. Hierzu unter General die Themen "asv" und die deutsche Sprache als Standard ausgewählen. Überschriften anpassen: 
+> - ASV Realm: Name: ASV; Anzeigename und HTML-Anzeigebereich: "Mitgliederbereich". 
+> - Master Realm: General: Name: ASV; Anzeigename und HTML-Anzeigebereich: "Nutzermanagement". 
+Das Thema kann im Ordner "InitFiles/sso/thems/asv" weiter customized werden.       
+5. Keycloak ist fertig eingerichtet. Zum Testen kann man sich unter "/login" anmelden. Der Django User wird dabei beim ersten Anmelden automatisch erstellt. 
 
 ### Website
 
