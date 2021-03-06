@@ -19,9 +19,6 @@
             {% endif %}
             <div id="Name"> {{profil.user.first_name}} {{profil.user.last_name}} </div>
             <div id="Status"> {{profil.get_status_display}} </div>
-            <br>
-            <div id="Gruppen"> {{profil.user.groups.all}} </div>
-
         </div>
         {% endfor%}
   </div>
