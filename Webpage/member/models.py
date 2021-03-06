@@ -24,7 +24,7 @@ class profile(models.Model):
         (Anwärter, 'Anwärter'),        
         (Aktiv, 'Aktiv'),
         (Inaktiv, 'Inaktiv'),
-        (AlterHerr, 'AlterHerr'),
+        (AlterHerr, 'Alter Herr'),
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)

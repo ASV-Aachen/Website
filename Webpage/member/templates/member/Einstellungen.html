@@ -9,6 +9,7 @@
     <h3 class="pb-3 mb-4 font-italic border-bottom">Einstellungen</h3>
 
     {% if profil.profile_image%}
+        <div id ="UserName"> {{profil.user.first_name}} {{profil.user.last_name}} </div>
         <img src="{{profil.profile_image.url}}">
     {% else %}
         <img src="{% static 'Bilder/standard_profile_picture.png' %}" >
