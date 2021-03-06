@@ -8,6 +8,12 @@
     <link href="{% static 'CSS/Einstellungen.css' %}" rel="stylesheet">
     <h3 class="pb-3 mb-4 font-italic border-bottom">Einstellungen</h3>
 
+    {% if profil.profile_image%}
+        <img src="{{profil.profile_image.url}}">
+    {% else %}
+        <img src="{% static 'Bilder/standard_profile_picture.png' %}" >
+    {% endif %}
+
     <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
 
         {% csrf_token %}

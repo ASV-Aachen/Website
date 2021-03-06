@@ -51,7 +51,7 @@ class profile(models.Model):
         img = Image.open(self.profile_image)
 
         # images => 166*233
-        if (img.width < 166 or img.height < 233):
+        if (img.width != 166 or img.height != 233):
             output = (166,233)
             img.thumbnail(output)
             img.save(self.profile_image)
