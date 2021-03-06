@@ -20,7 +20,7 @@ class profile(models.Model):
     Aktiv = 2
     Inaktiv = 3
     AlterHerr = 4
-    status = (
+    status_info = (
         (Anwärter, 'Anwärter'),        
         (Aktiv, 'Aktiv'),
         (Inaktiv, 'Inaktiv'),
@@ -36,7 +36,7 @@ class profile(models.Model):
     # profile_image = models.ImageField(upload_to='profile', blank=True, null=True)
     profile_image = ResizedImageField(size=[166,233], upload_to='profile', crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
     
-    status = models.PositiveSmallIntegerField(choices=status, null=True, blank=True)
+    status = models.PositiveSmallIntegerField(choices=status_info, null=True, blank=True)
     
     entry_date = models.DateField()
     # Konto Gehört zur Bierkasse #23 (TODO)

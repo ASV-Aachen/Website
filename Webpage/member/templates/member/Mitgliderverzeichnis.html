@@ -20,7 +20,8 @@
             <div id="Name"> {{profil.user.first_name}} {{Profil.user.last_name}} </div>
             <div id="Status"> {{profil.get_Status_display}} </div>
             <br>
-            <div id="Gruppen"> Gruppen </div>
+            <div id="Gruppen"> {{profil.user.groups}} </div>
+
         </div>
         {% endfor%}
   </div>
