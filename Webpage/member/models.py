@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import os
 from phonenumber_field.modelfields import PhoneNumberField
+from django_resized import ResizedImageField
 
 class Position(models.Model):
     titel = models.CharField(max_length=70, null=False, primary_key=True)
@@ -32,7 +33,8 @@ class profile(models.Model):
     plz = models.IntegerField(null=True, default=00000)
     country = models.CharField(max_length=70, null=True, default='Germany')
     
-    profile_image = models.ImageField(upload_to='profile', blank=True, null=True)
+    # profile_image = models.ImageField(upload_to='profile', blank=True, null=True)
+    profile_image = ResizedImageField(size=[166,233], upload_to='profile', crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
     
     status = models.PositiveSmallIntegerField(choices=status, null=True, blank=True)
     
@@ -45,17 +47,6 @@ class profile(models.Model):
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if (self.profile_image):
-            img = Image.open(self.profile_image)
-
-            # images => 166*233
-            if (img.width != 166 or img.height != 233):
-                output = (166,233)
-                img.thumbnail(output)
-                img.save(self.profile_image)
 
 
 class position_in_the_club(models.Model):
