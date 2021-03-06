@@ -38,8 +38,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
             user = updateGroupandRole(user, claims)
         except:
             pass
-
-        newProfile = profile(user=user, Status = 1,Eintrittsdatum=datetime.date(1997, 10, 19))
+        newProfile = profile(user=user, status = 1,entry_date=datetime.date.today())
         newProfile.save()
 
         # user.save()
