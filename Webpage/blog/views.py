@@ -37,15 +37,6 @@ def News(request):
 
     pass
 
-# Die 5 TopNews für die Frontpage (Done)
-def NewsforFrontPage(request):
-    return render(request, "blog/includes/NewsFrontpage.html", context={
-            "News": blogPost.objects.all().order_by('-id')[:5]
-    })
-    
-
-
-
 # Einzelne News Page (DONE)
 def SingleNews(request):
     """

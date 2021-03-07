@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.template import Context, Template
 from django.template.base import logger
 #from .models import *
-from blog.models import BlogEintrag
+from blog.models import blogPost
 from django.http import HttpResponse
 from django.contrib.auth.models import Permission
 from django.conf import settings
@@ -26,13 +26,13 @@ def MainPage(request):
         CurrentUser = request.user
         Name = CurrentUser.first_name
         return render(request, "home.html", context={
-                "News": BlogEintrag.objects.all().order_by('-id')[:5],
+                "News": blogPost.objects.all().order_by('-id')[:5],
                 "UserName": Name,
             })
     else:    
         CurrentUser = request.user
         return render(request, "home.html", context={
-                "News": BlogEintrag.objects.all().order_by('-id')[:5],
+                "News": blogPost.objects.all().order_by('-id')[:5],
             })
 
 
