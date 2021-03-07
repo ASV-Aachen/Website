@@ -205,3 +205,4 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 TINYMCE_SPELLCHECKER = False    # TODO: Prüfen ob Schreibprüfung implementiert werden kann.
 TINYMCE_COMPRESSOR = True
+TINYMCE_FILEBROWSER = False

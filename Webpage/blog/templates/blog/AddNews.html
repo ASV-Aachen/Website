@@ -5,6 +5,7 @@
 {% load static %}
 
 {% block content %}
+    <script type="text/javascript" src="{{ STATIC_URL }}tiny_mce/tiny_mce.js"></script>
     <h3 class="pb-3 mb-4 font-italic border-bottom">Neuer Blogeintrag</h3>
 
     <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
