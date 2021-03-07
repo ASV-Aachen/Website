@@ -24,8 +24,8 @@ def get_sentinel_user():
 
 
 # Modell für alle Blogeinträge
-class BlogEintrag(models.Model):
-    Titel = models.CharField(max_length=200)
-    Inhalt = HTMLField()
-    Autor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
-    DatumErstellt = models.DateTimeField(auto_created=True, default=timezone.now)
+class blogPost(models.Model):
+    titel = models.CharField(max_length=200)
+    text = HTMLField()
+    author = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
+    date_Created = models.DateTimeField(auto_created=True, default=timezone.now)

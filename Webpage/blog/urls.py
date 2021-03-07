@@ -23,6 +23,6 @@ app_name: "blog"
 
 urlpatterns = [
     path('', views.News, name="news"),
-    path('frontpage/', views.NewsforFrontPage, name="newsforfrontpage"),
-    path('add/', views.AddNews, name="addnews"),
+    path('frontpage', views.NewsforFrontPage, name="newsforfrontpage"),
+    path('NewNews', views.AddNews, name="NewNews"),
 ]

@@ -1,17 +1,17 @@
 from datetime import date
 
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
 from django.template.base import logger
-from .models import BlogEintrag
+from .models import blogPost
 from django.http import HttpResponse
 from django.contrib.auth.models import Permission
 from django.conf import settings
 import urllib.parse
 import logging
 import os
-
+from .forms import newBlogEntry
 
 
 
@@ -25,13 +25,13 @@ def News(request):
     except:
         Seite = 1
         obersteNews = 0
-        idAnzahl = len(BlogEintrag.objects.all())
+        idAnzahl = len(blogPost.objects.all())
         MaxSeiten = idAnzahl / 5
 
     return render(request, template_name="blog/News.html", context={
         "AktuelleID": Seite,
         "maxSeiten": MaxSeiten,
-        "News": BlogEintrag.objects.all().order_by('-id')[obersteNews:obersteNews+5],
+        "News": blogPost.objects.all().order_by('-id')[obersteNews:obersteNews + 5],
         #"UserLinks": GetMenu(request)
     })
 
@@ -40,7 +40,7 @@ def News(request):
 # Die 5 TopNews für die Frontpage (Done)
 def NewsforFrontPage(request):
     return render(request, "blog/includes/NewsFrontpage.html", context={
-            "News": BlogEintrag.objects.all().order_by('-id')[:5]
+            "News": blogPost.objects.all().order_by('-id')[:5]
     })
     
 
@@ -57,27 +57,26 @@ def SingleNews(request):
     try:
         id = request.GET.get('id', '')
         return render(request, template_name="blog/newsPage.html", context={
-            'News': BlogEintrag.objects.get(id=id), 
-            "UserLinks": GetMenu(request)
+            'News': blogPost.objects.get(id=id),
         })
     except:
         return redirect("ASV")
 
-def AddNews(request):
-    if request.user.is_authenticated:
-        if request.POST:
-            # Neue Nachricht eingefügt
-            User = request.user
-            Titel = request.POST['Titel']
-            Text = request.POST['Text']
-            Datum = date.today()
 
-            NewText = BlogEintrag(Titel=Titel, Text=Text, Autor=User, Datum=Datum)
-            NewText.save()
-            pass
-        if request.GET:
-            # Editor
-            return render(request, template_name="blog/AddNews.html")
-            pass
+'''Insert a new Blog Entry'''
+def AddNews(request):
+    if (request.user.is_authenticated):
+        if request.method == "POST":
+            form = newBlogEntry(request.POST, request.FILES)
+
+            if form.is_valid():
+                form.save(commit=False)
+                form.instance.author = request.user.id
+                form.save()
+
+                return redirect("ASV")
+        else:
+            form = newBlogEntry()
+        return render(request, "blog/AddNews.html", {"form": form})
     else:
-        return redirect('ASV')
+        return redirect("ASV")
