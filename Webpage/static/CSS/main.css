@@ -21,30 +21,22 @@ main, footer {
 
 }
 header {
-/*    background: grey url('../img/AGIV.jpg') no-repeat center center;
-    background-size: cover;
+/*  display: flex;
+  flex-flow: row wrap;
 */
-
 }
 
 header * {
+  /*flex: 1 1 0%;*/
 }
 
 header img {
-  width: 300%;
+  /*flex: 0 0 100%;*/
+  width: 60%;
 }
 
-.header-logo {
-  background-size: contain;
-  background-height: 1.2em;
-
-  height: 60%;
+.blog-header-logo {
 }
-.header-logo-text {
-  font-size: 2.25rem;
-
-}
-
 header nav {
 }
 

@@ -42,7 +42,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
             pass
         
 
-        profile = profile(user=user, status = 1,entrydate=datetime.date(1997, 10, 19))
+        profile = profile(user=user, Status = 1,Eintrittsdatum=datetime.date(1997, 10, 19))
         profile.save()
 
         # user.save()

@@ -3,8 +3,6 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import phonenumber_field.modelfields
-
 
 
 class Migration(migrations.Migration):
@@ -17,48 +15,48 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='position',
+            name='Position',
             fields=[
-                ('titel', models.CharField(max_length=70, primary_key=True, serialize=False)),
-                ('description', models.TextField(null=True)),
+                ('Titel', models.CharField(max_length=70, primary_key=True, serialize=False)),
+                ('Beschreibung', models.TextField(null=True)),
             ],
         ),
         migrations.CreateModel(
-            name='position_in_the_club',
+            name='PositionImVerein',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('ErnennungsDatum', models.DateField()),
             ],
         ),
-#         migrations.CreateModel(
-#            name='status',
-#            fields=[
-#                ('title', models.CharField(max_length=70, primary_key=True, serialize=False)),
-#                ('description', models.TextField()),
-#            ],
-#        ),
         migrations.CreateModel(
-            name='profile',
+            name='Status',
+            fields=[
+                ('Titel', models.CharField(max_length=70, primary_key=True, serialize=False)),
+                ('Beschreibung', models.TextField()),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Profile',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('hometown', models.CharField(default='Aachen', max_length=100, null=True)),
-                ('plz', models.IntegerField(default=52062, null=True)),
-                ('country', models.CharField(default='Deutschland', max_length=70, null=True)),
-                ('entry_date', models.DateField()),
-                ('profile_image', models.ImageField(blank=True, null=True, upload_to='profile')),
-                ('mobile', phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, null=True, region=None)),
-                ('phone', phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, null=True, region=None)),
-                ('status', models.PositiveSmallIntegerField(default='1', choices=[(1, 'Anwärter'), (2, 'Aktiv'), (3, 'Inaktiv'), (4, 'AlterHerr')], null=True, blank=True)),
+                ('Heimatstadt', models.CharField(max_length=45)),
+                ('PLZ', models.IntegerField()),
+                ('Land', models.CharField(max_length=70)),
+                ('Eintrittsdatum', models.DateField()),
+                ('EMail', models.EmailField(max_length=254)),
+                ('HandyNummer', models.CharField(max_length=100)),
+                ('PositionImVerein', models.ManyToManyField(through='member.PositionImVerein', to='member.Position')),
+                ('Status', models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to='member.Status')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(
-            model_name='position_in_the_club',
+            model_name='positionimverein',
             name='Mitglied',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='member.profile'),
         ),
         migrations.AddField(
-            model_name='position_in_the_club',
+            model_name='positionimverein',
             name='Position',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='member.position'),
         ),

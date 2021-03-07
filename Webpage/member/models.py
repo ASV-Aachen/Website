@@ -5,7 +5,7 @@ from django.dispatch import receiver
 import os
 from phonenumber_field.modelfields import PhoneNumberField
 
-class position(models.Model):
+class Position(models.Model):
     titel = models.CharField(max_length=70, null=False, primary_key=True)
     description = models.TextField(null=True)
 
@@ -13,7 +13,6 @@ class position(models.Model):
 # Finde den Path zum Bild
 def get_image_path(instance, filename):
     return os.path.join('photos', str(instance.id), filename)
-
 class profile(models.Model):
     Anwärter = 1
     Aktiv = 2
@@ -30,7 +29,7 @@ class profile(models.Model):
     
     hometown = models.CharField(max_length=100, null=True, default='Aachen')
     plz = models.IntegerField(null=True, default=00000)
-    country = models.CharField(max_length=70, null=True, default='Deutschland')
+    country = models.CharField(max_length=70, null=True, default='Germany')
     
     profile_image = models.ImageField(upload_to='profile', blank=True, null=True)
     
@@ -50,5 +49,5 @@ class profile(models.Model):
 
 class position_in_the_club(models.Model):
     ErnennungsDatum = models.DateField(null=False)
-    Position = models.ForeignKey(position, on_delete=models.CASCADE)
+    Position = models.ForeignKey(Position, on_delete=models.CASCADE)
     Mitglied = models.ForeignKey(profile, on_delete=models.CASCADE)
