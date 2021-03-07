@@ -11,6 +11,7 @@
 
         {% csrf_token %}
         {{ form }}
+        {{ form.media }}
         <button type="submit" class="save btn btn-primary">Speichern</button>
     </form>
 
