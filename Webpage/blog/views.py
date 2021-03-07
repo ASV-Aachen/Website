@@ -62,7 +62,7 @@ def AddNews(request):
 
             if form.is_valid():
                 form.save(commit=False)
-                form.instance.author = request.user.id
+                form.instance.author_id = request.user.id
                 form.save()
 
                 return redirect("ASV")
