@@ -6,12 +6,13 @@
 
 {% block content %}
     <h3 class="pb-3 mb-4 font-italic border-bottom">Neuer Blogeintrag</h3>
+    {{ form.media }}
 
     <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
 
         {% csrf_token %}
         {{ form }}
-        {{ form.media }}
+
         <button type="submit" class="save btn btn-primary">Speichern</button>
     </form>
 
