@@ -17,7 +17,7 @@ def index(request):
 def member_directory(request):
     if (request.user.is_authenticated):
         context = {'personen': profile.objects.all()}
-        return render(request, template_name="member/Mitgliderverzeichnis.html", context=context)
+        return render(request, template_name="member/Mitgliederverzeichnis.html", context=context)
     else:
         return redirect("ASV")
 
