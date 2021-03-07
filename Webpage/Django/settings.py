@@ -29,7 +29,9 @@ DEBUG = True
 
 Host = os.environ["Host"]
 ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
+X_FRAME_OPTIONS = 'ALLOWALL'
 
+XS_SHARING_ALLOWED_METHODS = ['POST','GET']
 
 # Conection to Keycloak as OIDC
 
@@ -182,9 +184,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
 # MEDIA_ROOT = "/media/"
 MEDIA_URL = "/media/"
 
-FILEBROWSER_DIRECTORY = "/media/files/"
-
-
 SITE_ID = 2
 
 
@@ -205,4 +204,3 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 TINYMCE_SPELLCHECKER = False    # TODO: Prüfen ob Schreibprüfung implementiert werden kann.
 TINYMCE_COMPRESSOR = True
-TINYMCE_FILEBROWSER = False
