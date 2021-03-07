@@ -12,8 +12,7 @@ from .models import blogPost
 class newBlogEntry(ModelForm):
     text = forms.CharField(widget=TinyMCE(attrs={'cols': 80,
                                                  'rows':50,
-                                                 'class': 'form-control',
-                                                 'TINYMCE_FILEBROWSER': False}))
+                                                 'class': 'form-control'}))
 
     class Meta:
         model = blogPost

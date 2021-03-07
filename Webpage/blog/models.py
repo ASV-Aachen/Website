@@ -29,3 +29,6 @@ class blogPost(models.Model):
     text = HTMLField()
     author = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
     date_Created = models.DateTimeField(auto_created=True, default=timezone.now)
+
+    def __str__(self):
+        return self.titel
