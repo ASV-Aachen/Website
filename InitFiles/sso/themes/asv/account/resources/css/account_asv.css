@@ -12,19 +12,39 @@ body {
 header .navbar {
     margin-bottom: 0;
     min-height: inherit;
+    background-color: lightgrey; /*#d2d2d2; /*light-grey;*/
 }
+header .navbar::before {
+    height: 100px;
+    width:100%;
+    background: #d2d2d2 url('../img/AGIV.jpg') no-repeat center center;
+    background-size: cover;
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
+    padding-right: 2em;
+    padding-left: 3em;
+}
+
 
 .header .container {
     position: relative;
+    heigth: 60px;
 }
 
 .navbar-title {
-    background-image: url('../img/logo.png');
+/*    position: relative;
+    top:0px;
+    left:-5;*/
+    background-color: inherit; /*url('../img/logo.png');*/
     height: 25px;
     background-repeat: no-repeat;
     width: 123px;
     margin: 3px 10px 5px;
     text-indent: -99999px;
+}
+.navbar-pf {
+    background-color: grey; /*#030303;*/
+    border-top: 3px solid #39a5dc;
 }
 
 .navbar-pf .navbar-utility {

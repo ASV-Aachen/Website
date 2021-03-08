@@ -306,7 +306,10 @@ th.w-40 {
 /*********** Overwrites header defaults ***********/
 
 .navbar-pf{
-  border-top: none!important;
+    border-top: none!important;
+    background-color: black;
+ /*   background: url('../img/AGIV.jpg') no-repeat center center;*/
+    background-size: 79% auto;
 }
 
 .navbar-pf .navbar-brand {
@@ -314,14 +317,14 @@ th.w-40 {
   height: 56px;
   line-height: 56px;
   background-position: center center;
-  background-image: url('../img/keyclok-logo.png');
-  background-size: 148px 30px;
+  background-image: url('../img/bg_logo_2017.jpg');
   background-repeat: no-repeat;
   width: 148px;
 }
 
 .navbar-pf .navbar-utility .dropdown-toggle {
     padding: 23px !important;
+    background-color: black;
 }
 
 .clickable {
