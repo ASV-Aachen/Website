@@ -13,6 +13,7 @@ class Position(models.Model):
 # Finde den Path zum Bild
 def get_image_path(instance, filename):
     return os.path.join('photos', str(instance.id), filename)
+
 class profile(models.Model):
     Anwärter = 1
     Aktiv = 2
@@ -28,8 +29,8 @@ class profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     hometown = models.CharField(max_length=100, null=True, default='Aachen')
-    plz = models.IntegerField(null=True, default=00000)
-    country = models.CharField(max_length=70, null=True, default='Germany')
+    plz = models.IntegerField(null=True, default=52062)
+    country = models.CharField(max_length=70, null=True, default='Deutschland')
     
     profile_image = models.ImageField(upload_to='profile', blank=True, null=True)
     
