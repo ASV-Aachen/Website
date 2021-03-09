@@ -6,8 +6,6 @@ from member.models import profile, position_in_the_club
 import datetime
 from django.contrib.auth.models import Group, Permission
 
-#{'sub': '03c991c1-c6cc-4af7-8092-bb6d794e3ec2', 'email_verified': True, 'name': 'christian baltzer', 'preferred_username': 'chris', 'given_name': 'christian', 'family_name': 'baltzer', 'email': 'christian@baltzer.de'}
-
 def updateGroupandRole(user, claims):
     # Gruppen laden
     user.groups.clear()
@@ -40,10 +38,8 @@ class MyOIDCAB(OIDCAuthenticationBackend):
             user = updateGroupandRole(user, claims)
         except:
             pass
-        
-
-        profile = profile(user=user, Status = 1,Eintrittsdatum=datetime.date(1997, 10, 19))
-        profile.save()
+        newProfile = profile(user=user, status = 1,entry_date=datetime.date.today())
+        newProfile.save()
 
         # user.save()
 

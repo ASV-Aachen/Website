@@ -49,6 +49,6 @@ def settings(request):
                 return redirect("ASV")
         else:
             form = changePersonalInfo(instance=Profil)
-        return render(request, "member/Einstellungen.html", {"form": form})
+        return render(request, "member/Einstellungen.html", {"form": form, "profil": Profil})
     else:
         return redirect("ASV")

@@ -12,7 +12,7 @@ class changePersonalInfo(ModelForm):
     class Meta:
         model = profile
         # db_table = Profile
-        fields = ['phone','mobile','hometown', 'profile_image']
+        fields = ['phone','mobile', 'status', 'hometown', 'profile_image']
     
         widgets = {
             'image': forms.FileInput(attrs= {'style':'display: none;','class':'form-control', 'required': False,})

@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'mozilla_django_oidc',
     'tinymce',
     'filebrowser',
+    'django_resized',
 ]
 
 

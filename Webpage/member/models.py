@@ -1,9 +1,11 @@
+from PIL import Image
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import os
 from phonenumber_field.modelfields import PhoneNumberField
+from django_resized import ResizedImageField
 
 class Position(models.Model):
     titel = models.CharField(max_length=70, null=False, primary_key=True)
@@ -19,11 +21,11 @@ class profile(models.Model):
     Aktiv = 2
     Inaktiv = 3
     AlterHerr = 4
-    status = (
+    status_info = (
         (Anwärter, 'Anwärter'),        
         (Aktiv, 'Aktiv'),
         (Inaktiv, 'Inaktiv'),
-        (AlterHerr, 'AlterHerr'),
+        (AlterHerr, 'Alter Herr'),
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -32,9 +34,10 @@ class profile(models.Model):
     plz = models.IntegerField(null=True, default=52062)
     country = models.CharField(max_length=70, null=True, default='Deutschland')
     
-    profile_image = models.ImageField(upload_to='profile', blank=True, null=True)
+    # profile_image = models.ImageField(upload_to='profile', blank=True, null=True)
+    profile_image = ResizedImageField(size=[166,233], upload_to='profile', crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
     
-    status = models.PositiveSmallIntegerField(choices=status, null=True, blank=True)
+    status = models.PositiveSmallIntegerField(choices=status_info, null=True, blank=True)
     
     entry_date = models.DateField()
     # Konto Gehört zur Bierkasse #23 (TODO)
@@ -45,7 +48,6 @@ class profile(models.Model):
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
-
 
 
 class position_in_the_club(models.Model):
