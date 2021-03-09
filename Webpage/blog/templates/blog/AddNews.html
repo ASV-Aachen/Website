@@ -1,28 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>Starter Template for Bootstrap</title>
-        <!-- Bootstrap core CSS -->
-        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-        <!-- Custom styles for this template -->
-        <link href="starter-template.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="container">
-            {% include "HeadAndToes.html" with UserLinks=UserLinks%}
-</div>
-        <!-- /.container -->
-        <!-- Bootstrap core JavaScript
-    ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <div class="container"></div>
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/popper.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-    </body>
-</html>
+{% extends 'base.html' %}
+<title>{% block title %} Mein ASV - Neuen Blogeintrag anlegen {% endblock %}</title>
+
+{% load static %}
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Neuer Blogeintrag</h3>
+    <link href="{% static 'CSS/Einstellungen.css' %}" rel="stylesheet">
+    {{ form.media }}
+
+    <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
+
+        {% csrf_token %}
+        {{ form }}
+
+        <button type="submit" class="save btn btn-primary">Speichern</button>
+    </form>
+
+{% endblock %}

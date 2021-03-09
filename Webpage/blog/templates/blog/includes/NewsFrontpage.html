@@ -6,9 +6,9 @@ Einbindung erfolgt über den include-Tag in der HTML-Seite
 <h3 class="pb-3 mb-4 font-italic border-bottom">Neues aus dem Verein</h3>
 {% for New in News %}
     <div class="blog-post">
-        <h2 class="blog-post-title">{{ New.Titel }}</h2>
-        <small class="blog-post-meta">{{ New.DatumErstellt | date:"F d, Y"}}  {% if user.is_authenticated %} by {{ New.Autor }} {% endif %}</small>
-        <p class="article-content">{{ New.Inhalt | safe }}</p>
+        <h2 class="blog-post-title">{{ New.titel }}</h2>
+        <small class="blog-post-meta">{{ New.date_Created | date:"F d, Y"}}  {% if user.is_authenticated %} by {{ New.author }} {% endif %}</small>
+        <p class="article-content">{{ New.text | safe }}</p>
     </div>
 {% endfor %}
 <nav class="blog-pagination">
