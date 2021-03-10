@@ -122,6 +122,7 @@ services:
       - ./InitFiles/sso/standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
       - ./InitFiles/sso/standalone-ha.xml:/opt/jboss/keycloak/standalone/configuration/standalone-ha.xml
       - ./InitFiles/sso/realm.json:/tmp/realm.json
+      - ./InitFiles/sso/themes/asv:/opt/jboss/keycloak/themes/asv
     labels:
       - traefik.enable=true
       - "traefik.http.routers.SSO.entrypoints=web"
