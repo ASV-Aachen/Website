@@ -20,11 +20,15 @@ class profile(models.Model):
     Aktiv = 2
     Inaktiv = 3
     AlterHerr = 4
+    Außerordentliches_Mitglied = 5
+    Ehrenmitglied = 6
     status_info = (
         (Anwärter, 'Anwärter'),        
         (Aktiv, 'Aktiv'),
         (Inaktiv, 'Inaktiv'),
         (AlterHerr, 'Alter Herr'),
+        (Außerordentliches_Mitglied, "Außerordentliches Mitglied"),
+        (Ehrenmitglied, 'Ehrenmitglied'),
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
