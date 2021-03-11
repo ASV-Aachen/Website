@@ -54,7 +54,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         try:
             user = updateGroup(user, claims)
         except:
-            logger.error(claims)
+            logger.error("Groupt Error: " + claims)
             pass
 
         newProfile = profile(user=user, status = 1,entry_date=datetime.date.today())
@@ -64,7 +64,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
             updateRoles(newProfile, claims)
             newProfile.save()
         except:
-            logger.error(claims)
+            logger.error("Role Error: " + claims)
             pass
         # user.save()
 
