@@ -53,8 +53,8 @@ class MyOIDCAB(OIDCAuthenticationBackend):
 
         try:
             user = updateGroup(user, claims)
-        except:
-            logger.error("Groupt Error: " + claims)
+        except Exception as e:
+            logger.error("Group Error" + e)
             pass
 
         newProfile = profile(user=user, status = 1,entry_date=datetime.date.today())
@@ -63,8 +63,8 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         try:
             updateRoles(newProfile, claims)
             newProfile.save()
-        except:
-            logger.error("Role Error: " + claims)
+        except Exception as e:
+            logger.error("Role Error: " + e)
             pass
         # user.save()
 
@@ -83,8 +83,8 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         try:
             user = updateGroup(user, claims)
             user = updateRoles(user, claims)
-        except:
-            logger.error(claims)
+        except Exception as e:
+            logger.error("Group Error" + e)
             pass
 
         userProfile = get_object_or_404(profile, user=user)
@@ -92,8 +92,8 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         try:
             updateRoles(userProfile, claims)
             userProfile.save()
-        except:
-            logger.error(claims)
+        except Exception as e:
+            logger.error("Role Error" + e)
             pass
 
         user.save()
