@@ -82,7 +82,6 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         
         try:
             user = updateGroup(user, claims)
-            user = updateRoles(user, claims)
         except Exception as e:
             logger.error("Group Error" + str(e))
             pass
