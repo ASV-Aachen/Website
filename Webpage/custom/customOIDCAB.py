@@ -2,21 +2,30 @@
 from django.contrib.auth.models import User
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 import logging
-from member.models import profile, position_in_the_club
+from member.models import profile, role
 import datetime
 from django.contrib.auth.models import Group, Permission
 
-def updateGroupandRole(user, claims):
+def updateRoles(userProfile, claims):
+    # Delete old Roles
+    userProfile.roles.clear()
+
+    # insert new roles
+    for i in claims.get('roles'):
+        newRole, created = role.objects.get_or_create(titel=i)
+        profile.roles.add(newRole)
+
+    return userProfile
+
+def updateGroup(user, claims):
     # Gruppen laden
     user.groups.clear()
     for i in claims.get('groups'):
         NewGroup, created = Group.objects.get_or_create(name = i)
         # NewGroup.save()
         user.groups.add(NewGroup)
-        pass
 
     return user
-    pass
 
 class MyOIDCAB(OIDCAuthenticationBackend):
     def create_user(self, claims):
@@ -35,28 +44,48 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         user.save()
 
         try:
-            user = updateGroupandRole(user, claims)
+            user = updateGroup(user, claims)
         except:
             pass
+
         newProfile = profile(user=user, status = 1,entry_date=datetime.date.today())
         newProfile.save()
 
+        try:
+            updateRoles(newProfile, claims)
+            newProfile.save()
+        except:
+            logger.log(1, "can't assign role to Profile: " + newProfile)
+            pass
         # user.save()
 
         return user
 
     def update_user(self, user, claims):
+        logger = logging.getLogger(__name__)
+
+        logger.error(claims)
+
         user.first_name = claims.get('given_name', '')
         user.last_name = claims.get('family_name', '')
 
         user.email = claims.get('email', '')
         
         try:
-            user = updateGroupandRole(user, claims)
+            user = updateGroup(user, claims)
+            user = updateRoles(user, claims)
         except:
             pass
-        
-        
+
+        userProfile = profile.getObject(profile, user=user)
+
+        try:
+            updateRoles(userProfile, claims)
+            userProfile.save()
+        except:
+            logger.log(1, "can't assign role to Profile: " + userProfile)
+            pass
+
         user.save()
 
         return user

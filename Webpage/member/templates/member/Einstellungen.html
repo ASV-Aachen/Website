@@ -15,6 +15,13 @@
         <img src="{% static 'Bilder/standard_profile_picture.png' %}" >
     {% endif %}
 
+    <div id="roleDisplay">
+        <div>Deine Rollen im Verein:</div>
+        {% for membersRole in profil.roles %}
+            <div id="role">{{membersRole}}</div>
+        {% endfor%}
+    </div>
+
     <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
 
         {% csrf_token %}
