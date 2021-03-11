@@ -14,7 +14,7 @@ def updateRoles(userProfile, claims):
     # insert new roles
     for i in claims.get('Roles'):
         newRole, created = role.objects.get_or_create(titel=i)
-        profile.roles.add(newRole)
+        userProfile.roles.add(newRole)
 
     return userProfile
 

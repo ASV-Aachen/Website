@@ -37,7 +37,7 @@ class profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    roles = models.ManyToManyField(role, null=True)
+    roles = models.ManyToManyField(role)
     
     hometown = models.CharField(max_length=100, null=True, default='Aachen')
     plz = models.IntegerField(null=True, default=52062)
