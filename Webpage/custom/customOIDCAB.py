@@ -1,5 +1,6 @@
 
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 import logging
 from member.models import profile, role
@@ -77,7 +78,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         except:
             pass
 
-        userProfile = profile.getObject(profile, user=user)
+        userProfile = get_object_or_404(profile, user=user)
 
         try:
             updateRoles(userProfile, claims)
