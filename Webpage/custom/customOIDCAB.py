@@ -12,7 +12,7 @@ def updateRoles(userProfile, claims):
     userProfile.roles.clear()
 
     # insert new roles
-    for i in claims.get('roles'):
+    for i in claims.get('Roles'):
         newRole, created = role.objects.get_or_create(titel=i)
         profile.roles.add(newRole)
 
@@ -21,8 +21,15 @@ def updateRoles(userProfile, claims):
 def updateGroup(user, claims):
     # Gruppen laden
     user.groups.clear()
-    for i in claims.get('groups'):
-        NewGroup, created = Group.objects.get_or_create(name = i)
+    for i in claims.get('group'):
+        GroupName = ""
+        try:
+            Subgroups = i.split("/")
+            GroupName = Subgroups[-1]
+        except:
+            pass
+
+        NewGroup, created = Group.objects.get_or_create(name=GroupName)
         # NewGroup.save()
         user.groups.add(NewGroup)
 
@@ -47,6 +54,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         try:
             user = updateGroup(user, claims)
         except:
+            logger.error(claims)
             pass
 
         newProfile = profile(user=user, status = 1,entry_date=datetime.date.today())
@@ -56,7 +64,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
             updateRoles(newProfile, claims)
             newProfile.save()
         except:
-            logger.log(1, "can't assign role to Profile: " + newProfile)
+            logger.error(claims)
             pass
         # user.save()
 
@@ -76,6 +84,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
             user = updateGroup(user, claims)
             user = updateRoles(user, claims)
         except:
+            logger.error(claims)
             pass
 
         userProfile = get_object_or_404(profile, user=user)
@@ -84,7 +93,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
             updateRoles(userProfile, claims)
             userProfile.save()
         except:
-            logger.log(1, "can't assign role to Profile: " + userProfile)
+            logger.error(claims)
             pass
 
         user.save()
