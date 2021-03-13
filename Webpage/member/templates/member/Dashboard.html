@@ -1,7 +1,14 @@
 <!--/templates/custom.html-->
 <!DOCTYPE html>
 {% extends 'base.html' %}
-<title>{% block title %} Mein ASV - Dashboard {% endblock %}</title>
+{% load static %}
+
+{% block title %} Mein ASV - Dashboard {% endblock %}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+{% endblock styles %}
+
 
 
 {% block content %}
@@ -10,7 +17,13 @@
   <p> Hier ist die Startseite des Mitgliederbereiches. Hier könnte das Dasboard für Mitglieder entstehen</p>  
  {% endblock %}
 
- {% block aside %}
 <!-- Hier seitenbereich gestalten falls gewünscht -->
+ {% block aside %}
    Hallo hier ist der Seitenbereich
   {% endblock %}
+
+
+
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+{% endblock scripts %}

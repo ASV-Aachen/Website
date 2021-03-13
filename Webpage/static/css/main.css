@@ -6,7 +6,7 @@ body {
    padding-left: 0em;
    padding-top: 0em;
    margin: 0em;
-   background: white url("/static/picture/background.gif") repeat;
+   background: white url("/static/img/background.gif") repeat;
    font-family: Arial, sans-serif;
 
 }
@@ -70,6 +70,8 @@ h1, h2, h1 a, h2 a {
 
 /* Viewports mit großer Auflösung ** Desktop View */
 @media all and (min-width: 768px) {
+
+
 /* article wird 2.5x so breit wie die beiden asides */
   article {
   }
