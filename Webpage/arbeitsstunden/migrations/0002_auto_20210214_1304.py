@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Mitglieder', '0001_initial'),
+        ('member', '0001_initial'),
         ('arbeitsstunden', '0001_initial'),
     ]
 
@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='projekt',
             name='Verantwortlich',
-            field=models.ManyToManyField(to='Mitglieder.Profile'),
+            field=models.ManyToManyField(to='member.Profile'),
         ),
         migrations.CreateModel(
             name='Arbeitseinheit',
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('Beschreibung', models.CharField(max_length=1024)),
                 ('Ausschreibung', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='arbeitsstunden.arbeitsstundenausschreibung')),
-                ('Beteiligte', models.ManyToManyField(through='arbeitsstunden.Arbeitsbeteiligung', to='Mitglieder.Profile')),
+                ('Beteiligte', models.ManyToManyField(through='arbeitsstunden.Arbeitsbeteiligung', to='member.Profile')),
                 ('Projekt', models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to='arbeitsstunden.projekt')),
             ],
         ),
@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='arbeitsbeteiligung',
             name='Arbeitsleistender',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to='Mitglieder.profile'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to='member.profile'),
         ),
         migrations.AddField(
             model_name='projekt',

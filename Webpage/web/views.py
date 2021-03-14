@@ -23,6 +23,9 @@ def GetMenu(request):
             "link":"/mitglieder",
             "Name":"Mein ASV"
         },{
+            "link":"/arbeitsstunden",
+            "Name":"Arbeitsstunden"
+        },{
             "link":"/wiki",
             "Name":"Wiki"
         },{

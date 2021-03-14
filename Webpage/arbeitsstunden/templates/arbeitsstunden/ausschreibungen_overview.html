@@ -2,7 +2,7 @@
 
 {% block content %}
     <h3 class="pb-3 mb-4 font-italic border-bottom">Arbeitsstundenausschreibung</h3>
-    <a href="/arbeitsstunden/new" class="btn btn-primary" role="button" aria-pressed="true">Neu anlegen</a>
+    <a href="{% url 'ausschreibung_new' %}" class="btn btn-primary" role="button" aria-pressed="true">Neu anlegen</a>
     <div class="card-columns">
     {% for ausschreibung in ausschreibungen %}
         {% include "arbeitsstunden/ausschreibung_card.html" %}

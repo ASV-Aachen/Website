@@ -3,7 +3,7 @@ from pprint import pprint
 from django.db import models
 
 # Create your models here.
-from Mitglieder.models import Profile
+from member.models import Profile
 
 
 class Saison(models.Model):

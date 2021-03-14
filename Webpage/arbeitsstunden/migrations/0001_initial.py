@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('Mitglieder', '0001_initial'),
+        ('member', '0001_initial'),
     ]
 
     operations = [
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('Name', models.CharField(max_length=256)),
                 ('Beschreibung', models.TextField(blank=True)),
-                ('Verantwortlich', models.ManyToManyField(blank=True, to='Mitglieder.Profile')),
+                ('Verantwortlich', models.ManyToManyField(blank=True, to='member.Profile')),
             ],
         ),
         migrations.CreateModel(

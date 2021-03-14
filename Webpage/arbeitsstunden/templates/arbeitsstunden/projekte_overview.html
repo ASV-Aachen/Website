@@ -2,9 +2,9 @@
 
 {% block content %}
     <h3 class="pb-3 mb-4 font-italic border-bottom">Arbeitsprojekte</h3>
+    <a href="{% url 'projekt_new' %}" class="btn btn-primary">Projekt erstellen</a>
     {% for saison_projekte in projekte %}
         <h4>Saison {{saison_projekte.saison.Jahr}}</h4>
-
         <table class="table">
             <thead>
                 <tr>

@@ -28,6 +28,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ALLOWED_HOSTS = ['chrisubuntu', 'localhost', '192.168.2.5', "192.168.178.129"]
 Host = os.environ["Host"]
 ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
 
@@ -67,7 +68,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'FrontPage',
     'Mitglieder',
-    'arbeitsstunden'
+    'arbeitsstunden',
     # 'django.contrib.sites',
 
     # ASV-Apps

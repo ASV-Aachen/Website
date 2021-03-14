@@ -13,6 +13,8 @@
     <h4>{{arbeitseinheit.Beschreibung}}</h4>
 
     Gesamte Arbeitszeit: {{arbeitseinheit.Arbeitszeit}}h
+    <br><br>
+    <a href="{% url 'arbeitsbeteiligung_new' %}?Arbeitseinheit={{arbeitseinheit.id}}" class="btn btn-primary">Beteiligung hinzufügen</a>
 
     <table class="table">
         <thead>
@@ -24,6 +26,10 @@
         <tbody>
             {% for arbeitsbeteiligung in arbeitseinheit.arbeitsbeteiligung_set.all %}
                 <tr>
+                    <td>
+                        <a href="{% url 'arbeitsbeteiligung_edit' pk=arbeitsbeteiligung.id %}"><i class="bi bi-pencil-fill"></i></a>
+                        <a href="{% url 'arbeitsbeteiligung_delete' pk=arbeitsbeteiligung.id %}"><i class="bi bi-trash"></i></a>
+                    </td>
                     <td>{{arbeitsbeteiligung.Arbeitsleistender.Anzeigename}}</td>
                     <td>{{arbeitsbeteiligung.Arbeitszeit}}h</td>
                 </tr>
