@@ -1,5 +1,8 @@
 #Nutzer {
-    max-width: 200px;
+    width: 180px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     border: solid;
     padding: 5px;
     border-width: 0.2px;
