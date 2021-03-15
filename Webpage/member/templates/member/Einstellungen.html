@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-<title>{% block title %} Mein ASV - Einstellungen {% endblock %}</title>
-
 {% load static %}
 
+{% block title %} Mein ASV - Einstellungen {% endblock title%}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+    <link href="{% static 'css/Einstellungen.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+
+
 {% block content %}
-    <link href="{% static 'CSS/Einstellungen.css' %}" rel="stylesheet">
     <h3 class="pb-3 mb-4 font-italic border-bottom">Einstellungen</h3>
 
     {% if profil.profile_image%}
         <div id ="UserName"> {{profil.user.first_name}} {{profil.user.last_name}} </div>
         <img src="{{profil.profile_image.url}}">
     {% else %}
-        <img src="{% static 'Bilder/standard_profile_picture.png' %}" >
+        <img src="{% static 'img/standard_profile_picture_cropt.png' %}" >
     {% endif %}
 
     <div id="roleDisplay">
@@ -30,3 +36,5 @@
     </form>
 
 {% endblock %}
+
+

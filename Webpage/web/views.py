@@ -25,13 +25,13 @@ def MainPage(request):
     if (request.user.is_authenticated):    
         CurrentUser = request.user
         Name = CurrentUser.first_name
-        return render(request, "home.html", context={
+        return render(request, "web/home.html", context={
                 "News": blogPost.objects.all().order_by('-id')[:5],
                 "UserName": Name,
             })
     else:    
         CurrentUser = request.user
-        return render(request, "home.html", context={
+        return render(request, "web/home.html", context={
                 "News": blogPost.objects.all().order_by('-id')[:5],
             })
 
