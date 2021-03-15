@@ -1,8 +1,14 @@
 <!--/templates/custom.html-->
 <!DOCTYPE html>
 {% extends 'base.html' %}
-<title>{% block title %} ASV-Aachen - Leere Seite {% endblock title %}</title>
+{% load static %}
 
+
+{% block title %} ASV-Aachen - Leere Seite {% endblock title %}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+{% endblock styles %}
 
 {% block content %}
   <h1>Titel h1</h1>
@@ -10,7 +16,13 @@
   <p> Leere Seite als Basis für die Gestaltung eigener Seiten</p>  
  {% endblock contend %}
 
- {% block aside %}
 <!-- Hier seitenbereich gestalten falls gewünscht -->
+{% block aside %}
    Hallo hier ist der Seitenbereich
-  {% endblock aside %}
+{% endblock aside %}
+
+
+
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+{% endblock scripts %}

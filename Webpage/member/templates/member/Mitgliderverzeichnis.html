@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-<title>{% block title %} Mein ASV - Mitgliederverzeichnis {% endblock %}</title>
-
 {% load static %}
 
+{% block title %} Mein ASV - Mitgliederverzeichnis {% endblock %}
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+    <link href="{% static 'member/css/Mitgliederverzeichnis.css' %}" rel="stylesheet">
+{% endblock styles %}
+
 {% block content %}
-  <link href="{% static 'CSS/Mitgliederverzeichnis.css' %}" rel="stylesheet">
   <h1>Mein ASV</h1>
   <h2>Mitgliederverzeichnis</h2>
   
@@ -15,7 +18,7 @@
             {% if profil.profile_image%}
                 <img src="{{profil.profile_image.url}}">
             {% else %}
-                <img src="{% static 'Bilder/standard_profile_picture.png' %}" >
+                <img src="{% static 'img/standard_profile_picture_cropt.png' %}" >
             {% endif %}
             <div id="Name"> {{profil.user.first_name}} {{profil.user.last_name}} </div>
             <div id="Status"> {{profil.get_status_display}} </div>
