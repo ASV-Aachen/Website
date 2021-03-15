@@ -23,8 +23,8 @@
 
     <div id="roleDisplay">
         <div>Deine Rollen im Verein:</div>
-        {% for membersRole in profil.roles_set.all %}
-            <div id="role">{{membersRole}}</div>
+        {% for membersRole in profil.roles.all %}
+            <div id="role">{{membersRole}} </div>
         {% endfor%}
     </div>
 
