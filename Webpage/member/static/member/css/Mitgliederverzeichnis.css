@@ -36,8 +36,7 @@
     justify-content: center;
   }
 
-  #Badges.badge{
-    margin-left: 3px;
-    margin-right: 7px;
+  .badge{
+    margin-left: 1px;
   }
   
