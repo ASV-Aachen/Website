@@ -23,10 +23,21 @@
   
   #Status {
     font-style: italic;
+    margin-bottom: 5px;
   }
   
   #Verzeichnis {
     display: flex;
     flex-wrap: wrap;
+  }
+  #badges{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #badges.badge{
+    margin-left: 3px;
+    margin-right: 3px;
   }
   
