@@ -30,14 +30,14 @@
     display: flex;
     flex-wrap: wrap;
   }
-  #badges{
+  #Badges{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
 
-  #badges.badge{
+  #Badges.badge{
     margin-left: 3px;
-    margin-right: 3px;
+    margin-right: 7px;
   }
   
