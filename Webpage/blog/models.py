@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 from tinymce import HTMLField
-
+from simple_history.models import HistoricalRecords
 
 # Infos über das aktuelle Jahr
 
@@ -29,6 +29,10 @@ class blogPost(models.Model):
     text = HTMLField()
     author = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
     date_Created = models.DateTimeField(auto_created=True, default=timezone.now)
+
+    last_editor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.titel
