@@ -54,20 +54,56 @@ def SingleNews(request):
         return redirect("ASV")
 
 
+def adminNewsPage(request):
+    # TODO
+    pass
+
+''' News für Löschung markieren'''
+def deleteNews(request):
+    # TODO
+    pass
+
 '''Insert a new Blog Entry'''
 def AddNews(request):
     if (request.user.is_authenticated):
+
         if request.method == "POST":
+            # Eintragen in die DB
             form = newBlogEntry(request.POST, request.FILES)
 
             if form.is_valid():
+                # abspeichern
                 form.save(commit=False)
-                form.instance.author_id = request.user.id
+
+                if (blogPost.objects.filter(id=form.instance.id).exists()):
+                    # if Data exits: setze den last author anders
+                    form.instance.last_editor_id = request.user.id
+                else:
+                    # Data existiert noch nicht, also setzen wir anders
+                    form.instance.author_id = request.user.id
+                    form.instance.last_editor_id = request.user.id
+
                 form.save()
 
-                return redirect("ASV")
+                return redirect("writerView")
         else:
-            form = newBlogEntry()
-        return render(request, "blog/AddNews.html", {"form": form})
+            # Formular laden
+            id = request.GET['id']
+            if (id):
+                # ID gegeben, also Daten laden
+                if(blogPost.objects.filter(id=id).exists()):
+                    # ID existiert, also zurückgeben
+                    post = blogPost.objects.get(id=id)
+                    form = newBlogEntry(instance=post)
+                    return render(request, "blog/AddNews.html", {"form": form, "post": post})
+                else:
+                    # ID ist zwar gegeben, existiert aber nicht
+                    return redirect("writerView")
+
+            else:
+                # Keine ID gegeben, neuen Artikel anlegen
+                form = newBlogEntry()
+                return render(request, "blog/AddNews.html", {"form": form})
+
     else:
         return redirect("ASV")
