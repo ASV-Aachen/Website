@@ -26,7 +26,7 @@
             <td>{{ blogPost.titel }}</td>
             <td>{{ blogPost.author }}</td>
             <td>{{ blogPost.date_Created }}</td>
-            <td> <a href="{% url 'NewNews' % }?page={{ blogpost.id }}">Bearbeiten</a> </td>
+            <td> <a href="{% url 'NewNews' % }?page={{ blogpost_id }}">Bearbeiten</a> </td>
           </tr>
         {% endfor %}
     </tbody>

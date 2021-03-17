@@ -99,8 +99,9 @@ def AddNews(request):
                 return redirect("writerView")
         else:
             # Formular laden
-            id = request.GET['id']
-            if (id):
+
+            if ('id' in request.GET):
+                id = request.GET['id']
                 # ID gegeben, also Daten laden
                 if(blogPost.objects.filter(id=id).exists()):
                     # ID existiert, also zurückgeben
