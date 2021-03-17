@@ -11,7 +11,7 @@ from .forms import changePersonalInfo
 # Index-View zum Dashborad als Startseite vom "Mein ASV"
 
 def index(request):
-    return render(request, "member/dashboard.html")
+    return render(request, "member/Dashboard.html")
 
 # Mitgliederverzeichnis
 def member_directory(request):

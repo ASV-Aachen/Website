@@ -1,5 +1,8 @@
 #Nutzer {
-    max-width: 200px;
+    width: 180px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     border: solid;
     padding: 5px;
     border-width: 0.2px;
@@ -23,10 +26,20 @@
   
   #Status {
     font-style: italic;
+    margin-bottom: 5px;
   }
   
   #Verzeichnis {
     display: flex;
     flex-wrap: wrap;
+  }
+  #Badges{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .badge{
+    margin-left: 1px;
   }
   

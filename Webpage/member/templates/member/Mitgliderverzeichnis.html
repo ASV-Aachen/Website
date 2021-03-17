@@ -11,19 +11,25 @@
 {% block content %}
   <h1>Mein ASV</h1>
   <h2>Mitgliederverzeichnis</h2>
-  
-  <div id="Verzeichnis">
+
+    <div id="Verzeichnis">
         {% for profil in personen%}
-        <div id="Nutzer">
-            {% if profil.profile_image%}
-                <img src="{{profil.profile_image.url}}">
-            {% else %}
-                <img src="{% static 'img/standard_profile_picture_cropt.png' %}" >
-            {% endif %}
-            <div id="Name"> {{profil.user.first_name}} {{profil.user.last_name}} </div>
-            <div id="Status"> {{profil.get_status_display}} </div>
-        </div>
+            <div id="Nutzer" style="height: 360px;width: 180px;min-width: 180px;min-height: 360px;border-style: solid;box-shadow: 2px 0px 5px;">
+                {% if profil.profile_image%}
+                    <img style="width: 155px;height: 233px;min-width: 166px;min-height: 233px;border-radius: 10px;margin: 5px;" src="{{profil.profile_image.url}}" />
+                {% else %}
+                    <img style="width: 155px;height: 233px;min-width: 166px;min-height: 233px;border-radius: 10px;margin: 5px;" src="{% static 'img/standard_profile_picture_cropt.png' %}" />
+                {% endif %}
+
+                <h1 class="text-break" id="Name" style="text-align: center;font-size: 20px;">{{profil.user.first_name}} {{profil.user.last_name}}</h1>
+                <p id="Status" style="margin-left: 0;text-align: center;">{{profil.get_status_display}}</p>
+                <div id="Badges" style="margin-left: 2px;margin-bottom: 7px;">
+                    {% for membersRole in profil.roles.all %}
+                        <span class="badge badge-primary" style="margin-left: 2px;padding-top: 5px;padding-right: 5;padding-bottom: 5;padding-left: 5;">{{membersRole}}</span>
+                    {% endfor%}
+                </div>
+            </div>
         {% endfor%}
-  </div>
+    </div>
     
  {% endblock %}
