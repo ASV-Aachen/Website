@@ -30,7 +30,7 @@ class blogPost(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
     date_Created = models.DateTimeField(auto_created=True, default=timezone.now)
 
-    last_editor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
+    last_editor = models.CharField(max_length=300)
 
     history = HistoricalRecords()
 

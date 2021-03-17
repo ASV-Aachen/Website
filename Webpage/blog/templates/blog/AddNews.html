@@ -12,6 +12,14 @@
 
 {% block content %}
     <h3 class="pb-3 mb-4 font-italic border-bottom">Neuer Newsintrag</h3>
+    {% if post %}
+        <div id="InfoBox">
+            <div id = "author">{{ post.author}}</div>
+            <div id = "date_created">{{ post.date_Created}}</div>
+            <div id = "last_editor">{{ post.last_editor}}</div>
+        </div>
+    {% endif %}
+
     {{ form.media }}
 
     <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
