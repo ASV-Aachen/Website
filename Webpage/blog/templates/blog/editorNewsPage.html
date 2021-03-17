@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - AutorenPage {% endblock %}
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+    <link href="{% static 'member/css/Mitgliederverzeichnis.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block content %}
+  <h2>AutorenPage</h2>
+    <thead>
+        <tr>
+          <th>Titel</th>
+          <th>Autor</th>
+          <th>Datum</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for blogPost in page_obj %}
+          <tr>
+            <td>{{ blogPost.titel }}</td>
+            <td>{{ blogPost.author }}</td>
+            <td>{{ blogPost.date_Created }}</td>
+            <td> <a href="{% url 'NewNews' % }?page={{ blogpost.id }}">Bearbeiten</a> </td>
+          </tr>
+        {% endfor %}
+    </tbody>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+ {% endblock %}

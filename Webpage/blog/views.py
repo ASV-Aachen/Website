@@ -12,6 +12,7 @@ import urllib.parse
 import logging
 import os
 from .forms import newBlogEntry
+from django.core.paginator import Paginator
 
 
 
@@ -53,10 +54,16 @@ def SingleNews(request):
     except:
         return redirect("ASV")
 
-
+'''writerView'''
 def adminNewsPage(request):
-    # TODO
-    pass
+    posts = blogPost.objects.all()
+    paginator = Paginator(posts, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'editorNewsPage.html', {'page_obj': page_obj})
+
 
 ''' News für Löschung markieren'''
 def deleteNews(request):
