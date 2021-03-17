@@ -62,7 +62,7 @@ def adminNewsPage(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'editorNewsPage.html', {'page_obj': page_obj})
+    return render(request, 'blog/editorNewsPage.html', {'page_obj': page_obj})
 
 
 ''' News für Löschung markieren'''
