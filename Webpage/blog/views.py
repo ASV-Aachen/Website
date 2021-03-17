@@ -60,8 +60,12 @@ def adminNewsPage(request):
 
 ''' News für Löschung markieren'''
 def deleteNews(request):
-    # TODO
-    pass
+    if (request.user.is_authenticated):
+        id = request.GET['ID']
+        blogPost.objects.get(id=id).delete()
+        redirect("writerView")
+    else:
+        redirect("ASV")
 
 '''Insert a new Blog Entry'''
 def AddNews(request):
