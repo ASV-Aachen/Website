@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
 from django.template.base import logger
-from .models import blogPost
+from .models import blogPost, blogPostHistory
 from django.http import HttpResponse
 from django.contrib.auth.models import Permission
 from django.conf import settings
@@ -91,6 +91,11 @@ def AddNews(request):
                     # if Data exits: setze den last author anders
                     aktuellerPost = blogPost.objects.filter(id = request.GET['id'])[0]
 
+                    # setze den alten Text als History
+                    newhistory = blogPostHistory(title=aktuellerPost.titel, text=aktuellerPost.text, editor=request.user.id)
+                    newhistory.save()
+                    aktuellerPost.history.add(newhistory)
+
                     form.instance.author_id = aktuellerPost.author.id
                     form.instance.last_editor = request.user.first_name + " " + request.user.last_name
                     form.instance.id = request.GET['id']
@@ -111,13 +116,15 @@ def AddNews(request):
                 if(blogPost.objects.filter(id=id).exists()):
                     # ID existiert, also zurückgeben
                     post = blogPost.objects.get(id=id)
+                    form = newBlogEntry(instance=post)
 
                     if('version' in request.GET):
                         # Wir suchen nach einer bestimten Version
-                        if(post.history.filter(id=request.GET['version']).exists()):
-                            post = post.history.filter(id=id).first()
+                        if(blogPostHistory.objects.filter(id = request.get['version'],blogPost__id = id).exists()):
+                            OldPost = blogPostHistory.objects.filter(id = request.get['version'],blogPost__id = id)[0]
+                            form.instance.titel = OldPost.titel
+                            form.instance.text = OldPost.text
 
-                    form = newBlogEntry(instance=post)
                     hist = post.history.all()
                     return render(request, "blog/AddNews.html", {"form": form, "post": post, "hist": hist})
                 else:

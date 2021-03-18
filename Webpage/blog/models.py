@@ -22,6 +22,15 @@ from simple_history.models import HistoricalRecords
 def get_sentinel_user():
     return get_user_model().objects.get_or_create(username='deleted')[0]
 
+class blogPostHistory(models.Model):
+    titel = models.CharField(max_length=200)
+    text = HTMLField()
+    editor = models.CharField(max_length=300)
+
+    date = models.DateTimeField(auto_created=True, default=timezone.now)
+
+    def __str__(self):
+        return self.date.__str__() + "-" + self.editor.first_name + " " + self.editor.last_name
 
 # Modell für alle Blogeinträge
 class blogPost(models.Model):
@@ -32,7 +41,7 @@ class blogPost(models.Model):
 
     last_editor = models.CharField(max_length=300)
 
-    history = HistoricalRecords()
+    history = models.ManyToManyField(blogPostHistory)
 
     def __str__(self):
         return self.titel
