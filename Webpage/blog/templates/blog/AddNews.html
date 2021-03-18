@@ -33,6 +33,7 @@
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   {% for hist in post.history%}
                 <li><a class="dropdown-item" href="?id={{post.id}}&version={{hist.id}}">{{hist.date}}</a></li>
+                  {% endfor %}
               </ul>
             </div>
         </div>
