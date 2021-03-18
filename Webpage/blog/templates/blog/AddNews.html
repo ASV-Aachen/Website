@@ -13,10 +13,10 @@
 {% block content %}
     <h3 class="pb-3 mb-4 font-italic border-bottom">Neuer Newsintrag</h3>
     {% if post %}
-        <div id="InfoBox">
-            <div id = "author">{{ post.author}}</div>
-            <div id = "date_created">{{ post.date_Created}}</div>
-            <div id = "last_editor">{{ post.last_editor}}</div>
+        <div id="InfoBox" class="alert alert-secondary">
+            <div id = "author">Autor: {{ post.author.first_name }} {{post.author.last_name}}</div>
+            <div id = "date_created">Erstellt am {{ post.date_Created | date:"F d, Y"}}</div>
+            <div id = "last_editor">Zuletzt bearbeitet von: {{ post.last_editor}}</div>
         </div>
     {% endif %}
 

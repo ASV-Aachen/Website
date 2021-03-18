@@ -29,9 +29,9 @@
               <tr>
                 <td>{{ blogPost.id }}</td>
                 <td>{{ blogPost.titel }}</td>
-                <td>{{ blogPost.author }}</td>
+                <td>{{ blogPost.author.first_name }} {{blogPost.author.last_name}}</td>
                 <td>{{ blogPost.date_Created }}</td>
-                <td> <a type="button" class="btn btn-success" href="{% url 'NewNews' %}?page={{ blogPost.id }}">Bearbeiten</a> </td>
+                <td> <a type="button" class="btn btn-success" href="{% url 'NewNews' %}?id={{ blogPost.id }}">Bearbeiten</a> </td>
                 <td> <a type="button" class="btn btn-danger" href="{% url 'deleteNews' %}?id={{ blogPost.id }}">Löschen</a> </td>
               </tr>
             {% endfor %}
