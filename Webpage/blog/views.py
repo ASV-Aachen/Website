@@ -120,7 +120,7 @@ def AddNews(request):
 
                     if('version' in request.GET):
                         # Wir suchen nach einer bestimten Version
-                        if blogPost.objects.filter(id = request.GET['version'], blogPost=post).exists():
+                        if blogPostHistory.objects.filter(id = request.GET['version'], blogPost=post).exists():
                             OldPost = blogPostHistory.objects.filter(id = request.get['version'], blogPost=post)[0]
                             form.instance.titel = OldPost.titel
                             form.instance.text = OldPost.text
