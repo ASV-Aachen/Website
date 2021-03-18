@@ -115,7 +115,8 @@ def AddNews(request):
                             post = post.history.objects.get(id=id).instance
 
                     form = newBlogEntry(instance=post)
-                    return render(request, "blog/AddNews.html", {"form": form, "post": post})
+                    hist = post.history.all()
+                    return render(request, "blog/AddNews.html", {"form": form, "post": post, "hist": hist})
                 else:
                     # ID ist zwar gegeben, existiert aber nicht
                     return redirect("writerView")
