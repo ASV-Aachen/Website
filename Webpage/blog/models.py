@@ -30,7 +30,7 @@ class blogPostHistory(models.Model):
     date = models.DateTimeField(auto_created=True, default=timezone.now)
 
     def __str__(self):
-        return self.date.__str__() + "-" + self.editor.first_name + " " + self.editor.last_name
+        return self.date.__str__() + " - " + self.editor
 
 # Modell für alle Blogeinträge
 class blogPost(models.Model):
