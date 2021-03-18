@@ -116,7 +116,6 @@ def AddNews(request):
                 if(blogPost.objects.filter(id=id).exists()):
                     # ID existiert, also zurückgeben
                     post = blogPost.objects.get(id=id)
-                    form = newBlogEntry(instance=post)
 
                     if('version' in request.GET):
                         # Wir suchen nach einer bestimten Version
@@ -124,9 +123,10 @@ def AddNews(request):
                         if post.history.filter(id = versionID).exists():
                             OldPost = post.history.get(id = request.GET['version'])
                             logger.log("FILTER GEFUNDEN")
-                            form.instance.titel = OldPost.titel
-                            form.instance.text = OldPost.text
+                            post.titel = OldPost.titel
+                            post.text = OldPost.text
 
+                    form = newBlogEntry(instance=post)
                     hist = post.history.all().order_by('-id')
                     return render(request, "blog/AddNews.html", {"form": form, "post": post, "hist": hist})
                 else:
