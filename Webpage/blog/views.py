@@ -92,7 +92,7 @@ def AddNews(request):
                     aktuellerPost = blogPost.objects.filter(id = request.GET['id'])[0]
 
                     # setze den alten Text als History
-                    newhistory = blogPostHistory(title=aktuellerPost.titel, text=aktuellerPost.text, editor=request.user.id)
+                    newhistory = blogPostHistory(titel=aktuellerPost.titel, text=aktuellerPost.text, editor=request.user.id)
                     newhistory.save()
                     aktuellerPost.history.add(newhistory)
 
