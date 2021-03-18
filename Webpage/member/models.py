@@ -7,9 +7,12 @@ import os
 from phonenumber_field.modelfields import PhoneNumberField
 from django_resized import ResizedImageField
 
-class Position(models.Model):
+class role(models.Model):
     titel = models.CharField(max_length=70, null=False, primary_key=True)
     description = models.TextField(null=True)
+
+    def __str__(self):
+        return self.titel
 
 # ---------------------------------------------------------------
 # Finde den Path zum Bild
@@ -21,14 +24,20 @@ class profile(models.Model):
     Aktiv = 2
     Inaktiv = 3
     AlterHerr = 4
+    Außerordentliches_Mitglied = 5
+    Ehrenmitglied = 6
     status_info = (
         (Anwärter, 'Anwärter'),        
         (Aktiv, 'Aktiv'),
         (Inaktiv, 'Inaktiv'),
         (AlterHerr, 'Alter Herr'),
+        (Außerordentliches_Mitglied, "Außerordentliches Mitglied"),
+        (Ehrenmitglied, 'Ehrenmitglied'),
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    roles = models.ManyToManyField(role)
     
     hometown = models.CharField(max_length=100, null=True, default='Aachen')
     plz = models.IntegerField(null=True, default=52062)
@@ -52,5 +61,5 @@ class profile(models.Model):
 
 class position_in_the_club(models.Model):
     ErnennungsDatum = models.DateField(null=False)
-    Position = models.ForeignKey(Position, on_delete=models.CASCADE)
-    Mitglied = models.ForeignKey(profile, on_delete=models.CASCADE)
+    # Position = models.ForeignKey(Position, on_delete=models.CASCADE)
+    # Mitglied = models.ForeignKey(profile, on_delete=models.CASCADE)

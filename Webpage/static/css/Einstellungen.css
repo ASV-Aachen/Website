@@ -62,3 +62,9 @@
     }
   }
 
+
+/* Element | http://chrisubuntu:11100/mitglieder/Einstellungen */
+
+#roleDisplay {
+  display: flex;
+}
