@@ -56,8 +56,8 @@ def SingleNews(request):
 
 '''writerView'''
 def adminNewsPage(request):
-    posts = blogPost.objects.all()
-    paginator = Paginator(posts, 10)
+    posts = blogPost.objects.all().order_by('-id')
+    paginator = Paginator(posts, 20)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
