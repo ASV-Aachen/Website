@@ -21,6 +21,7 @@
               <th>Autor</th>
               <th>Datum</th>
               <th></th>
+              <th></th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +31,8 @@
                 <td>{{ blogPost.titel }}</td>
                 <td>{{ blogPost.author }}</td>
                 <td>{{ blogPost.date_Created }}</td>
-                <td> <a href="{% url 'NewNews' %}?page={{ blogpost.id }}">Bearbeiten</a> </td>
+                <td> <a type="button" class="btn btn-success" href="{% url 'NewNews' %}?page={{ blogPost.id }}">Bearbeiten</a> </td>
+                <td> <a type="button" class="btn btn-danger" href="{% url 'deleteNews' %}?page={{ blogPost.id }}">Löschen</a> </td>
               </tr>
             {% endfor %}
         </tbody>
@@ -44,7 +46,7 @@
             {% endif %}
 
             <span class="current">
-                Seite {{ page_obj.number }} von {{ page_obj.paginator.num_pages }}.
+                Seite {{ page_obj.number }} von {{ page_obj.paginator.num_pages }}
             </span>
 
             {% if page_obj.has_next %}
