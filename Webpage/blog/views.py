@@ -71,9 +71,9 @@ def deleteNews(request):
         if ('id' in request.GET):
             id = request.GET['ID']
             blogPost.objects.get(id=id).delete()
-        redirect("writerView")
+        return redirect("writerView")
     else:
-        redirect("ASV")
+        return redirect("ASV")
 
 '''Insert a new Blog Entry'''
 def AddNews(request):

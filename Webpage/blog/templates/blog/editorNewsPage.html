@@ -32,7 +32,7 @@
                 <td>{{ blogPost.author }}</td>
                 <td>{{ blogPost.date_Created }}</td>
                 <td> <a type="button" class="btn btn-success" href="{% url 'NewNews' %}?page={{ blogPost.id }}">Bearbeiten</a> </td>
-                <td> <a type="button" class="btn btn-danger" href="{% url 'deleteNews' %}?page={{ blogPost.id }}">Löschen</a> </td>
+                <td> <a type="button" class="btn btn-danger" href="{% url 'deleteNews' %}?id={{ blogPost.id }}">Löschen</a> </td>
               </tr>
             {% endfor %}
         </tbody>
