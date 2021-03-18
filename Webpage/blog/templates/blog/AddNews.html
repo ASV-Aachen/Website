@@ -14,8 +14,9 @@
     <h3 class="pb-3 mb-4 font-italic border-bottom">Neuer Newsintrag</h3>
     {% if post %}
         <div id="InfoBox" class="alert alert-secondary">
+            <div id = "id">ID: {{post.id}}</div>
             <div id = "author">Autor: {{ post.author.first_name }} {{post.author.last_name}}</div>
-            <div id = "date_created">Erstellt am {{ post.date_Created | date:"F d, Y"}}</div>
+            <div id = "date_created">Erstellt am {{ post.date_Created | date:"d F Y"}}</div>
             <div id = "last_editor">Zuletzt bearbeitet von: {{ post.last_editor}}</div>
         </div>
     {% endif %}
@@ -27,6 +28,9 @@
         {% csrf_token %}
         {{ form }}
 
+        {% if post %}
+            {{ form.id.as_hidden }}
+        {% endif %}
         <button type="submit" class="save btn btn-primary">Speichern</button>
     </form>
 

@@ -13,3 +13,4 @@ class newBlogEntry(ModelForm):
     class Meta:
         model = blogPost
         fields = ['titel', 'text']
+
