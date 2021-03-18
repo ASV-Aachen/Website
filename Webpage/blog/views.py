@@ -69,7 +69,7 @@ def adminNewsPage(request):
 def deleteNews(request):
     if (request.user.is_authenticated):
         if ('id' in request.GET):
-            id = request.GET['ID']
+            id = request.GET['id']
             blogPost.objects.get(id=id).delete()
         return redirect("writerView")
     else:
