@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.template import Context, Template
 from django.template.base import logger
@@ -22,17 +23,23 @@ def MainPage(request):
     :return: Die Website
     """
     # Eingeloggte Mitglieder bekommen eine andere Homepagemit eigenen Links und eigenen Hinweisen (TODO)
+    posts = blogPost.objects.all().order_by('-id')
+    paginator = Paginator(posts, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     if (request.user.is_authenticated):    
         CurrentUser = request.user
         Name = CurrentUser.first_name
         return render(request, "web/home.html", context={
-                "News": blogPost.objects.all().order_by('-id')[:5],
+                "News": page_obj,
                 "UserName": Name,
             })
     else:    
-        CurrentUser = request.user
+
         return render(request, "web/home.html", context={
-                "News": blogPost.objects.all().order_by('-id')[:5],
+                "News": page_obj,
             })
 
 

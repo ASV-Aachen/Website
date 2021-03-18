@@ -13,23 +13,26 @@
 
     <a id = "NeueNewsButton" href="{% url 'NewNews' % }">Neue News</a>
 
-    <thead>
-        <tr>
-          <th>Titel</th>
-          <th>Autor</th>
-          <th>Datum</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for blogPost in page_obj %}
-          <tr>
-            <td>{{ blogPost.titel }}</td>
-            <td>{{ blogPost.author }}</td>
-            <td>{{ blogPost.date_Created }}</td>
-            <td> <a href="{% url 'NewNews' % }?page={{ blogpost_id }}">Bearbeiten</a> </td>
-          </tr>
-        {% endfor %}
-    </tbody>
+    <table id="Table" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+              <th>Titel</th>
+              <th>Autor</th>
+              <th>Datum</th>
+              <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blogPost in page_obj %}
+              <tr>
+                <td>{{ blogPost.titel }}</td>
+                <td>{{ blogPost.author }}</td>
+                <td>{{ blogPost.date_Created }}</td>
+                <td> <a href="{% url 'NewNews' % }?page={{ blogpost_id }}">Bearbeiten</a> </td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     <div class="pagination">
         <span class="step-links">
