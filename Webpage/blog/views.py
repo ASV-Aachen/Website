@@ -114,7 +114,7 @@ def AddNews(request):
 
                     if('version' in request.GET):
                         # Wir suchen nach einer bestimten Version
-                        if(post.history.filter(id=request.GET['version'].exists())):
+                        if(post.history.filter(id=request.GET['version']).exists()):
                             post = post.history.filter(id=id).first()
 
                     form = newBlogEntry(instance=post)
