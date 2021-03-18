@@ -89,7 +89,8 @@ def AddNews(request):
 
                 if (blogPost.objects.filter(id = request.GET['id']).exists()):
                     # if Data exits: setze den last author anders
-                    form.instance.author_id = blogPost.objects.filter(id = request.GET['id']).author.id
+                    aktuellerPost = blogPost.objects.filter(id = request.GET['id'])
+                    form.instance.author_id = aktuellerPost.author.id
                     form.instance.last_editor = request.user.first_name + " " + request.user.last_name
                 else:
                     # Data existiert noch nicht, also setzen wir anders
