@@ -121,9 +121,9 @@ def AddNews(request):
                     if('version' in request.GET):
                         # Wir suchen nach einer bestimten Version
                         versionID = request.GET['version']
-                        logger.log("FILTER ----------------------------")
+                        logger.log(1,"FILTER ----------------------------")
                         if post.history.filter(id = versionID).exists():
-                            logger.log("FILTER GEFUNDEN")
+                            logger.log(1,"FILTER GEFUNDEN")
                             OldPost = post.history.get(id = request.GET['version'])
                             form.instance.titel = OldPost.titel
                             form.instance.text = OldPost.text
