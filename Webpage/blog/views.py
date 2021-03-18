@@ -122,7 +122,6 @@ def AddNews(request):
                         versionID = request.GET['version']
                         if post.history.filter(id = versionID).exists():
                             OldPost = post.history.get(id = request.GET['version'])
-                            logger.log("FILTER GEFUNDEN")
                             post.titel = OldPost.titel
                             post.text = OldPost.text
 
