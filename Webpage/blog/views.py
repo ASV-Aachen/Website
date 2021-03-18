@@ -89,6 +89,7 @@ def AddNews(request):
 
                 if (blogPost.objects.filter(id = request.GET['id']).exists()):
                     # if Data exits: setze den last author anders
+                    form.instance.author_id = blogPost.objects.filter(id = request.GET['id']).author_id
                     form.instance.last_editor = request.user.first_name + " " + request.user.last_name
                 else:
                     # Data existiert noch nicht, also setzen wir anders
@@ -107,6 +108,12 @@ def AddNews(request):
                 if(blogPost.objects.filter(id=id).exists()):
                     # ID existiert, also zurückgeben
                     post = blogPost.objects.get(id=id)
+
+                    if('version' in request.GET):
+                        # Wir suchen nach einer bestimten Version
+                        if(post.history.objects.filter(id=request.GET['version'].exists())):
+                            post = post.history.objects.get(id=id).instance
+
                     form = newBlogEntry(instance=post)
                     return render(request, "blog/AddNews.html", {"form": form, "post": post})
                 else:

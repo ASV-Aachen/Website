@@ -12,14 +12,34 @@
 
 {% block content %}
     <h3 class="pb-3 mb-4 font-italic border-bottom">Neuer Newsintrag</h3>
+
     {% if post %}
-        <div id="InfoBox" class="alert alert-secondary">
-            <div id = "id">ID: {{post.id}}</div>
-            <div id = "author">Autor: {{ post.author.first_name }} {{post.author.last_name}}</div>
-            <div id = "date_created">Erstellt am {{ post.date_Created | date:"d F Y"}}</div>
-            <div id = "last_editor">Zuletzt bearbeitet von: {{ post.last_editor}}</div>
+    <div class="container">
+      <div class="row">
+        <div class="col-8">
+            <div id="InfoBox" class="alert alert-secondary">
+                <div id = "id">ID: {{post.id}}</div>
+                <div id = "author">Autor: {{ post.author.first_name }} {{post.author.last_name}}</div>
+                <div id = "date_created">Erstellt am {{ post.date_Created | date:"d F Y"}}</div>
+                <div id = "last_editor">Zuletzt bearbeitet von: {{ post.last_editor}}</div>
+            </div>
         </div>
+
+        <div class="col-4">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                History
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  {% for hist in post.history%}
+                <li><a class="dropdown-item" href="?id={{post.id}}&version={{hist.id}}">{{hist.date}}</a></li>
+              </ul>
+            </div>
+        </div>
+      </div>
+    </div>
     {% endif %}
+
 
     {{ form.media }}
 
