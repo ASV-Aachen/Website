@@ -125,7 +125,7 @@ def AddNews(request):
                             form.instance.titel = OldPost.titel
                             form.instance.text = OldPost.text
 
-                    hist = post.history.all()
+                    hist = post.history.all().order_by('-id')
                     return render(request, "blog/AddNews.html", {"form": form, "post": post, "hist": hist})
                 else:
                     # ID ist zwar gegeben, existiert aber nicht
