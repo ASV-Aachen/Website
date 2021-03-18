@@ -23,14 +23,11 @@
 
     {{ form.media }}
 
-    <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
+    <form method="POST" class="post-form" action='{{ action_url }}?id={{post.id}}' enctype='multipart/form-data'>
 
         {% csrf_token %}
         {{ form }}
 
-        {% if post %}
-            {{ form.id.as_hidden }}
-        {% endif %}
         <button type="submit" class="save btn btn-primary">Speichern</button>
     </form>
 
