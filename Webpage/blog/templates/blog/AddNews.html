@@ -9,7 +9,6 @@
     <link href="{% static 'css/Einstellungen.css' %}" rel="stylesheet">
 {% endblock styles %}
 
-
 {% block content %}
     <h3 class="pb-3 mb-4 font-italic border-bottom">Neuer Newsintrag</h3>
 
@@ -32,7 +31,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       {% for p in hist%}
-                      <a class="dropdown-item" href="?id={{post.id}}&version={{p.id}}">{{p.date| date:"d F Y"}} - {{p.editor}}</a>
+                        <a class="dropdown-item" href="?id={{post.id}}&version={{p.id}}">{{p.date| date:"d F Y"}} - {{p.editor}}</a>
                       {% endfor %}
                 </div>
           </div>
@@ -51,6 +50,7 @@
 
         <button type="submit" class="save btn btn-primary">Speichern</button>
     </form>
+    <a id = "zurückButton" class="btn btn-info" href="{% url 'writerView' %}">Neue News</a>
 
 {% endblock %}
 
