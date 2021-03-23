@@ -16,3 +16,4 @@ Pillow
 social-auth-app-django
 django-phonenumber-field[phonenumbers]
 django-resized
+ django-simple-history

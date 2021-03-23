@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'tinymce',
     'filebrowser',
     'django_resized',
+    'simple_history',
 ]
 
 
@@ -94,6 +95,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'mozilla_django_oidc.middleware.SessionRefresh',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'Django.urls'
