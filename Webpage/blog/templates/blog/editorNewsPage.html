@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - AutorenPage {% endblock %}
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+    <link href="{% static 'member/css/Mitgliederverzeichnis.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block content %}
+  <h2>AutorenPage</h2>
+
+    <a id = "NeueNewsButton" class="btn btn-info" href="{% url 'NewNews' %}">Neue News</a>
+
+    <table id="Table" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+              <th>Nummer</th>
+              <th>Titel</th>
+              <th>Autor</th>
+              <th>Datum</th>
+              <th></th>
+              <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blogPost in page_obj %}
+              <tr>
+                <td>{{ blogPost.id }}</td>
+                <td>{{ blogPost.titel }}</td>
+                <td>{{ blogPost.author.first_name }} {{blogPost.author.last_name}}</td>
+                <td>{{ blogPost.date_Created }}</td>
+                <td> <a type="button" class="btn btn-success" href="{% url 'NewNews' %}?id={{ blogPost.id }}">Bearbeiten</a> </td>
+                <td> <a type="button" class="btn btn-danger" href="{% url 'deleteNews' %}?id={{ blogPost.id }}">Löschen</a> </td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a type="button" class="btn btn-primary btn-sm" href="?page=1">&laquo; first</a>
+                <a type="button" class="btn btn-primary btn-sm" href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Seite {{ page_obj.number }} von {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a type="button" class="btn btn-primary btn-sm" href="?page={{ page_obj.next_page_number }}">next</a>
+                <a type="button" class="btn btn-primary btn-sm" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+ {% endblock %}

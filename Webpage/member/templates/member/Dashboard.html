@@ -19,8 +19,25 @@
 
 <!-- Hier seitenbereich gestalten falls gewünscht -->
  {% block aside %}
-   Hallo hier ist der Seitenbereich
-  {% endblock %}
+    <div id = "Funktionen">
+        <div class="card">
+          <div class="card-header">
+            Funktionen
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <a class="dropdown-item" href="{% url 'Einstellungen' %}"> Einstellungen </a>
+            </li>
+            <li class="list-group-item">
+                <a class="dropdown-item" href="{% url 'writerView' %}"> Writer Editor </a>
+            </li>
+            <li class="list-group-item">
+                To be continued...
+            </li>
+          </ul>
+        </div>
+    </div>
+ {% endblock %}
 
 
 
