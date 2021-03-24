@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-import crispy_forms
 import json
 from django.urls import reverse_lazy
 
@@ -28,7 +27,6 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['chrisubuntu', 'localhost', '192.168.2.5', "192.168.178.129"]
 Host = os.environ["Host"]
 ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
 X_FRAME_OPTIONS = 'ALLOWALL'
@@ -67,8 +65,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
-    'FrontPage',
     # 'django.contrib.sites',
 
     # ASV-Apps
@@ -80,7 +76,6 @@ INSTALLED_APPS = [
     'filebrowser',
     'django_resized',
     'simple_history',
-    'arbeitsstunden',
 ]
 
 
@@ -90,8 +85,6 @@ AUTHENTICATION_BACKENDS = (
     'custom.customOIDCAB.MyOIDCAB',
     'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
 )
-
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
