@@ -62,7 +62,7 @@ services:
     restart: unless-stopped
     command: mysqld --innodb-buffer-pool-size=256M
     ports:
-      - "3306:3306"
+      - 3306
     networks:
       - backend
     healthcheck:

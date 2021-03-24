@@ -23,7 +23,6 @@ from filebrowser.sites import site
 urlpatterns = [
     path('', include('web.urls')),
     path('admin/', admin.site.urls),
-    path('arbeitsstunden/', include('arbeitsstunden.urls')),
     path('news/', include('blog.urls')),
     path('mitglieder/', include('member.urls')),
     path('admin/filebrowser/', site.urls),
