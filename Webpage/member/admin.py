@@ -1,8 +1,7 @@
 from django.contrib import admin
-from .models import Profile, Status, Position, PositionImVerein
+from .models import profile, role, position_in_the_club
 # Register your models here.
 
-admin.site.register(Profile)
-admin.site.register(Status)
-admin.site.register(Position)
-admin.site.register(PositionImVerein)
+admin.site.register(profile)
+admin.site.register(role)
+admin.site.register(position_in_the_club)

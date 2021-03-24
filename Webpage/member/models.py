@@ -1,28 +1,54 @@
+from PIL import Image
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import os
+from phonenumber_field.modelfields import PhoneNumberField
+from django_resized import ResizedImageField
 
+class role(models.Model):
+    titel = models.CharField(max_length=70, null=False, primary_key=True)
+    description = models.TextField(null=True)
 
-class Position(models.Model):
-    Titel = models.CharField(max_length=70, null=False, primary_key=True)
-    Beschreibung = models.TextField(null=True)
+    def __str__(self):
+        return self.titel
+
 # ---------------------------------------------------------------
-class Status(models.Model):
-    Titel = models.CharField(max_length=70, null=False, 
-    primary_key=True)
-    Beschreibung = models.TextField()
-# ---------------------------------------------------------------
+# Finde den Path zum Bild
+def get_image_path(instance, filename):
+    return os.path.join('photos', str(instance.id), filename)
 
-class Profile(models.Model):
+class profile(models.Model):
+    Anwärter = 1
+    Aktiv = 2
+    Inaktiv = 3
+    AlterHerr = 4
+    Außerordentliches_Mitglied = 5
+    Ehrenmitglied = 6
+    status_info = (
+        (Anwärter, 'Anwärter'),
+        (Aktiv, 'Aktiv'),
+        (Inaktiv, 'Inaktiv'),
+        (AlterHerr, 'Alter Herr'),
+        (Außerordentliches_Mitglied, "Außerordentliches Mitglied"),
+        (Ehrenmitglied, 'Ehrenmitglied'),
+    )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    Heimatstadt = models.CharField(max_length=45)
-    PLZ = models.IntegerField()
-    Land = models.CharField(max_length=70)
-    # Bild (TODO)
-    PositionImVerein = models.ManyToManyField(Position, through="PositionImVerein")
-    Status = models.ForeignKey(Status, null=False, on_delete=models.RESTRICT)
-    Eintrittsdatum = models.DateField()
+
+    roles = models.ManyToManyField(role)
+
+    hometown = models.CharField(max_length=100, null=True, default='Aachen')
+    plz = models.IntegerField(null=True, default=52062)
+    country = models.CharField(max_length=70, null=True, default='Deutschland')
+
+    # profile_image = models.ImageField(upload_to='profile', blank=True, null=True)
+    profile_image = ResizedImageField(size=[166,233], upload_to='profile', crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
+
+    status = models.PositiveSmallIntegerField(choices=status_info, null=True, blank=True)
+
+    entry_date = models.DateField()
     # Konto Gehört zur Bierkasse #23 (TODO)
     EMail = models.EmailField(null=False)
     HandyNummer = models.CharField(max_length=100)
@@ -31,24 +57,16 @@ class Profile(models.Model):
     def Anzeigename(self):
         return self.user.first_name + " " + self.user.last_name
 
+
+    # Pluggin: https://github.com/stefanfoulis/django-phonenumber-field
+    phone = PhoneNumberField(null=True, blank=True, unique=False)
+    mobile = PhoneNumberField(null=True, blank=True, unique=False)
+
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
 
 
-    # Darfbearbeiten = models.BooleanField()
-
-# Receiver Funktionen zum einarbeiten der neuen USER
-@receiver(post_save, sender=Profile)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=Profile)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-
-class PositionImVerein(models.Model):
+class position_in_the_club(models.Model):
     ErnennungsDatum = models.DateField(null=False)
-    Position = models.ForeignKey(Position, on_delete=models.CASCADE)
-    Mitglied = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    # Position = models.ForeignKey(Position, on_delete=models.CASCADE)
+    # Mitglied = models.ForeignKey(profile, on_delete=models.CASCADE)

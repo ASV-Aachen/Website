@@ -25,7 +25,6 @@ urlpatterns = [
     path('', views.MainPage, name="ASV"),
     path('login', views.loginFunction, name="login"),
     path('logout', views.logoutFunktion, name="logout"),
-    #path('MeinASV', include('member.urls')),
     path('UserTestPage', views.UserTest, name="UserTests"),
     path('unfertig', views.unfertig, name='unfertig'),
 ]

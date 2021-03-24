@@ -1,50 +1,18 @@
 from datetime import date
 
 from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.template import Context, Template
 from django.template.base import logger
 #from .models import *
-from blog.models import BlogEintrag
+from blog.models import blogPost
 from django.http import HttpResponse
 from django.contrib.auth.models import Permission
 from django.conf import settings
 import urllib.parse
 import logging
 import os
-
-
-
-
-# Object for Header logged in and not logged in (name and url)
-def GetMenu(request):
-    if (request.user.is_authenticated):
-        Object = [{
-            "link":"/mitglieder",
-            "Name":"Mein ASV"
-        },{
-            "link":"/arbeitsstunden",
-            "Name":"Arbeitsstunden"
-        },{
-            "link":"/wiki",
-            "Name":"Wiki"
-        },{
-            "link":"/unfertig",
-            "Name":"Mitgliedererzeichnis"
-        },{
-            "link":"/unfertig",
-            "Name":"Einstellungen"
-        },{
-            "link":"/logout",
-            "Name":"logout"
-        }]
-    else:
-        Object = [{
-            "link":"/login",
-            "Name":"Login"
-        }]
-        pass
-    return Object
 
 
 # Frontpage (DONE)
@@ -55,19 +23,23 @@ def MainPage(request):
     :return: Die Website
     """
     # Eingeloggte Mitglieder bekommen eine andere Homepagemit eigenen Links und eigenen Hinweisen (TODO)
+    posts = blogPost.objects.all().order_by('-id')
+    paginator = Paginator(posts, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     if (request.user.is_authenticated):    
         CurrentUser = request.user
         Name = CurrentUser.first_name
-        return render(request, "home.html", context={
-                "News": BlogEintrag.objects.all().order_by('-id')[:5],
+        return render(request, "web/home.html", context={
+                "News": page_obj,
                 "UserName": Name,
-                "UserLinks": GetMenu(request)
             })
     else:    
-        CurrentUser = request.user
-        return render(request, "home.html", context={
-                "News": BlogEintrag.objects.all().order_by('-id')[:5],
-                "UserLinks": GetMenu(request)
+
+        return render(request, "web/home.html", context={
+                "News": page_obj,
             })
 
 

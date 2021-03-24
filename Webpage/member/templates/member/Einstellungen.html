@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - Einstellungen {% endblock title%}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+    <link href="{% static 'css/Einstellungen.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Einstellungen</h3>
+
+    {% if profil.profile_image%}
+        <div id ="UserName"> {{profil.user.first_name}} {{profil.user.last_name}} </div>
+        <img src="{{profil.profile_image.url}}">
+    {% else %}
+        <img src="{% static 'img/standard_profile_picture_cropt.png' %}" >
+    {% endif %}
+
+    <div id="roleDisplay">
+        <div>Deine Rollen im Verein:</div>
+        {% for membersRole in profil.roles.all %}
+            <div id="role">{{membersRole}} </div>
+        {% endfor%}
+    </div>
+
+    <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
+
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="save btn btn-primary">Speichern</button>
+    </form>
+
+{% endblock %}
+
+
