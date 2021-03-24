@@ -13,18 +13,17 @@ from arbeitsstunden.models import Arbeitsstundenausschreibung, Arbeitsbeteiligun
 from django.urls import resolve
 
 from arbeitsstunden.utils import get_aktuelle_saison, check_authentication_redirect_if_fails
-from member.models import Profile
+from member.models import profile
 
 
 def arbeitsstunden_home(request):
     check_authentication_redirect_if_fails(request)
 
     user = request.user
-    print(user)
-    profile = Profile.objects.get(user=user)
+    userprofile = profile.objects.get(user=user)
     aktuelle_saison = get_aktuelle_saison()
     beteiligungen_aktuelle_saison = Arbeitsbeteiligung.objects. \
-        filter(Arbeitsleistender=profile, Arbeitseinheit__Projekt__Saison__Jahr=aktuelle_saison.Jahr). \
+        filter(Arbeitsleistender=userprofile, Arbeitseinheit__Projekt__Saison__Jahr=aktuelle_saison.Jahr). \
         order_by(F("Arbeitseinheit__Datum").desc())
 
     geleistete_stunden = sum(beteiligung.Arbeitszeit for beteiligung in beteiligungen_aktuelle_saison)

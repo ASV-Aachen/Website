@@ -3,7 +3,7 @@
 {% block content %}
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">{{projekt.Saison}}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'projekte_overview' %}">{{projekt.Saison}}</a></li>
         <li class="breadcrumb-item active">{{projekt.Name}}</li>
       </ol>
     </nav>

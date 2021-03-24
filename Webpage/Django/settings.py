@@ -69,8 +69,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'FrontPage',
-    'Mitglieder',
-    'arbeitsstunden',
     # 'django.contrib.sites',
 
     # ASV-Apps
@@ -82,6 +80,7 @@ INSTALLED_APPS = [
     'filebrowser',
     'django_resized',
     'simple_history',
+    'arbeitsstunden',
 ]
 
 

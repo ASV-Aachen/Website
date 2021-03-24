@@ -3,7 +3,7 @@ from pprint import pprint
 from django.db import models
 
 # Create your models here.
-from member.models import Profile
+from member.models import profile
 
 
 class Saison(models.Model):
@@ -23,7 +23,7 @@ class Projekt(models.Model):
     Saison = models.ForeignKey(Saison, on_delete=models.RESTRICT)
     Name = models.CharField(max_length=256)
     Beschreibung = models.TextField(blank=True)
-    Verantwortlich = models.ManyToManyField(Profile)
+    Verantwortlich = models.ManyToManyField(profile)
 
     @property
     def Arbeitszeit(self):
@@ -49,7 +49,7 @@ class Arbeitsstundenausschreibung(models.Model):
 class Arbeitseinheit(models.Model):
     Projekt = models.ForeignKey(Projekt, on_delete=models.RESTRICT)
     Beschreibung = models.CharField(max_length=1024)
-    Beteiligte = models.ManyToManyField(Profile, through="Arbeitsbeteiligung")
+    Beteiligte = models.ManyToManyField(profile, through="Arbeitsbeteiligung")
     Datum = models.DateField()
     Ausschreibung = models.ForeignKey(Arbeitsstundenausschreibung, on_delete=models.SET_NULL, blank=True, null=True)
 
@@ -63,7 +63,7 @@ class Arbeitseinheit(models.Model):
 
 class Arbeitsbeteiligung(models.Model):
     Arbeitseinheit = models.ForeignKey(Arbeitseinheit, on_delete=models.RESTRICT)
-    Arbeitsleistender = models.ForeignKey(Profile, on_delete=models.RESTRICT)
+    Arbeitsleistender = models.ForeignKey(profile, on_delete=models.RESTRICT)
     Arbeitszeit = models.FloatField()
 
     def __str__(self):
