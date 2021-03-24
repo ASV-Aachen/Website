@@ -36,6 +36,7 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           {% if request.user.is_authenticated %}
             <a class="dropdown-item" href="{% url 'MeinASV' %}"> Mein ASV </a>
+            <a class="dropdown-item" href="{% url 'arbeitsstunden_home' %}"> Arbeitsstunden </a>
             <a class="dropdown-item" href="/wiki"> Wiki </a>
             <a class="dropdown-item" href="#"> Cloud </a>
             <a class="dropdown-item" href="{% url 'Mitgliedererzeichnis' %}"> Mitgliedererzeichnis </a>
