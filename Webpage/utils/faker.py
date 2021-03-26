@@ -22,8 +22,23 @@ def fakeNews(Anzahl: int) -> []:
 '''
 Erstellt die gewünschte Anzahl an Fake Nutzern. 
 
-@return Array aus Objecten -> username, vorname, nachname, country, hometown, EMail, HandyNummer
+@return Array aus Objecten -> username, vorname, nachname, country, hometown, Email, HandyNummer
 '''
 def fakeNutzer(Anzahl: int) -> []:
-    # TODO
-    pass
+    fake = Faker()
+    Ergebnis = []
+
+    for _ in range(0, Anzahl):
+        newNews = {
+            "username": fake.simple_profile().get("username"),
+            "vorname": fake.first_name(),
+            "nachname": fake.last_name(),
+            "country": fake.country(),
+            "hometown": fake.city(),
+            "Email": fake.email(),
+            "HandyNummer": fake.phone_number()
+        }
+
+        Ergebnis.append(newNews)
+
+    return Ergebnis
