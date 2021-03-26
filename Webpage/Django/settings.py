@@ -68,7 +68,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'FrontPage',
     # 'django.contrib.sites',
 
     # ASV-Apps
