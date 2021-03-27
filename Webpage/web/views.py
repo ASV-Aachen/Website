@@ -13,6 +13,11 @@ from django.conf import settings
 import urllib.parse
 import logging
 import os
+from utils.faker import *
+from blog.models import blogPost
+from member.models import profile
+from utils.member import newMember
+import random
 
 
 # Frontpage (DONE)
@@ -97,12 +102,6 @@ def UserTest(request):
     else:
         Text = "<h1>Nicht angemeldet!</h1> \n"
     return HttpResponse(Text)
-
-from utils.faker import *
-from blog.models import blogPost
-from member.models import profile
-from utils.member import newMember
-import random
 
 def autoPopulate(request):
 
