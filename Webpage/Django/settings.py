@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import crispy_forms
 import json
 from django.urls import reverse_lazy
 
@@ -87,6 +88,8 @@ AUTHENTICATION_BACKENDS = (
     'custom.customOIDCAB.MyOIDCAB',
     'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
 )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
