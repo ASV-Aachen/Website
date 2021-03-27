@@ -60,8 +60,8 @@ def settings(request):
 
 # Erstelle das Member Haupt Menüs mit den Buttons für Funktionen und Auswertungen über die Mitglieder
 def memberMenu(request):
-    #TODO
-    pass
+
+    return render(request, "member/memberMenu.html")
 
 # Anzeige aller Member
 def alleMember(request):
@@ -71,8 +71,7 @@ def alleMember(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, "member/memberMenu.html", {"page_obj": page_obj})
-
+    return render(request, "member/alleMember.html", {"page_obj": page_obj})
 
 # Möglicher Export aller Mitglieder
 def exportPage(request):
