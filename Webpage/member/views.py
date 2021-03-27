@@ -2,7 +2,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 
-from utils.member import newMember
+from utils.member import newMember, userToHash, deleteGivenUser
 from .models import profile
 from django.contrib.auth.models import User
 from .forms import changePersonalInfo, createNewMember
@@ -104,3 +104,28 @@ def newMemberEditor(request):
 def massenimport(request):
     #TODO
     pass
+
+'''
+    Erstellt eine Seite mit einem hash des Nutzernamen. Wird dieser zurück gesendet wissen wir das es ernst gemeint ist.
+'''
+def deleteUser(request):
+    if request.GET['id'] != "":
+        if User.Objects.filter(id=id).exists() is True:
+            # Erzeuge hash
+            user = User.Objects.filter(id=id)[0]
+
+            if request.GET['key'] != "":
+                # Lösche den Nutzer
+                givenKey = request.GET['key']
+                if givenKey == userToHash(user.username):
+                    deleteGivenUser(user.id)
+                    return redirect("MemberMenu")
+                return render(request, "ErrorPage.html")
+            else:
+                key = userToHash(user.username)
+                # sende Seite
+                return render(request, "member/deleteUser.html", {"hash": key, "user": user})
+        else:
+            return redirect("MemberMenu")
+    else:
+        return redirect("MemberMenu")

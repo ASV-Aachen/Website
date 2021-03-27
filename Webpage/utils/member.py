@@ -4,6 +4,17 @@ from member.models import profile
 from keycloak import KeycloakAdmin
 import random
 
+def userToHash(username):
+    ergebnis = ""
+    # TODO
+    return ergebnis
+
+
+'''Löschfunktion. Löscht zunächst das Profil, dann Keycloak und dann den eigentlichen User'''
+def deleteGivenUser(ID):
+    pass
+
+
 '''
 Erzeugt aus einem gegebenen Namen und Nachnamen einen bisher nicht existenten Usernamen
 '''
