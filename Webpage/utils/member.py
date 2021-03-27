@@ -4,9 +4,18 @@ from member.models import profile
 from keycloak import KeycloakAdmin
 
 '''
+
+'''
+def createUsername() -> str:
+    # TODO
+    return ""
+
+
+'''
 Erstelle einen neuen Nutzer und füge ihn den
 '''
-def newMember(username, vorname, nachname, country, hometown, Email, HandyNummer):
+def newMember(vorname, nachname, country, hometown, Email)->bool:
+    username = createUsername()
     if createNewUserInKeycloak(username, vorname, nachname, Email):
         user = User()
         user.username = username
@@ -18,8 +27,10 @@ def newMember(username, vorname, nachname, country, hometown, Email, HandyNummer
         newProfile = profile(user=user, status=1, entry_date=datetime.date.today())
         newProfile.hometown = hometown
         newProfile.country = country
-        newProfile.phone = HandyNummer
         newProfile.save()
+        return True
+    else:
+        return False
     pass
 
 '''

@@ -91,8 +91,10 @@ def newMemberEditor(request):
         hometown = "Aachen"
         email = form.instance.email
 
-        newMember(vorname, nachname, country, hometown, email)
-        return redirect("MemberMenu")
+        if newMember(vorname, nachname, country, hometown, email):
+            return redirect("MemberMenu")
+        else:
+            return render(request, "ErrorPage.html")
     else:
         form = createNewMember()
         return render(request, "member/newMemberEditor.html", {"form": form})
