@@ -18,3 +18,4 @@ django-phonenumber-field[phonenumbers]
 django-resized
 django-simple-history
 Faker
+python-keycloak
