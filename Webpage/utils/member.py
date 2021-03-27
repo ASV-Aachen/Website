@@ -2,14 +2,16 @@ import os
 from django.contrib.auth.models import User
 from member.models import profile
 from keycloak import KeycloakAdmin
+import random
 
 '''
-
+Erzeugt aus einem gegebenen Namen und Nachnamen einen bisher nicht existenten Usernamen
 '''
-def createUsername() -> str:
-    # TODO
-    return ""
-
+def createUsername(vorname, nachname) -> str:
+    while True:
+        ergebnis = vorname[0] + nachname[-1:3] + random.randrange(1,999)
+        if User.Objects.filter(username = ergebnis).exists() is False:
+            return ergebnis
 
 '''
 Erstelle einen neuen Nutzer und füge ihn den
