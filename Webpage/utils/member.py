@@ -11,9 +11,28 @@ def userToHash(username):
 
 
 '''Löschfunktion. Löscht zunächst das Profil, dann Keycloak und dann den eigentlichen User'''
-def deleteGivenUser(ID):
-    # TODO
-    pass
+def deleteGivenUser(ID) -> bool:
+    # Finde den Nutzer
+    user = User.objects.get(id = ID)
+
+    # Lösch von Keycloak
+    keycloak_admin = KeycloakAdmin(server_url=os.environ["Host"] + "sso/auth/",
+                                   username=os.environ["Keycloak_Username"],
+                                   password=os.environ["Keycloak_Password"],
+                                   realm_name="ASV",
+                                   client_secret_key=os.environ["OIDC_RP_CLIENT_SECRET"],
+                                   verify=True)
+
+    user_id_keycloak = keycloak_admin.get_user_id(user.username)
+    response = keycloak_admin.delete_user(user_id=user_id_keycloak)
+
+    # Lösch das Profil
+    Profil = profile.objects.get(user=user)
+    Profil.delete()
+
+    # Lösche den Nutzer
+    user.delete()
+    return
 
 
 '''
