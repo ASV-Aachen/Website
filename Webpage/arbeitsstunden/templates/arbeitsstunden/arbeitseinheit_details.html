@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'projekte_overview' %}">{{arbeitseinheit.Projekt.Saison}}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'projekte_detail' pk=arbeitseinheit.Projekt.id %}">{{arbeitseinheit.Projekt.Name}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{arbeitseinheit.Beschreibung}}</li>
+      </ol>
+    </nav>
+
+    <h3 class="pb-3 mb-4 font-italic border-bottom">{{arbeitseinheit.Projekt}}</h3>
+    <h4>{{arbeitseinheit.Beschreibung}}</h4>
+
+    Gesamte Arbeitszeit: {{arbeitseinheit.Arbeitszeit}}h
+    <br><br>
+    <a href="{% url 'arbeitsbeteiligung_new' %}?Arbeitseinheit={{arbeitseinheit.id}}" class="btn btn-primary">Beteiligung hinzufügen</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mitglied</th>
+                <th>Arbeitszeit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for arbeitsbeteiligung in arbeitseinheit.arbeitsbeteiligung_set.all %}
+                <tr>
+                    <td>
+                        <a href="{% url 'arbeitsbeteiligung_edit' pk=arbeitsbeteiligung.id %}"><i class="bi bi-pencil-fill"></i></a>
+                        <a href="{% url 'arbeitsbeteiligung_delete' pk=arbeitsbeteiligung.id %}"><i class="bi bi-trash"></i></a>
+                    </td>
+                    <td>{{arbeitsbeteiligung.Arbeitsleistender.Anzeigename}}</td>
+                    <td>{{arbeitsbeteiligung.Arbeitszeit}}h</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
