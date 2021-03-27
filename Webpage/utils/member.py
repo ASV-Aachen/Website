@@ -1,3 +1,4 @@
+import hashlib
 import os
 from django.contrib.auth.models import User
 from member.models import profile
@@ -5,8 +6,7 @@ from keycloak import KeycloakAdmin
 import random
 
 def userToHash(username):
-    ergebnis = ""
-    # TODO
+    ergebnis = hashlib.sha512(username).hexdigest()
     return ergebnis
 
 
