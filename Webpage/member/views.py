@@ -1,4 +1,5 @@
 #from django.contrib.auth import authenticate
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import profile
 from django.contrib.auth.models import User
@@ -52,3 +53,31 @@ def settings(request):
         return render(request, "member/Einstellungen.html", {"form": form, "profil": Profil})
     else:
         return redirect("ASV")
+
+
+# -------------------------------------------------------
+# ADMIN BEREICH
+
+# Erstelle das Member Haupt Menüs mit den Buttons für Funktionen und Auswertungen über die Mitglieder
+def memberMenu(request):
+    pass
+
+# Anzeige aller Member
+def alleMember(request):
+    #TODO
+    pass
+
+# Möglicher Export aller Mitglieder
+def exportPage(request):
+    #TODO
+    pass
+
+# Editor zum erstellen des neuen Nutzers
+def newMemberEditor(request):
+    #TODO
+    pass
+
+# Seite für einen möglichen Massenimport von Daten in Form einer CSV Datei.
+def massenimport(request):
+    #TODO
+    pass

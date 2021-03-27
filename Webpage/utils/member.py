@@ -27,16 +27,19 @@ def newMember(username, vorname, nachname, country, hometown, Email, HandyNummer
 '''
 def createNewUserInKeycloak(username, vorname, nachname, Email) -> bool:
     #TODO
-    keycloak_admin = KeycloakAdmin(server_url = os.environ["Host"] + "sso/auth/",
-                                   username= os.environ["Keycloak_Username"],
-                                   password= os.environ["Keycloak_Password"],
-                                   realm_name="ASV",
-                                   client_secret_key=os.environ["OIDC_RP_CLIENT_SECRET"],
-                                   verify=True)
+    try:
+        keycloak_admin = KeycloakAdmin(server_url = os.environ["Host"] + "sso/auth/",
+                                       username= os.environ["Keycloak_Username"],
+                                       password= os.environ["Keycloak_Password"],
+                                       realm_name="ASV",
+                                       client_secret_key=os.environ["OIDC_RP_CLIENT_SECRET"],
+                                       verify=True)
 
-    new_user = keycloak_admin.create_user({"email": Email,
-                                           "username": username,
-                                           "enabled": True,
-                                           "firstName": vorname,
-                                           "lastName": nachname})
-    pass
+        new_user = keycloak_admin.create_user({"email": Email,
+                                               "username": username,
+                                               "enabled": True,
+                                               "firstName": vorname,
+                                               "lastName": nachname})
+        return True
+    except:
+        return False
