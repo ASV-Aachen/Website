@@ -1,10 +1,25 @@
+import os
+from django.contrib.auth.models import User
+from member.models import profile
 from keycloak import KeycloakAdmin
 
 '''
 Erstelle einen neuen Nutzer und füge ihn den
 '''
 def newMember(username, vorname, nachname, country, hometown, Email, HandyNummer):
-    # TODO
+    if createNewUserInKeycloak(username, vorname, nachname, Email):
+        user = User()
+        user.username = username
+        user.last_name = nachname
+        user.first_name = vorname
+        user.email = Email
+        user.save()
+
+        newProfile = profile(user=user, status=1, entry_date=datetime.date.today())
+        newProfile.hometown = hometown
+        newProfile.country = country
+        newProfile.phone = HandyNummer
+        newProfile.save()
     pass
 
 '''
@@ -12,12 +27,11 @@ def newMember(username, vorname, nachname, country, hometown, Email, HandyNummer
 '''
 def createNewUserInKeycloak(username, vorname, nachname, Email) -> bool:
     #TODO
-    keycloak_admin = KeycloakAdmin(server_url="http://localhost:8080/auth/",
-                                   username='example-admin',
-                                   password='secret',
+    keycloak_admin = KeycloakAdmin(server_url = os.environ["Host"] + "sso/auth/",
+                                   username= os.environ["Keycloak_Username"],
+                                   password= os.environ["Keycloak_Password"],
                                    realm_name="ASV",
-                                   user_realm_name="only_if_other_realm_than_master",
-                                   client_secret_key="client-secret",
+                                   client_secret_key=os.environ["OIDC_RP_CLIENT_SECRET"],
                                    verify=True)
 
     new_user = keycloak_admin.create_user({"email": Email,
