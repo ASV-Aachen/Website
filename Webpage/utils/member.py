@@ -12,6 +12,7 @@ def userToHash(username):
 
 '''Löschfunktion. Löscht zunächst das Profil, dann Keycloak und dann den eigentlichen User'''
 def deleteGivenUser(ID):
+    # TODO
     pass
 
 

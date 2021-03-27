@@ -27,7 +27,7 @@
                 <td>{{ member.user.first_name}} {{member.user.last_name}}</td>
                 <td>{{ member.get_status_display }}</td>
                 <td>{{ member.roles.all }}</td>
-                <td> <a type="button" class="btn btn-danger" href="#">Löschen</a> </td>
+                <td> <a type="button" class="btn btn-danger" href="{% url 'memberDelete' %}?id={{member.user.id}}">Löschen</a> </td>
               </tr>
             {% endfor %}
         </tbody>

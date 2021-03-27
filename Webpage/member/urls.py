@@ -29,5 +29,6 @@ urlpatterns = [
     path('Menu/allMembers', views.alleMember, name="allMembers"),
     path('Menu/export', views.exportPage, name ="allMembers_Export"),
     path('Menu/editor', views.newMemberEditor, name ="memberEditor"),
-    path('Menu/import', views.massenimport, name ="memberImport")
+    path('Menu/import', views.massenimport, name ="memberImport"),
+    path('Menu/delete', views.deleteUser, name="memberDelete")
 ]
