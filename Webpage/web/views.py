@@ -118,7 +118,6 @@ def autoPopulate(request):
                 aktuellerUser = random.choice(Editoren)
                 new = blogPost(text = i['Text'], titel = i['Titel'], author = aktuellerUser.id, last_editor = "FAKENEWSTEST")
                 new.save()
-                pass
         
         if request.POST['user'] != "":
             anzahl = request.POST['user']
