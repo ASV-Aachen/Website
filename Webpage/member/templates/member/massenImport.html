@@ -21,7 +21,9 @@
     <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
 
         {% csrf_token %}
-        {{ form }}
+        <label for="file1"> Upload</label>
+        <input type="file" id="file1" name="file">
+        <small>Nur CSV Dateien</small>
         <button type="submit" class="save btn btn-primary">Speichern</button>
     </form>
 
