@@ -80,6 +80,7 @@ def exportPage(request):
 
 # Editor zum erstellen des neuen Nutzers
 def newMemberEditor(request):
+
     #TODO
     pass
 
