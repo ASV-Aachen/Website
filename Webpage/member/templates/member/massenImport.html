@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - Einstellungen {% endblock title%}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+    <link href="{% static 'css/Einstellungen.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Upload CSV Datei</h3>
+    <p>Hier können Sie mehrere Nutzer mit einer CSV Datei anlegen. Die Datei muss dabei die Form "Vorname, Nachname, Heimatland, Heimatstadt, Email" haben.</p>
+    <div id="InfoBox" class="alert alert-secondary">
+        ACHTEN SIE AUF DIE RICHTIGKEIT DER CSV DATEI!!!
+    </div>
+
+    <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
+
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="save btn btn-primary">Speichern</button>
+    </form>
+
+{% endblock %}
+
+

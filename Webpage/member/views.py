@@ -1,4 +1,7 @@
 #from django.contrib.auth import authenticate
+import csv
+import io
+
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -62,7 +65,6 @@ def settings(request):
 
 # Erstelle das Member Haupt Menüs mit den Buttons für Funktionen und Auswertungen über die Mitglieder
 def memberMenu(request):
-
     return render(request, "member/memberMenu.html")
 
 # Anzeige aller Member
@@ -97,13 +99,27 @@ def newMemberEditor(request):
             return render(request, "ErrorPage.html")
     else:
         form = createNewMember()
+        # TODO: HTML ANLEGEN
         return render(request, "member/newMemberEditor.html", {"form": form})
 
 
 # Seite für einen möglichen Massenimport von Daten in Form einer CSV Datei.
 def massenimport(request):
     #TODO
-    pass
+    if request.method == "POST":
+        # Datei geladen
+        file = request.FILES['file']
+        if file.name.endsweith(".csv"):
+            data_set = file.decode('UTF-8')
+            io_string = io.StringIO(data_set)
+
+            for column in csv.reader(io_string, delimiter=',', quotechar = "|"):
+                if(column[0] == "vorname"): continue
+                newMember(column[0], column[1], column[2], column[3], column[4])
+
+        return redirect("MemberMenu")
+    else:
+        return render(request, "member/massenImport.html")
 
 '''
     Erstellt eine Seite mit einem hash des Nutzernamen. Wird dieser zurück gesendet wissen wir das es ernst gemeint ist.
