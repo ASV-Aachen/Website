@@ -13,6 +13,11 @@ from django.conf import settings
 import urllib.parse
 import logging
 import os
+from utils.faker import *
+from blog.models import blogPost
+from member.models import profile
+from utils.member import newMember
+import random
 
 
 # Frontpage (DONE)
@@ -97,6 +102,39 @@ def UserTest(request):
     else:
         Text = "<h1>Nicht angemeldet!</h1> \n"
     return HttpResponse(Text)
+
+def autoPopulate(request):
+
+    if request.method == "POST":
+        if request.POST['news'] != "":
+            anzahl = request.POST['news']
+            news = fakeNews(anzahl)
+
+            #TODO: Get Editoren
+            Editoren = profile.Objects.all()
+
+            for i in news:
+                aktuellerUser = random.choice(Editoren)
+                new = blogPost(text = i['Text'], titel = i['Titel'], author = aktuellerUser.id, last_editor = "FAKENEWSTEST")
+                new.save()
+        
+        if request.POST['user'] != "":
+            anzahl = request.POST['user']
+            fakeUsers = fakeNutzer(anzahl)
+            for i in fakeUsers:
+                newMember(
+                    i['username'],
+                    i['vorname'],
+                    i['nachname'],
+                    i['country'],
+                    i['hometown'],
+                    i['Email'],
+                    i['HandyNummer']
+                )
+
+        return redirect("ASV")
+    else:
+        return render(request, "web/autoPopulate.html", {})
 
 def unfertig(request):
     return render(request, "unfertig.html", {})
