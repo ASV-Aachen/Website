@@ -99,7 +99,6 @@ def newMemberEditor(request):
             return render(request, "ErrorPage.html")
     else:
         form = createNewMember()
-        # TODO: HTML ANLEGEN
         return render(request, "member/newMemberEditor.html", {"form": form})
 
 
