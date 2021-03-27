@@ -1,9 +1,11 @@
 #from django.contrib.auth import authenticate
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
+
+from utils.member import newMember
 from .models import profile
 from django.contrib.auth.models import User
-from .forms import changePersonalInfo
+from .forms import changePersonalInfo, createNewMember
 
 
 # Create your views here.
@@ -81,8 +83,20 @@ def exportPage(request):
 # Editor zum erstellen des neuen Nutzers
 def newMemberEditor(request):
 
-    #TODO
-    pass
+    if(request.method == "POST"):
+        form = createNewMember(request.POST)
+        vorname = form.instance.last_name
+        nachname = form.instance.first_name
+        country = "Germany"
+        hometown = "Aachen"
+        email = form.instance.email
+
+        newMember(vorname, nachname, country, hometown, email)
+        return redirect("MemberMenu")
+    else:
+        form = createNewMember()
+        return render(request, "member/newMemberEditor.html", {"form": form})
+
 
 # Seite für einen möglichen Massenimport von Daten in Form einer CSV Datei.
 def massenimport(request):

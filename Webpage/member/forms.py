@@ -19,8 +19,8 @@ class changePersonalInfo(ModelForm):
             'image': forms.FileInput(attrs= {'style':'display: none;','class':'form-control', 'required': False,})
         }
 
-class CreateNewMembr(ModelForm):
+class createNewMember(ModelForm):
     class Meta:
         model = profile, User
 
-        fields = ['username', 'last_name', 'first_name', 'email']
+        fields = ['last_name', 'first_name', 'email']
