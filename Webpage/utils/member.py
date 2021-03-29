@@ -5,6 +5,9 @@ from member.models import profile
 from keycloak import KeycloakAdmin
 import random
 
+from utils.keycloak import getKeycloackAdmin
+
+
 def userToHash(username):
     ergebnis = hashlib.sha512(username).hexdigest()
     return ergebnis
@@ -15,24 +18,22 @@ def deleteGivenUser(ID) -> bool:
     # Finde den Nutzer
     user = User.objects.get(id = ID)
 
-    # Lösch von Keycloak
-    keycloak_admin = KeycloakAdmin(server_url=os.environ["Host"] + "sso/auth/",
-                                   username=os.environ["Keycloak_Username"],
-                                   password=os.environ["Keycloak_Password"],
-                                   realm_name="ASV",
-                                   client_secret_key=os.environ["OIDC_RP_CLIENT_SECRET"],
-                                   verify=True)
+    try:
+        # Lösch von Keycloak
+        keycloak_admin = getKeycloackAdmin()
 
-    user_id_keycloak = keycloak_admin.get_user_id(user.username)
-    response = keycloak_admin.delete_user(user_id=user_id_keycloak)
+        user_id_keycloak = keycloak_admin.get_user_id(user.username)
+        response = keycloak_admin.delete_user(user_id=user_id_keycloak)
 
-    # Lösch das Profil
-    Profil = profile.objects.get(user=user)
-    Profil.delete()
+        # Lösch das Profil
+        Profil = profile.objects.get(user=user)
+        Profil.delete()
 
-    # Lösche den Nutzer
-    user.delete()
-    return
+        # Lösche den Nutzer
+        user.delete()
+        return True
+    except:
+        return False
 
 
 '''
@@ -71,12 +72,7 @@ def newMember(vorname, nachname, country, hometown, Email)->bool:
 '''
 def createNewUserInKeycloak(username, vorname, nachname, Email) -> bool:
     try:
-        keycloak_admin = KeycloakAdmin(server_url = os.environ["Host"] + "sso/auth/",
-                                       username= os.environ["Keycloak_Username"],
-                                       password= os.environ["Keycloak_Password"],
-                                       realm_name="ASV",
-                                       client_secret_key=os.environ["OIDC_RP_CLIENT_SECRET"],
-                                       verify=True)
+        keycloak_admin = getKeycloackAdmin()
 
         new_user = keycloak_admin.create_user({"email": Email,
                                                "username": username,
