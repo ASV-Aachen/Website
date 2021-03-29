@@ -36,7 +36,7 @@ def deleteGivenUser(ID) -> bool:
 
 
 '''
-Erzeugt aus einem gegebenen Namen und Nachnamen einen bisher nicht existenten Usernamen
+    Erzeugt aus einem gegebenen Namen und Nachnamen einen bisher nicht existenten Usernamen
 '''
 def createUsername(vorname, nachname) -> str:
     while True:
@@ -57,7 +57,7 @@ def newMember(vorname, nachname, country, hometown, Email)->bool:
         user.email = Email
         user.save()
 
-        newProfile = profile(user=user, status=1, entry_date=datetime.date.today())
+        newProfile = profile(user=user, status=1)
         newProfile.hometown = hometown
         newProfile.country = country
         newProfile.save()
@@ -70,7 +70,6 @@ def newMember(vorname, nachname, country, hometown, Email)->bool:
     Stelle eine verbindung zu Keycloak her und füge den gegebenen Nutzer neu in Keycloak ein
 '''
 def createNewUserInKeycloak(username, vorname, nachname, Email) -> bool:
-    #TODO
     try:
         keycloak_admin = KeycloakAdmin(server_url = os.environ["Host"] + "sso/auth/",
                                        username= os.environ["Keycloak_Username"],
