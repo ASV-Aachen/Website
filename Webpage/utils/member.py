@@ -18,19 +18,22 @@ def deleteGivenUser(ID) -> bool:
     # Finde den Nutzer
     user = User.objects.get(id = ID)
 
-    # Lösch von Keycloak
-    keycloak_admin = getKeycloackAdmin()
+    try:
+        # Lösch von Keycloak
+        keycloak_admin = getKeycloackAdmin()
 
-    user_id_keycloak = keycloak_admin.get_user_id(user.username)
-    response = keycloak_admin.delete_user(user_id=user_id_keycloak)
+        user_id_keycloak = keycloak_admin.get_user_id(user.username)
+        response = keycloak_admin.delete_user(user_id=user_id_keycloak)
 
-    # Lösch das Profil
-    Profil = profile.objects.get(user=user)
-    Profil.delete()
+        # Lösch das Profil
+        Profil = profile.objects.get(user=user)
+        Profil.delete()
 
-    # Lösche den Nutzer
-    user.delete()
-    return
+        # Lösche den Nutzer
+        user.delete()
+        return True
+    except:
+        return False
 
 
 '''
