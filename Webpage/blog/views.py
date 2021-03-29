@@ -16,7 +16,7 @@ from django.core.paginator import Paginator
 
 
 
-# Alle News (TODO)
+# Alle News
 def News(request):
     try:
         Seite = request.GET.get('Seite', '')

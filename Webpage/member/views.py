@@ -3,6 +3,7 @@ import csv
 import io
 
 from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from utils.member import newMember, userToHash, deleteGivenUser
@@ -79,8 +80,18 @@ def alleMember(request):
 
 # Möglicher Export aller Mitglieder
 def exportPage(request):
-    #TODO
-    pass
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Nutzer.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Name', 'Status', 'Email'])
+
+    Nutzer = profile.Object.all()
+    for i in Nutzer:
+        writer.writerow([Nutzer.user.first_name + ' ' + Nutzer.user.last_name, Nutzer.status, Nutzer.user.email ])
+
+    return response
 
 # Editor zum erstellen des neuen Nutzers
 def newMemberEditor(request):
@@ -104,7 +115,6 @@ def newMemberEditor(request):
 
 # Seite für einen möglichen Massenimport von Daten in Form einer CSV Datei.
 def massenimport(request):
-    #TODO
     if request.method == "POST":
         # Datei geladen
         file = request.FILES['file']
