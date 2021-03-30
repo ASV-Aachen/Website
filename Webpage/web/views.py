@@ -106,11 +106,10 @@ def UserTest(request):
 def autoPopulate(request):
 
     if request.method == "POST":
-        if request.POST['news'] != "":
-            anzahl = request.POST['news']
+        if request.POST.get("news", "") != "":
+            anzahl = request.POST.get("news", "")
             news = fakeNews(anzahl)
 
-            #TODO: Get Editoren
             Editoren = profile.Objects.all()
 
             for i in news:
@@ -118,18 +117,16 @@ def autoPopulate(request):
                 new = blogPost(text = i['Text'], titel = i['Titel'], author = aktuellerUser.id, last_editor = "FAKENEWSTEST")
                 new.save()
         
-        if request.POST['user'] != "":
-            anzahl = request.POST['user']
+        if request.POST.get("user", "") != "":
+            anzahl = request.POST.get("user", "")
             fakeUsers = fakeNutzer(anzahl)
             for i in fakeUsers:
                 newMember(
-                    i['username'],
                     i['vorname'],
                     i['nachname'],
                     i['country'],
                     i['hometown'],
-                    i['Email'],
-                    i['HandyNummer']
+                    i['Email']
                 )
 
         return redirect("ASV")

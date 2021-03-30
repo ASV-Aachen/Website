@@ -21,6 +21,6 @@ class changePersonalInfo(ModelForm):
 
 class createNewMember(ModelForm):
     class Meta:
-        model = profile, User
+        model = User
 
         fields = ['last_name', 'first_name', 'email']
