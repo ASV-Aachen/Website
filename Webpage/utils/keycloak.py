@@ -8,12 +8,12 @@ from member.models import role
 
 def getKeycloackAdmin():
     # Lösch von Keycloak
-    keycloak_admin = KeycloakAdmin(server_url=os.environ["Host"] + "sso/auth/",
-                                   username=os.environ["Keycloak_Username"],
-                                   password=os.environ["Keycloak_Password"],
+    keycloak_admin = KeycloakAdmin(server_url=os.environ["Host"] + "/sso/auth/",
+                                   username=os.environ["KEYCLOAK_USER"],
+                                   password=os.environ["KEYCLOAK_PASSWORD"],
+                                   verify=True,
                                    realm_name="ASV",
-                                   client_secret_key=os.environ["OIDC_RP_CLIENT_SECRET"],
-                                   verify=True)
+                                   user_realm_name="master",)
     return keycloak_admin
 
 

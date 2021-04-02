@@ -111,7 +111,7 @@ def autoPopulate(request):
         Editoren = profile.objects.all()
 
         for i in news:
-            aktuellerUser = random.choice(Editoren)
+            aktuellerUser = random.choice(Editoren).user
             new = blogPost(text = i['Text'], titel = i['Titel'], author = aktuellerUser, last_editor = "FAKENEWSTEST")
             new.save()
         

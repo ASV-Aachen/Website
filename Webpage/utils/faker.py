@@ -11,7 +11,7 @@ def fakeNews(Anzahl: int) -> []:
     Ergebnis = []
     for _ in range(0,Anzahl):
         newNews = {
-            "Text": fake.text(),
+            "Text": fake.text(max_nb_chars=500),
             "Titel": fake.sentence()
         }
 

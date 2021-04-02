@@ -1,5 +1,7 @@
 import hashlib
 import os
+import datetime
+
 from django.contrib.auth.models import User
 from member.models import profile
 from keycloak import KeycloakAdmin
@@ -41,7 +43,7 @@ def deleteGivenUser(ID) -> bool:
 '''
 def createUsername(vorname, nachname) -> str:
     while True:
-        ergebnis = vorname[0] + nachname[-1:3] + random.randrange(1,999)
+        ergebnis = vorname[0] + nachname[-1:3] + str(random.randrange(1,999))
         if User.objects.filter(username = ergebnis).exists() is False:
             return ergebnis
 
@@ -49,7 +51,7 @@ def createUsername(vorname, nachname) -> str:
 Erstelle einen neuen Nutzer und füge ihn den
 '''
 def newMember(vorname, nachname, country, hometown, Email)->bool:
-    username = createUsername()
+    username = createUsername(vorname, nachname)
     if createNewUserInKeycloak(username, vorname, nachname, Email):
         user = User()
         user.username = username
@@ -58,7 +60,7 @@ def newMember(vorname, nachname, country, hometown, Email)->bool:
         user.email = Email
         user.save()
 
-        newProfile = profile(user=user, status=1)
+        newProfile = profile(user=user, status=1, entry_date=datetime.date.today())
         newProfile.hometown = hometown
         newProfile.country = country
         newProfile.save()
@@ -71,14 +73,12 @@ def newMember(vorname, nachname, country, hometown, Email)->bool:
     Stelle eine verbindung zu Keycloak her und füge den gegebenen Nutzer neu in Keycloak ein
 '''
 def createNewUserInKeycloak(username, vorname, nachname, Email) -> bool:
-    try:
-        keycloak_admin = getKeycloackAdmin()
+    keycloak_admin = getKeycloackAdmin()
 
-        new_user = keycloak_admin.create_user({"email": Email,
-                                               "username": username,
-                                               "enabled": True,
-                                               "firstName": vorname,
-                                               "lastName": nachname})
-        return True
-    except:
-        return False
+    new_user = keycloak_admin.create_user({"email": Email,
+                                           "username": username,
+                                           "enabled": True,
+                                           "firstName": vorname,
+                                           "lastName": nachname})
+
+    return True
