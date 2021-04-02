@@ -13,13 +13,7 @@
 
     <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
         {% csrf_token %}
-        <label for="news" class="form-label">Erstelle neue News</label>
-        <input type="range" class="form-range" min="1" max="300" id="news">
-
-        <label for="user" class="form-label">Erstelle neue Nutzer</label>
-        <input type="range" class="form-range" min="1" max="300" id="user">
-
-        <button type="submit" class="save btn btn-primary">Populate</button>
+        <button type="submit" class="save btn btn-primary">Populate with 50 News and 50 Users</button>
     </form>
     
  {% endblock %}

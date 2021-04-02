@@ -104,30 +104,27 @@ def UserTest(request):
     return HttpResponse(Text)
 
 def autoPopulate(request):
-
     if request.method == "POST":
-        if request.POST.get("news", "") != "":
-            anzahl = request.POST.get("news", "")
-            news = fakeNews(anzahl)
+        anzahl = 50
+        news = fakeNews(anzahl)
 
-            Editoren = profile.Objects.all()
+        Editoren = profile.Objects.all()
 
-            for i in news:
-                aktuellerUser = random.choice(Editoren)
-                new = blogPost(text = i['Text'], titel = i['Titel'], author = aktuellerUser.id, last_editor = "FAKENEWSTEST")
-                new.save()
+        for i in news:
+            aktuellerUser = random.choice(Editoren)
+            new = blogPost(text = i['Text'], titel = i['Titel'], author = aktuellerUser.id, last_editor = "FAKENEWSTEST")
+            new.save()
         
-        if request.POST.get("user", "") != "":
-            anzahl = request.POST.get("user", "")
-            fakeUsers = fakeNutzer(anzahl)
-            for i in fakeUsers:
-                newMember(
-                    i['vorname'],
-                    i['nachname'],
-                    i['country'],
-                    i['hometown'],
-                    i['Email']
-                )
+        anzahl = 50
+        fakeUsers = fakeNutzer(anzahl)
+        for i in fakeUsers:
+            newMember(
+                i['vorname'],
+                i['nachname'],
+                i['country'],
+                i['hometown'],
+                i['Email']
+            )
 
         return redirect("ASV")
     else:
