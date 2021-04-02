@@ -112,7 +112,7 @@ def autoPopulate(request):
 
         for i in news:
             aktuellerUser = random.choice(Editoren)
-            new = blogPost(text = i['Text'], titel = i['Titel'], author = aktuellerUser.id, last_editor = "FAKENEWSTEST")
+            new = blogPost(text = i['Text'], titel = i['Titel'], author = aktuellerUser, last_editor = "FAKENEWSTEST")
             new.save()
         
         anzahl = 50
