@@ -60,7 +60,7 @@ def newMember(vorname, nachname, country, hometown, Email)->bool:
         user.email = Email
         user.save()
 
-        newProfile = profile(user=user, status=1, entry_date=datetime.date.today())
+        newProfile = profile(user=user, status=random.randint(1, 6), entry_date=datetime.date.today())
         newProfile.hometown = hometown
         newProfile.country = country
         newProfile.save()
