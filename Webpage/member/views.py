@@ -87,7 +87,7 @@ def exportPage(request):
     writer = csv.writer(response)
     writer.writerow(['Name', 'Status', 'Email'])
 
-    Nutzer = profile.Object.all()
+    Nutzer = profile.objects.all()
     for i in Nutzer:
         writer.writerow([Nutzer.user.first_name + ' ' + Nutzer.user.last_name, Nutzer.status, Nutzer.user.email ])
 
@@ -135,9 +135,9 @@ def massenimport(request):
 '''
 def deleteUser(request):
     if request.GET['id'] != "":
-        if User.Objects.filter(id=id).exists() is True:
+        if User.objects.filter(id=id).exists() is True:
             # Erzeuge hash
-            user = User.Objects.filter(id=id)[0]
+            user = User.objects.filter(id=id)[0]
 
             if request.GET['key'] != "":
                 # Lösche den Nutzer
