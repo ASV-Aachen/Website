@@ -108,7 +108,7 @@ def autoPopulate(request):
         anzahl = 50
         news = fakeNews(anzahl)
 
-        Editoren = profile.Objects.all()
+        Editoren = profile.objects.all()
 
         for i in news:
             aktuellerUser = random.choice(Editoren)

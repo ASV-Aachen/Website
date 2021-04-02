@@ -42,7 +42,7 @@ def deleteGivenUser(ID) -> bool:
 def createUsername(vorname, nachname) -> str:
     while True:
         ergebnis = vorname[0] + nachname[-1:3] + random.randrange(1,999)
-        if User.Objects.filter(username = ergebnis).exists() is False:
+        if User.objects.filter(username = ergebnis).exists() is False:
             return ergebnis
 
 '''
