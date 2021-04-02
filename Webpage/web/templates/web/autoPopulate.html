@@ -13,14 +13,13 @@
 
     <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
         {% csrf_token %}
+        <label for="news" class="form-label">Erstelle neue News</label>
+        <input type="range" class="form-range" min="1" max="300" id="news">
 
-        <label for="MemberRange" class="form-label">Erstelle neue News</label>
-        <type type="weight" class="form-range" min="1" max="300" id="news"> </type>
+        <label for="user" class="form-label">Erstelle neue Nutzer</label>
+        <input type="range" class="form-range" min="1" max="300" id="user">
 
-        <hr>
-        <label for="UserRange" class="form-label">Erstelle neue Nutzer</label>
-        <type type="weight" class="form-range" min="1" max="300" id="user"> </type>
-         <button type="submit" class="save btn btn-primary">Populate</button>
+        <button type="submit" class="save btn btn-primary">Populate</button>
     </form>
     
  {% endblock %}
