@@ -21,6 +21,9 @@ import random
 
 
 # Frontpage (DONE)
+from web.models import InfoPage
+
+
 def MainPage(request):
     """
     Hauptseite, erreichbar mit "/" ist anders, je nachdem op  man angemeldet ist oder nicht.
@@ -108,8 +111,23 @@ def unfertig(request):
 Eine einfache Übersicht über alle Infopages
 '''
 def infoPage(request):
-    # TODO
-    pass
+    Themen = InfoPage.themen.__doc__()
+
+    allePages = InfoPage.objects.all()
+
+    Objects = []
+    for kennung, titel in Themen:
+        pages = InfoPage.objects.filter(subThema = kennung)
+
+        zielObject = {
+            "titel": titel,
+            "seiten": pages,
+            "kennung": kennung
+        }
+
+        Objects.append(zielObject)
+
+    render(request, "infoPage.html", {"objects": Objects})
 
 '''
 Aufrufen einer einzelnen Seite
