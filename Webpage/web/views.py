@@ -2,10 +2,12 @@ from datetime import date
 
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
 from django.template.base import logger
 #from .models import *
+from django.urls import resolve
+
 from blog.models import blogPost
 from django.http import HttpResponse
 from django.contrib.auth.models import Permission
@@ -133,5 +135,13 @@ def infoPage(request):
 Aufrufen einer einzelnen Seite
 '''
 def infoPage_singlePage(request):
-    # TODO
-    pass
+    current_url = resolve(request.path_info).url_name
+
+    theme = current_url.split("/")[-2]
+    name = current_url.split("/")[-1]
+
+    pageObject = get_object_or_404(InfoPage, subThema=theme, name=name)
+
+    return render(request, "infoPage_singlePage.html", {"seite": pageObject})
+
+
