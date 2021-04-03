@@ -144,4 +144,33 @@ def infoPage_singlePage(request):
 
     return render(request, "infoPage_singlePage.html", {"seite": pageObject})
 
+'''
+Aufzählung aller Seiten mit der Möglichkeit zu editieren
+'''
+def infoPageMenu(request):
+    Themen = InfoPage.themen.__doc__()
+
+    allePages = InfoPage.objects.all()
+
+    Objects = []
+    for kennung, titel in Themen:
+        pages = InfoPage.objects.filter(subThema=kennung)
+
+        zielObject = {
+            "titel": titel,
+            "seiten": pages,
+            "kennung": kennung
+        }
+
+        Objects.append(zielObject)
+
+    render(request, "infoPageMenu.html", {"objects": Objects})
+    pass
+
+'''
+Editor für die Infoseiten
+'''
+def infoPageEditor(request):
+    #TODO
+    pass
 

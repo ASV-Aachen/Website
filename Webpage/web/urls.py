@@ -29,5 +29,8 @@ urlpatterns = [
     path('unfertig', views.unfertig, name='unfertig'),
     path('autopouate', views.autoPopulate, name='autoPopulate'),
     path('info', views.infoPage, name="info"),
-    path('info/', views.infoPage_singlePage, name="InfoPage")
+    path('info/', views.infoPage_singlePage, name="InfoPage"),
+
+    path("infoEditor", views.infoPageMenu, name="InfoEditor"),
+    path("infoMenu", views.infoPageMenu, name="infoMenu")
 ]
