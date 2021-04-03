@@ -25,11 +25,11 @@ urlpatterns = [
     path('', views.MainPage, name="ASV"),
     path('login', views.loginFunction, name="login"),
     path('logout', views.logoutFunktion, name="logout"),
-    path('UserTestPage', views.UserTest, name="UserTests"),
+    # path('UserTestPage', views.UserTest, name="UserTests"),
     path('unfertig', views.unfertig, name='unfertig'),
     path('autopouate', views.autoPopulate, name='autoPopulate'),
     path('info', views.infoPage, name="info"),
-    path('info/', views.infoPage_singlePage, name="InfoPage"),
+    path('info/<str:theme>/<str:name>', views.infoPage_singlePage, name="InfoPage"),
 
     path("infoEditor", views.infoPageMenu, name="InfoEditor"),
     path("infoMenu", views.infoPageMenu, name="infoMenu")

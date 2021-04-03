@@ -114,13 +114,13 @@ def unfertig(request):
 Eine einfache Übersicht über alle Infopages
 '''
 def infoPage(request):
-    Themen = InfoPage.themen.__doc__()
+    Themen = InfoPage.themen
 
     allePages = InfoPage.objects.all()
 
     Objects = []
     for kennung, titel in Themen:
-        pages = InfoPage.objects.filter(subThema = kennung)
+        pages = InfoPage.objects.filter(status = kennung)
 
         zielObject = {
             "titel": titel,
@@ -130,32 +130,29 @@ def infoPage(request):
 
         Objects.append(zielObject)
 
-    render(request, "infoPage.html", {"objects": Objects})
+    return render(request, "web/infoPage.html", {"objects": Objects})
 
 '''
 Aufrufen einer einzelnen Seite
 '''
-def infoPage_singlePage(request):
+def infoPage_singlePage(request, theme, name):
     current_url = resolve(request.path_info).url_name
 
-    theme = current_url.split("/")[-2]
-    name = current_url.split("/")[-1]
+    pageObject = get_object_or_404(InfoPage, status=theme, name=name)
 
-    pageObject = get_object_or_404(InfoPage, subThema=theme, name=name)
-
-    return render(request, "infoPage_singlePage.html", {"seite": pageObject})
+    return render(request, "web/infoPage_singlePage.html", {"seite": pageObject})
 
 '''
 Aufzählung aller Seiten mit der Möglichkeit zu editieren
 '''
 def infoPageMenu(request):
-    Themen = InfoPage.themen.__doc__()
+    Themen = InfoPage.themen
 
     allePages = InfoPage.objects.all()
 
     Objects = []
     for kennung, titel in Themen:
-        pages = InfoPage.objects.filter(subThema=kennung)
+        pages = InfoPage.objects.filter(status=kennung)
 
         zielObject = {
             "titel": titel,
@@ -165,8 +162,7 @@ def infoPageMenu(request):
 
         Objects.append(zielObject)
 
-    return render(request, "infoPageMenu.html", {"objects": Objects})
-    pass
+    return render(request, "web/infoPageMenu.html", {"objects": Objects})
 
 '''
 Editor für die Infoseiten
@@ -183,17 +179,16 @@ def infoPageEditor(request):
         return redirect("infoMenu")
     else:
         # Formular laden
-
+        id = request.GET['id']
         if ('id' in request.GET):
             id = request.GET['id']
             # ID gegeben, also Daten laden
 
-            page = get_object_or_404(InfoPage, id = id)
+            page = get_object_or_404(InfoPage, id=id)
             form = changeInfoPage(instance=page)
 
-            return render(request, "infoPageEditor.html", {"form":form})
+            return render(request, "web/infoPageEditor.html", {"form":form})
 
-        else:
-            return redirect("infoMenu")
+    return redirect("infoMenu")
     pass
 

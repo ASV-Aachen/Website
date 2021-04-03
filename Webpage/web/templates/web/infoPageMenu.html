@@ -19,6 +19,7 @@
               <div class="card-body">
                   <h4 class="card-title">{{ seite.titel }}</h4>
                   <p class="card-text"> {{ seite.description}} </p>
+                  <a href="{% url 'InfoPage' gruppen.kennung seite.name %}" class="card-link">Link zur Seite</a>
 
                   <a href="{% url 'InfoEditor' %}?id={{ seite.id }}" class="card-link">Edit</a>
               </div>

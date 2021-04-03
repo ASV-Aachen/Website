@@ -28,14 +28,14 @@ class InfoPage(models.Model):
         ("A", "Aktivitäten")
     )
 
-    status = models.PositiveSmallIntegerField(choices=themen, default="A")
+    status = models.CharField(choices=themen, default="SL", max_length=3)
 
-    titel = models.CharField(max_length=200, primary_key=True)
+    titel = models.CharField(max_length=200)
     text = HTMLField()
     description = models.TextField()
 
     # subThema = models.ForeignKey(subThemen)
-    name = models.CharField(unique=True)
+    name = models.CharField(max_length=200, unique=True)
 
     def getFullUrl(self):
         return "/" + str(self.subThema) + "/" + str(self.name)

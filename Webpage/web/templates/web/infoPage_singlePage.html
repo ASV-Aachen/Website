@@ -11,8 +11,10 @@
 {% block content %}
     <h2>{{ seite.titel }}</h2>
 
+    {% block body %}
     <div id="inhalt">
         {{ seite.text }}
     </div>
+     {% endblock %}
 
  {% endblock %}
