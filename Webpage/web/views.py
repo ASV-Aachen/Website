@@ -64,7 +64,6 @@ def loginFunction(request):
 
 def logoutFunktion(request):
     if request.user.is_authenticated:
-        # TODO: redirect to sso/auth/realms/ASV/account/#/
         logout(request)
         
         Host = os.environ["Host"]
@@ -73,35 +72,6 @@ def logoutFunktion(request):
 
         return redirect(TestUrl)
     return redirect("ASV")
-
-
-# Kleine Debug Test Seite: Zeigt an ob eine Person angemeldet ist und wenn ja, welche Permissions und Gruppen der Nutzer hat.
-# Wird nur im Debug Modus gezeigt.
-def UserTest(request):       
-    Text = ""
-    if request.user.is_authenticated:
-        Text = "<h1>Angemeldet!</h1> \n"
-        user = request.user
-        Text += (user.get_username())
-        Text += ("<br>")
-        Text += user.email
-        Text += ("<br>")
-
-        perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(user=user)]
-        l_as_list = list(user.groups.values_list('name',flat = True))
-
-        Text += ("Groups: " +  ' - '.join(str(e) for e in l_as_list))
-        Text += ("<br>Permissions: " + ' - '.join(str(e) for e in perm_tuple))
-
-        Text += ("<br>")
-
-        roles = user
-
-        
-        pass
-    else:
-        Text = "<h1>Nicht angemeldet!</h1> \n"
-    return HttpResponse(Text)
 
 def autoPopulate(request):
     if request.method == "POST":
@@ -132,3 +102,18 @@ def autoPopulate(request):
 
 def unfertig(request):
     return render(request, "unfertig.html", {})
+
+
+'''
+Eine einfache Übersicht über alle Infopages
+'''
+def infoPage(request):
+    # TODO
+    pass
+
+'''
+Aufrufen einer einzelnen Seite
+'''
+def infoPage_singlePage(request):
+    # TODO
+    pass

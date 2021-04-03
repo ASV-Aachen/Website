@@ -5,26 +5,40 @@ from django.contrib.auth.models import User
 
 
 # Infos über das aktuelle Jahr
+from tinymce import HTMLField
+
 
 class Jahresinfo(models.Model):
     Jahr = models.IntegerField(primary_key=True)
     ZuLeistendeArbeitsstunden = models.IntegerField()
 
 
-# Speicher für InfoSeiten welche wir gerne mal verändern
+class subThemen(models.Model):
+    titel = models.CharField(max_length=200, unique=True )
+
+'''
+Model für die Infoseiten
+'''
 class InfoPage(models.Model):
-    Titel = models.CharField(max_length=200, primary_key=True)
-    Text = models.TextField(null=False)
-    Beschreibung = models.TextField()
+    themen = (
+        ("SL", "Segeln lernen"),
+        ("V", "Der Verein"),
+        ("See", "Seeschiff"),
+        ("J", "Jollenpark"),
+        ("A", "Aktivitäten")
+    )
 
+    status = models.PositiveSmallIntegerField(choices=themen, default="A")
 
-#def get_sentinel_user():
-#    return get_user_model().objects.get_or_create(username='deleted')[0]
+    titel = models.CharField(max_length=200, primary_key=True)
+    text = HTMLField()
+    description = models.TextField()
 
+    subThema = models.ForeignKey(subThemen)
+    name = models.CharField(unique=True)
 
-# Modell für alle Blogeinträge
-#class BlogEintrag(models.Model):
-#    Titel = models.CharField(max_length=200)
-#    Inhalt = HTMLField()
-#    Autor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
-#    DatumErstellt = models.DateTimeField(auto_created=True, default=timezone.now)
+    def getFullUrl(self):
+        return "/" + str(self.subThema) + "/" + str(self.name)
+
+    def __str__(self):
+        return self.titel
