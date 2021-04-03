@@ -12,10 +12,10 @@
 
 
 {% block content %}
-    <h3 class="pb-3 mb-4 font-italic border-bottom">Neues Mitglied</h3>
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Upload CSV Datei</h3>
     <p>Hier können Sie einen neuen Nutzer anlegen.</p>
 
-    <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
+    <form method="POST" class="post-form" action='{{ action_url }}=?id={{form.id}}' enctype='multipart/form-data'>
 
         {% csrf_token %}
         {{form}}

@@ -23,6 +23,7 @@ import random
 
 
 # Frontpage (DONE)
+from web.forms import changeInfoPage
 from web.models import InfoPage
 
 
@@ -164,13 +165,35 @@ def infoPageMenu(request):
 
         Objects.append(zielObject)
 
-    render(request, "infoPageMenu.html", {"objects": Objects})
+    return render(request, "infoPageMenu.html", {"objects": Objects})
     pass
 
 '''
 Editor für die Infoseiten
 '''
 def infoPageEditor(request):
-    #TODO
+    if request.method == "POST":
+        # Eintragen in die DB
+        form = changeInfoPage(request.POST)
+
+        if form.is_valid():
+            # abspeichern
+            form.save()
+
+        return redirect("infoMenu")
+    else:
+        # Formular laden
+
+        if ('id' in request.GET):
+            id = request.GET['id']
+            # ID gegeben, also Daten laden
+
+            page = get_object_or_404(InfoPage, id = id)
+            form = changeInfoPage(instance=page)
+
+            return render(request, "infoPageEditor.html", {"form":form})
+
+        else:
+            return redirect("infoMenu")
     pass
 

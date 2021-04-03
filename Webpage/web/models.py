@@ -34,7 +34,7 @@ class InfoPage(models.Model):
     text = HTMLField()
     description = models.TextField()
 
-    subThema = models.ForeignKey(subThemen)
+    # subThema = models.ForeignKey(subThemen)
     name = models.CharField(unique=True)
 
     def getFullUrl(self):
