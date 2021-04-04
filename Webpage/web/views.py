@@ -179,7 +179,6 @@ def infoPageEditor(request):
         return redirect("infoMenu")
     else:
         # Formular laden
-        id = request.GET['id']
         if ('id' in request.GET):
             id = request.GET['id']
             # ID gegeben, also Daten laden

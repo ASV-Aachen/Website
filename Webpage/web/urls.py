@@ -31,6 +31,6 @@ urlpatterns = [
     path('info', views.infoPage, name="info"),
     path('info/<str:theme>/<str:name>', views.infoPage_singlePage, name="InfoPage"),
 
-    path("infoEditor", views.infoPageMenu, name="InfoEditor"),
+    path("infoEditor", views.infoPageEditor, name="InfoEditor"),
     path("infoMenu", views.infoPageMenu, name="infoMenu")
 ]

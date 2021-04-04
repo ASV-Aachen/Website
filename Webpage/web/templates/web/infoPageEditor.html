@@ -12,8 +12,10 @@
 
 
 {% block content %}
-    <h3 class="pb-3 mb-4 font-italic border-bottom">Upload CSV Datei</h3>
-    <p>Hier können Sie einen neuen Nutzer anlegen.</p>
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Info Seiten Editor</h3>
+    <p>Editor für unsere Infoseiten.</p>
+
+    {{ form.media }}
 
     <form method="POST" class="post-form" action='{{ action_url }}/{{ form.id}}' enctype='multipart/form-data'>
 
