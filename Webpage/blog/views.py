@@ -103,10 +103,21 @@ def AddNews(request):
                         # Data existiert noch nicht, also setzen wir anders
                         form.instance.author_id = request.user.id
                         form.instance.last_editor = request.user.first_name + " " + request.user.last_name
+
+                        # setze den neuen Text als erste History
+                        newhistory = blogPostHistory(titel=request.titel, text=request.text, editor=request.user.first_name + " " + request.user.last_name)
+                        newhistory.save()
+                        request.history.add(newhistory)
                 else:
                     # Data existiert noch nicht, also setzen wir anders
                     form.instance.author_id = request.user.id
                     form.instance.last_editor = request.user.first_name + " " + request.user.last_name
+
+                    # setze den neuen Text als erste History
+                    newhistory = blogPostHistory(titel=request.titel, text=request.text,
+                                                 editor=request.user.first_name + " " + request.user.last_name)
+                    newhistory.save()
+                    request.history.add(newhistory)
 
                 form.save()
 
