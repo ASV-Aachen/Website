@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% with disable_details_button=1 %}
+    {% include "arbeitsstunden/ausschreibung_card.html" %}
+    {% endwith %}
+{% endblock content %}
