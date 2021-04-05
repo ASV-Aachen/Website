@@ -16,10 +16,23 @@ class Jahresinfo(models.Model):
 class subThemen(models.Model):
     titel = models.CharField(max_length=200, unique=True )
 
+
+'''
+Model zur Speicherung der Historie der InfoPages
+'''
+class infoPageHistory(models.model):
+
+    titel = models.CharField(max_length=200)
+    text = HTMLField()
+    description = models.TextField()
+
+    # subThema = models.ForeignKey(subThemen)
+    name = models.CharField(max_length=200, unique=True)
+
 '''
 Model für die Infoseiten
 '''
-class InfoPage(models.Model):
+class infoPage(models.Model):
     themen = (
         ("SL", "Segeln lernen"),
         ("V", "Der Verein"),
@@ -36,6 +49,8 @@ class InfoPage(models.Model):
 
     # subThema = models.ForeignKey(subThemen)
     name = models.CharField(max_length=200, unique=True)
+
+    history = models.ManyToManyField(infoPageHistory)
 
     def getFullUrl(self):
         return "/" + str(self.subThema) + "/" + str(self.name)

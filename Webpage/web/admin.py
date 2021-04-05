@@ -1,5 +1,5 @@
 from django.contrib import admin
 #from .models import BlogEintrag
-from web.models import InfoPage
+from web.models import infoPage
 
-admin.site.register(InfoPage)
+admin.site.register(infoPage)

@@ -1,12 +1,12 @@
-from web.models import InfoPage
+from web.models import infoPage
 
 
 def createMenuObject() -> {}:
-    Themen = InfoPage.themen
+    Themen = infoPage.themen
 
     Objects = []
     for kennung, titel in Themen:
-        pages = InfoPage.objects.filter(status=kennung)
+        pages = infoPage.objects.filter(status=kennung)
 
         zielObject = {
             "titel": titel,

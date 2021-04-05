@@ -25,7 +25,7 @@ import random
 # Frontpage (DONE)
 from utils.menu import createMenuObject
 from web.forms import changeInfoPage
-from web.models import InfoPage
+from web.models import infoPage
 
 
 def MainPage(request):
@@ -115,13 +115,13 @@ def unfertig(request):
 Eine einfache Übersicht über alle Infopages
 '''
 def infoPage(request):
-    Themen = InfoPage.themen
+    Themen = infoPage.themen
 
-    allePages = InfoPage.objects.all()
+    allePages = infoPage.objects.all()
 
     Objects = []
     for kennung, titel in Themen:
-        pages = InfoPage.objects.filter(status = kennung)
+        pages = infoPage.objects.filter(status = kennung)
 
         zielObject = {
             "titel": titel,
@@ -139,7 +139,7 @@ Aufrufen einer einzelnen Seite
 def infoPage_singlePage(request, theme, name):
     current_url = resolve(request.path_info).url_name
 
-    pageObject = get_object_or_404(InfoPage, status=theme, name=name)
+    pageObject = get_object_or_404(infoPage, status=theme, name=name)
 
     return render(request, "web/infoPage_singlePage.html", {"seite": pageObject})
 
@@ -170,7 +170,7 @@ def infoPageEditor(request):
             id = request.GET['id']
             # ID gegeben, also Daten laden
 
-            page = get_object_or_404(InfoPage, id=id)
+            page = get_object_or_404(infoPage, id=id)
             form = changeInfoPage(instance=page)
 
             return render(request, "web/infoPageEditor.html", {"form":form})
