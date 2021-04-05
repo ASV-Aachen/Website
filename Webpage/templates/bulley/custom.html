@@ -1,0 +1,31 @@
+<!--/templates/custom.html-->
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} ASV-Aachen - Leere Seite {% endblock title %}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+{% endblock styles %}
+{% block headerimage%}
+    <img src="/static/img/AGIV.jpg" alt="">
+{% endblock headerimage%}
+
+{% block content %}
+  <h1>Titel h1</h1>
+  <h2>Subtitle </h2>
+  <p> Leere Seite als Basis für die Gestaltung eigener Seiten</p>  
+ {% endblock contend %}
+
+<!-- Hier seitenbereich gestalten falls gewünscht -->
+{% block aside %}
+   Hallo hier ist der Seitenbereich
+{% endblock aside %}
+
+
+
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+{% endblock scripts %}
