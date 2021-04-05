@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='InfoPage',
+            name='infoPage',
             fields=[
                 ('Titel', models.CharField(max_length=200, primary_key=True, serialize=False)),
                 ('Text', models.TextField()),

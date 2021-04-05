@@ -13,7 +13,7 @@ from simple_history.models import HistoricalRecords
 
 
 # Speicher für InfoSeiten welche wir gerne mal verändern
-#class InfoPage(models.Model):
+#class infoPage(models.Model):
 #    Titel = models.CharField(max_length=200, primary_key=True)
 #    Text = models.TextField(null=False)
 #    Beschreibung = models.TextField()

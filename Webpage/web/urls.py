@@ -28,7 +28,7 @@ urlpatterns = [
     # path('UserTestPage', views.UserTest, name="UserTests"),
     path('unfertig', views.unfertig, name='unfertig'),
     path('autopouate', views.autoPopulate, name='autoPopulate'),
-    path('info', views.infoPage, name="info"),
+    path('info', views.InfoPageView, name="info"),
     path('info/<str:theme>/<str:name>', views.infoPage_singlePage, name="InfoPage"),
 
     path("infoEditor", views.infoPageEditor, name="InfoEditor"),

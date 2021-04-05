@@ -25,7 +25,7 @@ import random
 # Frontpage (DONE)
 from utils.menu import createMenuObject
 from web.forms import changeInfoPage
-from web.models import InfoPage
+from web.models import infoPage, infoPageHistory
 
 
 def MainPage(request):
@@ -114,14 +114,14 @@ def unfertig(request):
 '''
 Eine einfache Übersicht über alle Infopages
 '''
-def infoPage(request):
-    Themen = InfoPage.themen
+def InfoPageView(request):
+    Themen = infoPage.themen
 
-    allePages = InfoPage.objects.all()
+    allePages = infoPage.objects.all()
 
     Objects = []
     for kennung, titel in Themen:
-        pages = InfoPage.objects.filter(status = kennung)
+        pages = infoPage.objects.filter(status = kennung)
 
         zielObject = {
             "titel": titel,
@@ -139,7 +139,7 @@ Aufrufen einer einzelnen Seite
 def infoPage_singlePage(request, theme, name):
     current_url = resolve(request.path_info).url_name
 
-    pageObject = get_object_or_404(InfoPage, status=theme, name=name)
+    pageObject = get_object_or_404(infoPage, status=theme, name=name)
 
     return render(request, "web/infoPage_singlePage.html", {"seite": pageObject})
 
@@ -157,12 +157,30 @@ Editor für die Infoseiten
 def infoPageEditor(request):
     if request.method == "POST":
         # Eintragen in die DB
-        form = changeInfoPage(request.POST)
+        form = changeInfoPage(request.POST, request.FILES)
 
-        if form.is_valid():
+        if form.is_valid() and ('id' in request.GET):
             # abspeichern
-            form.save()
+            form.save(commit=False)
+            bestehenderEintrag = get_object_or_404(infoPage, id=request.GET['id'])
 
+            newhistory = infoPageHistory(
+                titel=bestehenderEintrag.titel,
+                text=bestehenderEintrag.text,
+                description=bestehenderEintrag.description,
+                name=bestehenderEintrag.name,
+                user_Editor=request.user.first_name + " " + request.user.last_name,
+                datum = date.today()
+            )
+            newhistory.save()
+
+            form.instance.id = request.GET['id']
+
+            bestehenderEintrag.history.add(newhistory)
+            form.save()
+        else:
+            logger = logging.getLogger(__name__)
+            logger.error(form.errors)
         return redirect("infoMenu")
     else:
         # Formular laden
@@ -170,11 +188,18 @@ def infoPageEditor(request):
             id = request.GET['id']
             # ID gegeben, also Daten laden
 
-            page = get_object_or_404(InfoPage, id=id)
+            page = get_object_or_404(infoPage, id=id)
             form = changeInfoPage(instance=page)
 
-            return render(request, "web/infoPageEditor.html", {"form":form})
+            if ('version' in request.GET) and page.history.filter(id=request.GET['version']).exists():
+                # Wir suchen nach einer bestimten Version
+                OldPost = page.history.get(id=request.GET['version'])
+                page.titel = OldPost.titel
+                page.text = OldPost.text
+
+            hist = page.history.all().order_by('-id')
+
+            return render(request, "web/infoPageEditor.html", {"form":form, "post": page, "hist": hist})
 
     return redirect("infoMenu")
-    pass
 
