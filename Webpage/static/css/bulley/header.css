@@ -1,13 +1,16 @@
 /*  <!--/ststic/css/bulley/header.css-->*/
 /*  Das Thema basiert auf Bootstrap 4 und die nav-bar arbeitet mit den Klassen ".navbar-light .bg-light"
-/*  Anpassen Farbchema der Seite */
-/*
+*/
 
+header {
+    padding-left: -15px;
+    padding-right: -15px;
+}
 #header {
     background-color: white;
     margin-bottom: 0.5rem;
-    padding-right: 0;
-    padding-left: 0;
+    padding-right: 0px;
+    padding-left: 0px;
 
     z-index: 9999; /* immer im Vordergrund! */
 

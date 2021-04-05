@@ -3,6 +3,7 @@
 {% load static %}
   <link href="{% static 'css/bulley/header.css' %}" rel="stylesheet">
 
+
   <div id="header-wrapper" class="row flex-wrap align-items-center">
     <div id="header-logo" class="col-auto ml-6 d-none d-lg-flex ">
       <a href="{% url 'ASV' %}"></a>
@@ -89,7 +90,7 @@
             <a class="nav-link dropdown-toggle" href="{% url 'MeinASV' %}" data-toggle="dropdown">
             Mein ASV</a>
             <ul class="dropdown-menu dropdown" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="{% url 'Mitgliedererzeichnis' %}">Mitgliedererzeichnis</a></li>
+              <li><a class="dropdown-item" href="{% url 'Mitgliederverzeichnis' %}">Mitgliederverzeichnis</a></li>
               <li><a class="dropdown-item" href="{% url 'arbeitsstunden_home' %}">Arbeitsstunden</a></li>
               <li><a class="dropdown-item" href="/wiki">Wiki</a></li>
               <li><a class="dropdown-item" href="#">Cloud</a></li>
@@ -127,3 +128,5 @@
     </nav>
 
   </div> <!-- end menue-wrapper -->
+
+

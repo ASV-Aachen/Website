@@ -23,13 +23,13 @@
 </head>
 
 <body>
-    <header id="header" class="container-fluid">
+    <header id="header"class="container-fluid">
 
         {% include "bulley/includes/header.html" %}
 
         <div id="header-image" class="container-fluid position-ralative">
         {% block headerimage%}
-          <img src="/static/img/AGIV.jpg" alt="">
+          <img class="img-fluid" src="/static/img/AGIV.jpg" alt="">
         {% endblock headerimage%}
         </div>
     </header>
@@ -66,7 +66,6 @@
   <script src="{% static 'assets/js/popper.js' %}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
   <script src="{% static 'JS/bulley/custom.js' %}"></script>
-
 <!-- Hier können app-spezifische  Skripte dazugeladen werden-->
 {% block scripts %}
 {% endblock scripts %}
