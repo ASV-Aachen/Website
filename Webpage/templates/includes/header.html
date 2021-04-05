@@ -1,0 +1,47 @@
+<!--FrontPage/templates/HeadAndToes.html-->
+<!doctype html>
+{% load static %}
+
+
+<div class="py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1">
+          <a class="header-logo text-dark" href="{% url 'ASV' %}">
+            <img src="{% static 'Bilder/asv_stander_logo.png' %}" style="width: 120px">
+          </a>  
+        </div>
+    </div>
+</div>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a href="#" class="navbar-brand"></a>
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="navbar-nav ml-auto">
+        <a class="nav-item nav-link active" href="{% url 'unfertig' %}">Der Verein</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Schiffe und Jollen</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Ausbildung</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Kontakt</a>
+        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Termine</a>
+      </div>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Mein ASV
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% if request.user.is_authenticated %}
+            <a class="dropdown-item" href="{% url 'MeinASV' %}"> Dashboard </a>
+            <a class="dropdown-item" href="/wiki"> Wiki </a>
+            <a class="dropdown-item" href="#"> Cloud </a>
+            <a class="dropdown-item" href="{% url 'Mitgliedererzeichnis' %}"> Mitgliedererzeichnis </a>
+            <a class="dropdown-item" href="{% url 'Einstellungen' %}"> Einstellungen </a>
+            <a class="dropdown-item" href="{% url 'account' %}"> Account </a>
+            <a class="dropdown-item" href="{% url 'logout' %}"> Logout </a>
+          {% else %}
+            <a class="dropdown-item" href="{% url 'login' %}"> Login </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>

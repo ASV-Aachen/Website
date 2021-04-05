@@ -16,5 +16,7 @@ Pillow
 social-auth-app-django
 django-crispy-forms~=1.11.0
 django-phonenumber-field[phonenumbers]
+django-crispy-forms~=1.11.0
 django-resized
- django-simple-history
+django-sitetree~=1.14
+django-simple-history
