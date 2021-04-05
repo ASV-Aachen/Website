@@ -11,7 +11,7 @@ from utils.keycloak import getKeycloackAdmin
 
 
 def userToHash(username):
-    ergebnis = hashlib.sha512(username).hexdigest()
+    ergebnis = hashlib.sha512(str(username).encode('utf-8')).hexdigest()
     return ergebnis
 
 

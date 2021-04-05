@@ -89,7 +89,7 @@ def exportPage(request):
 
     Nutzer = profile.objects.all()
     for i in Nutzer:
-        writer.writerow([Nutzer.user.first_name + ' ' + Nutzer.user.last_name, Nutzer.status, Nutzer.user.email ])
+        writer.writerow([i.user.first_name + ' ' + i.user.last_name, i.status, i.user.email ])
 
     return response
 
@@ -134,16 +134,15 @@ def massenimport(request):
     Erstellt eine Seite mit einem hash des Nutzernamen. Wird dieser zurück gesendet wissen wir das es ernst gemeint ist.
 '''
 def deleteUser(request):
-    if request.GET['id'] != "":
-        if User.objects.filter(id=id).exists() is True:
+    if 'id' in request.GET and request.GET['id'] != "":
+        if User.objects.filter(id=request.GET['id']).exists():
             # Erzeuge hash
-            user = User.objects.filter(id=id)[0]
+            user = User.objects.filter(id=request.GET['id'])[0]
 
-            if request.GET['key'] != "":
+            if 'key' in request.GET and request.GET['key'] != "":
                 # Lösche den Nutzer
                 givenKey = request.GET['key']
-                if givenKey == userToHash(user.username):
-                    deleteGivenUser(user.id)
+                if givenKey == userToHash(user.username) and deleteGivenUser(user.id):
                     return redirect("MemberMenu")
                 return render(request, "ErrorPage.html")
             else:

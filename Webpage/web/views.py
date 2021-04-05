@@ -2,10 +2,12 @@ from datetime import date
 
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
 from django.template.base import logger
 #from .models import *
+from django.urls import resolve
+
 from blog.models import blogPost
 from django.http import HttpResponse
 from django.contrib.auth.models import Permission
@@ -21,6 +23,11 @@ import random
 
 
 # Frontpage (DONE)
+from utils.menu import createMenuObject
+from web.forms import changeInfoPage
+from web.models import InfoPage
+
+
 def MainPage(request):
     """
     Hauptseite, erreichbar mit "/" ist anders, je nachdem op  man angemeldet ist oder nicht.
@@ -64,7 +71,6 @@ def loginFunction(request):
 
 def logoutFunktion(request):
     if request.user.is_authenticated:
-        # TODO: redirect to sso/auth/realms/ASV/account/#/
         logout(request)
         
         Host = os.environ["Host"]
@@ -73,35 +79,6 @@ def logoutFunktion(request):
 
         return redirect(TestUrl)
     return redirect("ASV")
-
-
-# Kleine Debug Test Seite: Zeigt an ob eine Person angemeldet ist und wenn ja, welche Permissions und Gruppen der Nutzer hat.
-# Wird nur im Debug Modus gezeigt.
-def UserTest(request):       
-    Text = ""
-    if request.user.is_authenticated:
-        Text = "<h1>Angemeldet!</h1> \n"
-        user = request.user
-        Text += (user.get_username())
-        Text += ("<br>")
-        Text += user.email
-        Text += ("<br>")
-
-        perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(user=user)]
-        l_as_list = list(user.groups.values_list('name',flat = True))
-
-        Text += ("Groups: " +  ' - '.join(str(e) for e in l_as_list))
-        Text += ("<br>Permissions: " + ' - '.join(str(e) for e in perm_tuple))
-
-        Text += ("<br>")
-
-        roles = user
-
-        
-        pass
-    else:
-        Text = "<h1>Nicht angemeldet!</h1> \n"
-    return HttpResponse(Text)
 
 def autoPopulate(request):
     if request.method == "POST":
@@ -132,3 +109,72 @@ def autoPopulate(request):
 
 def unfertig(request):
     return render(request, "unfertig.html", {})
+
+
+'''
+Eine einfache Übersicht über alle Infopages
+'''
+def infoPage(request):
+    Themen = InfoPage.themen
+
+    allePages = InfoPage.objects.all()
+
+    Objects = []
+    for kennung, titel in Themen:
+        pages = InfoPage.objects.filter(status = kennung)
+
+        zielObject = {
+            "titel": titel,
+            "seiten": pages,
+            "kennung": kennung
+        }
+
+        Objects.append(zielObject)
+
+    return render(request, "web/infoPage.html", {"objects": Objects})
+
+'''
+Aufrufen einer einzelnen Seite
+'''
+def infoPage_singlePage(request, theme, name):
+    current_url = resolve(request.path_info).url_name
+
+    pageObject = get_object_or_404(InfoPage, status=theme, name=name)
+
+    return render(request, "web/infoPage_singlePage.html", {"seite": pageObject})
+
+'''
+Aufzählung aller Seiten mit der Möglichkeit zu editieren
+'''
+def infoPageMenu(request):
+    Objects = createMenuObject()
+
+    return render(request, "web/infoPageMenu.html", {"objects": Objects})
+
+'''
+Editor für die Infoseiten
+'''
+def infoPageEditor(request):
+    if request.method == "POST":
+        # Eintragen in die DB
+        form = changeInfoPage(request.POST)
+
+        if form.is_valid():
+            # abspeichern
+            form.save()
+
+        return redirect("infoMenu")
+    else:
+        # Formular laden
+        if ('id' in request.GET):
+            id = request.GET['id']
+            # ID gegeben, also Daten laden
+
+            page = get_object_or_404(InfoPage, id=id)
+            form = changeInfoPage(instance=page)
+
+            return render(request, "web/infoPageEditor.html", {"form":form})
+
+    return redirect("infoMenu")
+    pass
+

@@ -1,8 +1,5 @@
 from django.contrib import admin
 #from .models import BlogEintrag
+from web.models import InfoPage
 
-
-# Register your models here.
-
-# News
-#admin.site.register(BlogEintrag)
+admin.site.register(InfoPage)
