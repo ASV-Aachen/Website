@@ -363,11 +363,17 @@ img {
 
 
 /* Smart Phones und Tablets mit mittlerer Auflösung */
-@media (min-width: 320px) {
+/*@media (min-width: 320px) {*/
+
+/* Viewports mit kleiner   Auflösung (ipad Hochvormat)  ** Desktop View entspricht bootstrap md*/
+/*@media (min-width: 576px) {*/
 
 
-/* Viewports mit großer Auflösung ** Desktop View entspricht bootstrap md*/
-@media (min-width: 768px) {
+/* Viewports mit mittlerer  Auflösung (ipad Hochvormat)  ** Desktop View entspricht bootstrap md*/
+/*@media (min-width: 768px) { */
+
+/* Viewports mit großer Auflösung (iPad Querformat)** Desktop View entspricht bootstrap lg*/
+@media (min-width: 992px) { */
 
 html {
 /*   Variable Schriftart einstellen
