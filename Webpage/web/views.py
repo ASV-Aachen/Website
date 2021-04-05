@@ -157,12 +157,12 @@ Editor für die Infoseiten
 def infoPageEditor(request):
     if request.method == "POST":
         # Eintragen in die DB
-        form = changeInfoPage(request.POST)
+        form = changeInfoPage(request.POST, request.FILES)
 
         if form.is_valid() and ('id' in request.GET):
             # abspeichern
             form.save(commit=False)
-            bestehenderEintrag = get_object_or_404(infoPage, id=request.GET['version'])
+            bestehenderEintrag = get_object_or_404(infoPage, id=request.GET['id'])
 
             newhistory = infoPageHistory(
                 titel=bestehenderEintrag.titel,
@@ -174,9 +174,13 @@ def infoPageEditor(request):
             )
             newhistory.save()
 
+            form.instance.id = request.GET['id']
+
             bestehenderEintrag.history.add(newhistory)
             form.save()
-
+        else:
+            logger = logging.getLogger(__name__)
+            logger.error(form.errors)
         return redirect("infoMenu")
     else:
         # Formular laden
