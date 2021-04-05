@@ -20,7 +20,7 @@ class subThemen(models.Model):
 '''
 Model zur Speicherung der Historie der InfoPages
 '''
-class infoPageHistory(models.model):
+class infoPageHistory(models.Model):
 
     user_Editor = models.CharField(max_length=200)
 

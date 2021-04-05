@@ -114,7 +114,7 @@ def unfertig(request):
 '''
 Eine einfache Übersicht über alle Infopages
 '''
-def infoPage(request):
+def InfoPageView(request):
     Themen = infoPage.themen
 
     allePages = infoPage.objects.all()
@@ -159,10 +159,10 @@ def infoPageEditor(request):
         # Eintragen in die DB
         form = changeInfoPage(request.POST)
 
-        if form.is_valid():
+        if form.is_valid() and ('id' in request.GET):
             # abspeichern
-
-            bestehenderEintrag = get_object_or_404(infoPage, id=form.instance.id)
+            form.save(commit=False)
+            bestehenderEintrag = get_object_or_404(infoPage, id=request.GET['version'])
 
             newhistory = infoPageHistory(
                 titel=bestehenderEintrag.titel,
