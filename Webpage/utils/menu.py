@@ -1,6 +1,9 @@
 from web.models import infoPage
+from django import template
 
+register = template.Library()
 
+@register.simple_tag
 def createMenuObject() -> {}:
     Themen = infoPage.themen
 
@@ -17,3 +20,13 @@ def createMenuObject() -> {}:
         Objects.append(zielObject)
 
     return Objects
+
+
+
+'''
+To register in Template:
+{% load menu %}
+
+{% createMenuObject as menuObject %}
+
+'''

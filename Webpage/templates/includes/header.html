@@ -16,19 +16,28 @@
      </div>-->
     </div>
 </div>
+  {% load createMenuObject %}
+  {% createMenuObject as menuObject %}
   <nav class="navbar navbar-expand-md navbar-light bg-light">
     <a href="#" class="navbar-brand"></a>
     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-      <div class="navbar-nav ml-auto">
-        <a class="nav-item nav-link active" href="{% url 'unfertig' %}">Der Verein</a>
-        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Schiffe und Jollen</a>
-        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Ausbildung</a>
-        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Kontakt</a>
-        <a class="nav-item nav-link" href="{% url 'unfertig' %}">Termine</a>
-      </div>
+
+      {% for gruppen in menuObject %}
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ gruppen.titel }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for seite in gruppen.seiten %}
+              <a class="dropdown-item" href="{% url 'InfoEditor' %}?id={{ seite.id }}" class="card-link">{{ seite.titel }}</a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Mein ASV
