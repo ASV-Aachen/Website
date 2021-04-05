@@ -23,6 +23,7 @@ import random
 
 
 # Frontpage (DONE)
+from utils.menu import createMenuObject
 from web.forms import changeInfoPage
 from web.models import InfoPage
 
@@ -146,21 +147,7 @@ def infoPage_singlePage(request, theme, name):
 Aufzählung aller Seiten mit der Möglichkeit zu editieren
 '''
 def infoPageMenu(request):
-    Themen = InfoPage.themen
-
-    allePages = InfoPage.objects.all()
-
-    Objects = []
-    for kennung, titel in Themen:
-        pages = InfoPage.objects.filter(status=kennung)
-
-        zielObject = {
-            "titel": titel,
-            "seiten": pages,
-            "kennung": kennung
-        }
-
-        Objects.append(zielObject)
+    Objects = createMenuObject()
 
     return render(request, "web/infoPageMenu.html", {"objects": Objects})
 
