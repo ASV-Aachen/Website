@@ -1,5 +1,6 @@
 // Empty JS for your own code to be here
 
+
 function clickDropdown() {
     if ($('.navbar-toggler').css("display") === "none") {
         $('.dropdown-toggle').click(function () {
@@ -8,7 +9,6 @@ function clickDropdown() {
         });
     }
 }
-
 $(document).ready(function () {
     clickDropdown();
     $(window).resize(function () {
