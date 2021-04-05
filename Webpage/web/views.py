@@ -25,7 +25,7 @@ import random
 # Frontpage (DONE)
 from utils.menu import createMenuObject
 from web.forms import changeInfoPage
-from web.models import infoPage
+from web.models import infoPage, infoPageHistory
 
 
 def MainPage(request):
@@ -161,6 +161,20 @@ def infoPageEditor(request):
 
         if form.is_valid():
             # abspeichern
+
+            bestehenderEintrag = get_object_or_404(infoPage, id=form.instance.id)
+
+            newhistory = infoPageHistory(
+                titel=bestehenderEintrag.titel,
+                text=bestehenderEintrag.text,
+                description=bestehenderEintrag.description,
+                name=bestehenderEintrag.name,
+                user_Editor=request.user.first_name + " " + request.user.last_name,
+                datum = date.today()
+            )
+            newhistory.save()
+
+            bestehenderEintrag.history.add(newhistory)
             form.save()
 
         return redirect("infoMenu")
@@ -173,8 +187,15 @@ def infoPageEditor(request):
             page = get_object_or_404(infoPage, id=id)
             form = changeInfoPage(instance=page)
 
-            return render(request, "web/infoPageEditor.html", {"form":form})
+            if ('version' in request.GET) and page.history.filter(id=request.GET['version']).exists():
+                # Wir suchen nach einer bestimten Version
+                OldPost = page.history.get(id=request.GET['version'])
+                page.titel = OldPost.titel
+                page.text = OldPost.text
+
+            hist = page.history.all().order_by('-id')
+
+            return render(request, "web/infoPageEditor.html", {"form":form, "post": page, "hist": hist})
 
     return redirect("infoMenu")
-    pass
 
