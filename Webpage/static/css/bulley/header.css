@@ -1,0 +1,351 @@
+/*  <!--/ststic/css/bulley/header.css-->*/
+/*  Das Thema basiert auf Bootstrap 4 und die nav-bar arbeitet mit den Klassen ".navbar-light .bg-light"
+/*  Anpassen Farbchema der Seite */
+/*
+
+#header {
+    background-color: white;
+    margin-bottom: 0.5rem;
+    padding-right: 0;
+    padding-left: 0;
+
+    z-index: 9999; /* immer im Vordergrund! */
+
+
+
+}
+#header-image{
+    top: 3.6rem;
+/*    margin-bottom: 55px;*/
+    z-index: -9999;
+    display: none;
+    background: url("/static/img/ASV_background.png") no-repeat center center;
+    background-size: cover;
+/*    height: calc(230px +(100vw-200));*/
+/*    height: calc(230px + (360 - 230) * (100vw - 768px) / (1600 - 768));*/
+}
+#header-image img {
+    background: white;
+    object-fit: cover;
+    min-height: 220px;
+}
+
+
+#header-wrapper {
+    Background-color: inherit;*/
+}
+
+#header-logo {
+    margin-left: 1rem;
+    width: 130px;
+    height: 94px;
+    background: url("/static/img/stander_mittel_130px.png") no-repeat center center;*/
+    background-size: contain;
+    display: inline-block;
+
+    /*background-color: var(--asvcoloryellow); /* zum Testen */
+}
+
+#header-text {
+    background: inherit;
+    /*background-color: var(--asvcolorgrey); /* zum Testen */
+}
+
+#header-text a {
+    color: black; /*var(--asvcolorblue);*/
+    text-align: left;
+    font-size: 32px;
+    font-style: italic;
+    text-decoration: none;
+}
+
+
+#menue-wrapper {
+/*    background: var(--asvcolorlightgrey) url("/static/img/AGIV.jpg") no-repeat center center;
+    background-size: cover;*/
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#main-nav {
+    width: 100%;
+    padding-top: 0.5rem;
+    text-color: var(--asvcolordarkblue);
+    font-size: 1rem;
+    opacity: 0.9;
+
+}
+#main-nav .navbar-brand {
+    color: var(--asvcolorblue);
+    font-style: italic;
+    font-size: 20px;
+    line-height: 0;
+    padding-left: 4rem;
+
+}
+#main-nav .navbar-brand::before {
+    content: url("/static/img/stander_klein_35px.png"); /*      AGIV.jpg*/
+    position: absolute;
+    top: 0.6rem;
+    left: 1rem;
+
+}
+
+#main-nav .navbar-nav {
+    margin-top: 0.5rem;
+}
+
+
+.nav-link {
+    padding: 0 1em 0 1rem;
+    outline: 0 !important;
+    /*white-space: nowrap;*/
+
+}
+.navbar .nav-item .dropdown-menu {
+	display: none;
+}
+
+.navbar .nav-item:hover .dropdown-menu {
+    display: block;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    padding: 0.5rem 1em 0.5rem 1rem;
+    margin: 0;
+    background-color: transparent;
+    color: var(--asvcolorblue);
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:active {
+    outline: 0 !important;
+    box-shadow: 0 !important;
+    color: white;
+    background-color: var(--asvcoloryellow);
+}
+
+/* Wird nur benötigt wenn ein Submenü gebraucht wird */
+
+.navbar .nav-item .dropdown-menu .submenu,
+.navbar .nav-item:hover .dropdown-menu .submenu {
+   display: none;
+}
+
+.nav-item:hover .dropdown-menu li:hover .submenu {
+    display: block;
+}
+
+.nav-item .submenu {
+	margin-left: 2rem;
+	border: 0 solid;
+/*	border-left: 0.2rem solid var(--asvcoloryellow);*/
+}
+
+
+.nav-item .submenu a:hover {
+
+    background-color: var(--asvcolorgrey);
+}
+
+
+
+/* Emde Submenue Style
+
+
+/* Symbol Dropdownmenü Handy */
+
+.dropdown-toggle:after {
+    display: inline-block;
+    position: relative;
+    top: 3px; right: -5px;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+/* Symbol Dropdownmenü auf erster Ebene ausschalten */
+
+
+.nav-link.dropdown-toggle:after {
+    display: none;
+}
+
+
+.dropdown-menu {
+    left: 0rem;
+    right:auto;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    list-style: none;
+    font-size: 1em; /* gleiche Größe wie hauptmenüe*/
+    background-color: var(--asvcolorlightgrey);*/
+    background-clip: padding-box;
+    border: 0px transparent;
+    border-radius: 0rem;
+
+/*    border-bottom: .3em solid transparent;*/
+/*    border-left: .2rem solid var(--asvcoloryellow);
+/*    border-bottom: .1em solid var(--asvcoloryellow);*/
+
+}
+
+.dropdown-menu-right{
+    left: auto;
+	right: 0.5rem;
+}
+
+
+.dropdown-item {
+    padding: 0.5rem 1.5rem;
+	position: relative;
+	color: var(--asvcolorblue);
+	background-color: white;
+}
+
+.dropdown-item:hover,
+.dropdown-item:active,
+.dropdown-item:focus {
+    color: white;
+	background-color: var(--asvcoloryellow);
+
+}
+
+
+
+/* Smart Phones und Tablets mit mittlerer Auflösung */
+/*@media (min-width: 320px) {*/
+
+/* Viewports mit kleiner   Auflösung (ipad Hochvormat)  ** Desktop View entspricht bootstrap md*/
+/*@media (min-width: 576px) {*/
+
+
+/* Viewports mit mittlerer  Auflösung (ipad Hochvormat)  ** Desktop View entspricht bootstrap md*/
+/*@media (min-width: 768px) { */
+
+/* Viewports mit großer Auflösung (iPad Querformat)** Desktop View entspricht bootstrap lg*/
+@media (min-width: 992px) { */
+
+
+/* Anpassungen  Header Desktopversion */
+
+
+#header {
+
+}
+
+
+#header-image {
+    top: 5.3rem;
+    width: 100%;
+    padding:0;
+/*    margin-bottom: 55px;*/
+    z-index: -9999;
+    display: block;
+}
+#header-image img{
+
+/*    background: var(--asvcolorlightgrey) url("/static/img/AGIV.jpg") no-repeat center center;
+    background-size: cover;*/
+
+    background: white;
+    object-fit: cover;
+/*    max-height: 260px;*/
+}
+
+
+/* Anpassungen  Nav-Bar Desktopversion */
+
+/* Symbol Dropdownmenü Pfeil nach rechts*/
+
+.dropdown-toggle:after {
+    top: 5px;
+    border-top: 0.3em solid transparent;
+    border-bottom: 0.3em solid transparent;
+    border-right: 0;
+    border-left: 0.3em solid;
+}
+
+
+
+#menue-wrapper {
+}
+
+#main-nav {
+    width: 100%;
+    padding: 0rem 1rem;
+    text-color: var(--asvcolordarkblue);
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+#main-nav .navbar-nav {
+    margin-top: 0rem;
+}
+.nav-item {
+    background-color: transparent;
+    padding: 0 .5rem 0 0.5rem;
+}
+.navbar-light .navbar-nav .nav-link {
+    padding: 0.5rem 0.5em 0.3rem 0.5rem;
+    margin: 0;
+    border-bottom: 0.2rem solid transparent;
+}
+
+
+.dropdown-menu {
+    left: 0.5rem;
+    background-color: var(--asvcolorlightgrey);
+    border: 0px solid transparent;
+    border-top: 2px solid var(--asvcoloryellow);
+}
+
+.dropdown-menu-right{
+    left: auto;
+	right: 0.5rem;
+}
+
+
+.dropdown-item {
+    padding: 0.2rem 1.5rem;
+    background-color: transparent;
+}
+
+.dropdown-item . dropdown-toggle {
+    padding: 0.2rem 1.5rem;
+    background-color: var(asvcoloryellow);
+}
+
+.dropdown-item:hover {
+    border-right: 0.2rem solid var(asvcoloryellow);
+/*    color: white;
+	background-color: var(--asvcolorgrey);
+*/
+}
+
+
+
+
+/* Submenue Anpassungen für Desktop
+*/
+
+
+ .nav-item .submenu {
+	top: auto;
+	left: 100%; right: auto;
+	margin: -1.9rem 0 0 0;
+	border: 0 solid;
+	border-left: 0.2rem solid var(--asvcoloryellow);
+}
+.nav-item .submenu-right {
+	left: auto; right: 100%;
+	border-left: 0rem solid;
+	border-right: 0.2rem solid var(--asvcoloryellow);
+
+}
+
+}
