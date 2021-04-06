@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
 from django.template.base import logger
@@ -55,6 +56,7 @@ def SingleNews(request):
         return redirect("ASV")
 
 '''writerView'''
+@login_required
 def adminNewsPage(request):
     posts = blogPost.objects.all().order_by('-id')
     paginator = Paginator(posts, 20)
@@ -66,6 +68,7 @@ def adminNewsPage(request):
 
 
 ''' News für Löschung markieren'''
+@login_required
 def deleteNews(request):
     if (request.user.is_authenticated):
         if ('id' in request.GET):
@@ -76,6 +79,7 @@ def deleteNews(request):
         return redirect("ASV")
 
 '''Insert a new Blog Entry'''
+@login_required
 def AddNews(request):
     if (request.user.is_authenticated):
 

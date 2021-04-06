@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
@@ -80,6 +81,7 @@ def logoutFunktion(request):
         return redirect(TestUrl)
     return redirect("ASV")
 
+@login_required
 def autoPopulate(request):
     if request.method == "POST":
         anzahl = 50
@@ -146,6 +148,7 @@ def infoPage_singlePage(request, theme, name):
 '''
 Aufzählung aller Seiten mit der Möglichkeit zu editieren
 '''
+@login_required
 def infoPageMenu(request):
     Objects = createMenuObject()
 
@@ -154,6 +157,7 @@ def infoPageMenu(request):
 '''
 Editor für die Infoseiten
 '''
+@login_required
 def infoPageEditor(request):
     if request.method == "POST":
         # Eintragen in die DB
