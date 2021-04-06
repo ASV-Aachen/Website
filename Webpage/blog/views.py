@@ -1,7 +1,7 @@
 from datetime import date
 
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
 from django.template.base import logger
@@ -14,7 +14,7 @@ import logging
 import os
 from .forms import newBlogEntry
 from django.core.paginator import Paginator
-
+from utils.loginFunctions import isUserPartOfGroup
 
 
 # Alle News
@@ -56,6 +56,7 @@ def SingleNews(request):
         return redirect("ASV")
 
 '''writerView'''
+@user_passes_test(isUserPartOfGroup(groupNameArray = ['Editor']))
 @login_required
 def adminNewsPage(request):
     posts = blogPost.objects.all().order_by('-id')
@@ -68,6 +69,7 @@ def adminNewsPage(request):
 
 
 ''' News für Löschung markieren'''
+@user_passes_test(isUserPartOfGroup(groupNameArray = ['Editor']))
 @login_required
 def deleteNews(request):
     if (request.user.is_authenticated):
@@ -79,6 +81,7 @@ def deleteNews(request):
         return redirect("ASV")
 
 '''Insert a new Blog Entry'''
+@user_passes_test(isUserPartOfGroup(groupNameArray = ['Editor']))
 @login_required
 def AddNews(request):
     if (request.user.is_authenticated):

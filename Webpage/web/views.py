@@ -1,7 +1,7 @@
 from datetime import date
 
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
@@ -19,6 +19,7 @@ import os
 from utils.faker import *
 from blog.models import blogPost
 from member.models import profile
+from utils.loginFunctions import isUserPartOfGroup
 from utils.member import newMember
 import random
 
@@ -82,6 +83,7 @@ def logoutFunktion(request):
     return redirect("ASV")
 
 @login_required
+@user_passes_test(isUserPartOfGroup(groupNameArray = ['Developer']))
 def autoPopulate(request):
     if request.method == "POST":
         anzahl = 50
@@ -148,6 +150,7 @@ def infoPage_singlePage(request, theme, name):
 '''
 Aufzählung aller Seiten mit der Möglichkeit zu editieren
 '''
+@user_passes_test(isUserPartOfGroup(groupNameArray = ['Editor']))
 @login_required
 def infoPageMenu(request):
     Objects = createMenuObject()
@@ -157,6 +160,7 @@ def infoPageMenu(request):
 '''
 Editor für die Infoseiten
 '''
+@user_passes_test(isUserPartOfGroup(groupNameArray = ['Editor']))
 @login_required
 def infoPageEditor(request):
     if request.method == "POST":
