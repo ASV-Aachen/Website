@@ -19,7 +19,7 @@ import os
 from utils.faker import *
 from blog.models import blogPost
 from member.models import profile
-from utils.loginFunctions import isUserPartOfGroup
+from utils.loginFunctions import *
 from utils.member import newMember
 import random
 
@@ -83,7 +83,7 @@ def logoutFunktion(request):
     return redirect("ASV")
 
 @login_required
-@user_passes_test(isUserPartOfGroup(groupNameArray = ['Developer']))
+@user_passes_test(isUserPartOfGroup_Developer)
 def autoPopulate(request):
     if request.method == "POST":
         anzahl = 50
@@ -150,7 +150,7 @@ def infoPage_singlePage(request, theme, name):
 '''
 Aufzählung aller Seiten mit der Möglichkeit zu editieren
 '''
-@user_passes_test(isUserPartOfGroup(groupNameArray = ['Editor']))
+@user_passes_test(isUserPartOfGroup_Editor)
 @login_required
 def infoPageMenu(request):
     Objects = createMenuObject()
@@ -160,7 +160,7 @@ def infoPageMenu(request):
 '''
 Editor für die Infoseiten
 '''
-@user_passes_test(isUserPartOfGroup(groupNameArray = ['Editor']))
+@user_passes_test(isUserPartOfGroup_Editor)
 @login_required
 def infoPageEditor(request):
     if request.method == "POST":
