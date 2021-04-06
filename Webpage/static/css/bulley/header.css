@@ -35,10 +35,10 @@
 }
 
 #header-logo {
-    margin-left: 1.5rem;
-    width: 130px;
+    margin-left: 2rem;
+    width: 180px;
     height: 94px;
-    background: url("/static/img/stander_mittel_130px.png") no-repeat center center;
+    background: url("/static/img/logo_offiziell_17_-01.png") no-repeat center center;
     background-size: contain;
     display: inline-block;
 
@@ -75,21 +75,42 @@
     opacity: 0.9;
 
 }
+
+/*Layout navbar-brand mit Stander und Text */
+
+/*#main-nav .navbar-brand {
+/*  color: var(--asvcolorblue);*/
+/*    font-style: italic;
+
+    margin-left: 1rem;
+}
+
+#main-nav .navbar-brand::before {
+    position: relative;
+    content: url("/static/img/stander_klein_35px.png");
+    top: 0rem;
+    left: -1rem;
+
+}
+#main-nav .navbar-brand::after {
+    position: fixed;
+    content: "ASV in Aachen";
+    top: 1rem;
+}
+*/
+
+/* Layout navbar-brand mit Stander und Text Ende */
+
+/* Layout navbar-brand mit Logo nach CD */
 #main-nav .navbar-brand {
 /*    color: var(--asvcolorblue);*/
-    font-style: italic;
-    font-size: 20px;
-    line-height: 0;
-    padding-left: 4rem;
-
+    width: 100px;
+    height: 40px;
+    background: url("/static/img/logo_offiziell_17_-01.png") no-repeat center center;
+    background-size: contain;
 }
-#main-nav .navbar-brand::before {
-    content: url("/static/img/stander_klein_35px.png"); /*      AGIV.jpg*/
-    position: absolute;
-    top: 0.6rem;
-    left: 1rem;
+/* Layout navbar-brand mit Logo nach CD Ende */
 
-}
 
 #main-nav .navbar-nav {
     margin-top: 0.5rem;
@@ -102,6 +123,7 @@
     /*white-space: nowrap;*/
 
 }
+
 .navbar .nav-item .dropdown-menu {
 	display: none;
 }
@@ -121,8 +143,9 @@
 .navbar-light .navbar-nav .nav-link:active {
     outline: 0 !important;
     box-shadow: 0 !important;
-    color: white;
+    color: black;
     background-color: var(--asvcoloryellow);
+
 }
 
 /* Wird nur benötigt wenn ein Submenü gebraucht wird */
@@ -145,6 +168,7 @@
 
 .nav-item .submenu a:hover {
 
+    color:white;
     background-color: var(--asvcolorgrey);
 }
 
@@ -208,7 +232,7 @@
 .dropdown-item:hover,
 .dropdown-item:active,
 .dropdown-item:focus {
-    color: white;
+    color: black;
 	background-color: var(--asvcoloryellow);
 
 }

@@ -6,7 +6,8 @@
     GGf. hier neue Farben definieren
 */
 :root {
-    --asvcoloryellow: #FFD648;
+/*    --asvcoloryellow: #FFD648; /* --> vom Bulley abgekupfert  */
+    --asvcoloryellow: #FFDE24; /* --> CD ASV aus Hörsalpräsentation   */
     --asvcolorblue: #004D80;
     --asvcolorlightblue: #0068AC;
     --asvcolordarkblue: #0068AC;
