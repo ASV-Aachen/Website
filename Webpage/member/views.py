@@ -2,10 +2,12 @@
 import csv
 import io
 
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
+from utils.loginFunctions import *
 from utils.member import newMember, userToHash, deleteGivenUser
 from .models import profile
 from django.contrib.auth.models import User
@@ -21,12 +23,10 @@ def index(request):
     return render(request, "member/Dashboard.html")
 
 # Mitgliederverzeichnis
+@login_required
 def member_directory(request):
-    if (request.user.is_authenticated):
-        context = {'personen': profile.objects.all()}
-        return render(request, template_name="member/Mitgliderverzeichnis.html", context=context)
-    else:
-        return redirect("ASV")
+    context = {'personen': profile.objects.all()}
+    return render(request, template_name="member/Mitgliderverzeichnis.html", context=context)
 
 # Anzeige für den Einzelnen Nutzer
 def single_user(request):
@@ -65,10 +65,14 @@ def settings(request):
 # ADMIN BEREICH
 
 # Erstelle das Member Haupt Menüs mit den Buttons für Funktionen und Auswertungen über die Mitglieder
+@user_passes_test(isUserPartOfGroup_Schriftwart)
+@login_required
 def memberMenu(request):
     return render(request, "member/memberMenu.html")
 
 # Anzeige aller Member
+@user_passes_test(isUserPartOfGroup_Schriftwart)
+@login_required
 def alleMember(request):
     member = profile.objects.all().order_by('-id')
     paginator = Paginator(member, 50)
@@ -79,6 +83,8 @@ def alleMember(request):
     return render(request, "member/alleMember.html", {"page_obj": page_obj})
 
 # Möglicher Export aller Mitglieder
+@user_passes_test(isUserPartOfGroup_Schriftwart)
+@login_required
 def exportPage(request):
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(content_type='text/csv')
@@ -94,6 +100,8 @@ def exportPage(request):
     return response
 
 # Editor zum erstellen des neuen Nutzers
+@user_passes_test(isUserPartOfGroup_Schriftwart)
+@login_required
 def newMemberEditor(request):
 
     if(request.method == "POST"):
@@ -114,6 +122,8 @@ def newMemberEditor(request):
 
 
 # Seite für einen möglichen Massenimport von Daten in Form einer CSV Datei.
+@user_passes_test(isUserPartOfGroup_Schriftwart)
+@login_required
 def massenimport(request):
     if request.method == "POST":
         # Datei geladen
@@ -133,6 +143,8 @@ def massenimport(request):
 '''
     Erstellt eine Seite mit einem hash des Nutzernamen. Wird dieser zurück gesendet wissen wir das es ernst gemeint ist.
 '''
+@user_passes_test(isUserPartOfGroup_Schriftwart)
+@login_required
 def deleteUser(request):
     if 'id' in request.GET and request.GET['id'] != "":
         if User.objects.filter(id=request.GET['id']).exists():
