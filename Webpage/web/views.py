@@ -26,8 +26,9 @@ import random
 
 # Frontpage (DONE)
 from utils.menu import createMenuObject
-from web.forms import changeInfoPage, changeHeaderPage
-from web.models import infoPage, infoPageHistory, HeadPage
+from web.forms import changeInfoPage, changeHeaderPage, changeLeftRight
+from web.models import infoPage, infoPageHistory, HeadPage, frontHeader
+
 
 def MainPage(request):
     """
@@ -54,7 +55,6 @@ def MainPage(request):
         return render(request, "web/home.html", context={
                 "News": page_obj,
             })
-
 
 # loginFunktion (DONE)
 def loginFunction(request):
@@ -161,7 +161,22 @@ Aufzählung aller Seiten mit der Möglichkeit zu editieren
 def infoPageMenu(request):
     Objects = createMenuObject()
 
-    return render(request, "web/infoPageMenu.html", {"objects": Objects})
+    if request.method == "POST":
+        # Eintragen in die DB
+        form = changeLeftRight(request.POST, request.FILES)
+
+        if form.is_valid():
+            # abspeichern
+            form.save(commit=False)
+
+            form.instance.id = request.GET['1']
+
+            form.save()
+
+    form = changeLeftRight(instance=frontHeader.objects.all()[0])
+
+    return render(request, "web/infoPageMenu.html", {"objects": Objects, "form": form})
+
 
 '''
 Editor für die Infoseiten

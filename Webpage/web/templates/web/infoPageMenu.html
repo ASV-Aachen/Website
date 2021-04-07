@@ -9,8 +9,16 @@
 {% endblock styles %}
 
 {% block content %}
-    <h2>Alle Info Seiten</h2>
+    <h2>Was steht auf der HomePage?</h2>
+    {{ form.media }}
+    <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="save btn btn-primary">Speichern</button>
+    </form>
 
+    <br>
+    <h2>Alle Info Seiten</h2>
     {% for gruppen in objects%}
         <div class="card">
           <div class="card-header"> {{ gruppen.Header.titel }} </div>

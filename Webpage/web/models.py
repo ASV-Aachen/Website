@@ -76,3 +76,10 @@ class infoPage(models.Model):
 
     def __str__(self):
         return self.titel
+
+'''
+MUSS BEIM ERSTEN STARTEN ANGELEGT WERDEN!!!!
+'''
+class frontHeader(models.Model):
+    left = models.ForeignKey(HeadPage)
+    right = models.ForeignKey(HeadPage)

@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from phonenumber_field.formfields import PhoneNumberField
 
-from web.models import infoPage, HeadPage
+from web.models import infoPage, HeadPage, frontHeader
 
 
 class changeInfoPage(ModelForm):
@@ -23,3 +23,8 @@ class changeHeaderPage(ModelForm):
         widgets = {
             'image': forms.FileInput(attrs={'style': 'display: none;', 'class': 'form-control', 'required': False, })
         }
+
+class changeLeftRight(ModelForm):
+    class Meta:
+        model = frontHeader
+        fields = ['left', 'right']
