@@ -29,7 +29,6 @@ from utils.menu import createMenuObject
 from web.forms import changeInfoPage, changeHeaderPage
 from web.models import infoPage, infoPageHistory, HeadPage
 
-
 def MainPage(request):
     """
     Hauptseite, erreichbar mit "/" ist anders, je nachdem op  man angemeldet ist oder nicht.
