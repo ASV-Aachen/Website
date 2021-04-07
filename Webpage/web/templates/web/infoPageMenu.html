@@ -9,23 +9,24 @@
 {% endblock styles %}
 
 {% block content %}
-    <h2>Informationen</h2>
+    <h2>Alle Info Seiten</h2>
 
     {% for gruppen in objects%}
-        <h3>{{ gruppen.titel }}</h3>
+        <div class="card">
+          <div class="card-header"> {{ gruppen.Header.titel }} </div>
+          <div class="card-text"> {{ gruppen.Header.description }} </div>
+          <ul class="list-group list-group-flush">
+           {% for seite in gruppen.seiten %}
+            <li class="list-group-item">
+                {{ seite.titel }}
+                <a href="{% url 'InfoPage' gruppen.kennung seite.name %}" class="card-link">Link zur Seite</a>
+                <a href="{% url 'InfoEditor' %}?id={{ seite.id }}" class="card-link">Edit</a>
+            </li>
+           {% endfor %}
+          </ul>
+        </div>
 
-        {% for seite in gruppen.seiten %}
-            <div class="card">
-              <div class="card-body">
-                  <h4 class="card-title">{{ seite.titel }}</h4>
-                  <p class="card-text"> {{ seite.description}} </p>
-                  <a href="{% url 'InfoPage' gruppen.kennung seite.name %}" class="card-link">Link zur Seite</a>
-
-                  <a href="{% url 'InfoEditor' %}?id={{ seite.id }}" class="card-link">Edit</a>
-              </div>
-            </div>
-        {% endfor %}
-
+        <br>
     {% endfor %}
 
  {% endblock %}

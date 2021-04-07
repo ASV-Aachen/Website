@@ -42,6 +42,9 @@ class HeadPage(models.Model):
     titel = models.CharField(max_length=200)
     text = HTMLField()
 
+    description = models.TextField()
+    image = models.ImageField()
+
     # subThema = models.ForeignKey(subThemen)
     name = models.CharField(max_length=200)
 
@@ -62,9 +65,6 @@ class infoPage(models.Model):
 
     titel = models.CharField(max_length=200)
     text = HTMLField()
-
-    description = models.TextField()
-    image = models.ImageField()
 
     # subThema = models.ForeignKey(subThemen)
     name = models.CharField(max_length=200)
