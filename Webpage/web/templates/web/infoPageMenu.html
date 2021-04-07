@@ -9,19 +9,27 @@
 {% endblock styles %}
 
 {% block content %}
-    <h2>Alle Info Seiten</h2>
+    <h2>Was steht auf der HomePage?</h2>
+    {{ form.media }}
+    <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="save btn btn-primary">Speichern</button>
+    </form>
 
+    <br>
+    <h2>Alle Info Seiten</h2>
     {% for gruppen in objects%}
         <div class="card">
           <div class="card-header"> {{ gruppen.Header.titel }} </div>
           <div class="card-text"> {{ gruppen.Header.description }} </div>
-            <a href="{% url 'InfoPage_Header' gruppen.kennung%}" class="card-link">Link zur Seite</a>
+            <a href="{% url 'InfoPage_Header' gruppen.name%}" class="card-link">Link zur Seite</a>
             <a href="{% url 'InfoEditor_Header' %}?id={{ seite.id }}" class="card-link">Edit</a>
           <ul class="list-group list-group-flush">
            {% for seite in gruppen.seiten %}
             <li class="list-group-item">
                 {{ seite.titel }}
-                <a href="{% url 'InfoPage' gruppen.kennung seite.name %}" class="card-link">Link zur Seite</a>
+                <a href="{% url 'InfoPage' gruppen.name seite.name %}" class="card-link">Link zur Seite</a>
                 <a href="{% url 'InfoEditor' %}?id={{ seite.id }}" class="card-link">Edit</a>
             </li>
            {% endfor %}

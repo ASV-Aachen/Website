@@ -120,7 +120,9 @@ TEMPLATES = [
             ],
         'libraries':{
                     'createMenuObject': 'utils.menu',
-                    'has_group': 'utils.tags'
+                    'has_group': 'utils.tags',
+                    'getLeftFront': 'utils.tags',
+                    'getRightFront': 'utils.tags'
             },
         },
     },
