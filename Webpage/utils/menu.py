@@ -1,20 +1,19 @@
-from web.models import infoPage
+from web.models import infoPage, HeadPage
 from django import template
 
 register = template.Library()
 
 @register.simple_tag
 def createMenuObject() -> {}:
-    Themen = infoPage.themen
+    Themen = HeadPage.objects.all()
 
     Objects = []
-    for kennung, titel in Themen:
-        pages = infoPage.objects.filter(status=kennung)
+    for Header in Themen:
+        pages = infoPage.objects.filter(headPage=Header)
 
         zielObject = {
-            "titel": titel,
+            "Header": Header,
             "seiten": pages,
-            "kennung": kennung
         }
 
         Objects.append(zielObject)
