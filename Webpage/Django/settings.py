@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     # 'django.contrib.sites',
 
     # ASV-Apps
+    'utils',
     'web',
     'blog',
     'member',
@@ -119,7 +120,7 @@ TEMPLATES = [
             ],
         'libraries':{
                     'createMenuObject': 'utils.menu',
-
+                    'has_group': 'utils.tags'
             },
         },
     },
