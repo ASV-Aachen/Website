@@ -17,6 +17,7 @@ social-auth-app-django
 django-crispy-forms~=1.11.0
 django-phonenumber-field[phonenumbers]
 django-resized
-django-simple-history
 Faker
 python-keycloak
+django-sitetree~=1.14
+django-simple-history

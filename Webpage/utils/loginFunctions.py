@@ -1,5 +1,4 @@
 
-
 '''
 Checked if der Nutzer des Request Teil der gegebenen Gruppe ist oder nicht
 @param request - Der request der geprüft werden soll
