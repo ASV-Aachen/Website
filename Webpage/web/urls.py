@@ -29,8 +29,12 @@ urlpatterns = [
     path('unfertig', views.unfertig, name='unfertig'),
     path('autopouate', views.autoPopulate, name='autoPopulate'),
     path('info', views.InfoPageView, name="info"),
+
+    path('info/<str:theme>', views.infoPage_singleHeader, name="InfoPage_Header"),
     path('info/<str:theme>/<str:name>', views.infoPage_singlePage, name="InfoPage"),
 
     path("infoEditor", views.infoPageEditor, name="InfoEditor"),
+    path("InfoEditor_Header", views.infoPageEditor_Header, name="InfoEditor_Header"),
+
     path("infoMenu", views.infoPageMenu, name="infoMenu")
 ]

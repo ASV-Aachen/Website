@@ -33,23 +33,17 @@ class infoPageHistory(models.Model):
 
     datum = models.DateField()
 
-'''
-Model für die Infoseiten
-'''
-class infoPage(models.Model):
-    themen = (
-        ("SL", "Segeln lernen"),
-        ("V", "Der Verein"),
-        ("See", "Seeschiff"),
-        ("J", "Jollenpark"),
-        ("A", "Aktivitäten")
-    )
 
-    status = models.CharField(choices=themen, default="SL", max_length=3)
-
+'''
+Model für die Header Seiten
+-> Haben Unterseiten in Form von InfoPages
+'''
+class HeadPage(models.Model):
     titel = models.CharField(max_length=200)
     text = HTMLField()
+
     description = models.TextField()
+    image = models.ImageField()
 
     # subThema = models.ForeignKey(subThemen)
     name = models.CharField(max_length=200)
@@ -57,7 +51,28 @@ class infoPage(models.Model):
     history = models.ManyToManyField(infoPageHistory)
 
     def getFullUrl(self):
-        return "/" + str(self.subThema) + "/" + str(self.name)
+        return "/" + str(self.name)
+
+    def __str__(self):
+        return self.titel
+
+
+'''
+Model für die Infoseiten
+'''
+class infoPage(models.Model):
+    headPage = models.ForeignKey(HeadPage, on_delete=models.CASCADE())
+
+    titel = models.CharField(max_length=200)
+    text = HTMLField()
+
+    # subThema = models.ForeignKey(subThemen)
+    name = models.CharField(max_length=200)
+
+    history = models.ManyToManyField(infoPageHistory)
+
+    def getFullUrl(self):
+        return "/" + str(self.headPage.name) + "/" + str(self.name)
 
     def __str__(self):
         return self.titel
