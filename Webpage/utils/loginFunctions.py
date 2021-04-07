@@ -1,4 +1,4 @@
-
+from django import template
 
 '''
 Checked if der Nutzer des Request Teil der gegebenen Gruppe ist oder nicht
@@ -33,3 +33,9 @@ Beispiele:
 @user_passes_test(isUserPartOfGroup(groupNameArray = ['Editor']))
 @user_passes_test(isUserPartOfGroup(groupNameArray = ['Developer']))
 '''
+
+register = template.Library()
+
+@register.filter(name='has_group')
+def has_group(user, group_name):
+    return user.groups.filter(name=group_name).exists()

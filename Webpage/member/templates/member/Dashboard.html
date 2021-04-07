@@ -25,14 +25,11 @@
     <div id = "Funktionen">
         <div class="card">
           <div class="card-header">
-            UserFunktionen
+            Deine Apps
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <a class="dropdown-item" href="{% url 'arbeitsstunden_home' %}"> Arbeitsstunden Dashboard </a>
-            </li>
-            <li class="list-group-item">
-                <a class="dropdown-item" href="{% url 'Einstellungen' %}"> Einstellungen </a>
             </li>
             <li class="list-group-item">
                 To be continued...
@@ -44,24 +41,33 @@
     <div id = "AdminFunktionen">
             <div class="card">
               <div class="card-header">
-                Admin Funktionen
+                Einstellungen
               </div>
+                Hier findest du alle Einstellungen und Editoren.
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <a class="dropdown-item" href="{% url 'writerView' %}"> News Editor </a>
+                    <a class="dropdown-item" href="{% url 'Einstellungen' %}"> Einstellungen </a>
                 </li>
-                <li class="list-group-item">
-                    <a class="dropdown-item" href="{% url 'MemberMenu' %}"> Member Editor </a>
-                </li>
-                <li class="list-group-item">
-                    <a class="dropdown-item" href="{% url 'autoPopulate' %}"> Auto Poulate Page </a>
-                </li>
-                <li class="list-group-item">
-                    <a class="dropdown-item" href="{% url 'infoMenu' %}"> InfoPages Menu </a>
-                </li>
-                <li class="list-group-item">
-                    To be continued...
-                </li>
+                {% if request.user|has_group:"Editor" %}
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="{% url 'writerView' %}"> News Editor </a>
+                    </li>
+                {% endif %}
+                {% if request.user|has_group:"Schriftwart" %}
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="{% url 'MemberMenu' %}"> Member Editor </a>
+                    </li>
+                {% endif %}
+                {% if request.user|has_group:"Developer" %}
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="{% url 'autoPopulate' %}"> Auto Poulate Page </a>
+                    </li>
+                {% endif %}
+                {% if request.user|has_group:"Editor" %}
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="{% url 'infoMenu' %}"> InfoPages Menu </a>
+                    </li>
+                {% endif %}
               </ul>
             </div>
         </div>
