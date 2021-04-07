@@ -39,7 +39,7 @@ Model für die Header Seiten
 -> Haben Unterseiten in Form von InfoPages
 '''
 class HeadPage(models.Model):
-    titel = models.CharField(max_length=200)
+    titel = models.CharField(max_length=50)
     text = HTMLField()
 
     description = models.TextField()

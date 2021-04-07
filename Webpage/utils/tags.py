@@ -17,5 +17,5 @@ def getLeftFront():
     return frontHeader.objects.all()[0].left
 
 @register.simple_tag
-def getRightPast():
+def getRightFront():
     return frontHeader.objects.all()[0].right

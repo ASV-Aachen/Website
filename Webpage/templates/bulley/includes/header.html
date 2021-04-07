@@ -26,10 +26,10 @@
 
         {% for gruppen in objects%}
           <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle" aria-labelledby="dropdownMenuButton" href="{% url 'InfoPage_Header' gruppen.kennung %}"> {{ gruppen.Header.titel }} </a>
+            <a class="nav-link dropdown-toggle" aria-labelledby="dropdownMenuButton" href="{% url 'InfoPage_Header' gruppen.name %}"> {{ gruppen.Header.titel }} </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               {% for seite in gruppen.seiten %}
-                <li><a class="dropdown-item" href="{% url 'InfoPage' gruppen.kennung seite.name %}"> {{ seite.titel }} </a></li>
+                <li><a class="dropdown-item" href="{% url 'InfoPage' gruppen.name seite.name %}"> {{ seite.titel }} </a></li>
               {% endfor %}
             </ul>
           </li>
