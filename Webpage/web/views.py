@@ -26,8 +26,8 @@ import random
 
 # Frontpage (DONE)
 from utils.menu import createMenuObject
-from web.forms import changeInfoPage
-from web.models import infoPage, infoPageHistory
+from web.forms import changeInfoPage, changeHeaderPage
+from web.models import infoPage, infoPageHistory, HeadPage
 
 
 def MainPage(request):
@@ -141,9 +141,16 @@ def InfoPageView(request):
 Aufrufen einer einzelnen Seite
 '''
 def infoPage_singlePage(request, theme, name):
-    current_url = resolve(request.path_info).url_name
+    HeadObject = get_object_or_404(HeadPage, name=theme)
+    pageObject = get_object_or_404(infoPage, status=HeadObject, name=name)
 
-    pageObject = get_object_or_404(infoPage, status=theme, name=name)
+    return render(request, "web/infoPage_singlePage.html", {"seite": pageObject})
+
+'''
+Aufrufen einer einzelnen Seite
+'''
+def infoPage_singleHeader(request, theme):
+    pageObject = get_object_or_404(HeadPage, name=theme)
 
     return render(request, "web/infoPage_singlePage.html", {"seite": pageObject})
 
@@ -175,7 +182,7 @@ def infoPageEditor(request):
             newhistory = infoPageHistory(
                 titel=bestehenderEintrag.titel,
                 text=bestehenderEintrag.text,
-                description=bestehenderEintrag.description,
+                description='',
                 name=bestehenderEintrag.name,
                 user_Editor=request.user.first_name + " " + request.user.last_name,
                 datum = date.today()
@@ -198,6 +205,60 @@ def infoPageEditor(request):
 
             page = get_object_or_404(infoPage, id=id)
             form = changeInfoPage(instance=page)
+
+            if ('version' in request.GET) and page.history.filter(id=request.GET['version']).exists():
+                # Wir suchen nach einer bestimten Version
+                OldPost = page.history.get(id=request.GET['version'])
+                page.titel = OldPost.titel
+                page.text = OldPost.text
+
+            hist = page.history.all().order_by('-id')
+
+            return render(request, "web/infoPageEditor.html", {"form":form, "post": page, "hist": hist})
+
+    return redirect("infoMenu")
+
+'''
+Editor für die Header Seiten
+'''
+@user_passes_test(isUserPartOfGroup_Editor)
+@login_required
+def infoPageEditor_Header(request):
+    if request.method == "POST":
+        # Eintragen in die DB
+        form = changeHeaderPage(request.POST, request.FILES)
+
+        if form.is_valid() and ('id' in request.GET):
+            # abspeichern
+            form.save(commit=False)
+            bestehenderEintrag = get_object_or_404(HeadPage, id=request.GET['id'])
+
+            newhistory = infoPageHistory(
+                titel=bestehenderEintrag.titel,
+                text=bestehenderEintrag.text,
+                description=bestehenderEintrag.description,
+                name=bestehenderEintrag.name,
+                user_Editor=request.user.first_name + " " + request.user.last_name,
+                datum = date.today()
+            )
+            newhistory.save()
+
+            form.instance.id = request.GET['id']
+
+            bestehenderEintrag.history.add(newhistory)
+            form.save()
+        else:
+            logger = logging.getLogger(__name__)
+            logger.error(form.errors)
+        return redirect("infoMenu")
+    else:
+        # Formular laden
+        if ('id' in request.GET):
+            id = request.GET['id']
+            # ID gegeben, also Daten laden
+
+            page = get_object_or_404(HeadPage, id=id)
+            form = changeHeaderPage(instance=page)
 
             if ('version' in request.GET) and page.history.filter(id=request.GET['version']).exists():
                 # Wir suchen nach einer bestimten Version

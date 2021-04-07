@@ -13,6 +13,10 @@ class changeInfoPage(ModelForm):
     class Meta:
         model = infoPage
         # db_table = Profile
-        fields = ['status', 'titel', 'text', 'description', 'name']
+        fields = ['headPage', 'titel', 'text', 'name']
 
-
+class changeHeaderPage(ModelForm):
+    class Meta:
+        model = infoPage
+        # db_table = Profile
+        fields = ['titel', 'text', 'description', 'name', 'image']
