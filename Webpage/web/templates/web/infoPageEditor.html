@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - Einstellungen {% endblock title%}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+    <link href="{% static 'css/Einstellungen.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Info Seiten Editor</h3>
+    <p>Editor für unsere Infoseiten.</p>
+
+    {% if post %}
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  History
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      {% for p in hist%}
+                        <a class="dropdown-item" href="?id={{ post.id }}&version={{ p.id }}">ID: {{p.id}} - {{p.datum| date:"d F Y"}} - {{p.user_Editor}}</a>
+                      {% endfor %}
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {{ form.media }}
+
+    <form method="POST" class="post-form" action='{{ action_url }}?id={{ post.id }}' enctype='multipart/form-data'>
+
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="save btn btn-primary">Speichern</button>
+    </form>
+
+{% endblock %}
+
+

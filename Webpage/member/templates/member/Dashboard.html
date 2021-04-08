@@ -3,6 +3,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% load has_group %}
+
 {% block title %} Mein ASV - Dashboard {% endblock %}
 
 <!-- Hier können app-spezifische  Styles dazugeladen werden-->
@@ -14,13 +16,63 @@
 {% block content %}
   <h1>Mein ASV</h1>
   <h2>Dashboard</h2>
-  <p> Hier ist die Startseite des Mitgliederbereiches. Hier könnte das Dasboard für Mitglieder entstehen</p>  
+  <p> Hier ist die Startseite des Mitgliederbereiches. Hier könnte das Dasboard für Mitglieder entstehen</p>
+
+
+
  {% endblock %}
 
 <!-- Hier seitenbereich gestalten falls gewünscht -->
  {% block aside %}
-   Hallo hier ist der Seitenbereich
-  {% endblock %}
+    <div id = "Funktionen">
+        <div class="card">
+          <div class="card-header">
+            Deine Apps
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <a class="dropdown-item" href="{% url 'arbeitsstunden_home' %}"> Arbeitsstunden </a>
+            </li>
+            <li class="list-group-item">
+                To be continued...
+            </li>
+          </ul>
+        </div>
+    </div>
+    <br>
+    <div id = "AdminFunktionen">
+            <div class="card">
+              <div class="card-header">
+                Einstellungen
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a class="dropdown-item" href="{% url 'Einstellungen' %}"> Einstellungen </a>
+                </li>
+                {% if request.user|has_group:"Editor" %}
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="{% url 'writerView' %}"> News Editor </a>
+                    </li>
+                {% endif %}
+                {% if request.user|has_group:"Schriftwart" %}
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="{% url 'MemberMenu' %}"> Member Editor </a>
+                    </li>
+                {% endif %}
+                {% if request.user|has_group:"Entwickler" %}
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="{% url 'autoPopulate' %}"> Auto Poulate Page </a>
+                    </li>
+                {% endif %}
+                {% if request.user|has_group:"Editor" %}
+                    <li class="list-group-item">
+                        <a class="dropdown-item" href="{% url 'infoMenu' %}"> InfoPages Menu </a>
+                    </li>
+                {% endif %}
+              </ul>
+            </div>
+        </div>
+ {% endblock %}
 
 
 

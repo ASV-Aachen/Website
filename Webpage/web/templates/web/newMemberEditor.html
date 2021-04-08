@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+<title>{% block title %} Mein ASV - Neuen Blogeintrag anlegen {% endblock %}</title>
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+    <link href="{% static 'css/Einstellungen.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Neues Mitglied</h3>
+
+
+    {{ form.media }}
+
+    <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
+
+        {% csrf_token %}
+        {{ form }}
+
+        <button type="submit" class="save btn btn-primary">Speichern</button>
+    </form>
+    <a id = "zurückButton" class="btn btn-info" href="{% url 'MemberMenu' %}">Neue News</a>
+
+{% endblock %}
+
+
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+{% endblock scripts %}
+

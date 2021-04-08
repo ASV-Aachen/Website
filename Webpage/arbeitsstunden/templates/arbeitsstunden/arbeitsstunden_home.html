@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Arbeitsstunden Dashboard</h3>
+    <a href="{% url 'ausschreibungen_overview' %}" class="btn btn-primary">Ausschreibungen anzeigen</a>
+    <a href="{% url 'projekte_overview' %}" class="btn btn-primary">Projekte anzeigen</a>
+
+    <h4 class="mt-4">Meine Arbeitsstunden</h4>
+
+    <div class="mt-4 mb-4">
+        <div class="progress" style="height:40px">
+            <div class="progress-bar bg-info" role="progressbar" style="width: {{anteil_arbeitsstunden_erledigt_prozent}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{geleisteteArbeitsstunden}}h von {{soll_arbeitsstunden}}h</div>
+        </div>
+
+    </div>
+
+    <h4 class="mt-4">Meine Arbeitsbeteiligungen</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Arbeitszeit (in h)</th>
+                <th>Projekt</th>
+                <th>Arbeitseinheit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for beteiligung in beteiligungen %}
+                <tr>
+                    <td>{{beteiligung.Arbeitseinheit.Datum|date:"d.m.Y"}}</td>
+                    <td>{{beteiligung.Arbeitszeit}}</td>
+                    <td><a href="{% url 'projekte_detail' pk=beteiligung.Arbeitseinheit.Projekt.id %}">{{beteiligung.Arbeitseinheit.Projekt.Name}}</a></td>
+                    <td><a href="{% url 'arbeitseinheit_details' pk=beteiligung.Arbeitseinheit.id %}">{{beteiligung.Arbeitseinheit.Beschreibung}}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

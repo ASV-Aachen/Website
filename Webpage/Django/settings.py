@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import crispy_forms
 import json
 from django.urls import reverse_lazy
 
@@ -65,9 +66,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     # 'django.contrib.sites',
 
     # ASV-Apps
+    'utils',
     'web',
     'blog',
     'member',
@@ -75,6 +78,8 @@ INSTALLED_APPS = [
     'tinymce',
     'filebrowser',
     'django_resized',
+    'simple_history',
+    'arbeitsstunden',
 ]
 
 
@@ -85,6 +90,8 @@ AUTHENTICATION_BACKENDS = (
     'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
 )
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -94,6 +101,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'mozilla_django_oidc.middleware.SessionRefresh',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'Django.urls'
@@ -110,6 +118,12 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+        'libraries':{
+                    'createMenuObject': 'utils.menu',
+                    'has_group': 'utils.tags',
+                    'getLeftFront': 'utils.tags',
+                    'getRightFront': 'utils.tags',
+            },
         },
     },
 ]
@@ -179,6 +193,9 @@ STATICFILES_DIRS = (
 # os.path.join(BASE_DIR, 'staticfiles')
 
 # FORCE_SCRIPT_NAME = "/webpage/"
+
+FILEBROWSER_DIRECTORY = ''
+DIRECTORY = ''
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # MEDIA_ROOT = "/media/"

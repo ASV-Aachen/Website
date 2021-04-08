@@ -242,10 +242,12 @@ tags
 
 .idea/
 .vscode/
+InitFiles/sso/themes/keycloak_copy/
 docker-compose.override.yml
 henkstart.sh
 henkstop.sh
 henkclean.sh
 henkmigrate.sh
 henkmigrations.sh
-
+webpage/templates/bulley/backup
+webpage/static/css/bulley/backup

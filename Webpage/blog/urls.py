@@ -24,4 +24,6 @@ app_name: "blog"
 urlpatterns = [
     path('', views.News, name="news"),
     path('NewNews', views.AddNews, name="NewNews"),
+    path('deleteNews', views.deleteNews, name="deleteNews"),
+    path('writerView', views.adminNewsPage, name="writerView")
 ]

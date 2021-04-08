@@ -1,0 +1,214 @@
+/*  <!--/ststic/css/main.css-->*/
+/*  Das Thema basiert auf Bootstrap und die nav-bar arbeitet mit den Klassen ".navbar-light .bg-light"
+/*  Anpassen Farbchema der Seite */
+/*
+/*  Basisfarben - Bitte nur aus dieser Palette auswählen!)
+    GGf. hier neue Farben definieren
+*/
+:root {
+/*    --asvcoloryellow: #FFD648; /* --> vom Bulley abgekupfert  */
+    --asvcoloryellow: #FFDE24; /* --> CD ASV aus Hörsalpräsentation   */
+    --asvcolorblue: #004D80;
+    --asvcolorlightblue: #0068AC;
+    --asvcolordarkblue: #0068AC;
+    --asvcolorgrey: #898787;
+    --asvcolorlightgrey: #f8f9fa;
+    --asvcolorlightgreyopac: rgb(248, 249, 250, 0.8);
+
+}
+
+/*  Bootstrap customizen
+*/
+
+/* Basic Styles
+
+*/
+html {
+   font-family: Arial, Georgia, sans-serif;
+   font-size: 1rem;
+   color: var(--asvcolorgrey);
+}
+
+body {
+   display: flex;
+   flex-flow: row wrap;
+   padding-left: 0rem;
+
+   padding-top: 0rem;
+   margin: 0rem;
+   background: white url("/static/img/background.gif") repeat;
+   text-align: left;
+
+}
+
+/*
+header, main, nav, article, aside, footer {
+  flex: 1 100%;
+}*/
+
+main, footer {
+   margin: 0.5rem;
+
+}
+
+h1, h2, h3 {
+
+    color: var(--asvcolorblue);
+}
+hi {
+    font-style: italic;
+    font-weight: 800;
+    line-height: 1.5;
+    font-size: 2rem;
+}
+
+h2 {
+    font-weight: 600;
+    line-height: 1.2;
+    font-size: 1.6rem;
+}
+
+h3 {
+    font-weight: 400;
+    line-height: 1;
+    font-size: 1.2rem;
+}
+
+
+a {
+    color: var(--asvcolorblue);
+}
+
+a:hover {
+    color: var(--asvcolorgrey);
+    text-decoration: none;
+
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem var(--asvcoloryellow);
+}
+.bg-light {
+    background-color: var(--asvcolorlightgrey) !important;
+}
+
+
+
+/*
+ * Frontpage
+ */
+#frontpage {
+    /*background-color: pink; /* nur zum Testen */
+    margin: 0.5rem;
+    padding-top: 1rem;
+
+}
+/*
+ * Blog name and description
+ */
+
+
+.blog-title {
+  margin-bottom: 0;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.blog-description {
+  font-size: 1.1rem;
+  color: #999;
+}
+
+/* Pagination */
+
+.blog-pagination {
+  margin-bottom: 4rem;
+}
+
+.blog-pagination > .btn {
+  border-radius: 2rem;
+}
+
+/*
+ * Blog posts
+ */
+.blog-post {
+  margin-bottom: 4rem;
+}
+
+.blog-post-title {
+  margin-bottom: .25rem;
+}
+
+.blog-post-meta {
+  margin-bottom: 1.25rem;
+  color: var(--asvcolorgrey);
+}
+
+
+/* Smart Phones und Tablets mit mittlerer Auflösung */
+/*@media (min-width: 320px) {*/
+
+/* Viewports mit kleiner   Auflösung (ipad Hochvormat)  ** Desktop View entspricht bootstrap md*/
+/*@media (min-width: 576px) {*/
+
+
+/* Viewports mit mittlerer  Auflösung (ipad Hochvormat)  ** Desktop View entspricht bootstrap md*/
+/*@media (min-width: 768px) { */
+
+/* Viewports mit großer Auflösung (iPad Querformat)** Desktop View entspricht bootstrap lg*/
+@media (min-width: 992px) {
+
+html {
+/*   Variable Schriftart einstellen
+/*              min-font-size               min-screen-size
+                    |                            |
+                    |                            |                      */
+/*   font-size: calc(16px + (18 - 16) * (100vw - 768px) / (1600 - 768));
+/*                            |                               |
+                              |                               |
+                 max-font-size - min-font-size       max-screen-size - min-screen-size */
+    font-size: 1rem;*/
+
+}
+
+
+
+.content {
+
+    background: lightgrey;
+    box-shadow: inset 0rem 0rem 1rem rgba(0,0,0,0.3);
+    padding: 20px 20px 1px;
+    margin: 0px 0px 10px;
+}
+
+.hide{
+padding:10px;
+background: rgb(254, 164, 0);
+box-shadow:none!important;
+color:#fff;
+font-weight:bold;
+}
+
+.hide:hover {
+background: rgb(255, 214, 118);
+color:#fff!important;
+transition:0.2s all ease-in-out!important;
+}
+
+#news {
+    flex: 2 1 0%;
+    order: 2;
+    align-self: center;
+    height: 120px;
+}
+
+
+
+}
