@@ -122,7 +122,7 @@ TEMPLATES = [
                     'createMenuObject': 'utils.menu',
                     'has_group': 'utils.tags',
                     'getLeftFront': 'utils.tags',
-                    'getRightFront': 'utils.tags'
+                    'getRightFront': 'utils.tags',
             },
         },
     },
