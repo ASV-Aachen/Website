@@ -18,3 +18,6 @@ makemigrations: ## Generate Migrations for Django models
 
 migrate: ## Migrate Django models
 	./bin/migrate.sh
+
+init: ## Create the init Data
+	./bin/init.sh
