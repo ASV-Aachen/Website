@@ -61,7 +61,7 @@ class HeadPage(models.Model):
 Model für die Infoseiten
 '''
 class infoPage(models.Model):
-    headPage = models.ForeignKey(HeadPage, on_delete=models.CASCADE())
+    headPage = models.ForeignKey(HeadPage, on_delete=models.CASCADE)
 
     titel = models.CharField(max_length=200)
     text = HTMLField()
@@ -81,5 +81,5 @@ class infoPage(models.Model):
 MUSS BEIM ERSTEN STARTEN ANGELEGT WERDEN!!!!
 '''
 class frontHeader(models.Model):
-    left = models.ForeignKey(HeadPage)
-    right = models.ForeignKey(HeadPage)
+    left = models.ForeignKey(HeadPage, on_delete=models.SET_NULL, null=True, related_name="left")
+    right = models.ForeignKey(HeadPage, on_delete=models.SET_NULL, null=True, related_name="right")
