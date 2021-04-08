@@ -32,6 +32,8 @@ services:
 
       # Einstellung für den Client im Keycloak. 
       OIDC_RP_CLIENT_SECRET: 'xxx-xxx-x-xx'
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
 
 ```
 1. Secret kopieren und in dieser Docker-Compose Datei unter __OIDC_RP_CLIENT_SECRET__ eintragen.
