@@ -9,6 +9,11 @@ CREATE USER 'website'@'%' IDENTIFIED BY 'my-secret-pw';
 CREATE DATABASE websiteDB;
 GRANT ALL PRIVILEGES ON websiteDB.* to 'website'@'%';
 
+-- Nextcloud
+CREATE USER 'Nextcloud'@'%' IDENTIFIED BY 'my-secret-pw';
+CREATE DATABASE NextcloudDB;
+GRANT ALL PRIVILEGES ON NextcloudDB.* TO 'Nextcloud'@'%';
+
 -- Keycloak
 CREATE USER 'Keycloack'@'%' IDENTIFIED BY 'my-secret-pw';
 CREATE DATABASE KeycloackDB;

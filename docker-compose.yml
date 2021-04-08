@@ -95,10 +95,61 @@ services:
       - "traefik.http.routers.wiki.middlewares=wiki-stripprefix"
       - "traefik.http.middlewares.wiki-stripprefix.stripprefix.prefixes=/wiki"
 
+  #---------------------------------------------------------------------------------------
+  # Nextcloud-Redis
+  #---------------------------------------------------------------------------------------
+
+  nextcloud-redis:
+    image: redis:alpine
+    container_name: nextcloud-redis
+    hostname: nextcloud-redis
+    networks:
+      - backend
+    restart: unless-stopped
+    command: redis-server --requirepass my-secret-pw
+
+  #---------------------------------------------------------------------------------------
+  # Nextcloud
+  #---------------------------------------------------------------------------------------
+
+  cloud:
+    image: nextcloud
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE: NEXTCLOUD
+      - MYSQL_USER: Nextcloud
+      - MYSQL_PASSWORD: my-secret-pw
+      - MYSQL_HOST: db
+      - NEXTCLOUD_ADMIN_USER: admin
+      - NEXTCLOUD_ADMIN_PASSWORD: Pa55w0rd
+    volumes:
+      - ./InitFiles/cloud:/var/www/html/config
+      - cloud:/var/www/html/data
+    depends_on:
+      - db
+      - nextcloud-redis
+      - reverse-proxy
+      - SSO
+    networks:
+      - traefik
+      - backend
+    environment:
+        REDIS_HOST: nextcloud-redis
+        REDIS_HOST_PASSWORD: my-secret-pw
+  
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cloud.entrypoints=web"
+      - "traefik.http.routers.cloud.rule=PathPrefix(`/cloud{regex:$$|/.*}`)"
+      - "traefik.http.services.cloud.loadbalancer.server.port=80"
+      - "traefik.http.routers.cloud.middlewares=cloud-stripprefix"
+      - "traefik.http.middlewares.cloud-stripprefix.stripprefix.prefixes=/cloud"
+
 
   #---------------------------------------------------------------------------------------
   # SSO - Keycloak
   #---------------------------------------------------------------------------------------
+  
   SSO:
     image: jboss/keycloak:latest
     restart: always
@@ -177,6 +228,9 @@ volumes:
   wiki:
     driver: local
     name: wiki
+  cloud:
+    driver: local
+    name: cloud
   website:
     driver: local
     name: website
