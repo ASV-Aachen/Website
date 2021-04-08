@@ -11,7 +11,7 @@
                     <small>{{ New.Date }} by {{ New.Autor }}</small>
                     <hr/>
                     <dl> 
-                        {{ New.Artikel }}
+                        {{ New.Artikel | safe }}
                     </dl>
                 </div>
                 {% endfor %}

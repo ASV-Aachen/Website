@@ -73,7 +73,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
     def update_user(self, user, claims):
         logger = logging.getLogger(__name__)
 
-        logger.error(claims)
+        # logger.error(claims)
 
         user.first_name = claims.get('given_name', '')
         user.last_name = claims.get('family_name', '')

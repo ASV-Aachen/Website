@@ -1,9 +1,12 @@
 from datetime import date
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import Context, Template
 from django.template.base import logger
+
+from utils.member import userToHash
 from .models import blogPost, blogPostHistory
 from django.http import HttpResponse
 from django.contrib.auth.models import Permission
@@ -13,10 +16,10 @@ import logging
 import os
 from .forms import newBlogEntry
 from django.core.paginator import Paginator
+from utils.loginFunctions import *
 
 
-
-# Alle News (TODO)
+# Alle News
 def News(request):
     try:
         Seite = request.GET.get('Seite', '')
@@ -55,6 +58,8 @@ def SingleNews(request):
         return redirect("ASV")
 
 '''writerView'''
+@user_passes_test(isUserPartOfGroup_Editor)
+@login_required
 def adminNewsPage(request):
     posts = blogPost.objects.all().order_by('-id')
     paginator = Paginator(posts, 20)
@@ -66,16 +71,30 @@ def adminNewsPage(request):
 
 
 ''' News für Löschung markieren'''
+@user_passes_test(isUserPartOfGroup_Editor)
+@login_required
 def deleteNews(request):
-    if (request.user.is_authenticated):
-        if ('id' in request.GET):
-            id = request.GET['id']
-            blogPost.objects.get(id=id).delete()
-        return redirect("writerView")
-    else:
-        return redirect("ASV")
+    if ('id' in request.GET) and request.GET['id'] != "" and blogPost.objects.get(id=id).exists():
+
+        id = request.GET['id']
+
+        if 'key' in request.GET and request.GET['key'] != "":
+            # Lösche den Nutzer
+            givenKey = request.GET['key']
+            if givenKey == userToHash(id):
+                blogPost.objects.get(id=id).delete()
+                return redirect("writerView")
+        else:
+            key = userToHash(id)
+            # sende Seite
+            return render(request, "blog/delete.html", {"hash": key, "post": blogPost.objects.get(id=id)})
+
+
+    return redirect("writerView")
 
 '''Insert a new Blog Entry'''
+@user_passes_test(isUserPartOfGroup_Editor)
+@login_required
 def AddNews(request):
     if (request.user.is_authenticated):
 
@@ -103,10 +122,21 @@ def AddNews(request):
                         # Data existiert noch nicht, also setzen wir anders
                         form.instance.author_id = request.user.id
                         form.instance.last_editor = request.user.first_name + " " + request.user.last_name
+
+                        # setze den neuen Text als erste History
+                        newhistory = blogPostHistory(titel=request.titel, text=request.text, editor=request.user.first_name + " " + request.user.last_name)
+                        newhistory.save()
+                        request.history.add(newhistory)
                 else:
                     # Data existiert noch nicht, also setzen wir anders
                     form.instance.author_id = request.user.id
                     form.instance.last_editor = request.user.first_name + " " + request.user.last_name
+
+                    # setze den neuen Text als erste History
+                    newhistory = blogPostHistory(titel=request.titel, text=request.text,
+                                                 editor=request.user.first_name + " " + request.user.last_name)
+                    newhistory.save()
+                    request.history.add(newhistory)
 
                 form.save()
 

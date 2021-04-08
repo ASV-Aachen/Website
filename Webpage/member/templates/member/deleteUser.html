@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - Einstellungen {% endblock title%}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+
+{% endblock styles %}
+
+{% block content %}
+    <p>Möchten Sie den Nutzer {{user.first_name}} {{user.last_name}} wircklich löschen? Diese Aktion kann nicht rückgängig gemacht werden!!!</p>
+
+    <a id = "bestätigungsButton" class="btn btn-info" href="?id={{user.id}}&key={{hash}}">Ja</a>
+    <a id = "zurückButton" class="btn btn-info" href="{% url 'MemberMenu' %}">NEIN</a>
+{% endblock %}
+
+

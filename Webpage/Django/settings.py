@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     # 'django.contrib.sites',
 
     # ASV-Apps
+    'utils',
     'web',
     'blog',
     'member',
@@ -117,6 +118,12 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+        'libraries':{
+                    'createMenuObject': 'utils.menu',
+                    'has_group': 'utils.tags',
+                    'getLeftFront': 'utils.tags',
+                    'getRightFront': 'utils.tags',
+            },
         },
     },
 ]
@@ -186,6 +193,9 @@ STATICFILES_DIRS = (
 # os.path.join(BASE_DIR, 'staticfiles')
 
 # FORCE_SCRIPT_NAME = "/webpage/"
+
+FILEBROWSER_DIRECTORY = ''
+DIRECTORY = ''
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # MEDIA_ROOT = "/media/"
