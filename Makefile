@@ -21,3 +21,6 @@ migrate: ## Migrate Django models
 
 init: ## Create the init Data
 	./bin/init.sh
+
+createTestData: ## Creates Test Users and News
+	./bin/TestData.sh
