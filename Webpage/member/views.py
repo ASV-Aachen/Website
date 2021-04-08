@@ -19,6 +19,7 @@ from .forms import changePersonalInfo, createNewMember
 # View um die eigenen einstellungen zu bearbeiten
 # Index-View zum Dashborad als Startseite vom "Mein ASV"
 
+@login_required
 def index(request):
     return render(request, "member/Dashboard.html")
 

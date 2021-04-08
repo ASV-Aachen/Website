@@ -59,7 +59,7 @@
                         <a class="dropdown-item" href="{% url 'MemberMenu' %}"> Member Editor </a>
                     </li>
                 {% endif %}
-                {% if request.user|has_group:"Developer" %}
+                {% if request.user|has_group:"Entwickler" %}
                     <li class="list-group-item">
                         <a class="dropdown-item" href="{% url 'autoPopulate' %}"> Auto Poulate Page </a>
                     </li>

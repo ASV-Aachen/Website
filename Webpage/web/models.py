@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 
 # Infos über das aktuelle Jahr
+from django_resized import ResizedImageField
 from tinymce import HTMLField
 
 
@@ -43,7 +44,9 @@ class HeadPage(models.Model):
     text = HTMLField()
 
     description = models.TextField()
-    image = models.ImageField()
+
+    # image = models.ImageField()
+    image = ResizedImageField(size=[166, 233], upload_to='frontPage', crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
 
     # subThema = models.ForeignKey(subThemen)
     name = models.CharField(max_length=200)

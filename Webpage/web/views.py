@@ -141,7 +141,7 @@ Aufrufen einer einzelnen Seite
 '''
 def infoPage_singlePage(request, theme, name):
     HeadObject = get_object_or_404(HeadPage, name=theme)
-    pageObject = get_object_or_404(infoPage, status=HeadObject, name=name)
+    pageObject = get_object_or_404(infoPage, headPage=HeadObject, name=name)
 
     return render(request, "web/infoPage_singlePage.html", {"seite": pageObject})
 

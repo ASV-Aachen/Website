@@ -24,17 +24,17 @@
         {% load createMenuObject %}
         {% createMenuObject as menuObject %}
 
-        {% for gruppen in objects%}
+        {% for gruppen in menuObject%}
           <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle" aria-labelledby="dropdownMenuButton" href="{% url 'InfoPage_Header' gruppen.name %}"> {{ gruppen.Header.titel }} </a>
+            <a class="nav-link dropdown-toggle" aria-labelledby="dropdownMenuButton" href="{% url 'InfoPage_Header' gruppen.Header.name %}"> {{ gruppen.Header.titel }} </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               {% for seite in gruppen.seiten %}
-                <li><a class="dropdown-item" href="{% url 'InfoPage' gruppen.name seite.name %}"> {{ seite.titel }} </a></li>
+                <li><a class="dropdown-item" href="{% url 'InfoPage' gruppen.Header.name seite.name %}"> {{ seite.titel }} </a></li>
               {% endfor %}
             </ul>
           </li>
         {% endfor %}
-
+        {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" aria-labelledby="dropdownMenuButton" href="{% url 'MeinASV' %}">
             Mein ASV</a>
@@ -46,10 +46,11 @@
             </ul>
           </li>
         </ul>
+        {% endif %}
         <ul class="navbar-nav ml-auto">
           {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" aria-labelledby="dropdownMenu Button"href="{% url 'unfertig' %}">
+            <a class="nav-link dropdown-toggle" aria-labelledby="dropdownMenu Button"href="/sso/auth/realms/ASV/account/">
               Account</a>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
               <li><a class="dropdown-item" href="#">Password ändern</a></li>
