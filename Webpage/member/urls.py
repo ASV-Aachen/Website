@@ -23,5 +23,12 @@ urlpatterns = [
     path('', views.index, name="MeinASV"),
     path('Mitgliederverzeichnis', views.member_directory, name="Mitgliederverzeichnis"),
     path('User', views.single_user, name="User"),
-    path('Einstellungen', views.settings, name="Einstellungen")
+    path('Einstellungen', views.settings, name="Einstellungen"),
+
+    path('Menu', views.memberMenu, name="MemberMenu"),
+    path('Menu/allMembers', views.alleMember, name="allMembers"),
+    path('Menu/export', views.exportPage, name ="allMembers_Export"),
+    path('Menu/editor', views.newMemberEditor, name ="memberEditor"),
+    path('Menu/import', views.massenimport, name ="memberImport"),
+    path('Menu/delete', views.deleteUser, name="memberDelete")
 ]

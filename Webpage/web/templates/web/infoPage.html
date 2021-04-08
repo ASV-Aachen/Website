@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - Infos {% endblock %}
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+
+{% endblock styles %}
+
+{% block content %}
+    <h2>Informationen</h2>
+
+    {% for gruppen in objects%}
+        <h3>{{ gruppen.titel }}</h3>
+
+        {% for seite in gruppen.seiten %}
+            <div class="card">
+              <div class="card-body">
+                  <h4 class="card-title">{{ seite.titel }}</h4>
+                  <p class="card-text"> {{ seite.description}} </p>
+
+                  <a href="{% url 'InfoPage' gruppen.kennung seite.name %}" class="card-link">mehr</a>
+              </div>
+            </div>
+        {% endfor %}
+
+    {% endfor %}
+
+ {% endblock %}

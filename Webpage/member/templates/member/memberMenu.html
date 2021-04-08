@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - AutorenPage {% endblock %}
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+{% endblock styles %}
+
+{% block content %}
+    <h1>Member Menu</h1>
+    <p> Hier kommt das Menu für die Verwaltung der Mitglieder hin</p>
+ {% endblock %}
+
+<!-- Hier seitenbereich gestalten falls gewünscht -->
+ {% block aside %}
+    <div id = "Funktionen">
+        <div class="card">
+          <div class="card-header">
+            Funktionen
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <a class="dropdown-item" href="{% url 'allMembers' %}"> Alle Mitglieder </a>
+            </li>
+            <li class="list-group-item">
+                <a class="dropdown-item" href="{% url 'memberEditor' %}"> Neuer Nutzer </a>
+            </li>
+            <li class="list-group-item">
+                <a class="dropdown-item" href="{% url 'memberImport' %}"> Massen Import </a>
+            </li>
+            <li class="list-group-item">
+                <a class="dropdown-item" href="{% url 'allMembers_Export' %}"> Export </a>
+            </li>
+            <li class="list-group-item">
+                To be continued...
+            </li>
+          </ul>
+        </div>
+    </div>
+
+ {% endblock %}

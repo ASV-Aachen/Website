@@ -1,0 +1,10 @@
+<!--web/template/web/unfertig.html-->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    {% block message_inside %}
+        <p>Da ist etwas schief gelaufen. Sollte dies öfter passieren, wende dich bitte an einen Admin!</p>
+        <a href="{% url 'ASV' %}">Zurück zur Homepage</a>
+    {% endblock message_inside %}
+{% endblock content %}
