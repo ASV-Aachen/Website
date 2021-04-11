@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - AutorenPage {% endblock %}
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+    
+{% endblock styles %}
+
+{% block content %}
+    <h2>AutoPopulate</h2>
+
+    <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
+        {% csrf_token %}
+        <button type="submit" class="save btn btn-primary">Populate with 50 News and 50 Users</button>
+    </form>
+    
+ {% endblock %}

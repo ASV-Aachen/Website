@@ -1,0 +1,45 @@
+#Nutzer {
+    width: 180px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: solid;
+    padding: 5px;
+    border-width: 0.2px;
+    border-radius: 8px;
+    height: 350px;
+    background-color: #d3d3d34f;
+    margin-right: 15px;
+  }
+  
+  #Nutzer > img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  
+  #Name {
+    font-size: 22px;
+    line-height: 35px;
+    letter-spacing: -0.038em;
+    font-weight: 600;
+  }
+  
+  #Status {
+    font-style: italic;
+    margin-bottom: 5px;
+  }
+  
+  #Verzeichnis {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #Badges{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .badge{
+    margin-left: 1px;
+  }
+  
