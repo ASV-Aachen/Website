@@ -207,8 +207,9 @@ SITE_ID = 2
 """TinyMCE"""
 
 TINYMCE_DEFAULT_CONFIG = {
+    "content_css": "../../static/css/tinymce/asv-content.css",
     "height": "320px",
-    "width": "960px",
+    "width": "Auto",
     "menubar": "file edit view insert format tools table help",
     "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
         "fullscreen insertdatetime media table paste code help wordcount spellchecker",
@@ -218,6 +219,24 @@ TINYMCE_DEFAULT_CONFIG = {
         "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | "
         "a11ycheck ltr rtl | showcomments addcomment code",
     "custom_undo_redo_levels": 10,
+    'fontsize_formats': "8pt 10pt 11pt 12pt 13pt 14pt 16pt 18pt 20pt 24pt 36pt",
+    "font_formats": "ASV=ASV,Verdana,Arial,Helvetica,sans-serif;" +
+#        "Arial Black=arial black,avant garde;" +
+#        "Book Antiqua=book antiqua,palatino;" +
+#        "Comic Sans MS=comic sans ms,sans-serif;" +
+#        "Courier New=courier new,courier;" +
+#        "Georgia=georgia,palatino;" +
+#        "Helvetica=helvetica;" +
+#        "Impact=impact,chicago;" +
+#        "Symbol=symbol;" +
+#        "Tahoma=tahoma,arial,helvetica,sans-serif;" +
+#        "Terminal=terminal,monaco;" +
+#        "Times New Roman=times new roman,times;" +
+        "Trebuchet MS=trebuchet ms,geneva;" +
+#        "Verdana=verdana,geneva;" +
+        "Webdings=webdings;" +
+        "Wingdings=wingdings,zapf dingbats",
 }
 TINYMCE_SPELLCHECKER = False    # TODO: Prüfen ob Schreibprüfung implementiert werden kann.
 TINYMCE_COMPRESSOR = True
+#TINYMCE_STYLE_FORMATS_MERGE: True
