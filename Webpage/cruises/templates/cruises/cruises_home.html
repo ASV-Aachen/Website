@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Seereisenplan "Aquis Granus"</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Reise</th>
+                <th>Start</th>
+                <th>Ende</th>
+                <th>Crewstatus</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cruise in cruises %}
+                <tr>
+                    <td>{{cruise.CruiseName}}</td>
+                    <td>{{cruise.StartDate|date:"d.m.Y"}}</td>
+                    <td>{{cruise.EndDate|date:"d.m.Y"}}</td>
+                    <td>{{cruise.MaxBerths}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock content %}

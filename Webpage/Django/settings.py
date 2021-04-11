@@ -80,6 +80,7 @@ INSTALLED_APPS = [
     'django_resized',
     'simple_history',
     'arbeitsstunden',
+    'cruises'
 ]
 
 
