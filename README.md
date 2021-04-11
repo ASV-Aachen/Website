@@ -21,19 +21,80 @@ Das Thema kann im Ordner "InitFiles/sso/thems/asv" weiter customized werden.
 ```
 version: '3.7'
 
-services:  
-  webpage:
-    environment: 
-      # Einstellungen für die Verbindung zum Keycloak
-      # Host muss in der Form "http://HOSTNAME:PORT" gesetzt werden. 
-      # ACHTUNG, kein Localhost. Im Zweifel den Namen des Computers im Netzwerk nutzen. 
-      Host: http://192.168.0.XXX:11100
-      ALLOWED_HOSTS: "192.168.0.XXX"
+services:
+  #---------------------------------------------------------------------------------------
+  # Proxy
+  #---------------------------------------------------------------------------------------
 
-      # Einstellung für den Client im Keycloak. 
-      OIDC_RP_CLIENT_SECRET: 'xxx-xxx-x-xx'
+  reverse-proxy:
+    command:
+      # Only for development environment
+      - --log.level=INFO
+      - --api.insecure=true
+    ports:
+      # The HTTP port
+      - "11100:80"
+      # HTTPS
+      - "11101:443"
+      # The Web UI (enabled by --api.insecure=true)
+      - "11102:8080"
+
+  #---------------------------------------------------------------------------------------
+  # Datenbank
+  #---------------------------------------------------------------------------------------
+  db:
+    environment:
+      MYSQL_ROOT_PASSWORD: "my-secret-pw"
+      MYSQL_ROOT_HOST: "localhost"
+
+  #---------------------------------------------------------------------------------------
+  # Nextcloud
+  #---------------------------------------------------------------------------------------
+
+  cloud:
+    environment:
+      MYSQL_USER: Nextcloud
+      MYSQL_PASSWORD: my-secret-pw
+
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: Pa55w0rd
+
+      REDIS_HOST: nextcloud-redis
+      REDIS_HOST_PASSWORD: my-secret-pw
+
+
+  #---------------------------------------------------------------------------------------
+  # SSO - Keycloak
+  #---------------------------------------------------------------------------------------
+
+  SSO:
+    environment:
+      # DB Settings
+      DB_USER: Keycloack
+      DB_PASSWORD: my-secret-pw
+
+      # Keycloack Admin Settings
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: Pa55w0rd
+
+  #---------------------------------------------------------------------------------------
+  # Webpage
+  #---------------------------------------------------------------------------------------
+
+  webpage:
+    environment:
+      OIDC_RP_CLIENT_SECRET: '246cf7ca-8156-4c91-8adb-892a42cd3ddb'
+      # Einstellungen für die Verbindung zum Keycloak
+      # Host muss in der Form "http://HOSTNAME:PORT" gesetzt werden. ACHTUNG, kein Localhost. Im Zweifel den Namen des Computers im Netzwerk nutzen.
+      Host: http://Christians-Air:11100
+      ALLOWED_HOSTS: "Christians-Air"
+      
+      # Keycloack Admin Settings
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+
+      # Secret Key fürs Django
+      SECRET_KEY: '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
 
 ```
 1. Secret kopieren und in dieser Docker-Compose Datei unter __OIDC_RP_CLIENT_SECRET__ eintragen.
