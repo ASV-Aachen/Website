@@ -27,10 +27,6 @@ services:
   #---------------------------------------------------------------------------------------
 
   reverse-proxy:
-    command:
-      # Only for development environment
-      - --log.level=INFO
-      - --api.insecure=true
     ports:
       # The HTTP port
       - "11100:80"
