@@ -4,6 +4,8 @@
         {% endblock headerimage%}
 
     {% block frontpage %}
+        <div id="frontpage" class="container-fluid m-0 px-3 pt-3">
+
         {% load getRightFront %}
         {% load getLeftFront %}
 
@@ -45,6 +47,7 @@
                 </div>
             </div>
         {% endif %}
+        </div>
     {% endblock frontpage %}
  
     {% block content %}

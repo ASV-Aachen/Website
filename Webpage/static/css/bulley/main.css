@@ -236,34 +236,57 @@ aside {
     /*background-color: lightblue;*/
 }
 
-footer {
-    color: white;
-    background: var(--asvcolorgrey);
-
-
+footer, footer a {
+    color: var(--asvcoloryellow);
+    font-weight: 300;
+    font-size: 0.8rem;
+    background: black; /*var(--asvcolorgrey);*/
 }
 
-h1, h2, h3 {
-    font-style: italic;
 
+h1, h2, h3, h4, h5, h6 {
+    padding: 1rem 0 0 0;
     color: var(--asvcoloryellow);
 }
 h1 {
     font-weight: 600;
     line-height: 1.4rem;
     font-size: 2.0rem;
+    font-style: italic;
+    color: var(--asvcolorblue);
+
 }
 
 h2 {
     font-weight: 500;
     line-height: 1.2rem;
     font-size: 1.6rem;
+    font-style: italic;
 }
 
 h3 {
     font-weight: 400;
     line-height: 1rem;
     font-size: 1.2rem;
+    font-style: italic;
+}
+h4 {
+    font-weight: 500;
+    line-height: 1rem;
+    font-size: 1.6rem;
+}
+h5 {
+    font-weight: 500;
+    line-height: 1rem;
+    font-size: 1.2rem;
+    color:  var(--asvcolorgrey);
+}
+h6 {
+    font-weight: 400;
+    line-height: 1rem;
+    font-size: 1rem;
+    color: black;
+
 }
 
 p {
