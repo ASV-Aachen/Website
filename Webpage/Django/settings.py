@@ -54,9 +54,12 @@ OIDC_OP_USER_ENDPOINT =             Host + '/sso/auth/realms/ASV/protocol/openid
 LOGIN_URL = reverse_lazy('oidc_authentication_callback')
 
 # App urls
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = Host
 LOGOUT_REDIRECT_URL = Host + "/auth/realms/ASV/protocol/openid-connect/logout?redirect_uri=" + Host
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+OIDC_CLOCK_SKEW = 560
 
 # Application definition
 INSTALLED_APPS = [
