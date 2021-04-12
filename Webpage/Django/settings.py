@@ -138,8 +138,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'websiteDB',
-        'USER': 'website',
-        'PASSWORD': 'my-secret-pw',
+        'USER': os.environ["MYSQL_USER"],
+        'PASSWORD': os.environ["MYSQL_PASSWORD"],
         'HOST': 'db',   # Or an IP Address that your DB is hosted on
         'PORT': 3306,
     }
