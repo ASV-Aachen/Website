@@ -7,16 +7,26 @@
 */
 :root {
 /*    --asvcoloryellow: #FFD648; /* --> vom Bulley abgekupfert  */
-    --asvcoloryellow: #f9cf27; f9cf27/* --> FFDE24 CD ASV aus Hörsalpräsentation   */
+    --asvcoloryellow: #f9cf27; /* --> FFDE24 CD ASV aus Hörsalpräsentation   */
+    .asvcoloryellow {color: #f9cf27};
     --asvcolorblue: #004D80;
+    .asvcolorblue {color: #004D80};
     --asvcolorlightblue: #0068AC;
+    .asvcolorlightblue {color: #0068AC};
     --asvcolordarkblue: #0068AC;
+    .asvcolordarkblue {color: #0068AC};
     --asvcolorgrey: #898787;
+    .asvcolorgrey {color: #898787};
     --asvcolorlightgrey: #f8f9fa;
+    .asvcolorlightgrey {color: #f8f9fa};
     --asvcolorlightgreyopac: rgb(248, 249, 250, 0.8);
+    .asvcolorlightgreyopac {color: rgb(248, 249, 250, 0.8)};
     --asvcolorbackgroundgrey: lightgrey;
+    .asvbackgroundgrey {background-color: lightgrey};
 
 }
+
+.asvcolorblue {color: }
 
 /*  ASV-CD Schriftart "Prompt" - Bitte nur aus dieser Palette auswählen!)
     GGf. hier neue Schriften ergänzen
@@ -213,7 +223,7 @@ main {
 }
 
 #main-wrapper {
-    background-color: var(--asvcolorbackgroundgrey); /*lightgreen;*/
+    background-color: white; /*lightgreen;*/
 
 }
 #content {
@@ -222,7 +232,7 @@ main {
 
 }
 aside {
-    background: var(--asvcolorbackgroundgrey);;
+    /*background: var(--asvcolorbackgroundgrey);*/
     /*background-color: lightblue;*/
 }
 
@@ -354,7 +364,7 @@ html {
 
 }
 
-
+main }
 
 .content {
 
