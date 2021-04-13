@@ -25,7 +25,7 @@ services:
       - --providers.docker.network=traefik
       - --entryPoints.web.address=:443
       # HTTPS
-      - --providers.file.directory=/etc/traefik/dynamic
+      - --providers.file.directory=/etc/certs/
     security_opt:
       - label:type:docker_t
     volumes:
@@ -34,7 +34,7 @@ services:
       # - /Volumes/Transcend/Docker/Proxy:/config
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./InitFiles/traefik/certs-traefik.yaml:/etc/traefik/dynamic/certs-traefik.yaml
+      # - ./InitFiles/traefik/certs-traefik.yaml:/etc/traefik/dynamic/certs-traefik.yaml
       - ./InitFiles/traefik/:/etc/certs/
     networks:
       - traefik
