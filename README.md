@@ -1,5 +1,6 @@
 # Website
 Repo für die Website des ASV Aachen
+Alle Adressen sind nur noch unter https erreichbar
 
 ## First Start
 ### SSO
