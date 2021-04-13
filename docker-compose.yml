@@ -24,6 +24,7 @@ services:
       - --providers.docker.exposedbydefault=false
       - --providers.docker.network=traefik
       - --entryPoints.web.address=:443
+      - --log.level=DEBUG
       # HTTPS
       - --providers.file.directory=/etc/certs/
     security_opt:
