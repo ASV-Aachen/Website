@@ -17,16 +17,19 @@ services:
     image: traefik:v2.4
     command:
       # Only for development environment
-      - --api.insecure=false
+      - --api.insecure=true
       # Get Docker as the provider
       - --providers.docker=true
       # Avoid that all containers are exposed
       - --providers.docker.exposedbydefault=false
       - --providers.docker.network=traefik
+      - --entrypoints.web_open.address=:80
       - --entryPoints.web.address=:443
       - --log.level=DEBUG
       # HTTPS
-      - --providers.file.directory=/etc/certs/
+      - --providers.file.directory=/configuration/
+      - --providers.file.watch=true
+
     security_opt:
       - label:type:docker_t
     volumes:
@@ -35,8 +38,7 @@ services:
       # - /Volumes/Transcend/Docker/Proxy:/config
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
-      # - ./InitFiles/traefik/certs-traefik.yaml:/etc/traefik/dynamic/certs-traefik.yaml
-      - ./InitFiles/traefik/:/etc/certs/
+      - ./InitFiles/traefik/:/configuration/
     networks:
       - traefik
 
@@ -85,6 +87,7 @@ services:
       - "traefik.http.routers.wiki.middlewares=wiki-stripprefix"
       - "traefik.http.middlewares.wiki-stripprefix.stripprefix.prefixes=/wiki"
       - "traefik.http.routers.wiki.tls=true"
+      - "traefik.http.routers.wiki.tls.certresolver=myresolver"
 
   #---------------------------------------------------------------------------------------
   # Nextcloud-Redis
@@ -128,6 +131,7 @@ services:
       - "traefik.http.routers.cloud.middlewares=cloud-stripprefix"
       - "traefik.http.middlewares.cloud-stripprefix.stripprefix.prefixes=/cloud"
       - "traefik.http.routers.cloud.tls=true"
+      - "traefik.http.routers.cloud.tls.certresolver=myresolver"
 
 
   #---------------------------------------------------------------------------------------
@@ -161,6 +165,7 @@ services:
       #- "traefik.http.routers.SSO.middlewares=SSO-stripprefix"
       #- "traefik.http.middlewares.SSO-stripprefix.stripprefix.prefixes=/sso"
       - "traefik.http.routers.SSO.tls=true"
+      - "traefik.http.routers.SSO.tls.certresolver=myresolver"
     depends_on:
       - db
 
@@ -197,6 +202,7 @@ services:
       - "traefik.http.routers.webpage.rule=PathPrefix(`/`)"
       - "traefik.http.services.webpage.loadbalancer.server.port=8080"
       - "traefik.http.routers.webpage.tls=true"
+      - "traefik.http.routers.webpage.tls.certresolver=myresolver"
 
 volumes:
   mariaDB:
