@@ -9,7 +9,7 @@ COPY Webpage/ /opt/Webpage/
 
 # Add our custom crt
 ADD InitFiles/traefik/server.crt /usr/local/share/ca-certificates/foo.crt
-RUN chmod 644 /usr/local/share/ca-certificates/foo.crt && update-ca-certificates
+RUN chmod 644 /usr/local/share/ca-certificates/foo.crt && update-ca-certificates --verbose
 
 WORKDIR /opt/Webpage/
 
