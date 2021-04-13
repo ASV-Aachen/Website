@@ -22,9 +22,9 @@ class Sailor(models.Model):
    
 class Cruise(models.Model):
     CruiseName = models.CharField(max_length=128)
-    CruiseDescription = models.TextField()
-    StartDate = models.DateField(blank=True, null=False)
-    EndDate = models.DateField(blank=True, null=False)
+    CruiseDescription = models.TextField(blank=True, null=False)
+    StartDate = models.DateField()
+    EndDate = models.DateField()
     StartPort = models.CharField(max_length=128)
     EndPort = models.CharField(max_length=128)
     MaxBerths = models.IntegerField()
