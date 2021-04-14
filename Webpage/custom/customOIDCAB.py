@@ -68,6 +68,9 @@ class MyOIDCAB(OIDCAuthenticationBackend):
             pass
         # user.save()
 
+        user.is_staff = user.groups.filter(name='Admin').exists()
+        user.is_admin = user.groups.filter(name='Admin').exists()
+
         return user
 
     def update_user(self, user, claims):
@@ -96,6 +99,9 @@ class MyOIDCAB(OIDCAuthenticationBackend):
             pass
 
         user.save()
+
+        user.is_staff = user.groups.filter(name='Admin').exists()
+        user.is_admin = user.groups.filter(name='Admin').exists()
 
         return user
     

@@ -59,6 +59,9 @@ def update_all_Users():
         # Update data of User
         #TODO: Muss noch konkretisiert werden!!!
         # Welche Daten wollen wir eigentlich ziehen und updaten?
+        # Ist der Nutzer noch Admin???
+        # user.is_staff = ?
+        # user.is_admin = ?
 
     return
 
