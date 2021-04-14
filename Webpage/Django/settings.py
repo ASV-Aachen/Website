@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
 X_FRAME_OPTIONS = 'ALLOWALL'
 
 XS_SHARING_ALLOWED_METHODS = ['POST','GET']
-
+OIDC_VERIFY_SSL = False
 # Conection to Keycloak as OIDC
 
 OIDC_RP_CLIENT_ID = os.environ["OIDC_RP_CLIENT_ID"]
@@ -54,9 +54,12 @@ OIDC_OP_USER_ENDPOINT =             Host + '/sso/auth/realms/ASV/protocol/openid
 LOGIN_URL = reverse_lazy('oidc_authentication_callback')
 
 # App urls
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = Host
 LOGOUT_REDIRECT_URL = Host + "/auth/realms/ASV/protocol/openid-connect/logout?redirect_uri=" + Host
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+OIDC_CLOCK_SKEW = 560
 
 # Application definition
 INSTALLED_APPS = [
@@ -138,8 +141,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'websiteDB',
-        'USER': 'website',
-        'PASSWORD': 'my-secret-pw',
+        'USER': os.environ["MYSQL_USER"],
+        'PASSWORD': os.environ["MYSQL_PASSWORD"],
         'HOST': 'db',   # Or an IP Address that your DB is hosted on
         'PORT': 3306,
     }
