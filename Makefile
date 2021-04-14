@@ -24,3 +24,7 @@ firstStart: ## Create the init Data
 
 createTestData: ## Creates Test Users and News
 	./bin/TestData.sh
+
+update: ##Pulls the Update and starts the migration Process
+	./bin/update.sh
+
