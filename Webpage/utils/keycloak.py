@@ -25,7 +25,7 @@ def auto_Update_Roles():
     realm_roles = admin.get_realm_roles()
 
     for i in realm_roles:
-        role.objects.get_or_create(titel=i.name)
+        role.objects.get_or_create(titel=i['name'])
 
 '''
 Get all Groups from Keycloak and add to Django
