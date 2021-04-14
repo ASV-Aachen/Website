@@ -51,8 +51,37 @@
     {% endblock frontpage %}
  
     {% block content %}
-        {% include 'blog/includes/NewsFrontpage.html' %}
 
+    <div id="NewsList" class="container no-gutters bg-asv-lightgrey">
+        <h1 class="py-3 border-bottom">Neues aus dem Verein</h1>
+        {% for New in News %}
+            <div class="blog-post my-3 bg-asv-article">
+                <article>
+                    <h3 class="blog-post-title">{{ New.titel }}</h3>
+                    <div class="blog-post-meta small">{{ New.date_Created | date:"F d, Y"}}  {% if user.is_authenticated %} by {{ New.author }} {% endif %}</div>
+                    <div class="article-content">{{ New.text | safe }}</div>
+                </article>
+            </div>
+        {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ News.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ News.number }} of {{ News.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ News.next_page_number }}">next</a>
+                <a href="?page={{ News.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
     {% endblock content %}
 
 
