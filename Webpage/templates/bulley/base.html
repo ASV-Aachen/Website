@@ -14,7 +14,11 @@
             <!-- Custom styles for this template -->
             <!--<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">-->
             <link href="{% static 'css/bulley/main.css' %}" rel="stylesheet">
+            <link href="{% static 'css/bulley/blog.css' %}" rel="stylesheet">
+            <link rel=" shortcut icon" type="ico" href="{% static 'img/favicon.ico' %}">
+
             <!--<link href="{% static 'css/blog.css' %}" rel="stylesheet">-->
+
 
   <!-- Hier können app-spezifische  Styles dazugeladen werden-->
 {% block styles %}
@@ -22,41 +26,53 @@
 
 </head>
 
-<body>
-    <header id="header"class="container-fluid">
+<body class="container-fluid px-0 flex-nowrap">
+    <header id="header"class="container-fluid no-gutters px-0">
 
         {% include "bulley/includes/header.html" %}
 
-        <div id="header-image" class="container-fluid position-ralative">
+        <div id="header-image" class="container-fluid px-0 position-ralative">
         {% block headerimage%}
-          <img class="img-fluid" src="/static/img/AGIV.jpg" alt="">
+          <img src="/static/img/AGIV.jpg" alt="">
         {% endblock headerimage%}
         </div>
     </header>
 
-   <div id="frontpage" class="container-fluid">
+    <main  role="main" class="container-fluid p-0 p-md-3">
      {% block frontpage %} {% endblock frontpage %}
-    </div>
-    <main  role="main" class="container-fluid">
-      <div class="row mb-2">
- 
-        <article class="col-md-8 blog-main">
-         {% block content %} 
-          {% endblock content %}
-        </article>
 
-        <aside class="col-md-4 blog-sidebar">
-        {% block aside %} 
-            {% endblock aside %}
-          </aside>
+       <div id="main-wrapper" class="container-fluid m-0 p-3">
+           <div id="content-wrapper" class="row">
+                <div id="content" class="col-md-8 px-3">
+                {% block content %}
+                {% endblock content %}
+                </div>
 
+                <aside class="col-md-4 px-3">
+                {% block aside %}
+                {% endblock aside %}
+                </aside>
+            </div>
       </div>
       <!-- /.row -->
     </main>
     <!-- /.container -->
 
-  <footer class="container-fluid">
-     <p>© 2021 ASV-Aachen e.V. by Dockersoft</p>
+  <footer class="container-fluid pt-2 pb-4">
+      <ul id="footer-menue" class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link" href="#datasecurity">Datenschutz</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#impressum">Impressum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#contact">Kontakt</a>
+          </li>
+      </ul>
+     <div class="d-flex justify-content-center">
+         <span class="small">© 2021 ASV-Aachen e.V. by Dockersoft</span>
+     </div>
   </footer>
 
   <!-- Bootstrap core JavaScript ================================================== -->

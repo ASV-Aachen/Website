@@ -6,16 +6,173 @@
     GGf. hier neue Farben definieren
 */
 :root {
-/*    --asvcoloryellow: #FFD648; /* --> vom Bulley abgekupfert  */
-    --asvcoloryellow: #FFDE24; /* --> CD ASV aus Hörsalpräsentation   */
+
+    --asvcoloryellow: #f9cf27; /* --> FFDE24 CD ASV aus Hörsalpräsentation   */
     --asvcolorblue: #004D80;
     --asvcolorlightblue: #0068AC;
     --asvcolordarkblue: #0068AC;
     --asvcolorgrey: #898787;
     --asvcolorlightgrey: #f8f9fa;
+    --asvcolorbackgroundgrey: #cdcdcd;
     --asvcolorlightgreyopac: rgb(248, 249, 250, 0.8);
+    --asvcolorbackgroundarticle: white;
 
 }
+
+    .asvcoloryellow {color: #f9cf27} !important;
+    .asvcolorblue {color: #004D80} !important;
+    .asvcolorlightblue {color: #0068AC} !important;
+    .asvcolordarkblue {color: #0068AC} !important;
+    .asvcolorgrey {color: #898787} !important;
+    .asvcolorlightgrey {color: #f8f9fa} !important;
+    .bg-asv-lightgreyopac {background-color: rgb(248, 249, 250, 0.8)} !important;
+    .bg-asv-article {background-color: white} !important;
+
+    .bg-asv-yellow {background-color: var(--asvcoloryellow) !important;}
+    .bg-asv-grey {background-color: var(--asvcolorgrey) !important;}
+    .bg-asv-lightgrey {background-color: var(--asvcolorlightgrey) !important;}
+
+
+/*  ASV-CD Schriftart "Prompt" - Bitte nur aus dieser Palette auswählen!)
+    GGf. hier neue Schriften ergänzen
+*/
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-thin.ttf');
+    format("opentype");
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-thinitalic.ttf');
+    format("opentype");
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-extralight.ttf');
+    format("opentype");
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-extralightitalic.ttf');
+    format("opentype");
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-light.ttf');
+    format("opentype");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-lightitalic.ttf');
+    format("opentype");
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-regular.ttf');
+    format("opentype");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-italic.ttf');
+    format("opentype");
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-medium.ttf');
+    format("opentype");
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-mediumitalic.ttf');
+    format("opentype");
+    font-style: italic;
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-semibold.ttf');
+    format("opentype");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-semibolditalic.ttf');
+    format("opentype");
+    font-style: italic;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-bold.ttf');
+    format("opentype");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-bolditalic.ttf');
+    format("opentype");
+    font-style: italic;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-extrabold.ttf');
+    format("opentype");
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-extrabolditalic.ttf');
+    format("opentype");
+    font-style: italic;
+    font-weight: 800;
+}
+
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-black.ttf');
+    format("opentype");
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('../../fonts/cd-asv/prompt-blackitalic.ttf');
+    format("opentype");
+    font-style: italic;
+    font-weight: 900;
+}
+
+
+
 
 /*  Bootstrap customizen
 */
@@ -24,59 +181,125 @@
 
 */
 html {
-   font-family: Arial, Georgia, sans-serif;
+   font-family: ASV;
    font-size: 1rem;
-   color: var(--asvcolorgrey);
 }
 
 body {
-   display: flex;
+/*   display: flex;
    flex-flow: row wrap;
    padding-left: 0rem;
-
    padding-top: 0rem;
-   margin: 0rem;
-   background: white url("/static/img/background.gif") repeat;
+   margin: 0rem;*/
+   font-family: ASV, Verdana, Arial, Helvetica, sans-serif;
+   font-weight: 200;
+   line-height: 1.5rem;
+   color: black; /*var(--asvcolorgrey);*/
+   background: var(--asvcolorbackgroundgrey);
    text-align: left;
 
 }
 
+
+main {
+    background: url("/static/img/ASV_background.png") no-repeat center center;
+    background-size: 100% 100%;
+    padding: 0;
+/*    background-color: lightgreen;*/
+
+}
+
+#main-wrapper {
+    background-color: white; /*lightgreen;*/
+
+}
+
+
 /*
-header, main, nav, article, aside, footer {
-  flex: 1 100%;
-}*/
+ * Frontpage
+ */
 
-main, footer {
-   margin: 0.5rem;
+#frontpage {
+    background-color: var(--asvcolorbackgroundgrey) !important; /*pink; /* nur zum Testen */
+}
+#content {
+    /*background-color: transparent;*/
+    /*background-color: lightgreen;*/
+}
+
+article {
+
+    padding: 1rem 1rem 1rem 1rem;
+    background-color: var(--asvcolorbackgroundarticle);
+}
+
+aside {
+    */background-color: lightblue;*/
+    background-color: var(--asvcolorbackgroundgrey);
+}
+
+footer, footer a {
+    color: var(--asvcoloryellow);
+    font-weight: 300;
+    font-size: 1rem;
+    background: black; /*var(--asvcolorgrey);*/
+}
+footer a {
 
 }
 
-h1, h2, h3 {
 
-    color: var(--asvcolorblue);
-}
-hi {
+h1, h2 {
+/*    padding: 1rem 0 0 0;*/
     font-style: italic;
-    font-weight: 800;
-    line-height: 1.5;
-    font-size: 2rem;
+    color: var(--asvcolorblue) !important;
 }
 
-h2 {
+h3, h4, h5 {
+/*    padding: 1rem 0 0 0;*/
+    font-style: italic;
+    color: var(--asvcoloryellow) !important;
+}
+
+h1 {
     font-weight: 600;
-    line-height: 1.2;
+    font-size: 1.8rem;
+}
+
+h2, h3 {
+    font-weight: 500;
     font-size: 1.6rem;
 }
 
-h3 {
+h4 {
     font-weight: 400;
-    line-height: 1;
+    line-height: 1rem;
+    font-size: 1.4rem;
+}
+h5 {
+    font-weight: 300;
+    line-height: 1rem;
     font-size: 1.2rem;
+}
+h6 {
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 0rem;
+}
+
+p {
+    margin-bottom: 0.5rem;
+
 }
 
 
+small,
+.small {
+  font-size: .8rem;
+  font-weight: 200;
+}
 a {
-    color: var(--asvcolorblue);
+    color: var(--asvcolordarkblue);
 }
 
 a:hover {
@@ -100,56 +323,6 @@ img {
 
 
 
-/*
- * Frontpage
- */
-#frontpage {
-    /*background-color: pink; /* nur zum Testen */
-    margin: 0.5rem;
-    padding-top: 1rem;
-
-}
-/*
- * Blog name and description
- */
-
-
-.blog-title {
-  margin-bottom: 0;
-  font-size: 1.8rem;
-  font-weight: 400;
-}
-
-.blog-description {
-  font-size: 1.1rem;
-  color: #999;
-}
-
-/* Pagination */
-
-.blog-pagination {
-  margin-bottom: 4rem;
-}
-
-.blog-pagination > .btn {
-  border-radius: 2rem;
-}
-
-/*
- * Blog posts
- */
-.blog-post {
-  margin-bottom: 4rem;
-}
-
-.blog-post-title {
-  margin-bottom: .25rem;
-}
-
-.blog-post-meta {
-  margin-bottom: 1.25rem;
-  color: var(--asvcolorgrey);
-}
 
 
 /* Smart Phones und Tablets mit mittlerer Auflösung */
@@ -178,7 +351,7 @@ html {
 
 }
 
-
+main }
 
 .content {
 
