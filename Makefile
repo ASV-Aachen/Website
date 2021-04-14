@@ -24,3 +24,12 @@ firstStart: ## Create the init Data
 
 createTestData: ## Creates Test Users and News
 	./bin/TestData.sh
+
+update: ## Pulls the Update and starts the migration Process
+	./bin/update.sh
+
+startAutoFigures: ## Starts the Cron Skripts
+	./bin/cronJobs.sh
+
+updateFromKeycloak: ## Gets the Data from Keyclaok and updates the Webservice
+	./bin/updateKeycloak.sh

@@ -77,7 +77,7 @@ def createNewUserInKeycloak(username, vorname, nachname, Email) -> bool:
 
     new_user = keycloak_admin.create_user({"email": Email,
                                            "username": username,
-                                           "enabled": True,
+                                           "enabled": False,
                                            "firstName": vorname,
                                            "lastName": nachname})
 
