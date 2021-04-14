@@ -10,8 +10,20 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        auto_Update_Roles()
-        auto_Update_Groups()
-        update_all_Users()
+        try:
+            auto_Update_Roles()
+        except:
+            self.stdout.write("Error beim Update von Roles", ending='')
+            pass
+        try:
+            auto_Update_Groups()
+        except:
+            self.stdout.write("Error beim Update der Groups", ending='')
+            pass
+        try:
+            update_all_Users()
+        except:
+            self.stdout.write("Error beim Update der User", ending='')
+            pass
 
 
