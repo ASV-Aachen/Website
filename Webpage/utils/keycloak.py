@@ -53,8 +53,8 @@ def update_all_Users():
     # Für jeden Nutzer:
     for user in all_Users:
         # Zieh dir die Daten aus Keycloak
-        user_id_keycloak = keycloak_admin.get_user_id(user.username)
-        keycloak_user = keycloak_admin.get_user(user_id_keycloak)
+        user_id_keycloak = keycloak_admin.get_user_id(username=user.username)
+        keycloak_user = keycloak_admin.get_user(user_id=user_id_keycloak)
 
         # Update data of User
         #TODO: Muss noch konkretisiert werden!!!
