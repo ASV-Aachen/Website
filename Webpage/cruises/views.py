@@ -27,7 +27,7 @@ def createNewCruise(request):
             return redirect("cruises_home")
     else:
         form = CruiseForm(initial={'MaxBerths': 12})
-    return render(request, "cruises/form_template.html", {
+    return render(request, "cruises/cruise_form.html", {
         "form": form,
         "model_name": "Cruise",
         "delete_view_name": "cruise_delete"
