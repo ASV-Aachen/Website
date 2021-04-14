@@ -113,6 +113,7 @@ makemigrations                 Generate Migrations for Django models
 migrate                        Migrate Django models
 start                          Start network && build && docker-compose up
 stop                           stop docker-compose and network
+firstStart                     Creates the init Data for the Website 
 ```
 
 * Wer unter Windows entwickelt und keine Makefiles ausfuehren kann, kann in die Makefile schauen oder in den `./bin/` Ordner. Dort sind alle commands gelistet.

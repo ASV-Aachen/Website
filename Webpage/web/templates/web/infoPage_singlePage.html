@@ -9,12 +9,13 @@
 {% endblock styles %}
 
 {% block content %}
-    <h2>{{ seite.titel }}</h2>
+<article>
+    <h3>{{ seite.titel }}</h3>
 
     {% block body %}
     <div id="inhalt">
         {{ seite.text | safe }}
     </div>
      {% endblock %}
-
+</article>
  {% endblock %}

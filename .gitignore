@@ -249,5 +249,8 @@ henkstop.sh
 henkclean.sh
 henkmigrate.sh
 henkmigrations.sh
+henkfirststart.sh
+henkTestData.sh
 webpage/templates/bulley/backup
 webpage/static/css/bulley/backup
+.gitignore
