@@ -24,7 +24,7 @@
           <div class="card-header"> {{ gruppen.Header.titel }} </div>
           <div class="card-text"> {{ gruppen.Header.description }} </div>
             <a href="{% url 'InfoPage_Header' gruppen.Header.name%}" class="card-link">Link zur Seite</a>
-            <a href="{% url 'InfoEditor_Header' %}?id={{ seite.id }}" class="card-link">Edit</a>
+            <a href="{% url 'InfoEditor_Header' %}?id={{ gruppen.Header.id }}" class="card-link">Edit</a>
           <ul class="list-group list-group-flush">
            {% for seite in gruppen.seiten %}
             <li class="list-group-item">
