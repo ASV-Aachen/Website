@@ -1,7 +1,13 @@
-<!--templates/unfertig.html-->
+<!--web/template/web/unfertig.html-->
 
+{% extends 'base.html' %}
+{% block headerimage%}
+    <img src="/static/img/baustelle_1.png" alt="">
+{% endblock headerimage%}
 
-<!-- Stellt die Verbindung zum Design her, und wirkt auf alle Seiten
--->
-
-{% extends 'bulley/unfertig.html' %}
+{% block content %}
+    {% block message_inside %}
+        <p>Dieser Programmteil ist leider noch nicht fertig!</p>
+        <a href="{% url 'ASV' %}">Zurück zur Homepage</a>
+    {% endblock message_inside %}
+{% endblock content %}
