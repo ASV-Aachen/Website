@@ -306,7 +306,7 @@
 }
 
 .navbar-light .navbar-nav .nav-link {
-    padding: .8rem 1rem;
+    padding: 0.5rem 1rem;
     margin: 0;
     border-bottom: 0.2rem solid transparent;
 }
