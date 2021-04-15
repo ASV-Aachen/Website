@@ -21,9 +21,12 @@
 /*    height: calc(230px + (360 - 230) * (100vw - 768px) / (1600 - 768));*/
 }
 #header-image img {
+
     background: white;
     object-fit: cover;
 /*    min-height: 220px;*/
+
+
 }
 
 
