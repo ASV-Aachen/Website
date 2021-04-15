@@ -100,6 +100,9 @@ services:
 1. Secret kopieren und in dieser Docker-Compose Datei unter __OIDC_RP_CLIENT_SECRET__ eintragen.
 1. __Host__ und __ALLOWED_HOSTS__ in der Docker-Compose eintragen.
 1. Website neu starten
+
+**ACHTUNG: ** In der aktuellen Version arbeiten wir mit HTTPS!!!
+
 #### Admin
 Wird ein Keycloak Nutzer beim ersten anmelden neu erstellt, haben diese zunächst keinerlei Rechte. Es muss also ein Superuser manuell eingerichtet werden, welcher das erste bearbeiten übernimmt. Sobald man einen weiteren Admin bestimmt hat, kann dieser Account aber gelöscht werden.
 ## Development Guide
