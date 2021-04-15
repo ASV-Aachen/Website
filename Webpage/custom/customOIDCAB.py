@@ -70,6 +70,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
 
         user.is_staff = user.groups.filter(name='Admin').exists()
         user.is_admin = user.groups.filter(name='Admin').exists()
+        user.save()
 
         return user
 
