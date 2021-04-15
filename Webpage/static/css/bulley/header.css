@@ -14,16 +14,19 @@
     top: 3.6rem;
 /*    margin-bottom: 55px;*/
     z-index: -9999;
-/*    display: none;
-    background: url("/static/img/ASV_background.png") no-repeat center center;
-    background-size: cover;*/
+/*    display: none;*/
+    background: url("/static/img/header/cat_s0.jpg") no-repeat center center;
+    background-size: cover;
 /*    height: calc(230px +(100vw-200));*/
 /*    height: calc(230px + (360 - 230) * (100vw - 768px) / (1600 - 768));*/
 }
 #header-image img {
-    background: white;
+
+    background: url("/static/img/header/cat_s0.jpg") no-repeat center center;
     object-fit: cover;
-/*    min-height: 220px;*/
+    min-height: 220px;
+
+
 }
 
 

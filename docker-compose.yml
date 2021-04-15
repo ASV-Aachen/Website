@@ -32,6 +32,15 @@ services:
 
     security_opt:
       - label:type:docker_t
+    ports:
+      # The HTTP port
+      - "11100:80"
+      # HTTPS
+      - "11101:443"
+      # The Web UI (enabled by --api.insecure=true)
+      - "11102:8080"
+
+
     volumes:
       # Store certificates in ./letsencrypt/acme.json
       - traefik:/letsencrypt

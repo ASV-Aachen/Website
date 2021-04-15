@@ -8,6 +8,11 @@
 
 {% endblock styles %}
 
+{% block headerimage%}
+    <img src="/static/img/header/cat_s{{ seite.id }}.jpg" alt="">
+{% endblock headerimage%}
+
+
 {% block content %}
 <article>
     <h3>{{ seite.titel }}</h3>
