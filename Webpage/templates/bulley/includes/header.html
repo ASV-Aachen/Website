@@ -85,10 +85,10 @@
         <ul class="navbar-nav px-2 px-lg-0">
           {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenu Button"href="/sso/auth/realms/ASV/account/">
+            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenu Button"href="#account">
               Account</a>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="#">Password ändern</a></li>
+              <li><a class="dropdown-item" href="/sso/auth/realms/ASV/account/">Password ändern</a></li>
               <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
             </ul>
           </li>
