@@ -41,7 +41,7 @@ class blogPost(models.Model):
 
     last_editor = models.CharField(max_length=300)
 
-    history = models.ManyToManyField(blogPostHistory)
+    history = models.ManyToManyField(blogPostHistory, blank=True)
 
     def __str__(self):
         return self.titel

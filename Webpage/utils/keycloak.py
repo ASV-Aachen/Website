@@ -36,7 +36,7 @@ def auto_Update_Groups():
     groups = admin.get_groups()
 
     for i in groups:
-        Group.objects.get_or_create(name=i.name)
+        Group.objects.get_or_create(name=i['name'])
 
     return
 
@@ -46,7 +46,7 @@ Ziehe dir die Informationen über den Nutzer und Update die Daten in Django
 '''
 def update_all_Users():
     # Zieh die alle Nutzer
-    all_Users = User.Objects.all()
+    all_Users = User.objects.all()
 
     keycloak_admin = getKeycloackAdmin()
 
@@ -55,11 +55,6 @@ def update_all_Users():
         # Zieh dir die Daten aus Keycloak
         user_id_keycloak = keycloak_admin.get_user_id(username=user.username)
         keycloak_user = keycloak_admin.get_user(user_id=user_id_keycloak)
-
-        # Update data of User
-        # DONE: Muss noch konkretisiert werden!!!
-        # Welche Daten wollen wir eigentlich ziehen und updaten?
-        # Ist der Nutzer noch Admin???
 
         # keycloak_user:
         # username      string
@@ -73,18 +68,26 @@ def update_all_Users():
         user.lastName = keycloak_user['lastName']
         user.email = keycloak_user['email']
 
+        # realm Roles
+        print(keycloak_user)
+        '''
+        # Get client - id (not client-id) from client by name
+        client_id = keycloak_admin.get_client_id("my-client")
+        
+        Retrieve client roles of a user.
+        keycloak_admin.get_client_roles_of_user(user_id="user_id", client_id="client_id")
+        
+        newRole, created = role.objects.get_or_create(titel=i)
+        user.roles.add(newRole)
+        
+        '''
+        # TODO
 
-        for i in keycloak_user['role']:
-            newRole, created = role.objects.get_or_create(titel=i)
-            user.roles.add(newRole)
+        # alte Rollen raus
+        # neue Rollen rein
 
-        for i in keycloak_user['groups']:
-            NewGroup, created = Group.objects.get_or_create(name=i)
-            # NewGroup.save()
-            user.groups.add(NewGroup)
-
-        user.is_staff = user.groups.filter(name='Admin').exists()
-        user.is_admin = user.groups.filter(name='Admin').exists()
+        # alte Gruppen raus
+        # neue gruppen rein
 
         user.save()
 
