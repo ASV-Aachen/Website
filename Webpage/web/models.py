@@ -51,7 +51,7 @@ class HeadPage(models.Model):
     # subThema = models.ForeignKey(subThemen)
     name = models.CharField(max_length=200)
 
-    history = models.ManyToManyField(infoPageHistory)
+    history = models.ManyToManyField(infoPageHistory, blank=True)
 
     def getFullUrl(self):
         return "/" + str(self.name)
@@ -72,7 +72,7 @@ class infoPage(models.Model):
     # subThema = models.ForeignKey(subThemen)
     name = models.CharField(max_length=200)
 
-    history = models.ManyToManyField(infoPageHistory)
+    history = models.ManyToManyField(infoPageHistory, blank=True)
 
     def getFullUrl(self):
         return "/" + str(self.headPage.name) + "/" + str(self.name)

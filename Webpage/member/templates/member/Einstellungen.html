@@ -18,13 +18,13 @@
         <div id ="UserName"> {{profil.user.first_name}} {{profil.user.last_name}} </div>
         <img src="{{profil.profile_image.url}}">
     {% else %}
-        <img src="{% static 'img/standard_profile_picture_cropt.png' %}" >
+        <img src="{% static 'img/standard_profile_picture_cropt.png' %}" style="max-width: 166px;">
     {% endif %}
 
     <div id="roleDisplay">
         <div>Deine Rollen im Verein:</div>
         {% for membersRole in profil.roles.all %}
-            <div id="role">{{membersRole}} </div>
+            <div id="role" class="badge badge-pill badge-secondary" style="margin-left: 3px;">{{membersRole}} </div>
         {% endfor%}
     </div>
 
