@@ -19,14 +19,14 @@
 
 }
 
-    .asvcoloryellow {color: #f9cf27} !important;
-    .asvcolorblue {color: #004D80} !important;
-    .asvcolorlightblue {color: #0068AC} !important;
-    .asvcolordarkblue {color: #0068AC} !important;
-    .asvcolorgrey {color: #898787} !important;
-    .asvcolorlightgrey {color: #f8f9fa} !important;
-    .bg-asv-lightgreyopac {background-color: rgb(248, 249, 250, 0.8)} !important;
-    .bg-asv-article {background-color: white} !important;
+    .asvcoloryellow {color: #f9cf27 !important;}
+    .asvcolorblue {color: #004D80 !important;}
+    .asvcolorlightblue {color: #0068AC !important;}
+    .asvcolordarkblue {color: #0068AC !important;}
+    .asvcolorgrey {color: #898787 !important;}
+    .asvcolorlightgrey {color: #f8f9fa !important;}
+    .bg-asv-lightgreyopac {background-color: rgb(248, 249, 250, 0.8) !important;}
+    .bg-asv-article {background-color: white !important;}
 
     .bg-asv-yellow {background-color: var(--asvcoloryellow) !important;}
     .bg-asv-grey {background-color: var(--asvcolorgrey) !important;}
