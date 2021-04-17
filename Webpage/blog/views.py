@@ -124,7 +124,7 @@ def AddNews(request):
                         form.instance.last_editor = request.user.first_name + " " + request.user.last_name
 
                         # setze den neuen Text als erste History
-                        newhistory = blogPostHistory(titel=request.titel, text=request.text, editor=request.user.first_name + " " + request.user.last_name)
+                        newhistory = blogPostHistory(titel=form.instance.titel, text=form.instance.text, editor=request.user.first_name + " " + request.user.last_name)
                         newhistory.save()
                         request.history.add(newhistory)
                 else:
@@ -133,7 +133,7 @@ def AddNews(request):
                     form.instance.last_editor = request.user.first_name + " " + request.user.last_name
 
                     # setze den neuen Text als erste History
-                    newhistory = blogPostHistory(titel=request.titel, text=request.text,
+                    newhistory = blogPostHistory(titel=form.instance.titel, text=form.instance.text,
                                                  editor=request.user.first_name + " " + request.user.last_name)
                     newhistory.save()
                     request.history.add(newhistory)
