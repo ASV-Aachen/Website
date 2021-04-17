@@ -31,11 +31,12 @@
 
 
 #header-wrapper {
-    background-color: white;*/
+    background-color: white;
 }
 
 #header-logo {
-    background: url("/static/img/logo_offiziell_17_-01.png") no-repeat center center;
+    /* background: url("/static/img/logo_offiziell_17_-01.png") no-repeat center center; */
+    background: url("/static/img/AlphaLogo.png") no-repeat center center;
     background-size: contain;
 }
 
