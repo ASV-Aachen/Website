@@ -192,7 +192,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
 )
 
-# STATIC_ROOT = '/webpage/'
+# STATIC_ROOT = '/webpage/static_root/'
 # os.path.join(BASE_DIR, 'staticfiles')
 
 # FORCE_SCRIPT_NAME = "/webpage/"
@@ -209,8 +209,11 @@ SITE_ID = 2
 
 """TinyMCE"""
 
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "tinymce/")
+
 TINYMCE_DEFAULT_CONFIG = {
-    "content_css": "../../static/css/tinymce/asv-content.css",
+    "content_css": "/static/css/tinymce/asv-content.css",
     "height": "320px",
     "width": "Auto",
     "menubar": "file edit view insert format tools table help",
@@ -223,7 +226,7 @@ TINYMCE_DEFAULT_CONFIG = {
         "a11ycheck ltr rtl | showcomments addcomment code",
     "custom_undo_redo_levels": 10,
     'fontsize_formats': "8pt 10pt 11pt 12pt 13pt 14pt 16pt 18pt 20pt 24pt 36pt",
-    "font_formats": "ASV=ASV,Verdana,Arial,Helvetica,sans-serif;" +
+    'font_formats': "ASV=ASV,Verdana,Arial,Helvetica,sans-serif;" +
 #        "Arial Black=arial black,avant garde;" +
 #        "Book Antiqua=book antiqua,palatino;" +
 #        "Comic Sans MS=comic sans ms,sans-serif;" +
