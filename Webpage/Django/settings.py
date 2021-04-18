@@ -192,7 +192,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
 )
 
-# STATIC_ROOT = '/webpage/'
+# STATIC_ROOT = '/webpage/static_root/'
 # os.path.join(BASE_DIR, 'staticfiles')
 
 # FORCE_SCRIPT_NAME = "/webpage/"
@@ -209,8 +209,11 @@ SITE_ID = 2
 
 """TinyMCE"""
 
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "tinymce/")
+
 TINYMCE_DEFAULT_CONFIG = {
-    "content_css": "../../static/css/tinymce/asv-content.css",
+    "content_css": "/static/css/tinymce/asv-content.css",
     "height": "320px",
     "width": "Auto",
     "menubar": "file edit view insert format tools table help",
