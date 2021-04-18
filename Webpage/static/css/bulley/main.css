@@ -39,14 +39,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-thin.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-Thin.ttf');
     format("opentype");
     font-weight: 100;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-thinitalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-ThinItalic.ttf');
     format("opentype");
     font-weight: 100;
     font-style: italic;
@@ -54,14 +54,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-extralight.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-ExtraLight.ttf');
     format("opentype");
     font-weight: 200;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-extralightitalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-ExtraLightItalic.ttf');
     format("opentype");
     font-weight: 200;
     font-style: italic;
@@ -69,14 +69,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-light.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-Light.ttf');
     format("opentype");
     font-weight: 300;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-lightitalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-LightItalic.ttf');
     format("opentype");
     font-weight: 300;
     font-style: italic;
@@ -84,14 +84,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-regular.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-Regular.ttf');
     format("opentype");
     font-weight: 400;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-italic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-Italic.ttf');
     format("opentype");
     font-weight: 400;
     font-style: italic;
@@ -99,27 +99,27 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-medium.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-Medium.ttf');
     format("opentype");
     font-weight: 500;
 }
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-mediumitalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-MediumItalic.ttf');
     format("opentype");
     font-style: italic;
     font-weight: 500;
 }
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-semibold.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-SemiBold.ttf');
     format("opentype");
     font-weight: 600;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-semibolditalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-SemiBoldItalic.ttf');
     format("opentype");
     font-style: italic;
     font-weight: 600;
@@ -127,14 +127,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-bold.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-Bold.ttf');
     format("opentype");
     font-weight: 700;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-bolditalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-BoldItalic.ttf');
     format("opentype");
     font-style: italic;
     font-weight: 700;
@@ -142,14 +142,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-extrabold.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-ExtraBold.ttf');
     format("opentype");
     font-weight: 800;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-extrabolditalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-ExtraBoldItalic.ttf');
     format("opentype");
     font-style: italic;
     font-weight: 800;
@@ -158,14 +158,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-black.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-Black.ttf');
     format("opentype");
     font-weight: 900;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('/static/fonts/cd-asv/Prompt-blackitalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-BlackItalic.ttf');
     format("opentype");
     font-style: italic;
     font-weight: 900;
