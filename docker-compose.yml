@@ -197,6 +197,7 @@ services:
       # Einstellung für den Client im Keycloak. 
       OIDC_RP_CLIENT_ID: 'website'
       OIDC_RP_SIGN_ALGO: 'RS256'
+      DEBUG: "True"
     depends_on:
       - db
       - reverse-proxy
