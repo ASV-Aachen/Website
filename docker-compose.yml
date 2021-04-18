@@ -17,7 +17,7 @@ services:
     image: traefik:v2.4
     command:
       # Only for development environment
-      - --api.insecure=false
+      - --api.insecure=true
       # Get Docker as the provider
       - --providers.docker=true
       # Avoid that all containers are exposed
@@ -179,7 +179,6 @@ services:
       - db
 
 
-
   #---------------------------------------------------------------------------------------
   # Webpage
   #---------------------------------------------------------------------------------------
@@ -213,6 +212,27 @@ services:
       - "traefik.http.services.webpage.loadbalancer.server.port=8080"
       - "traefik.http.routers.webpage.tls=true"
       - "traefik.http.routers.webpage.tls.certresolver=myresolver"
+
+  #---------------------------------------------------------------------------------------
+  # NGINX for Static Files
+  #---------------------------------------------------------------------------------------
+  StaticFileServer:
+    image: nginx
+    restart: always
+    volumes:
+      - ./Webpage/static:/usr/share/nginx/html/static
+      - ./InitFiles/staticFileServer/nginx.conf:/usr/local/nginx/conf/nginx.conf
+    networks:
+      - traefik
+    depends_on: 
+      - webpage      
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.StaticFileServer.entrypoints=web"
+      - "traefik.http.routers.StaticFileServer.rule=PathPrefix(`/static{regex:$$|/.*}`)"
+      - "traefik.http.services.StaticFileServer.loadbalancer.server.port=80"
+      - "traefik.http.routers.StaticFileServer.tls=true"
+      - "traefik.http.routers.StaticFileServer.tls.certresolver=myresolver"
 
 volumes:
   mariaDB:
