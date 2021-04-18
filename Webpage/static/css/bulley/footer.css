@@ -1,0 +1,41 @@
+/*  <!--/ststic/css/footer.css-->*/
+/*  Hier wird der Footer inkl.Menü gestaltet
+*/
+
+
+/*  Bootstrap customizen
+*/
+
+/* Basic Styles
+
+*/
+
+footer, footer a {
+    color: var(--asvcoloryellow);
+    font-weight: 300;
+    font-size: 1rem;
+    background: black; /*var(--asvcolorgrey);*/
+}
+footer a {
+
+}
+
+
+
+/* Smart Phones und Tablets mit mittlerer Auflösung */
+/*@media (min-width: 320px) {*/
+
+/* Viewports mit kleiner   Auflösung (ipad Hochvormat)  ** Desktop View entspricht bootstrap md*/
+/*@media (min-width: 576px) {*/
+
+
+/* Viewports mit mittlerer  Auflösung (ipad Hochvormat)  ** Desktop View entspricht bootstrap md*/
+/*@media (min-width: 768px) { */
+
+/* Viewports mit großer Auflösung (iPad Querformat)** Desktop View entspricht bootstrap lg*/
+@media (min-width: 992px) {
+
+
+
+
+}
