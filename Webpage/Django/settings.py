@@ -226,7 +226,7 @@ TINYMCE_DEFAULT_CONFIG = {
         "a11ycheck ltr rtl | showcomments addcomment code",
     "custom_undo_redo_levels": 10,
     'fontsize_formats': "8pt 10pt 11pt 12pt 13pt 14pt 16pt 18pt 20pt 24pt 36pt",
-    "font_formats": "ASV=ASV,Verdana,Arial,Helvetica,sans-serif;" +
+    'font_formats': "ASV=ASV,Verdana,Arial,Helvetica,sans-serif;" +
 #        "Arial Black=arial black,avant garde;" +
 #        "Book Antiqua=book antiqua,palatino;" +
 #        "Comic Sans MS=comic sans ms,sans-serif;" +
