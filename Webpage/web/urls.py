@@ -36,5 +36,8 @@ urlpatterns = [
     path("infoEditor", views.infoPageEditor, name="InfoEditor"),
     path("InfoEditor_Header", views.infoPageEditor_Header, name="InfoEditor_Header"),
 
-    path("infoMenu", views.infoPageMenu, name="infoMenu")
+    path("infoMenu", views.infoPageMenu, name="infoMenu"),
+
+    path('impressum', views.impressum, name="impressum"),
+    path('datenschutz', views.datenschutz, name="datenschutz")
 ]
