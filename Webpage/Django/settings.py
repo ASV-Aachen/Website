@@ -192,7 +192,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
 )
 
-# STATIC_ROOT = '/webpage/static_root/'
+STATIC_ROOT = '/webpage/static'
 # os.path.join(BASE_DIR, 'staticfiles')
 
 # FORCE_SCRIPT_NAME = "/webpage/"
