@@ -105,6 +105,29 @@ services:
 
 #### Admin
 Wird ein Keycloak Nutzer beim ersten anmelden neu erstellt, haben diese zunächst keinerlei Rechte. Es muss also ein Superuser manuell eingerichtet werden, welcher das erste bearbeiten übernimmt. Sobald man einen weiteren Admin bestimmt hat, kann dieser Account aber gelöscht werden.
+
+### Cloud
+Eine Konfigurationen der (Next)Cloud sind derzeit nicht automatisiert und müssen manuell vorgenommen werden.
+1. Installation der Apps:
+  - Social Login
+  - Group Folder
+
+2. Konfiguration des Social Login:
+  - Aktiviere "Anlegen eines Kontos verhindern, wenn die Email-Adresse bereits von einem anderen Konto verwendet wird"
+  - Aktiviere "Benutzerprofil nach jeder Anmeldung aktualisieren
+  - Internal Name: Keycloak
+  - Title: Keycloak
+  - Authorize url: Host + /sso/auth/realms/ASV/protocol/openid-connect/auth
+  - Token url: Host + /sso/auth/realms/ASV/protocol/openid-connect/token
+  - User info URL: Host + /sso/auth/realms/ASV/protocol/openid-connect/userinfo
+  - Logout URL: Host + /sso/auth/realms/ASV/protocol/openid-connect/logout
+  - Client Id: client
+  - Client Secret: 'xxx-xxx-x-xx' Secret aus Keycloak (Client -> Credentials) einfügen
+  - Scope: openid
+  - Group claim: groups
+  - Button Style: Keycloak
+  - Default group: User
+
 ## Development Guide
 
 ### Scripts und Makefile
