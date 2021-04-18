@@ -86,3 +86,11 @@ MUSS BEIM ERSTEN STARTEN ANGELEGT WERDEN!!!!
 class frontHeader(models.Model):
     left = models.ForeignKey(HeadPage, on_delete=models.SET_NULL, null=True, related_name="left")
     right = models.ForeignKey(HeadPage, on_delete=models.SET_NULL, null=True, related_name="right")
+
+
+class standartPages(models.Model):
+    titel = models.CharField(max_length=200)
+    text = HTMLField()
+
+    def __str__(self):
+        return self.titel

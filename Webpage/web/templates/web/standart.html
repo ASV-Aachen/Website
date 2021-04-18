@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - Infos {% endblock %}
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+
+{% endblock styles %}
+
+
+{% block content %}
+<article>
+    <h3>{{ seite.titel }}</h3>
+
+    {% block body %}
+    <div id="inhalt">
+        {{ seite.text | safe }}
+    </div>
+     {% endblock %}
+</article>
+ {% endblock %}

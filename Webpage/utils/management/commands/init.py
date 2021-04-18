@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from arbeitsstunden.models import Saison
-from web.models import HeadPage, infoPage, frontHeader
+from web.models import HeadPage, infoPage, frontHeader, standartPages
 
 
 class Command(BaseCommand):
@@ -58,3 +58,8 @@ class Command(BaseCommand):
         self.stdout.write("Season init", ending='')
         Saison(Jahr=2019).save()
         Saison(Jahr=2020).save()
+
+    def StandartSeiten(self):
+        self.stdout("Standart Seiten", ending="")
+        standartPages(titel="Impressum", text="Diese Seite ist in Arbeit")
+        standartPages(titel="Datenschutz", text="Diese Seite ist in Arbeit")

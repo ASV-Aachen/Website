@@ -27,7 +27,7 @@ import random
 # Frontpage (DONE)
 from utils.menu import createMenuObject
 from web.forms import changeInfoPage, changeHeaderPage, changeLeftRight
-from web.models import infoPage, infoPageHistory, HeadPage, frontHeader
+from web.models import infoPage, infoPageHistory, HeadPage, frontHeader, standartPages
 
 
 def MainPage(request):
@@ -286,3 +286,12 @@ def infoPageEditor_Header(request):
 
     return redirect("infoMenu")
 
+# Impressum
+def impressum(request):
+    Seite = get_object_or_404(standartPages, titel = "Impressum")
+    return render(request, "web/standart.html", {"seite": Seite})
+
+# Datenschutz
+def datenschutz(request):
+    Seite = get_object_or_404(standartPages, titel = "Datenschutz")
+    return render(request, "web/standart.html", {"seite": Seite})
