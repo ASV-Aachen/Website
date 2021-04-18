@@ -192,6 +192,7 @@ body {
    padding-top: 0rem;
    margin: 0rem;*/
    font-family: ASV, Verdana, Arial, Helvetica, sans-serif;
+   font-size: 1rem;
    font-weight: 200;
    line-height: 1.5rem;
    color: black; /*var(--asvcolorgrey);*/
@@ -227,7 +228,7 @@ main {
     /*background-color: lightgreen;*/
 }
 
-article {
+article, .mce-content-body {
 
     padding: 1rem 1rem 1rem 1rem;
     background-color: var(--asvcolorbackgroundarticle);
