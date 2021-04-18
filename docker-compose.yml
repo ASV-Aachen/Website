@@ -29,7 +29,10 @@ services:
       # HTTPS
       - --providers.file.directory=/configuration/
       - --providers.file.watch=true
-
+      # Redirect
+      - --entrypoints.web_open.http.redirections.entryPoint.to=web
+      - --entrypoints.web_open.http.redirections.entryPoint.scheme=https
+      - --entrypoints.web_open.http.redirections.entrypoint.permanent=true
     security_opt:
       - label:type:docker_t
     ports:
@@ -39,8 +42,6 @@ services:
       - "11101:443"
       # The Web UI (enabled by --api.insecure=true)
       - "11102:8080"
-
-
     volumes:
       # Store certificates in ./letsencrypt/acme.json
       - traefik:/letsencrypt
@@ -179,7 +180,6 @@ services:
       - db
 
 
-
   #---------------------------------------------------------------------------------------
   # Webpage
   #---------------------------------------------------------------------------------------
@@ -197,6 +197,7 @@ services:
       # Einstellung für den Client im Keycloak. 
       OIDC_RP_CLIENT_ID: 'website'
       OIDC_RP_SIGN_ALGO: 'RS256'
+      DEBUG: "True"
     depends_on:
       - db
       - reverse-proxy
@@ -212,6 +213,27 @@ services:
       - "traefik.http.services.webpage.loadbalancer.server.port=8080"
       - "traefik.http.routers.webpage.tls=true"
       - "traefik.http.routers.webpage.tls.certresolver=myresolver"
+
+  #---------------------------------------------------------------------------------------
+  # NGINX for Static Files
+  #---------------------------------------------------------------------------------------
+  StaticFileServer:
+    image: nginx
+    restart: always
+    volumes:
+      - ./Webpage/static:/usr/share/nginx/html/static
+      - ./InitFiles/staticFileServer/nginx.conf:/usr/local/nginx/conf/nginx.conf
+    networks:
+      - traefik
+    depends_on: 
+      - webpage      
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.StaticFileServer.entrypoints=web"
+      - "traefik.http.routers.StaticFileServer.rule=PathPrefix(`/static{regex:$$|/.*}`)"
+      - "traefik.http.services.StaticFileServer.loadbalancer.server.port=80"
+      - "traefik.http.routers.StaticFileServer.tls=true"
+      - "traefik.http.routers.StaticFileServer.tls.certresolver=myresolver"
 
 volumes:
   mariaDB:

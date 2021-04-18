@@ -1,44 +1,23 @@
-/*  <!--/ststic/css/bulley/header.css-->*/
+/*  <!--/static/css/bulley/header.css-->*/
 /*  Das Thema basiert auf Bootstrap 4 und die nav-bar arbeitet mit den Klassen ".navbar-light .bg-light"
 */
 
 #header {
-    background-color: inherit;
+    background-color: transparent;
 
     z-index: 9999; /* immer im Vordergrund! */
 
-
-
 }
-#header-image{
-    top: 3.6rem;
-/*    margin-bottom: 55px;*/
-    z-index: -9999;
-/*    display: none;*/
-    background: url("/static/img/header/cat_s0.jpg") no-repeat center center;
-    background-size: cover;
-/*    height: calc(230px +(100vw-200));*/
-/*    height: calc(230px + (360 - 230) * (100vw - 768px) / (1600 - 768));*/
-}
-#header-image img {
-
-    background: url("/static/img/header/cat_s0.jpg") no-repeat center center;
-    object-fit: cover;
-    min-height: 220px;
-
-
-}
-
-
 #header-wrapper {
-    background-color: white;*/
+    background-color: white;
 }
 
 #header-logo {
-    background: url("/static/img/logo_offiziell_17_-01.png") no-repeat center center;
+
+    /* background: url("/static/img/logo_offiziell_17_-01.png") no-repeat center center; */
+    background: url("/static/img/AlphaLogo.png") no-repeat center center;
     background-size: contain;
 }
-
 #header-text {
     background: inherit;
     /*background-color: var(--asvcolorgrey); /* zum Testen */
@@ -50,6 +29,27 @@
     font-size: 32px;
     font-style: italic;
 }
+
+#header-image {
+/*    top: 3.6rem;*/
+/*    margin-bottom: 55px;*/
+    z-index: -9999;
+/*    display: none;*/
+    font-size: 0.8rem;
+    width: 100%;
+    height: 30px;
+    height: 20vw; /* muss ggf. an die Menü items angepasst werden, um ein überblenden von Inhalt zu vermeiden*/
+
+    background: white url("/static/img/header/cat_s0.jpg") no-repeat center center;
+    background-size: cover;
+/*    height: calc(230px +(100vw-200));*/
+/*    height: calc(230px + (360 - 230) * (100vw - 768px) / (1600 - 768));*/
+}
+#header-image img {
+    color: white;
+    background-size: cover;
+}
+
 
 
 #menue-wrapper {
@@ -246,30 +246,6 @@
 
 
 /* Anpassungen  Header Desktopversion */
-
-
-#header {
-
-}
-
-
-#header-image {
-/*    top: 5.3rem;
-    width: 100%;
-    padding:0;*/
-/*    margin-bottom: 55px;*/
-    z-index: -9999;
-    display: inline-block;
-}
-#header-image img{
-
-/*    background: var(--asvcolorlightgrey) url("/static/img/AGIV.jpg") no-repeat center center;
-    background-size: cover;*/
-
-    background: white;
-    object-fit: cover;
-/*    max-height: 260px;*/
-}
 
 
 /* Anpassungen  Nav-Bar Desktopversion */
