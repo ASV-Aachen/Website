@@ -17,7 +17,7 @@ services:
     image: traefik:v2.4
     command:
       # Only for development environment
-      - --api.insecure=true
+      - --api.insecure=false
       # Get Docker as the provider
       - --providers.docker=true
       # Avoid that all containers are exposed
