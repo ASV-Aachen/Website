@@ -30,7 +30,7 @@ class infoPageHistory(models.Model):
     description = models.TextField()
 
     # subThema = models.ForeignKey(subThemen)
-    name = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=200)
 
     datum = models.DateField()
 
