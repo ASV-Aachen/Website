@@ -9,7 +9,13 @@
 {% endblock styles %}
 
 {% block headerimage%}
+{% if seite.headPage.id %}
+    <img src="/static/img/header/cat_s{{ seite.headPage.id }}.jpg" alt="">
+{% else %}
     <img src="/static/img/header/cat_s{{ seite.id }}.jpg" alt="">
+{% endif %}
+
+
 {% endblock headerimage%}
 
 
