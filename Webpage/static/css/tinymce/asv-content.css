@@ -32,14 +32,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-thin.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-thin.ttf');
     format("opentype");
     font-weight: 100;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-thinitalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-thinitalic.ttf');
     format("opentype");
     font-weight: 100;
     font-style: italic;
@@ -47,14 +47,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-extralight.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-extralight.ttf');
     format("opentype");
     font-weight: 200;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-extralightitalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-extralightitalic.ttf');
     format("opentype");
     font-weight: 200;
     font-style: italic;
@@ -62,14 +62,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-light.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-light.ttf');
     format("opentype");
     font-weight: 300;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-lightitalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-lightitalic.ttf');
     format("opentype");
     font-weight: 300;
     font-style: italic;
@@ -77,14 +77,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-regular.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-regular.ttf');
     format("opentype");
     font-weight: 400;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-italic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-italic.ttf');
     format("opentype");
     font-weight: 400;
     font-style: italic;
@@ -92,27 +92,27 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-medium.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-medium.ttf');
     format("opentype");
     font-weight: 500;
 }
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-mediumitalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-mediumitalic.ttf');
     format("opentype");
     font-style: italic;
     font-weight: 500;
 }
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-semibold.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-semibold.ttf');
     format("opentype");
     font-weight: 600;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-semibolditalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-semibolditalic.ttf');
     format("opentype");
     font-style: italic;
     font-weight: 600;
@@ -120,14 +120,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-bold.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-bold.ttf');
     format("opentype");
     font-weight: 700;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-bolditalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-bolditalic.ttf');
     format("opentype");
     font-style: italic;
     font-weight: 700;
@@ -135,14 +135,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-extrabold.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-extrabold.ttf');
     format("opentype");
     font-weight: 800;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-extrabolditalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-extrabolditalic.ttf');
     format("opentype");
     font-style: italic;
     font-weight: 800;
@@ -151,14 +151,14 @@
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-black.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-black.ttf');
     format("opentype");
     font-weight: 900;
 }
 
 @font-face {
     font-family: 'ASV';
-    src: url('../../fonts/cd-asv/prompt-blackitalic.ttf');
+    src: url('/static/fonts/cd-asv/Prompt-blackitalic.ttf');
     format("opentype");
     font-style: italic;
     font-weight: 900;
