@@ -110,7 +110,9 @@ services:
     networks:
       - backend
     restart: unless-stopped
-    command: redis-server --requirepass my-secret-pw
+    command: redis-server --requirepass my-secret-pw --appendonly yes
+    volumes:
+      - redis:/data
 
   #---------------------------------------------------------------------------------------
   # Nextcloud
@@ -122,9 +124,8 @@ services:
     environment:
       MYSQL_DATABASE: NextcloudDB
       MYSQL_HOST: db
-      OVERWRITEWEBROOT: '/cloud'
-      NEXTCLOUD_TRUSTED_DOMAINS: '*'
-      OVERWRITEPROTOCOL: https
+      OVERWRITEPROTOCOL: http
+      OVERWRITEWEBROOT: /cloud
     volumes:
       # - ./InitFiles/cloud:/var/www/html/config
       - cloud:/var/www/html/data
@@ -140,9 +141,9 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.cloud.entrypoints=web"
       - "traefik.http.routers.cloud.rule=PathPrefix(`/cloud{regex:$$|/.*}`)"
-      - "traefik.http.services.cloud.loadbalancer.server.port=443"
-      # - "traefik.http.routers.cloud.middlewares=cloud-stripprefix"
-      # - "traefik.http.middlewares.cloud-stripprefix.stripprefix.prefixes=/cloud"
+      - "traefik.http.services.cloud.loadbalancer.server.port=80"
+      - "traefik.http.routers.cloud.middlewares=cloud-stripprefix"
+      - "traefik.http.middlewares.cloud-stripprefix.stripprefix.prefixes=/cloud"
       - "traefik.http.routers.cloud.tls=true"
       - "traefik.http.routers.cloud.tls.certresolver=myresolver"
 
@@ -254,3 +255,6 @@ volumes:
   traefik:
     driver: local
     name: traefik
+  redis:
+    driver: local
+    name: redis
