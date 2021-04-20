@@ -1,7 +1,10 @@
 from django import forms
 from django.forms import CheckboxSelectMultiple, DateInput
+from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from .models import Cruise, Sailor, CruiseShare, License
+from member.models import profile
+
 
 class CruiseForm(forms.ModelForm):
     class Meta:
@@ -18,5 +21,6 @@ class CruiseForm(forms.ModelForm):
             "EndDate" : "Enddatum",
             "StartPort" : "Ausgangshafen",
             "EndPort" : "Zielhafen",
-            "MaxBerths" : "max. Kojen"            
+            "MaxBerths" : "max. Kojen",
         }
+    Sailors =  forms.ModelMultipleChoiceField(widget=FilteredSelectMultiple("Sailors", is_stacked=False),queryset=profile.objects.all())

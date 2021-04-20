@@ -28,7 +28,7 @@ class Cruise(models.Model):
     StartPort = models.CharField(max_length=128)
     EndPort = models.CharField(max_length=128)
     MaxBerths = models.IntegerField()
-    Sailors = models.ManyToManyField(Sailor, through="CruiseShare")
+    Sailors = models.ManyToManyField(profile, through="CruiseShare")
     
     def __str__(self):
         return self.CruiseName
@@ -36,7 +36,7 @@ class Cruise(models.Model):
 
 class CruiseShare(models.Model):
     Cruise = models.ForeignKey(Cruise, on_delete=models.RESTRICT)
-    Sailor = models.ForeignKey(Sailor, on_delete=models.RESTRICT)
+    profile = models.ForeignKey(profile, on_delete=models.RESTRICT)
 
     SKIPPER = 'S'
     WATCH = 'W'

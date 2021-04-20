@@ -3,23 +3,28 @@
 {% block content %}
     <h3 class="pb-3 mb-4 font-italic border-bottom">Seereisenplan "Aquis Granus"</h3>
     <a href="{% url 'cruise_new' %}" class="btn btn-primary">Reise hinzufügen</a>
-
-    <table class="table">
+    <a href="{% url 'ship_position' %}" class="btn btn-primary">Aktuelle Position</a>
+    
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Reise</th>
-                <th>Start</th>
+                <th>Ausgangshafen</th>
                 <th>Ende</th>
                 <th>Crewstatus</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             {% for cruise in cruises %}
                 <tr>
                     <td>{{cruise.CruiseName}}</td>
-                    <td>{{cruise.StartDate|date:"d.m.Y"}}</td>
-                    <td>{{cruise.EndDate|date:"d.m.Y"}}</td>
+                    <td>{{cruise.StartPort}}<br><span style="font-size:0.875em">{{cruise.StartDate|date:"d.m.Y"}}</span></td>
+                    <td>{{cruise.EndPort}}<br><span style="font-size:0.875em">{{cruise.EndDate|date:"d.m.Y"}}</span></td>
                     <td>{{cruise.MaxBerths}}</td>
+                    <td>
+                        <a href="{% url 'cruise_edit' cruise.pk %}" class="btn btn-secondary">Details</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

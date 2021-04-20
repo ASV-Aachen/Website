@@ -9,13 +9,21 @@ from django.views.generic import DeleteView
 
 from django.urls import resolve
 from cruises.forms import CruiseForm
+from cruises.models import Cruise
 from cruises.utils import get_aktuelle_saison, check_authentication_redirect_if_fails
 from member.models import profile
 
 
 def cruises_home(request):
-    
-    return render(request, "cruises/cruises_home.html",)
+
+    cruises = Cruise.objects.all()
+    return render(request, "cruises/cruises_home.html", context={
+        "cruises": cruises
+    })
+
+def ship_position(request):
+
+    return render(request, "cruises/ship_position.html")
 
 def createNewCruise(request):
     check_authentication_redirect_if_fails(request)
@@ -29,6 +37,23 @@ def createNewCruise(request):
         form = CruiseForm(initial={'MaxBerths': 12})
     return render(request, "cruises/cruise_form.html", {
         "form": form,
+        "model_name": "Cruise",
+        "delete_view_name": "cruise_delete"
+    })
+
+def cruise_edit(request, pk):
+    if request.method == "POST":
+        form = CruiseForm(initial={'MaxBerths': 12})
+        form = CruiseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("cruises_home")
+    else:
+        form = CruiseForm(initial={'MaxBerths': 12})
+    cruise = Cruise.objects.get(pk=pk)
+    return render(request, "cruises/cruise_form.html", context={
+        "form": form,
+        "cruise": cruise,
         "model_name": "Cruise",
         "delete_view_name": "cruise_delete"
     })
