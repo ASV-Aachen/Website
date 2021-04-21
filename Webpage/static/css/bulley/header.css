@@ -78,7 +78,7 @@
 
 #main-nav .navbar-brand::before {
     position: relative;
-    content: url("/static/img/stander_klein_35px.png");
+    content: url("/static/img/ASV_Stander.png");
     top: 0rem;
     left: -1rem;
 
