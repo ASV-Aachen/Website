@@ -10,7 +10,7 @@
     --asvcoloryellow: #f9cf27; /* --> FFDE24 CD ASV aus Hörsalpräsentation   */
     --asvcolorblue: #004D80;
     --asvcolorlightblue: #0068AC;
-    --asvcolordarkblue: #0068AC;
+    --asvcolordarkblue: #003F68;
     --asvcolorgrey: #898787;
     --asvcolorlightgrey: #f8f9fa;
     --asvcolorbackgroundgrey: #cdcdcd;
@@ -322,8 +322,29 @@ img {
     background-color: var(--asvcolorlightgrey) !important;
 }
 
+.btn-info {
+    color: white;
+    background-color: var(--asvcolorblue);
+    border-color: var(--asvcolorblue);
+}
+
+.btn-info:hover, .btn-info:focus {
+    background-color: var(--asvcolordarkblue);
+    border-color: var(--asvcolordarkblue);
+}
 
 
+.btn-primary {
+    color: var(--asvcolorblue);
+    background-color: var(--asvcolorlightgrey);
+    border-color: var(--asvcoloryellow);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    color: black;
+    background-color: var(--asvcoloryellow);
+    border-color: var(--asvcoloryellow);
+}
 
 
 /* Smart Phones und Tablets mit mittlerer Auflösung */
