@@ -316,7 +316,7 @@ img {
 
 .btn:focus {
     outline: 0;
-    box-shadow: 0 0 0 0.2rem var(--asvcoloryellow);
+    box-shadow: 0 0 0 0.1rem var(--asvcoloryellow);
 }
 .bg-light {
     background-color: var(--asvcolorlightgrey) !important;
