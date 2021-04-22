@@ -281,6 +281,15 @@
     padding: 0 0.5rem;
 }
 
+.navbar .nav-item .dropdown-menu {
+	display: none;
+}
+
+.navbar .nav-item:hover .dropdown-menu {
+    display: block;
+}
+
+
 .navbar-light .navbar-nav .nav-link {
     padding: 0.5rem 1rem;
     margin: 0;
