@@ -7,6 +7,7 @@ $CONFIG = array (
   'trusted_domains' => 
   array (
     0 => '*',
+    skeletondirectory => '',
   ),
   'datadirectory' => '/var/www/html/data',
   'dbtype' => 'mysql',

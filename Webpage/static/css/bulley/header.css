@@ -15,7 +15,7 @@
 #header-logo {
 
     /* background: url("/static/img/logo_offiziell_17_-01.png") no-repeat center center; */
-    background: url("/static/img/AlphaLogo.png") no-repeat center center;
+    background: url("/static/img/ASV_Logo.png") no-repeat center center;
     background-size: contain;
 }
 #header-text {
@@ -78,7 +78,7 @@
 
 #main-nav .navbar-brand::before {
     position: relative;
-    content: url("/static/img/stander_klein_35px.png");
+    content: url("/static/img/ASV_Stander.png");
     top: 0rem;
     left: -1rem;
 
@@ -97,7 +97,7 @@
 /*    color: var(--asvcolorblue);*/
     width: 100px;
     height: 40px;
-    background: url("/static/img/logo_offiziell_17_-01.png") no-repeat center center;
+    background: url("/static/img/ASV_Logo.png") no-repeat center center;
     background-size: contain;
 }
 /* Layout navbar-brand mit Logo nach CD Ende */
