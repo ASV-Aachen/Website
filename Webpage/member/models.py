@@ -6,6 +6,7 @@ from django.dispatch import receiver
 import os
 from phonenumber_field.modelfields import PhoneNumberField
 from django_resized import ResizedImageField
+import secrets
 
 class role(models.Model):
     titel = models.CharField(max_length=70, null=False, primary_key=True)
@@ -18,6 +19,11 @@ class role(models.Model):
 # Finde den Path zum Bild
 def get_image_path(instance, filename):
     return os.path.join('photos', str(instance.id), filename)
+
+def update_filename(instance, filename):
+    path = "profile"
+    format = secrets.token_hex(64) + filename
+    return os.path.join(path, format)
 
 class profile(models.Model):
     Anwärter = 1
@@ -44,7 +50,7 @@ class profile(models.Model):
     country = models.CharField(max_length=70, null=True, default='Deutschland')
     
     # profile_image = models.ImageField(upload_to='profile', blank=True, null=True)
-    profile_image = ResizedImageField(size=[166,233], upload_to='profile', crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
+    profile_image = ResizedImageField(size=[166,233], upload_to=update_filename, crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
     
     status = models.PositiveSmallIntegerField(choices=status_info, null=True, blank=True)
     

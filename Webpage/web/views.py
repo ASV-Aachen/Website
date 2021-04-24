@@ -32,11 +32,10 @@ from web.models import infoPage, infoPageHistory, HeadPage, frontHeader, standar
 
 def MainPage(request):
     """
-    Hauptseite, erreichbar mit "/" ist anders, je nachdem op  man angemeldet ist oder nicht.
+    Hauptseite, erreichbar mit "/" ist anders, je nachdem op man angemeldet ist oder nicht.
     :param request:
     :return: Die Website
     """
-    # Eingeloggte Mitglieder bekommen eine andere Homepagemit eigenen Links und eigenen Hinweisen (TODO)
     posts = blogPost.objects.all().order_by('-id')
     paginator = Paginator(posts, 10)
 
