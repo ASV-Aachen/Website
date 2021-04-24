@@ -13,12 +13,11 @@
 
 {% block content %}
     <h3 class="pb-3 mb-4 font-italic border-bottom">Einstellungen</h3>
-
+    <h4 id ="UserName"> {{profil.user.first_name}} {{profil.user.last_name}} </h4>
     {% if profil.profile_image%}
-        <div id ="UserName"> {{profil.user.first_name}} {{profil.user.last_name}} </div>
-        <img src="{{profil.profile_image.url}}">
+        <img style="width: 155px;height: 233px;min-width: 166px;min-height: 233px;border-radius: 10px;margin: 5px;" src="{{profil.profile_image.url}}">
     {% else %}
-        <img src="{% static 'img/standard_profile_picture_cropt.png' %}" style="max-width: 166px;">
+        <img style="width: 155px;height: 233px;min-width: 166px;min-height: 233px;border-radius: 10px;margin: 5px;" src="{% static 'img/standard_profile_picture_cropt.png' %}" >
     {% endif %}
 
     <div id="roleDisplay">
