@@ -94,15 +94,6 @@
         "attributes": {}
       },
       {
-        "id": "98034648-8fc1-4441-9fcd-2bb97b093654",
-        "name": "uma_authorization",
-        "description": "${role_uma_authorization}",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "ASV",
-        "attributes": {}
-      },
-      {
         "id": "975bb55b-f3b7-4c8c-98d7-4ee756fef1a8",
         "name": "Regattawart",
         "composite": false,
@@ -194,15 +185,6 @@
         "id": "48dfd3ab-f246-4717-8a4a-d93855ee307a",
         "name": "2. Vorsitzende bzw. Vorsitzender der Altherrenschschaft",
         "description": "auch gerne BGB-Vorsitzender genannt",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "ASV",
-        "attributes": {}
-      },
-      {
-        "id": "105f3d17-28a1-44f5-b95a-f72b649f5cf5",
-        "name": "offline_access",
-        "description": "${role_offline-access}",
         "composite": false,
         "clientRole": false,
         "containerId": "ASV",
@@ -613,9 +595,7 @@
           "name": "Rurseeobmann",
           "path": "/Obleute/Rurseeobmann",
           "attributes": {},
-          "realmRoles": [
-            "Rurseeobmann"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -632,9 +612,7 @@
               "name": "Seeschiffobmann",
               "path": "/Obleute/Seeschiffobleute/Seeschiffobmann",
               "attributes": {},
-              "realmRoles": [
-                "Seeschiffobmann"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             },
@@ -643,9 +621,7 @@
               "name": "Seeschiffteam",
               "path": "/Obleute/Seeschiffobleute/Seeschiffteam",
               "attributes": {},
-              "realmRoles": [
-                "Seeschiffteam"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             }
@@ -656,9 +632,7 @@
           "name": "Homepageobmann",
           "path": "/Obleute/Homepageobmann",
           "attributes": {},
-          "realmRoles": [
-            "Homepageobmann"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -667,9 +641,7 @@
           "name": "Stegobmann",
           "path": "/Obleute/Stegobmann",
           "attributes": {},
-          "realmRoles": [
-            "Stegobmann"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -678,9 +650,7 @@
           "name": "Bauchladenobmann",
           "path": "/Obleute/Bauchladenobmann",
           "attributes": {},
-          "realmRoles": [
-            "Bauchladenobmann"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -689,9 +659,7 @@
           "name": "Seekartenobmann",
           "path": "/Obleute/Seekartenobmann",
           "attributes": {},
-          "realmRoles": [
-            "Seekartenobmann"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -700,9 +668,7 @@
           "name": "Bootsleute",
           "path": "/Obleute/Bootsleute",
           "attributes": {},
-          "realmRoles": [
-            "Bootsleute"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -711,9 +677,7 @@
           "name": "Seereisenkoordinator",
           "path": "/Obleute/Seereisenkoordinator",
           "attributes": {},
-          "realmRoles": [
-            "Seereisenkoordinator"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -722,9 +686,7 @@
           "name": "Bierwart",
           "path": "/Obleute/Bierwart",
           "attributes": {},
-          "realmRoles": [
-            "Bierwart"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -733,9 +695,7 @@
           "name": "Etagenobmann",
           "path": "/Obleute/Etagenobmann",
           "attributes": {},
-          "realmRoles": [
-            "Etagenobmann"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -744,9 +704,7 @@
           "name": "Pressesprecher",
           "path": "/Obleute/Pressesprecher",
           "attributes": {},
-          "realmRoles": [
-            "Pressesprecher"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -755,9 +713,7 @@
           "name": "Hallenobmann",
           "path": "/Obleute/Hallenobmann",
           "attributes": {},
-          "realmRoles": [
-            "Hallenobmann"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -766,9 +722,7 @@
           "name": "Verbandsobmann",
           "path": "/Obleute/Verbandsobmann",
           "attributes": {},
-          "realmRoles": [
-            "Verbandsobmann"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         }
@@ -787,9 +741,7 @@
           "name": "Editor",
           "path": "/Sonstige/Editor",
           "attributes": {},
-          "realmRoles": [
-            "Editor"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -798,9 +750,7 @@
           "name": "Entwickler",
           "path": "/Sonstige/Entwickler",
           "attributes": {},
-          "realmRoles": [
-            "Entwickler"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -809,9 +759,7 @@
           "name": "Kursleiter",
           "path": "/Sonstige/Kursleiter",
           "attributes": {},
-          "realmRoles": [
-            "Kursleiter"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         },
@@ -829,9 +777,7 @@
           "name": "Admin",
           "path": "/Sonstige/Admin",
           "attributes": {},
-          "realmRoles": [
-            "Admin"
-          ],
+          "realmRoles": [],
           "clientRoles": {},
           "subGroups": []
         }
@@ -858,9 +804,7 @@
               "name": "Regattawart",
               "path": "/Vorstand/Aktivenvorstand/Regattawart",
               "attributes": {},
-              "realmRoles": [
-                "Regattawart"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             },
@@ -869,9 +813,7 @@
               "name": "Kassenwart",
               "path": "/Vorstand/Aktivenvorstand/Kassenwart",
               "attributes": {},
-              "realmRoles": [
-                "Kassenwart"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             },
@@ -880,9 +822,7 @@
               "name": "Ausbildungswart",
               "path": "/Vorstand/Aktivenvorstand/Ausbildungswart",
               "attributes": {},
-              "realmRoles": [
-                "Ausbildungswart"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             },
@@ -891,9 +831,7 @@
               "name": "Stellvertreter Vorsitzender",
               "path": "/Vorstand/Aktivenvorstand/Stellvertreter Vorsitzender",
               "attributes": {},
-              "realmRoles": [
-                "Stellvertretender Vorstand"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             },
@@ -902,9 +840,7 @@
               "name": "Takelmeister",
               "path": "/Vorstand/Aktivenvorstand/Takelmeister",
               "attributes": {},
-              "realmRoles": [
-                "Takelmeister"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             },
@@ -913,9 +849,7 @@
               "name": "1. Vorsitzender",
               "path": "/Vorstand/Aktivenvorstand/1. Vorsitzender",
               "attributes": {},
-              "realmRoles": [
-                "1. Vorsitzender"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             },
@@ -924,9 +858,7 @@
               "name": "Schriftwart",
               "path": "/Vorstand/Aktivenvorstand/Schriftwart",
               "attributes": {},
-              "realmRoles": [
-                "Schriftwart"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             }
@@ -945,9 +877,7 @@
               "name": "2. Kassenwart der Altherrenschaft",
               "path": "/Vorstand/Gesamtvorstand/2. Kassenwart der Altherrenschaft",
               "attributes": {},
-              "realmRoles": [
-                "2. Kassenwart bzw. Kassenwart der Altherrenschaft"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             },
@@ -956,9 +886,7 @@
               "name": "Schifferratsvorsitzender",
               "path": "/Vorstand/Gesamtvorstand/Schifferratsvorsitzender",
               "attributes": {},
-              "realmRoles": [
-                "Schifferratsvorsitzender"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             },
@@ -967,9 +895,7 @@
               "name": "2. Vorsitzender der Altherrenschschaft",
               "path": "/Vorstand/Gesamtvorstand/2. Vorsitzender der Altherrenschschaft",
               "attributes": {},
-              "realmRoles": [
-                "2. Vorsitzende bzw. Vorsitzender der Altherrenschschaft"
-              ],
+              "realmRoles": [],
               "clientRoles": {},
               "subGroups": []
             }
@@ -977,10 +903,6 @@
         }
       ]
     }
-  ],
-  "defaultRoles": [
-    "offline_access",
-    "uma_authorization"
   ],
   "requiredCredentials": [
     "password"
@@ -1255,19 +1177,17 @@
       "nodeReRegistrationTimeout": -1,
       "protocolMappers": [
         {
-          "id": "22d18e17-9a15-4a3c-8c62-7758d68d013b",
-          "name": "groups",
+          "id": "9d356a18-fc26-447c-9374-071a7a38a81d",
+          "name": "Group",
           "protocol": "openid-connect",
-          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "protocolMapper": "oidc-group-membership-mapper",
           "consentRequired": false,
           "config": {
-            "multivalued": "true",
-            "userinfo.token.claim": "true",
-            "user.attribute": "foo",
+            "full.path": "true",
             "id.token.claim": "true",
             "access.token.claim": "true",
-            "claim.name": "groups",
-            "jsonType.label": "String"
+            "claim.name": "group",
+            "userinfo.token.claim": "true"
           }
         }
       ],
@@ -1430,7 +1350,7 @@
         "saml.onetimeuse.condition": "false"
       },
       "authenticationFlowBindingOverrides": {
-        "direct_grant": "a3ef925f-748c-4614-9084-1bd9c2a084b4"
+        "direct_grant": "9a09e8a5-3b5d-4cd4-a334-bd2fa987dbee"
       },
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
@@ -1988,7 +1908,17 @@
     "xXSSProtection": "1; mode=block",
     "strictTransportSecurity": "max-age=31536000; includeSubDomains"
   },
-  "smtpServer": {},
+  "smtpServer": {
+    "password": "**********",
+    "starttls": "true",
+    "auth": "false",
+    "port": "465",
+    "host": "smtp.gmail.com",
+    "from": "devteambot5@gmail.com",
+    "fromDisplayName": "ASV-Dev Team",
+    "ssl": "true",
+    "user": ""
+  },
   "loginTheme": "asv",
   "accountTheme": "asv",
   "adminTheme": "asv",
@@ -2071,14 +2001,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-address-mapper",
-            "oidc-full-name-mapper",
-            "saml-user-property-mapper",
-            "saml-role-list-mapper",
-            "saml-user-attribute-mapper",
+            "oidc-sha256-pairwise-sub-mapper",
             "oidc-usermodel-property-mapper",
             "oidc-usermodel-attribute-mapper",
-            "oidc-sha256-pairwise-sub-mapper"
+            "oidc-address-mapper",
+            "oidc-full-name-mapper",
+            "saml-role-list-mapper",
+            "saml-user-property-mapper",
+            "saml-user-attribute-mapper"
           ]
         }
       },
@@ -2090,13 +2020,13 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "saml-role-list-mapper",
             "oidc-address-mapper",
+            "oidc-usermodel-attribute-mapper",
+            "oidc-usermodel-property-mapper",
             "oidc-sha256-pairwise-sub-mapper",
             "oidc-full-name-mapper",
-            "oidc-usermodel-attribute-mapper",
             "saml-user-attribute-mapper",
-            "oidc-usermodel-property-mapper",
+            "saml-role-list-mapper",
             "saml-user-property-mapper"
           ]
         }
@@ -2156,7 +2086,7 @@
   "defaultLocale": "de",
   "authenticationFlows": [
     {
-      "id": "65cb1d60-94e6-46b2-98fe-46be16bbfa48",
+      "id": "25d042fc-64de-471d-8161-005fc584e123",
       "alias": "Account verification options",
       "description": "Method with which to verity the existing account",
       "providerId": "basic-flow",
@@ -2180,7 +2110,7 @@
       ]
     },
     {
-      "id": "d8bc54fb-52d7-495e-9103-b19b56f94726",
+      "id": "7a62f017-78dc-40bc-99da-e95bff43edb1",
       "alias": "Authentication Options",
       "description": "Authentication options.",
       "providerId": "basic-flow",
@@ -2211,7 +2141,7 @@
       ]
     },
     {
-      "id": "016c1c33-c5c5-4b7c-aab3-21c0847b46b9",
+      "id": "16b450eb-5274-4644-83f6-1534872aa64f",
       "alias": "Browser - Conditional OTP",
       "description": "Flow to determine if the OTP is required for the authentication",
       "providerId": "basic-flow",
@@ -2235,7 +2165,7 @@
       ]
     },
     {
-      "id": "f66bcc1b-6195-45a2-9e15-662d12972ec4",
+      "id": "2d9242e7-1b6a-48c7-b399-37aa118791d0",
       "alias": "Direct Grant - Conditional OTP",
       "description": "Flow to determine if the OTP is required for the authentication",
       "providerId": "basic-flow",
@@ -2259,7 +2189,7 @@
       ]
     },
     {
-      "id": "23d8c79b-9116-4dad-a6c2-1ff9b205254d",
+      "id": "18c0b890-47f7-4337-b006-65a864d87207",
       "alias": "First broker login - Conditional OTP",
       "description": "Flow to determine if the OTP is required for the authentication",
       "providerId": "basic-flow",
@@ -2283,7 +2213,7 @@
       ]
     },
     {
-      "id": "472fc9c1-17ec-452e-9e7c-54b38a343207",
+      "id": "5fd3acf2-2576-4876-8f73-cf6e18930c2d",
       "alias": "Handle Existing Account",
       "description": "Handle what to do if there is existing account with same email/username like authenticated identity provider",
       "providerId": "basic-flow",
@@ -2307,7 +2237,7 @@
       ]
     },
     {
-      "id": "896a7a11-d311-4516-8847-9309938c73bc",
+      "id": "d36d5570-f675-4ca2-9004-a4f0ccfc86a1",
       "alias": "Reset - Conditional OTP",
       "description": "Flow to determine if the OTP should be reset or not. Set to REQUIRED to force.",
       "providerId": "basic-flow",
@@ -2331,7 +2261,7 @@
       ]
     },
     {
-      "id": "b66dcabe-e01c-4771-9c02-973a3fc87451",
+      "id": "d8b69734-1161-4b70-bd03-3d45edf1bf16",
       "alias": "User creation or linking",
       "description": "Flow for the existing/non-existing user alternatives",
       "providerId": "basic-flow",
@@ -2356,7 +2286,7 @@
       ]
     },
     {
-      "id": "e1d49694-6e90-4666-9c45-7b2bb1e1857f",
+      "id": "f55e0b0d-28e0-4aae-bb7c-688e9a3dbb44",
       "alias": "Verify Existing Account by Re-authentication",
       "description": "Reauthentication of existing account",
       "providerId": "basic-flow",
@@ -2380,7 +2310,7 @@
       ]
     },
     {
-      "id": "4217d8cb-9739-420c-ade2-ca4a974239a0",
+      "id": "2164949a-f91f-4ea0-b7ab-7c6dfa1e6245",
       "alias": "browser",
       "description": "browser based authentication",
       "providerId": "basic-flow",
@@ -2418,7 +2348,7 @@
       ]
     },
     {
-      "id": "dbceb8a4-fc86-448c-b117-b904766c80d7",
+      "id": "0e64fa06-ff7c-4009-843c-d56683153130",
       "alias": "clients",
       "description": "Base authentication for clients",
       "providerId": "client-flow",
@@ -2456,7 +2386,7 @@
       ]
     },
     {
-      "id": "a3ef925f-748c-4614-9084-1bd9c2a084b4",
+      "id": "9a09e8a5-3b5d-4cd4-a334-bd2fa987dbee",
       "alias": "direct grant",
       "description": "OpenID Connect Resource Owner Grant",
       "providerId": "basic-flow",
@@ -2487,7 +2417,7 @@
       ]
     },
     {
-      "id": "6287d500-0e99-4e42-9bd6-ef80fcabefc0",
+      "id": "e45371f8-eed2-48fa-aa6c-48c50c80faa8",
       "alias": "docker auth",
       "description": "Used by Docker clients to authenticate against the IDP",
       "providerId": "basic-flow",
@@ -2504,7 +2434,7 @@
       ]
     },
     {
-      "id": "d399411f-274a-4e08-89b3-ee7cfcc7bb34",
+      "id": "ec62c760-ed64-4cde-b2a1-55a116dc7701",
       "alias": "first broker login",
       "description": "Actions taken after first broker login with identity provider account, which is not yet linked to any Keycloak account",
       "providerId": "basic-flow",
@@ -2529,7 +2459,7 @@
       ]
     },
     {
-      "id": "1211104b-d8d0-471c-95fa-9406be9693ae",
+      "id": "7832411c-bcad-44ab-9237-ffefba434632",
       "alias": "forms",
       "description": "Username, password, otp and other auth forms.",
       "providerId": "basic-flow",
@@ -2553,7 +2483,7 @@
       ]
     },
     {
-      "id": "6b50cd5a-2a78-463d-8077-2dbc3de62f51",
+      "id": "6fe03f13-74c4-4e60-9a0b-1e781ce88be5",
       "alias": "http challenge",
       "description": "An authentication flow based on challenge-response HTTP Authentication Schemes",
       "providerId": "basic-flow",
@@ -2577,7 +2507,7 @@
       ]
     },
     {
-      "id": "9cdf35da-c505-4f77-b2a7-12a04acc1060",
+      "id": "4cc49859-2626-4d95-a0e1-41fd2f013d2b",
       "alias": "registration",
       "description": "registration flow",
       "providerId": "basic-flow",
@@ -2595,7 +2525,7 @@
       ]
     },
     {
-      "id": "e60b3415-2196-4c38-82a1-5115a1db169a",
+      "id": "b38213bf-6ef2-47b1-a3c1-c7c044aaa1f3",
       "alias": "registration form",
       "description": "registration form",
       "providerId": "form-flow",
@@ -2633,7 +2563,7 @@
       ]
     },
     {
-      "id": "343f72a3-d2ad-45b3-b5ff-4e463614573b",
+      "id": "211a736e-10c3-4ebc-a069-8fe96a05e735",
       "alias": "reset credentials",
       "description": "Reset credentials for a user if they forgot their password or something",
       "providerId": "basic-flow",
@@ -2671,7 +2601,7 @@
       ]
     },
     {
-      "id": "ddffb00d-a097-41ac-9327-7395df7578e1",
+      "id": "5dab89ce-e2a7-4caf-97c6-2670ecc3fefe",
       "alias": "saml ecp",
       "description": "SAML ECP Profile Authentication Flow",
       "providerId": "basic-flow",
@@ -2690,14 +2620,14 @@
   ],
   "authenticatorConfig": [
     {
-      "id": "2f799fb4-b70f-41eb-8599-e2dff61277e1",
+      "id": "0a23e4cb-74b1-4352-bd07-07c1cc9ce174",
       "alias": "create unique user config",
       "config": {
         "require.password.update.after.registration": "false"
       }
     },
     {
-      "id": "03d2a903-7787-4214-9af8-a5ee5cd385f9",
+      "id": "a035c917-f6e1-413e-90c1-c8d67f8e6509",
       "alias": "review profile config",
       "config": {
         "update.profile.on.first.login": "missing"

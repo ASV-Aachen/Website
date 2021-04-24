@@ -1,11 +1,11 @@
-<!--templates/bulley/includes/header.html-->
+{# templates/bulley/includes/header.html #}
 <!doctype html>
 {% load static %}
 <link href="{% static 'css/bulley/header.css' %}" rel="stylesheet">
 
 
-  <div id="header-wrapper" class="row flex-nowrap align-items-center py-lg-3">
-    <div id="header-logo" class="col-auto ml-5 text-nowrap d-none d-lg-flex">
+  <div id="header-wrapper" class="row no-gutters flex-nowrap align-items-center py-lg-3">
+    <div id="header-logo" class="col-auto mx-3 text-nowrap d-none d-lg-flex">
       <a class="py-3 px-5" href="{% url 'ASV' %}"></a>
     </div>
     <div id="header-text"  class="col-auto ml-6 text-nowrap d-none d-lg-flex">
@@ -21,6 +21,7 @@
       </button>
       <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
         <ul class="navbar-nav mr-auto px-2 px-lg-0">
+          {% comment %}
           <li class="nav-item dropdown text-nowrap">
             <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'unfertig' %}">
               HeadPage</a>
@@ -33,16 +34,21 @@
               <ul class="submenu dropdown-menu" aria-labelledby="dropdownMenuButton">
 		        <li><a class="dropdown-item" href="#"> InfoPage Second Level 1</a></li>
                 <li><a class="dropdown-item" href="#"> InfoPage Second Level 2</a></li>
-      <!--          <li><a class="dropdown-item" href="{% url 'unfertig' %}"> Third level 3 &raquo </a>
+                <!--
+                <li><a class="dropdown-item" href="{% url 'unfertig' %}"> Third level 3 &raquo </a>
 			        <ul class="submenu dropdown-menu aria-labelledby="dropdownMenuButton">
 			          <li><a class="dropdown-item" href="#"> Fourth level 1</a></li>
 			          <li><a class="dropdown-item" href="{% url 'unfertig' %}"> Fourth level 2</a></li>
 			        </ul>
-                </li>-->
+                </li>
+                 -->
+
               </ul>
               </li>
             </ul>
           </li>
+          {% endcomment %}
+
         {% load createMenuObject %}
         {% createMenuObject as menuObject %}
 
@@ -64,7 +70,7 @@
               <li><a class="dropdown-item" href="{% url 'Mitgliederverzeichnis' %}">Mitgliederverzeichnis</a></li>
               <li><a class="dropdown-item" href="{% url 'arbeitsstunden_home' %}">Arbeitsstunden</a></li>
               <li><a class="dropdown-item" href="/wiki">Wiki</a></li>
-              <li><a class="dropdown-item" href="/cloud">Cloud</a></li>
+              <li><a class="dropdown-item" href="/cloud/index.php/apps/sociallogin/custom_oidc/Keycloak">Cloud</a></li>
 
               <li><a class="dropdown-item dropdown-toggle" href="/admin">Admin</a>
                 <ul class="submenu submenu- dropdown-menu" aria-labelledby="dropdownMenuButton">
