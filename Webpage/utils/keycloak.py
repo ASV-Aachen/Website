@@ -3,7 +3,7 @@ import os
 from django.contrib.auth.models import User, Group
 from keycloak import KeycloakAdmin
 
-from member.models import role
+from member.models import role, profile
 
 
 def getKeycloackAdmin():
@@ -24,8 +24,14 @@ def auto_Update_Roles():
 
     realm_roles = admin.get_realm_roles()
 
+    # print("----------------------------")
+    # print(realm_roles)
+
     for i in realm_roles:
-        role.objects.get_or_create(titel=i['name'])
+        if i['description']:
+            role.objects.get_or_create(titel=i['name'], description=i['description'])
+        else:    
+            role.objects.get_or_create(titel=i['name'])
 
 '''
 Get all Groups from Keycloak and add to Django
@@ -34,6 +40,9 @@ def auto_Update_Groups():
     admin = getKeycloackAdmin()
 
     groups = admin.get_groups()
+    
+    # print("----------------------------")
+    # print(groups)
 
     for i in groups:
         Group.objects.get_or_create(name=i['name'])
@@ -69,27 +78,35 @@ def update_all_Users():
         user.email = keycloak_user['email']
 
         # realm Roles
-        print(keycloak_user)
-        '''
-        # Get client - id (not client-id) from client by name
-        client_id = keycloak_admin.get_client_id("my-client")
-        
-        Retrieve client roles of a user.
-        keycloak_admin.get_client_roles_of_user(user_id="user_id", client_id="client_id")
-        
-        newRole, created = role.objects.get_or_create(titel=i)
-        user.roles.add(newRole)
-        
-        '''
-        # TODO
+        # print("----------------------------")
 
-        # alte Rollen raus
-        # neue Rollen rein
+        # GET /{realm}/users/{id}/groups
+        groups = keycloak_admin.get_user_groups(user_id=user_id_keycloak)
+        # print(groups)
 
-        # alte Gruppen raus
-        # neue gruppen rein
+        user.groups.clear()
+        for i in groups:
+            newGroup, created = Group.objects.get_or_create(name=i['name'])
+            user.groups.add(newGroup)
 
+        
+        # GET /{realm}/users/{id}/roles
+        roles = keycloak_admin.get_realm_roles_of_user(user_id=user_id_keycloak)
+        # print(roles)
+
+        userProfile = profile.objects.get(user=user)
+        userProfile.roles.clear()
+        
+        for i in roles:
+            newRole, created = role.objects.get_or_create(titel=i['name'])
+            userProfile.roles.add(newRole)
+        
+        userProfile.save()
         user.save()
+
+        user.is_staff = user.groups.filter(name='Admin').exists()
+        user.is_admin = user.groups.filter(name='Admin').exists()
+
 
     return
 
