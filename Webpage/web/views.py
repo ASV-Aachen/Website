@@ -113,6 +113,8 @@ def autoPopulate(request):
 def unfertig(request):
     return render(request, "unfertig.html", {})
 
+def errorPage(request):
+    return render(request, "errorPage.html", {})
 
 '''
 Eine einfache Übersicht über alle Infopages
