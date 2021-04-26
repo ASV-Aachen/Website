@@ -299,6 +299,14 @@ small,
   font-size: .8rem;
   font-weight: 200;
 }
+
+.font-style-plakat {
+    color: black;
+    font-weight: 600;
+    Background-color: var(--asvcoloryellow);
+}
+
+}
 a {
     color: var(--asvcolordarkblue);
 }
@@ -344,6 +352,39 @@ img {
     color: black;
     background-color: var(--asvcoloryellow);
     border-color: var(--asvcoloryellow);
+}
+.asv-logo-alpha {
+    background: url("/static/img/AlphaLogo.png") no-repeat center center;
+    background-size: contain;
+}
+
+.asv-logo-1 {
+    background: url("/static/img/logo_offiziell_17_-01.png") no-repeat center center;
+    background-size: contain;
+}
+
+.asv-logo-2 {
+    background: url("/static/img/logo_offiziell_17_-02.png") no-repeat center center;
+    background-size: contain;
+}
+
+.asv-logo-3 {
+    background: url("/static/img/logo_offiziell_17_-03.png") no-repeat center center;
+    background-size: contain;
+}
+
+.asv-logo-4 {
+    background: url("/static/img/logo_offiziell_17_-04.png") no-repeat center center;
+    background-size: contain;
+}
+
+.asv-logo-alpha::before,
+.asv-logo-1::before,
+.asv-logo-2::before,
+.asv-logo-3::before,
+.asv-logo-4::before {
+    content: "Logo";
+    color: transparent;
 }
 
 
