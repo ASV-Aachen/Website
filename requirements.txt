@@ -21,3 +21,4 @@ Faker
 python-keycloak
 django-sitetree~=1.14
 django-simple-history
+django-filter

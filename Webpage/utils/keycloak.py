@@ -25,7 +25,7 @@ def auto_Update_Roles():
     realm_roles = admin.get_realm_roles()
 
     # print("----------------------------")
-    # print(realm_roles)
+    print(realm_roles)
 
     for i in realm_roles:
         if i['description']:

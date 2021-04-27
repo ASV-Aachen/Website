@@ -12,6 +12,7 @@ from utils.member import newMember, userToHash, deleteGivenUser
 from .models import profile
 from django.contrib.auth.models import User
 from .forms import changePersonalInfo, createNewMember
+from .filters import userFilter
 
 
 # Create your views here.
@@ -26,7 +27,11 @@ def index(request):
 # Mitgliederverzeichnis
 @login_required
 def member_directory(request):
-    context = {'personen': profile.objects.all()}
+    personFilter = userFilter(request.GET, queryset=profile.objects.all())
+    context = {
+            'personen': profile.objects.all(),
+            'filter': personFilter
+        }
     return render(request, template_name="member/Mitgliderverzeichnis.html", context=context)
 
 # Anzeige für den Einzelnen Nutzer

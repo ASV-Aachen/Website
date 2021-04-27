@@ -8,12 +8,24 @@
     <link href="{% static 'member/css/Mitgliederverzeichnis.css' %}" rel="stylesheet">
 {% endblock styles %}
 
+{% block aside %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Filter</h5>
+                <form method="get">
+                    {{ filter.form.as_p }}
+                    <input type="submit" value="Suche 🔎"/>
+                </form>
+        </div>
+    </div>
+{% endblock aside %}
+
 {% block content %}
   <h1>Mein ASV</h1>
   <h2>Mitgliederverzeichnis</h2>
 
     <div id="Verzeichnis" style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-around;gap: 12px;">
-        {% for profil in personen%}
+        {% for profil in filter.qs%}
             <div id="Nutzer" style="height: 360px;width: 180px;min-width: 180px;min-height: 360px;border-style: solid;box-shadow: 2px 0px 5px;">
                 {% if profil.profile_image%}
                     <img style="width: 155px;height: 233px;min-width: 166px;min-height: 233px;border-radius: 10px;margin: 5px;" src="{{profil.profile_image.url}}" />
