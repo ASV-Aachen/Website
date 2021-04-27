@@ -34,7 +34,7 @@ def ubersicht(request):
 def description(request, name):
     jolle = get_object_or_404(boot, name=name)
     return render(request, "jollen/description.html", context={
-                    "Jolle": jolle
+                    "Jollen": jolle
                 })
 
 
@@ -65,7 +65,7 @@ def settings_status(request, name):
         form = settings_status(instance = jolle.message)
 
         return render(request, "web/jollen_editor.html", {
-            "jolle": jolle, 
+            "Jollen": jolle, 
             "form": form
             })
 
@@ -92,7 +92,7 @@ def settings_description(request, name):
         form = settings_description(instance = jolle)
 
         return render(request, "web/jollen_editor.html", {
-            "jolle": jolle, 
+            "Jollen": jolle, 
             "form": form
             })
     pass

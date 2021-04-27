@@ -67,7 +67,7 @@ class boot(models.Model):
     klasse = models.OneToOneField(bootsklasse, on_delete=models.SET_NULL, null=True)
     description = HTMLField()
     image = ResizedImageField(size=[166,233], upload_to='boats', crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
-    obman = models.OneToOneField(User, on_delete=models.SET(get_sentinel_user))
+    obman = models.CharField(max_length=100, null=False)
     
     message = models.OneToOneField(nachricht, on_delete=models.SET_NULL, null=True)
     history = models.ManyToManyField(nachricht_historie, blank=True)
