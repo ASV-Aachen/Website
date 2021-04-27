@@ -50,7 +50,6 @@ def MainPage(request):
                 "UserName": Name,
             })
     else:    
-
         return render(request, "web/home.html", context={
                 "News": page_obj,
             })
