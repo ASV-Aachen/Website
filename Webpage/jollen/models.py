@@ -16,12 +16,12 @@ def get_sentinel_user():
 class nachricht_historie(models.Model):
     text = models.CharField(max_length=800, null=False)
     autor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
-    time = models.DateTimeField(auto_created=True, default=timezone.now)
+    date = models.DateTimeField(auto_created=True, default=timezone.now)
 
 class nachricht(models.Model):
     text = models.CharField(max_length=800, null=False)
     autor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
-    time = models.DateTimeField(auto_created=True, default=timezone.now)
+    date = models.DateTimeField(auto_created=True, default=timezone.now)
 
 class boot(models.Model):    
     # Status
