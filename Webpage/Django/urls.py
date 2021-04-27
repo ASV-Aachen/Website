@@ -29,4 +29,5 @@ urlpatterns = [
     path('admin/filebrowser/', site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('oidc/', include('mozilla_django_oidc.urls')),
+    path('jollen/', include('jollen.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
