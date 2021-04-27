@@ -19,11 +19,6 @@ class nachricht_historie(models.Model):
     date = models.DateTimeField(auto_created=True, default=timezone.now)
 
 class nachricht(models.Model):
-    text = models.CharField(max_length=800, null=False)
-    autor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
-    date = models.DateTimeField(auto_created=True, default=timezone.now)
-
-class boot(models.Model):    
     # Status
     segelbar = 1
     eingeschränkt_segelbar = 2
@@ -35,8 +30,7 @@ class boot(models.Model):
         (nicht_segelbar, 'nicht segelbar'),
         (fertig_für_die_Indienststellung, 'Fertig für die Indienststellung'),
     )
-
-    # Segelbar
+        # Segelbar
     Rursee = 1
     Roermond = 2
     Eschweiler = 3
@@ -51,15 +45,22 @@ class boot(models.Model):
         (Segellager, 'Segellager'),
         (unterwegs, 'unterwegs')
     )
+
+    status = models.PositiveSmallIntegerField(choices=status_info, null=False, default=3)
+    standort = models.PositiveSmallIntegerField(choices=position_info, null=False, default=3)
+
+    text = models.CharField(max_length=800, null=False)
+    autor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
+    date = models.DateTimeField(auto_created=True, default=timezone.now)
+
+class boot(models.Model):    
+
     # ------------------------------------------
     name = models.CharField(max_length=100, null=False)
 
     klasse = models.OneToOneField(bootsklasse, on_delete=models.SET_NULL, null=True)
     description = HTMLField()
     image = ResizedImageField(size=[166,233], upload_to='boats', crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
-    status = models.PositiveSmallIntegerField(choices=status_info, null=False, default=3)
-
-    standort = models.PositiveSmallIntegerField(choices=status_info, null=False, default=3)
     obman = models.OneToOneField(User, on_delete=models.SET(get_sentinel_user))
     
     message = models.OneToOneField(nachricht, on_delete=models.SET_NULL, null=True)
