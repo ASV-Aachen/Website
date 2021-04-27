@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.db import models
 from django.db.models.base import Model
 from tinymce import HTMLField
@@ -9,6 +10,8 @@ from django.utils import timezone
 
 class bootsklasse(models.Model):
     name = models.CharField(max_length=100, null=False)
+    def __str__(self) -> str:
+        return self.name
 
 def get_sentinel_user():
     return get_user_model().objects.get_or_create(username='deleted')[0]
@@ -53,6 +56,9 @@ class nachricht(models.Model):
     autor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
     date = models.DateTimeField(auto_created=True, default=timezone.now)
 
+    def __str__(self) -> str:
+        return self.date
+
 class boot(models.Model):    
 
     # ------------------------------------------
@@ -65,3 +71,6 @@ class boot(models.Model):
     
     message = models.OneToOneField(nachricht, on_delete=models.SET_NULL, null=True)
     history = models.ManyToManyField(nachricht_historie, blank=True)
+
+    def __str__(self) -> str:
+        return self.name

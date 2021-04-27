@@ -26,6 +26,7 @@
 
         {% load createMenuObject %}
         {% createMenuObject as menuObject %}
+        {% createMenuObject_jollen as jollen%}
 
         {% for gruppen in menuObject%}
           <li class="nav-item dropdown">
@@ -37,6 +38,14 @@
             </ul>
           </li>
         {% endfor %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'jollenÜbersicht' %}"> Unsere Jollen </a>
+            <ul class="dropdown-menu dropdown" aria-labelledby="dropdownMenuButton">
+              {% for boot in jollen %}
+                <li><a class="dropdown-item" href="{% url 'jollen_description' boot.name %}"> {{ boot.klasse }} "{{ boot.name }}" </a></li>
+              {% endfor %}
+            </ul>
+          </li>
         {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'MeinASV' %}">

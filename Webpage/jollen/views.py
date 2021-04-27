@@ -101,3 +101,11 @@ def settings_description(request, name):
 - [ ] Boote ins MenüObject einfügen
     - [ ] Header-Generierung anpassen
 '''
+
+register = template.Library()
+
+@register.simple_tag
+def createMenuObject_jollen() -> {}:
+
+    return boot.objects.all()
+
