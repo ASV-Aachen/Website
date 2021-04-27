@@ -33,3 +33,6 @@ startAutoFigures: ## Starts the Cron Skripts
 
 updateFromKeycloak: ## Gets the Data from Keyclaok and updates the Webservice
 	./bin/updateKeycloak.sh
+
+createRootUser: ## Create a superuser for Django
+	./bin/superuser.sh

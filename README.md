@@ -61,6 +61,9 @@ services:
       #Redis
       REDIS_HOST: nextcloud-redis
       REDIS_HOST_PASSWORD: my-secret-pw
+      # Nextcloud Settings
+      NEXTCLOUD_TRUSTED_DOMAINS: ******
+      OVERWRITEHOST: ******
 
 
   #---------------------------------------------------------------------------------------

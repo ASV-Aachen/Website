@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            auto_Update_Roles()
+            auto_Update_Roles() 
         except Exception as e:
             self.stdout.write("Error beim Update von Roles " + str(e), ending='')
             pass
