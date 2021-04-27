@@ -12,7 +12,7 @@
   <h1>Mein ASV</h1>
   <h2>Mitgliederverzeichnis</h2>
 
-    <div id="Verzeichnis">
+    <div id="Verzeichnis" style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-around;gap: 12px;">
         {% for profil in personen%}
             <div id="Nutzer" style="height: 360px;width: 180px;min-width: 180px;min-height: 360px;border-style: solid;box-shadow: 2px 0px 5px;">
                 {% if profil.profile_image%}
