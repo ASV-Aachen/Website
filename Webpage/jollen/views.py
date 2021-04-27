@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django import template
 
 from .forms import *
 from .models import *
@@ -95,12 +96,6 @@ def settings_description(request, name):
             "form": form
             })
     pass
-
-
-'''
-- [ ] Boote ins MenüObject einfügen
-    - [ ] Header-Generierung anpassen
-'''
 
 register = template.Library()
 
