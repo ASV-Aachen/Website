@@ -98,7 +98,6 @@ def settings_description(request, name):
     pass
 
 register = template.Library()
-
 @register.simple_tag
 def createMenuObject_jollen() -> {}:
 
