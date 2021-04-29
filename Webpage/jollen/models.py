@@ -68,6 +68,8 @@ class boot(models.Model):
     description = HTMLField()
     image = ResizedImageField(size=[166,233], upload_to='boats', crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
     obman = models.CharField(max_length=100, null=False)
+
+    isboat = models.BooleanField(default=True)
     
     message = models.OneToOneField(nachricht, on_delete=models.SET_NULL, null=True)
     history = models.ManyToManyField(nachricht_historie, blank=True)
