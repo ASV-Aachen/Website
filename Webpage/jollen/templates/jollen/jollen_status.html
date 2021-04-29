@@ -24,6 +24,7 @@
                 Obmann: {{ boot.obman }}
                 Status: {{ boot.message.get_status_display }}
                 Standort: {{ boot.message.get_standort_display }}
+                <a href="{% url 'jollen_settings_status' boot.name %}">Bearbeiten</a>
               </div>
 
               <div class="Messages">
