@@ -11,6 +11,7 @@ from django import template
 from .forms import *
 from .models import *
 from utils.loginFunctions import *
+from datetime import datetime
 
 # Create your views here.
 
@@ -45,26 +46,40 @@ def settings_status(request, name):
 
     if request.method == "POST":
         # Eintragen in die DB
-        form = settings_status(request.POST, request.FILES)
+        form = settings_status_form(request.POST, request.FILES)
 
         if form.is_valid():
             form.save(commit=False)
             form.instance.autor = request.user
-            
+
+            if jolle.message is None:
+                temp = nachricht(status=form.instance.status, standort=form.instance.standort, text = form.instance.text, autor= request.user)
+                temp.save()
+                jolle.message = temp
+            else:
+                newHistory = nachricht_historie(text = jolle.message.text, autor = jolle.message.autor, date= jolle.message.date)
+                newHistory.save()
+                jolle.history.add(newHistory)
+                jolle.message.status = form.instance.status
+                jolle.message.standort = form.instance.standort
+                jolle.message.text = form.instance.text
+                jolle.message.date = datetime.now()
+                jolle.message.autor = request.user
+
             # neue Historie erstellen
-            newHistory = nachricht_historie(text = form.instance.text, autor = form.instance.autor)
-            newHistory.save()
-            jolle.history.add(newHistory)
+            
+
             jolle.save()
             
             # abspeichern
-            form.save()
             
-            return redirect('jollenÜbersicht')
+            
+            return redirect('jollenStatus')
     else:
-        form = settings_status(instance = jolle.message)
+        form = settings_status_form(instance=jolle.message)
+        form.instance.text = " "
 
-        return render(request, "web/jollen_editor.html", {
+        return render(request, "jollen/jollen_editor.html", {
             "Jollen": jolle, 
             "form": form
             })
@@ -81,7 +96,7 @@ def settings_description(request, name):
 
     if request.method == "POST":
         # Eintragen in die DB
-        form = settings_description(request.POST, request.FILES)
+        form = settings_description_form(request.POST, request.FILES)
 
         if form.is_valid():
             # abspeichern
@@ -89,7 +104,7 @@ def settings_description(request, name):
             
             return redirect('jollenÜbersicht')
     else:
-        form = settings_description(instance = jolle)
+        form = settings_description_form(instance = jolle)
 
         return render(request, "web/jollen_editor.html", {
             "Jollen": jolle, 

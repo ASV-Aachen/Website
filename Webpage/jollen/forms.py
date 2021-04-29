@@ -9,13 +9,13 @@ from phonenumber_field.formfields import PhoneNumberField
 from .models import *
 
 
-class settings_status(ModelForm):
+class settings_status_form(ModelForm):
     class Meta:
         model = nachricht
         # Anpassen vom Status und Nachricht des Bootes
         fields = ['status', 'standort', 'text']
 
-class settings_description(ModelForm):
+class settings_description_form(ModelForm):
     class Meta:
         model = boot
         #  Anpassen vom Namen, Beschreibungstext, Bootsclasse und co
