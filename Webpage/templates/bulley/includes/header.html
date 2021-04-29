@@ -41,6 +41,9 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'jollenÜbersicht' %}"> Unsere Jollen </a>
             <ul class="dropdown-menu dropdown" aria-labelledby="dropdownMenuButton">
+            {% if request.user.is_authenticated %}
+                <li><a class="dropdown-item" href="{% url 'jollenStatus' %}"> Jollen Status </a></li>
+            {% endif %}
               {% for boot in jollen %}
                 <li><a class="dropdown-item" href="{% url 'jollen_description' boot.name %}"> {{ boot.klasse }} "{{ boot.name }}" </a></li>
               {% endfor %}

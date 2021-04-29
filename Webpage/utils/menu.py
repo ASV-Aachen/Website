@@ -1,4 +1,5 @@
 from web.models import infoPage, HeadPage
+from jollen.models import boot
 from django import template
 
 register = template.Library()
@@ -20,7 +21,10 @@ def createMenuObject() -> {}:
 
     return Objects
 
+@register.simple_tag
+def createMenuObject_jollen() -> {}:
 
+    return boot.objects.all()
 
 '''
 To register in Template:
