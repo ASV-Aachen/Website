@@ -1,0 +1,56 @@
+<!--/templates/custom.html-->
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} ASV-Aachen - Jollen Status {% endblock title %}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+{% endblock styles %}
+{% block headerimage%}
+    <img src="/static/img/header/cat_s0.jpg" alt="">
+{% endblock headerimage%}
+
+{% block content %}
+    <h1> Jollen Status </h1>
+    <div class="panel-group">
+        {% for boot in Jollen %}
+        <div class="panel panel-default">
+          <div class="panel-heading">{{ boot.klasse }} <a href="{% url 'jollen_description' boot.name %}">{{ boot.name }}</a></div>
+          <div class="panel-body">
+              <div class="">
+                Obmann: {{ boot.obman }}
+                Status: {{ boot.message.get_status_display }}
+                Standort: {{ boot.message.get_standort_display }}
+              </div>
+
+              <div class="Messages">
+                  <div class="list-group-item list-group-item-action flex-column align-items-start active">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1"></h5>
+                      <small> {{ boot.message.date | date:"F d, Y"}} </small>
+                    </div>
+                    <p class="mb-1">{{ boot.message.text }}</p>
+                    <small> {{ boot.message.autor }} </small>
+                  </div>
+                  {% for hist in boot.history %}
+                    <div class="list-group-item list-group-item-action flex-column align-items-start active">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1"></h5>
+                          <small> {{ hist.date | date:"F d, Y"}} </small>
+                        </div>
+                        <p class="mb-1">{{ hist.text }}</p>
+                        <small> {{ hist.autor }} </small>
+                    </div>
+                  {% endfor %}
+              </div>
+          </div>
+        </div>
+        {% endfor %}
+ {% endblock contend %}
+        
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+{% endblock scripts %}
