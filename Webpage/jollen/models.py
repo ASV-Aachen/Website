@@ -64,14 +64,14 @@ class boot(models.Model):
     # ------------------------------------------
     name = models.CharField(max_length=100, null=False)
 
-    klasse = models.OneToOneField(bootsklasse, on_delete=models.SET_NULL, null=True)
+    klasse = models.ForeignKey(bootsklasse, on_delete=models.SET_NULL, null=True)
     description = HTMLField()
     image = ResizedImageField(size=[166,233], upload_to='boats', crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
     obman = models.CharField(max_length=100, null=False)
 
     isboat = models.BooleanField(default=True)
     
-    message = models.OneToOneField(nachricht, on_delete=models.SET_NULL, null=True)
+    message = models.OneToOneField(nachricht, on_delete=models.SET_NULL, null=True,  blank=True)
     history = models.ManyToManyField(nachricht_historie, blank=True)
 
     def __str__(self) -> str:
