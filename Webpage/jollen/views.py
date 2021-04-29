@@ -17,26 +17,25 @@ from .models import *
 # Index-View zum Dashborad als Startseite vom "Mein ASV"
 
 def ubersicht(request):
-    # Wenn angemeldet
+    jollen = boot.objects.filter(isboat=True)
+    return render(request, "jollen/ubersicht-jollen.html", context={
+            "Jollen": jollen
+        })
+
+@login_required
+def jollen_status(request):
     jollen = boot.objects.all()
-    if (request.user.is_authenticated):
-        return render(request, "jollen/ubersicht_mitglied.html", context={
-                "Jollen": jollen
-            })
-    # wenn nicht
-    else:
-        return render(request, "jollen/ubersicht_gast.html", context={
-                "Jollen": jollen
-            })
-    pass
-    
+    return render(request, "jollen/jollen_status.html", context={
+        "Jollen": jollen
+    })
+
+
 
 def description(request, name):
     jolle = get_object_or_404(boot, name=name)
     return render(request, "jollen/description.html", context={
                     "Jollen": jolle
                 })
-
 
 @login_required
 def settings_status(request, name):
