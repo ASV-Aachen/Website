@@ -16,8 +16,8 @@
 {% block content %}
   <h1>{{ Jollen.klasse }} "{{ Jollen.name }}"</h1>
 
-  {{ Jollen.description }}
- {% endblock contend %}
+  {{ Jollen.description | safe }}
+ {% endblock content %}
 
 <!-- Hier können app-spezifische  Skripte dazugeladen werden-->
 {% block scripts %}
