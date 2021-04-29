@@ -13,7 +13,7 @@ class settings_status(ModelForm):
     class Meta:
         model = nachricht
         # Anpassen vom Status und Nachricht des Bootes
-        fields = ['staus', 'standort', 'text']
+        fields = ['status', 'standort', 'text']
 
 class settings_description(ModelForm):
     class Meta:

@@ -10,6 +10,7 @@ from django import template
 
 from .forms import *
 from .models import *
+from utils.loginFunctions import *
 
 # Create your views here.
 
@@ -96,9 +97,5 @@ def settings_description(request, name):
             })
     pass
 
-register = template.Library()
-@register.simple_tag
-def createMenuObject_jollen() -> {}:
 
-    return boot.objects.all()
 
