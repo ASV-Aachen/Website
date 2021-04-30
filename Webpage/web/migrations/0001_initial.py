@@ -14,6 +14,14 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='standartPages',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('titel', models.CharField(max_length=200)),
+                ('text', tinymce.models.HTMLField()),
+            ],
+        ),
+        migrations.CreateModel(
             name='HeadPage',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
