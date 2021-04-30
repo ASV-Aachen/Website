@@ -57,17 +57,17 @@ def settings_status(request, name):
                 temp.save()
                 jolle.message = temp
             else:
+                # neue Historie erstellen
                 newHistory = nachricht_historie(text = jolle.message.text, autor = jolle.message.autor, date= jolle.message.date)
                 newHistory.save()
                 jolle.history.add(newHistory)
-                jolle.message.status = form.instance.status
-                jolle.message.standort = form.instance.standort
-                jolle.message.text = form.instance.text
-                jolle.message.date = datetime.now()
-                jolle.message.autor = request.user
+                
+                form.instance.date = datetime.now()
+                form.instance.autor = request.user
+                form.instance.id = jolle.message.id
 
-            # neue Historie erstellen
-            
+                form.save()
+
 
             jolle.save()
             
@@ -97,16 +97,17 @@ def settings_description(request, name):
     if request.method == "POST":
         # Eintragen in die DB
         form = settings_description_form(request.POST, request.FILES)
+        form.instance.id = jolle.instance.id
 
         if form.is_valid():
             # abspeichern
             form.save()
             
-            return redirect('jollenÜbersicht')
+            return redirect('jollenStatus')
     else:
         form = settings_description_form(instance = jolle)
 
-        return render(request, "web/jollen_editor.html", {
+        return render(request, "jollen/jollen_editor.html", {
             "Jollen": jolle, 
             "form": form
             })
