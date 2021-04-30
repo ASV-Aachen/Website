@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
-
+{% load has_group %}
 
 {% block title %} ASV-Aachen - Jollen Status {% endblock title %}
 
@@ -17,38 +17,39 @@
     <h1> Jollen Status </h1>
     <div class="panel-group">
         {% for boot in Jollen %}
-        <div class="panel panel-default">
-          <div class="panel-heading">{{ boot.klasse }} <a href="{% url 'jollen_description' boot.name %}">{{ boot.name }}</a></div>
-          <div class="panel-body">
-              <div class="">
-                Obmann: {{ boot.obman }}
-                Status: {{ boot.message.get_status_display }}
-                Standort: {{ boot.message.get_standort_display }}
-                <a href="{% url 'jollen_settings_status' boot.name %}">Bearbeiten</a>
+          <div class="d-flex" style="flex-direction: column; display: flex;flex-wrap: wrap;justify-content: space-around;gap: 12px;">
+            <div style="border-style: solid;box-shadow: 2px 0px 5px; padding:8px">
+              <div class="row">
+                <div class="col-8">
+                  <h5 class="fw-bold">
+                    {{ boot.klasse }} {{ boot.name }}
+                    <small class="text-muted">Letztes Update vom: {{ boot.message.date | date:"F d, Y"}}</small>
+                  </h5>
+                </div>
+                <div class="col-4">
+                  <div>Obmann: {{ boot.obman }}</div>
+                  <div>Status: {{ boot.message.get_status_display }}</div>
+                  <div>Standort: {{ boot.message.get_standort_display }}</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-8">
+                  <p>
+                    {{ boot.message.text }}
+                    <small class="text-muted"> {{ boot.message.autor }}</small>
+                  </p>
+                </div>
+                <div class="col-4">
+                  <div> <a href="{% url 'jollen_settings_status' boot.name %}">Status Bearbeiten</a> </div>
+                  {% if request.user|has_group:"Editor" %}
+                    <div> <a href="{% url 'jollen_settings_description' boot.name %}">Boot Bearbeiten</a> </div>
+                  {% endif %}
+                 
+                </div>
               </div>
 
-              <div class="Messages">
-                  <div class="list-group-item list-group-item-action flex-column align-items-start active">
-                    <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1"></h5>
-                      <small> {{ boot.message.date | date:"F d, Y"}} </small>
-                    </div>
-                    <p class="mb-1">{{ boot.message.text }}</p>
-                    <small> {{ boot.message.autor }} </small>
-                  </div>
-                  {% for hist in boot.history.all %}
-                    <div class="list-group-item list-group-item-action flex-column align-items-start active">
-                        <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1"></h5>
-                          <small> {{ hist.date | date:"F d, Y"}} </small>
-                        </div>
-                        <p class="mb-1">{{ hist.text }}</p>
-                        <small> {{ hist.autor }} </small>
-                    </div>
-                  {% endfor %}
-              </div>
+
           </div>
-        </div>
         {% endfor %}
  {% endblock content %}
 

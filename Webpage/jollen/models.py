@@ -56,8 +56,6 @@ class nachricht(models.Model):
     autor = models.ForeignKey(User, on_delete=models.SET(get_sentinel_user))
     date = models.DateTimeField(auto_created=True, default=timezone.now)
 
-    def __str__(self) -> str:
-        return self.date
 
 class boot(models.Model):    
 

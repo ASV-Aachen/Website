@@ -24,7 +24,7 @@ def createMenuObject() -> {}:
 @register.simple_tag
 def createMenuObject_jollen() -> {}:
 
-    return boot.objects.all()
+    return boot.objects.filter(isboat=True)
 
 '''
 To register in Template:
