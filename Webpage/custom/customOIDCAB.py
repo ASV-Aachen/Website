@@ -69,7 +69,7 @@ class MyOIDCAB(OIDCAuthenticationBackend):
         # user.save()
 
         user.is_staff = user.groups.filter(name='Admin').exists()
-        user.is_admin = user.groups.filter(name='Admin').exists()
+        user.is_superuser = user.groups.filter(name='Admin').exists()
         user.save()
 
         return user
@@ -99,10 +99,10 @@ class MyOIDCAB(OIDCAuthenticationBackend):
             logger.error("Role Error" + str(e))
             pass
 
-        user.save()
-
         user.is_staff = user.groups.filter(name='Admin').exists()
-        user.is_admin = user.groups.filter(name='Admin').exists()
+        user.is_superuser = user.groups.filter(name='Admin').exists()
+
+        user.save()
 
         return user
     
