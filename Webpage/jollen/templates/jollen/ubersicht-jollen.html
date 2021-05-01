@@ -1,0 +1,33 @@
+<!--/templates/custom.html-->
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} ASV-Aachen - Jollen {% endblock title %}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+{% endblock styles %}
+{% block headerimage%}
+    <img src="/static/img/header/cat_s0.jpg" alt="">
+{% endblock headerimage%}
+
+{% block content %}
+  <h1>Jollenpark</h1>
+  <p>Der ASV verfügt über 12 Boote am Rursee, welche regattaklar ausgerüstet sind und jedermann, vom Anfänger bis zum Profi, eine Menge Spaß bieten. Die Boote liegen an der vereinseigenen Steganlage und können von den Mitgliedern kostenfrei genutzt werden. Außerdem haben wir eine eigenen Hütte, in der auch übernachtet werden kann. Ein Wochenende am See ist also ein vollwertiger Kurzurlaub!</p>
+  
+  <h3>Unsere Schiffe</h3>
+   <ul>
+       {% for boot in Jollen %}
+        <li>
+            {{ boot.klasse }} <a href="{% url 'jollen_description' boot.name %}">{{ boot.name }}</a>
+        </li>
+       {% endfor %}
+   </ul>
+
+{% endblock content %}
+
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+{% endblock scripts %}

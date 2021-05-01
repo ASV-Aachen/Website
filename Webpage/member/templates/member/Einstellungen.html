@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
-
+{% load crispy_forms_tags %}  
 {% block title %} Mein ASV - Einstellungen {% endblock title%}
 
 <!-- Hier können app-spezifische  Styles dazugeladen werden-->
@@ -30,7 +30,7 @@
     <form method="POST" class="post-form" action='{{ action_url }}' enctype='multipart/form-data'>
 
         {% csrf_token %}
-        {{ form }}
+        {{ form |crispy }}
         <button type="submit" class="save btn btn-primary">Speichern</button>
     </form>
 
