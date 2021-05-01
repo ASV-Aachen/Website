@@ -15,6 +15,7 @@ import crispy_forms
 import json
 from django.urls import reverse_lazy
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -70,6 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    # 'django-filter',
     # 'django.contrib.sites',
 
     # ASV-Apps
@@ -83,6 +85,7 @@ INSTALLED_APPS = [
     'django_resized',
     'simple_history',
     'arbeitsstunden',
+    'jollen',
 ]
 
 

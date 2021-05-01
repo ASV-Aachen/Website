@@ -1,0 +1,11 @@
+/* stylelint-disable selector-list-comma-newline-after */
+
+#ErrorPage {
+    font-size: 1rem;
+    font-weight: 500;
+    background: white url('/static/img/ASV_background_error.jpg') no-repeat center center;
+    background-size: cover;
+    min-height: calc(100vh - 4.75rem);
+}
+
+

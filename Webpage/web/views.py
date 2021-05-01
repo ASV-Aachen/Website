@@ -50,7 +50,6 @@ def MainPage(request):
                 "UserName": Name,
             })
     else:    
-
         return render(request, "web/home.html", context={
                 "News": page_obj,
             })
@@ -112,6 +111,8 @@ def autoPopulate(request):
 def unfertig(request):
     return render(request, "unfertig.html", {})
 
+def errorPage(request):
+    return render(request, "errorPage.html", {})
 
 '''
 Eine einfache Übersicht über alle Infopages
