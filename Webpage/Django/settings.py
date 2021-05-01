@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'fontawesome-free',
     # 'django-filter',
     # 'django.contrib.sites',
 
