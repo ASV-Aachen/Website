@@ -348,11 +348,50 @@ img {
     border-color: var(--asvcoloryellow);
 }
 
+
 .btn-primary:hover, .btn-primary:focus {
     color: black;
     background-color: var(--asvcoloryellow);
     border-color: var(--asvcoloryellow);
 }
+/*.btn-primary:active {
+    color: black;
+    background-color: var(--asvcoloryellow);
+    border-color: var(--asvcoloryellow);
+}
+*/
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show >
+.btn-primary.dropdown-toggle {
+    color: black;
+    background-color: var(--asvcoloryellow);
+    border-color: var(--asvcoloryellow);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.1rem var(--asvcoloryellow);
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+    opacity: 0.8;
+}
+
+/*.back-to-top:active {
+    color: var(--asvcolorblue);
+    background-color: var(--asvcolorlightgrey);
+    border-color: var(--asvcoloryellow);
+    box-shadow: 0 0 0 0 transparent;
+
+}
+*/
 .asv-logo-alpha {
     background: url("/static/img/AlphaLogo.png") no-repeat center center;
     background-size: contain;
