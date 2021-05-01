@@ -62,8 +62,11 @@ def update_all_Users():
     # Für jeden Nutzer:
     for user in all_Users:
         # Zieh dir die Daten aus Keycloak
-        user_id_keycloak = keycloak_admin.get_user_id(username=user.username)
-        keycloak_user = keycloak_admin.get_user(user_id=user_id_keycloak)
+        try:
+            user_id_keycloak = keycloak_admin.get_user_id(username=user.username)
+            keycloak_user = keycloak_admin.get_user(user_id=user_id_keycloak)
+        except:
+            continue
 
         # keycloak_user:
         # username      string
@@ -100,13 +103,14 @@ def update_all_Users():
         for i in roles:
             newRole, created = role.objects.get_or_create(titel=i['name'])
             userProfile.roles.add(newRole)
-        
-        userProfile.save()
-        user.save()
 
         user.is_staff = user.groups.filter(name='Admin').exists()
-        user.is_admin = user.groups.filter(name='Admin').exists()
-
+        user.is_superuser = user.groups.filter(name='Admin').exists()
+                
+        userProfile.save()
+        user.save()
+        
+        # print(user.groups.filter(name='Admin').exists())
 
     return
 
