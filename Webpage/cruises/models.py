@@ -4,21 +4,6 @@ from django.db import models
 
 # Create your models here.
 from member.models import profile
-
-class Sailor(models.Model):
-    Member = models.OneToOneField(profile, on_delete=models.RESTRICT)
-    Givenname = models.CharField(max_length=64)
-    Sirname = models.CharField(max_length=64)
-
-    SKIPPER = 'S'
-    WATCH = 'W'
-    CREW = 'C'
-    PATENT_TYPE = [
-        (SKIPPER, 'Schiffer'),
-        (WATCH, 'Wachführer'),
-        (CREW, 'Crew'),
-    ]
-    OwnsPatent = models.CharField(max_length=2, choices=PATENT_TYPE, default=CREW)
    
 class Cruise(models.Model):
     CruiseName = models.CharField(max_length=128)
@@ -50,10 +35,22 @@ class CruiseShare(models.Model):
     Distance = models.FloatField()
 
     def __str__(self):
-        return str(self.Sailor) + " sailed at " + str(self.Cruise) + str(self.Distance) + " nm as " + str(self.SailAs)
+        return str(self.profile) + " sailed at " + str(self.Cruise) + str(self.Distance) + " nm as " + str(self.SailAs)
+
+class Patent(models.Model):
+    Owner = models.ForeignKey(profile, on_delete=models.CASCADE)
+
+    SKIPPER = 'S'
+    WATCH = 'W'
+    PATENT_TYPE = [
+        (SKIPPER, 'Schiffer'),
+        (WATCH, 'Wachführer'),
+    ]
+    Type = models.CharField(max_length=1, choices=PATENT_TYPE)
+    Since = models.DateField()
 
 class License(models.Model):
-    Owner = models.ForeignKey(Sailor, on_delete=models.CASCADE)
+    Owner = models.ForeignKey(profile, on_delete=models.CASCADE)
 
     SHS = 'SHS'
     SSS = 'SSS'

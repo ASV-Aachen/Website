@@ -22,9 +22,7 @@
                     <td>{{cruise.StartPort}}<br><span style="font-size:0.875em">{{cruise.StartDate|date:"d.m.Y"}}</span></td>
                     <td>{{cruise.EndPort}}<br><span style="font-size:0.875em">{{cruise.EndDate|date:"d.m.Y"}}</span></td>
                     <td>{{cruise.MaxBerths}}</td>
-                    <td>
-                        <a href="{% url 'cruise_edit' cruise.pk %}" class="btn btn-secondary">Details</a>
-                    </td>
+                    <td><a type="button" class="btn btn-success" href="{% url 'cruise_edit' %}?pk={{ cruise.pk }}">Details</a></td>
                 </tr>
             {% endfor %}
         </tbody>

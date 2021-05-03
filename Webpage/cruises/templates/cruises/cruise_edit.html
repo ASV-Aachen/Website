@@ -4,16 +4,19 @@
 
 {% block content %}
     <h3 class="pb-3 mb-4 font-italic border-bottom">Seereisen anlegen / bearbeiten</h3>
-    <form method="POST" class="post-form">{% csrf_token %}
+    
+    {% if cruise %}
+    <div class="container">
+      <div class="row">
         <div class="form-row">
             <div class="col-lg-4">
-                {{ cruise.CruiseName }}
+                Name: {{ cruise.CruiseName }}
             </div>
             <div class="col-lg-4">
-                {{ cruise.StartPort }}
+                Ausgangshafen: {{ cruise.StartPort }}
             </div>
             <div class="col-lg-4">
-                {{ cruise.EndPort }}
+                Zielhafen: {{ cruise.EndPort }}
             </div> 
         </div>
         <div class="form-row">
@@ -33,8 +36,17 @@
         <div>
         {{ cruise.Sailors }}
         </div>
-        <button type="submit" class="btn btn-primary">Reise speichern</button>
-        {% if cruise.pk %}
-        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    {{ form.media }}
+
+    <form method="POST" class="post-form" action='{{ action_url }}?id={{cruise.id}}' enctype='multipart/form-data'>
+       
+        {% csrf_token %}
+        {{ form }}
+
+        <button type="submit" class="save btn btn-primary">Reise speichern</button>
     </form>
 {% endblock content %}

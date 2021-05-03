@@ -12,9 +12,9 @@
             <div class="col-lg-4">
                 {{ form.StartPort|as_crispy_field }}
             </div>
-            <div class="col-lg-4">
+			<div class="col-lg-4">
                 {{ form.EndPort|as_crispy_field }}
-            </div> 
+            </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-4 mb-0">
@@ -27,11 +27,11 @@
                 {{ form.EndDate|as_crispy_field }}
             </div> 
         </div>
-        {{ form.CruiseDescription|as_crispy_field }}
+       		
+		{{ form.CruiseDescription|as_crispy_field }}
         {{ form.Sailors }}
+        
         <button type="submit" class="btn btn-primary">Reise speichern</button>
-        {% if form.instance.id %}
-            <a href="{% url delete_view_name pk=form.instance.id %}" class="btn btn-secondary">Löschen</a>
-        {% endif %}
+       
     </form>
 {% endblock content %}

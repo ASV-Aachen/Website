@@ -15,6 +15,7 @@ Including another URLconf
 """
 
 from django.urls import path, include
+from cruises import views
 from . import views
 
 app_name: "web"
