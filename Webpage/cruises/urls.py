@@ -9,5 +9,6 @@ urlpatterns = [
     path('cruises/new', views.createNewCruise, name="cruise_new"),
     ##path('cruises/edit/<int:pk>', views.cruise_edit, name="cruise_edit"),
     path('cruises/edit', views.cruise_edit, name="cruise_edit"),
+    path('cruises/delete', views.cruise_delete, name="cruise_delete"),
     path('cruises/ship_position', views.ship_position, name="ship_position")
 ]

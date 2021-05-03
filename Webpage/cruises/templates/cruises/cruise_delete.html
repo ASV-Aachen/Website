@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - Einstellungen {% endblock title%}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+
+{% endblock styles %}
+
+{% block content %}
+    <p>Möchten Sie die Seereise "{{cruise}}" wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden!!!</p>
+
+    <a id = "bestätigungsButton" class="btn btn-info" href="?id={{cruise.id}}&key={{hash}}">Ja</a>
+    <a id = "zurückButton" class="btn btn-info" href="{% url 'cruises_home' %}">NEIN</a>
+{% endblock %}
+
+

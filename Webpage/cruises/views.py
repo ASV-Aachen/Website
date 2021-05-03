@@ -19,6 +19,7 @@ from .forms import CruiseForm
 from .models import Cruise
 from .utils import get_aktuelle_saison, check_authentication_redirect_if_fails
 from member.models import profile
+from utils.loginFunctions import *
 
 
 def cruises_home(request):
@@ -73,7 +74,10 @@ def cruise_edit(request):
     else:
         return redirect("ASV")
 
-def cruise_delete(request, pk):
+@user_passes_test(isUserPartOfGroup_Seereisenkoordinator)
+@login_required
+def cruise_delete(request):
+    pk = request.GET['pk']
     return model_delete(
         request,
         pk,
