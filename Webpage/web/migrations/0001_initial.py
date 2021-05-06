@@ -69,6 +69,14 @@ class Migration(migrations.Migration):
                 ('history', models.ManyToManyField(to='web.infoPageHistory')),
             ],
         ),
+        migrations.CreateModel(
+            name='standartPages',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('titel', models.CharField(max_length=200)),
+                ('text', tinymce.models.HTMLField()),
+            ],
+        ),
         migrations.AddField(
             model_name='headpage',
             name='history',
