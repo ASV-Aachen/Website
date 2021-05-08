@@ -19,14 +19,14 @@ from datetime import datetime
 # Index-View zum Dashborad als Startseite vom "Mein ASV"
 
 def ubersicht(request):
-    jollen = boot.objects.filter(isboat=True)
+    jollen = boot.objects.filter(isboat=True).order_by('klasse.name')
     return render(request, "jollen/ubersicht-jollen.html", context={
             "Jollen": jollen
         })
 
 @login_required
 def jollen_status(request):
-    jollen = boot.objects.all()
+    jollen = boot.objects.all().order_by('klasse.name')
     return render(request, "jollen/jollen_status.html", context={
         "Jollen": jollen
     })
