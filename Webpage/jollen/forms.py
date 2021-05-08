@@ -20,7 +20,7 @@ class settings_description_form(ModelForm):
         model = boot
         #  Anpassen vom Namen, Beschreibungstext, Bootsclasse und co
 
-        fields = ['name', 'description', 'obman', 'image', 'isboat']
+        fields = ['name', 'description', 'obman', 'image', 'isboat', 'klasse']
         widgets = {
             'image': forms.FileInput(attrs={'style': 'display: none;', 'class': 'form-control', 'required': False, })
         }
