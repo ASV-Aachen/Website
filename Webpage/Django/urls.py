@@ -31,3 +31,8 @@ urlpatterns = [
     path('oidc/', include('mozilla_django_oidc.urls')),
     path('jollen/', include('jollen.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'web.views.ErrorPage'
+handler500 = 'web.views.ErrorPage500'
+handler403 = 'web.views.ErrorPage'
+handler400 = 'web.views.ErrorPage'

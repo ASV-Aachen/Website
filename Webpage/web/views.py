@@ -178,6 +178,12 @@ def infoPageMenu(request):
     return render(request, "web/infoPageMenu.html", {"objects": Objects, "form": form})
 
 
+def ErrorPage(request, exception):
+    return render(request, "errorPage.html")
+
+def ErrorPage500(request):
+    return render(request, "errorPage.html")
+
 '''
 Editor für die Infoseiten
 '''
