@@ -1,0 +1,10 @@
+{# <!-- templates/400.html--> #}
+{# Stellt die Verbindung zur Errorpage für Fehler 400 = 'bad request' her #}
+
+<!doctype html>
+
+{% extends 'bulley/errorPage.html' %}
+{% block title %} ASV-Aachen - Fehler 500 {% endblock title %}
+{% block ErrorMessage %} Die Seite ist nur über eine sichere Verbindung erreichbar. {% endblock ErrorMessage %}
+
+
