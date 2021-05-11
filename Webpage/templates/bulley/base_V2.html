@@ -1,4 +1,4 @@
-{# /templates/base.html #}
+{# /templates/bulley/base.html #}
 <!doctype html>
 {% load static %}
 <html lang="en">
@@ -15,17 +15,22 @@
             <link href="{% static 'css/bulley/main.css' %}" rel="stylesheet">
             <link href="{% static 'css/bulley/blog.css' %}" rel="stylesheet">
             <link rel=" shortcut icon" type="ico" href="{% static 'img/favicon.ico' %}">
-
             {# <link href="{% static 'css/blog.css' %}" rel="stylesheet"> #}
 
 
-    {# Hier können app-spezifische  Styles dazugeladen werden #}
+    {# Hier können App-spezifische  Styles dazugeladen werden #}
 {% block styles %}
 {% endblock styles %}
 
 </head>
 
 <body class="container-fluid px-0 flex-nowrap">
+
+    {# Back-To-Top-Button #}
+    <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
     <header id="header" class="container-fluid no-gutters px-0">
 
         {% include "bulley/includes/header.html" %}
@@ -42,12 +47,19 @@
 
        <div id="main-wrapper" class="container-fluid m-0 p-3">
            <div id="content-wrapper" class="row">
-                <div id="content" class="col-md-8 px-3">
+                <div id="content" class="col-md-8 px-3 order-2">
                 {% block content %}
                 {% endblock content %}
                 </div>
 
+
                 <aside class="col-md-4 px-3">
+                <div class="order-1" >
+                    {% block sidemenue %}
+Hello World
+                    {% endblock sidemenue %}
+                </div>
+
                 {% block aside %}
                 {% endblock aside %}
                 </aside>
@@ -56,10 +68,6 @@
       <!-- /.row -->
     </main>
     <!-- /.container -->
-<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
-    <i class="fas fa-angle-up"></i>
-</a>
-
     {% include "bulley/includes/footer.html" %}
 
   {# Bootstrap core JavaScript =================================#}
@@ -68,8 +76,9 @@
   <script src="{% static 'assets/js/jquery.min.js' %}"></script>
   <script src="{% static 'assets/js/popper.js' %}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'fontawesome-free/js/all.min.js' %}"></script>
   <script src="{% static 'JS/bulley/custom.js' %}"></script>
+  <script src="{% static 'fontawesome-free/js/all.min.js' %}"></script>
+
 
    {# Hier können app-spezifische  Skripte dazugeladen werden #}
 {% block scripts %}

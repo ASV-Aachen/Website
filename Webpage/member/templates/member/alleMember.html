@@ -31,7 +31,10 @@
                         {{ role }}
                     {% endfor %}
                 </td>
-                <td> <a type="button" class="btn btn-danger" href="{% url 'memberDelete' %}?id={{member.user.id}}">Löschen</a> </td>
+                <td> 
+                    <a type="button" class="btn btn-danger" href="{% url 'memberDelete' %}?id={{member.user.id}}">Löschen</a> 
+                    <a type="button" class="btn btn-primary" href="{% url 'memberEdit' member.user.id %}">Edit</a>
+                </td>
               </tr>
             {% endfor %}
         </tbody>
