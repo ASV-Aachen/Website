@@ -114,6 +114,9 @@ def unfertig(request):
 def errorPage(request):
     return render(request, "bulley/errorPage.html", {})
 
+def errorPage(request, exception):
+    return render(request, "bulley/errorPage.html", {})
+
 def ErrorPage400(request, exception):
     return render(request, "400.html")
 
