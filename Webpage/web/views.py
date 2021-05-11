@@ -114,6 +114,16 @@ def unfertig(request):
 def errorPage(request):
     return render(request, "bulley/errorPage.html", {})
 
+def ErrorPage400(request, exception):
+    return render(request, "400.html")
+
+def ErrorPage404(request, exception):
+    return render(request, "404.html")
+
+def ErrorPage500(request):
+    return render(request, "500.html")
+
+
 '''
 Eine einfache Übersicht über alle Infopages
 '''
