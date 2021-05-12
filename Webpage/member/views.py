@@ -27,7 +27,7 @@ def index(request):
 # Mitgliederverzeichnis
 @login_required
 def member_directory(request):
-    personFilter = userFilter(request.GET, queryset=profile.objects.all())
+    personFilter = userFilter(request.GET, queryset=profile.objects.all().order_by('user__last_name'))
     context = {
             'personen': profile.objects.all(),
             'filter': personFilter
