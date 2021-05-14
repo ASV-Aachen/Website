@@ -1,0 +1,491 @@
+/*  <!--/ststic/css/main.css-->*/
+/*  Das Thema basiert auf Bootstrap und die nav-bar arbeitet mit den Klassen ".navbar-light .bg-light"
+/*  Anpassen Farbchema der Seite */
+/*
+/*  Basisfarben - Bitte nur aus dieser Palette auswählen!)
+    GGf. hier neue Farben definieren
+*/
+:root {
+
+    --asvcoloryellow: #f9cf27; /* --> FFDE24 CD ASV aus Hörsalpräsentation   */
+    --asvcolorblue: #004D80;
+    --asvcolorlightblue: #0068AC;
+    --asvcolordarkblue: #003F68;
+    --asvcolorgrey: #898787;
+    --asvcolorlightgrey: #f8f9fa;
+    --asvcolorbackgroundgrey: #cdcdcd;
+    --asvcolorlightgreyopac: rgb(248, 249, 250, 0.8);
+    --asvcolorbackgroundarticle: white;
+
+}
+
+    .asvcoloryellow {color: #f9cf27 !important;}
+    .asvcolorblue {color: #004D80 !important;}
+    .asvcolorlightblue {color: #0068AC !important;}
+    .asvcolordarkblue {color: #0068AC !important;}
+    .asvcolorgrey {color: #898787 !important;}
+    .asvcolorlightgrey {color: #f8f9fa !important;}
+    .bg-asv-lightgreyopac {background-color: rgb(248, 249, 250, 0.8) !important;}
+    .bg-asv-article {background-color: white !important;}
+
+    .bg-asv-yellow {background-color: var(--asvcoloryellow) !important;}
+    .bg-asv-grey {background-color: var(--asvcolorgrey) !important;}
+    .bg-asv-lightgrey {background-color: var(--asvcolorlightgrey) !important;}
+
+
+/*  ASV-CD Schriftart "Prompt" - Bitte nur aus dieser Palette auswählen!)
+    GGf. hier neue Schriften ergänzen
+*/
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-Thin.ttf');
+    format("opentype");
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-ThinItalic.ttf');
+    format("opentype");
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-ExtraLight.ttf');
+    format("opentype");
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-ExtraLightItalic.ttf');
+    format("opentype");
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-Light.ttf');
+    format("opentype");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-LightItalic.ttf');
+    format("opentype");
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-Regular.ttf');
+    format("opentype");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-Italic.ttf');
+    format("opentype");
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-Medium.ttf');
+    format("opentype");
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-MediumItalic.ttf');
+    format("opentype");
+    font-style: italic;
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-SemiBold.ttf');
+    format("opentype");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-SemiBoldItalic.ttf');
+    format("opentype");
+    font-style: italic;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-Bold.ttf');
+    format("opentype");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-BoldItalic.ttf');
+    format("opentype");
+    font-style: italic;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-ExtraBold.ttf');
+    format("opentype");
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-ExtraBoldItalic.ttf');
+    format("opentype");
+    font-style: italic;
+    font-weight: 800;
+}
+
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-Black.ttf');
+    format("opentype");
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: 'ASV';
+    src: url('/static/fonts/cd-asv/Prompt-BlackItalic.ttf');
+    format("opentype");
+    font-style: italic;
+    font-weight: 900;
+}
+
+
+
+
+/*  Bootstrap customizen
+*/
+
+/* Basic Styles
+
+*/
+html {
+   font-family: ASV;
+   font-size: 1rem;
+}
+
+body {
+/*   display: flex;
+   flex-flow: row wrap;
+   padding-left: 0rem;
+   padding-top: 0rem;
+   margin-right: 0rem;*/
+   font-family: ASV, Verdana, Arial, Helvetica, sans-serif;
+   font-size: 1rem;
+   font-weight: 200;
+   line-height: 1.5rem;
+   color: black; /*var(--asvcolorgrey);*/
+   background: var(--asvcolorbackgroundgrey);
+   text-align: left;
+
+}
+
+
+main {
+    background: url("/static/img/ASV_background.png") no-repeat center center;
+    background-size: 100% 100%;
+    padding: 0;
+/*    background-color: lightgreen;*/
+
+}
+
+#main-wrapper {
+    background-color: white; /*lightgreen;*/
+
+}
+
+
+/*
+ * Frontpage
+ */
+
+#frontpage {
+    background-color: var(--asvcolorbackgroundgrey) !important; /*pink; /* nur zum Testen */
+}
+#content {
+    /*background-color: transparent;*/
+    /*background-color: lightgreen;*/
+}
+
+article, .mce-content-body {
+
+    padding: 1rem 1rem 1rem 1rem;
+    background-color: var(--asvcolorbackgroundarticle);
+}
+
+aside {
+    */background-color: lightblue;*/
+    background-color: var(--asvcolorbackgroundgrey);
+}
+
+footer, footer a {
+    color: var(--asvcoloryellow);
+    font-weight: 300;
+    font-size: 1rem;
+    background: black; /*var(--asvcolorgrey);*/
+}
+footer a {
+
+}
+
+
+h1, h2 {
+/*    padding: 1rem 0 0 0;*/
+    font-style: italic;
+    color: var(--asvcolorblue) !important;
+}
+
+h3, h4, h5 {
+/*    padding: 1rem 0 0 0;*/
+    font-style: italic;
+    color: var(--asvcoloryellow) !important;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+h2, h3 {
+    font-weight: 500;
+    font-size: 1.6rem;
+}
+
+h4 {
+    font-weight: 400;
+    line-height: 1rem;
+    font-size: 1.4rem;
+}
+h5 {
+    font-weight: 300;
+    line-height: 1rem;
+    font-size: 1.2rem;
+}
+h6 {
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 0rem;
+}
+
+p {
+    margin-bottom: 0.5rem;
+
+}
+
+
+small,
+.small {
+  font-size: .8rem;
+  font-weight: 200;
+}
+
+.font-style-plakat {
+    color: black;
+    font-weight: 600;
+    Background-color: var(--asvcoloryellow);
+}
+
+}
+a {
+    color: var(--asvcolordarkblue);
+}
+
+a:hover {
+    color: var(--asvcolorgrey);
+    text-decoration: none;
+
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.1rem var(--asvcoloryellow);
+}
+.bg-light {
+    background-color: var(--asvcolorlightgrey) !important;
+}
+
+.btn-info {
+    color: white;
+    background-color: var(--asvcolorblue);
+    border-color: var(--asvcolorblue);
+}
+
+.btn-info:hover, .btn-info:focus {
+    background-color: var(--asvcolordarkblue);
+    border-color: var(--asvcolordarkblue);
+}
+
+
+.btn-primary {
+    color: var(--asvcolorblue);
+    background-color: var(--asvcolorlightgrey);
+    border-color: var(--asvcoloryellow);
+}
+
+
+.btn-primary:hover, .btn-primary:focus {
+    color: black;
+    background-color: var(--asvcoloryellow);
+    border-color: var(--asvcoloryellow);
+}
+/*.btn-primary:active {
+    color: black;
+    background-color: var(--asvcoloryellow);
+    border-color: var(--asvcoloryellow);
+}
+*/
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show >
+.btn-primary.dropdown-toggle {
+    color: black;
+    background-color: var(--asvcoloryellow);
+    border-color: var(--asvcoloryellow);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.1rem var(--asvcoloryellow);
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+    opacity: 0.8;
+}
+
+/*.back-to-top:active {
+    color: var(--asvcolorblue);
+    background-color: var(--asvcolorlightgrey);
+    border-color: var(--asvcoloryellow);
+    box-shadow: 0 0 0 0 transparent;
+
+}
+*/
+.asv-logo-alpha {
+    background: url("/static/img/AlphaLogo.png") no-repeat center center;
+    background-size: contain;
+}
+
+.asv-logo-1 {
+    background: url("/static/img/logo_offiziell_17_-01.png") no-repeat center center;
+    background-size: contain;
+}
+
+.asv-logo-2 {
+    background: url("/static/img/logo_offiziell_17_-02.png") no-repeat center center;
+    background-size: contain;
+}
+
+.asv-logo-3 {
+    background: url("/static/img/logo_offiziell_17_-03.png") no-repeat center center;
+    background-size: contain;
+}
+
+.asv-logo-4 {
+    background: url("/static/img/logo_offiziell_17_-04.png") no-repeat center center;
+    background-size: contain;
+}
+
+.asv-logo-alpha::before,
+.asv-logo-1::before,
+.asv-logo-2::before,
+.asv-logo-3::before,
+.asv-logo-4::before {
+    content: "Logo";
+    color: transparent;
+}
+
+
+/* Smart Phones und Tablets mit mittlerer Auflösung */
+/*@media (min-width: 320px) {*/
+
+/* Viewports mit kleiner   Auflösung (ipad Hochvormat)  ** Desktop View entspricht bootstrap md*/
+/*@media (min-width: 576px) {*/
+
+
+/* Viewports mit mittlerer  Auflösung (ipad Hochvormat)  ** Desktop View entspricht bootstrap md*/
+/*@media (min-width: 768px) { */
+
+/* Viewports mit großer Auflösung (iPad Querformat)** Desktop View entspricht bootstrap lg*/
+@media (min-width: 992px) {
+
+html {
+/*   Variable Schriftart einstellen
+/*              min-font-size               min-screen-size
+                    |                            |
+                    |                            |                      */
+/*   font-size: calc(16px + (18 - 16) * (100vw - 768px) / (1600 - 768));
+/*                            |                               |
+                              |                               |
+                 max-font-size - min-font-size       max-screen-size - min-screen-size */
+    font-size: 1rem;*/
+
+}
+
+main {
+
+}
+
+.content {
+
+    background: lightgrey;
+    box-shadow: inset 0rem 0rem 1rem rgba(0,0,0,0.3);
+    padding: 20px 20px 1px;
+    margin: 0px 0px 10px;
+}
+
+.hide{
+padding:10px;
+background: rgb(254, 164, 0);
+box-shadow:none!important;
+color:#fff;
+font-weight:bold;
+}
+
+.hide:hover {
+background: rgb(255, 214, 118);
+color:#fff!important;
+transition:0.2s all ease-in-out!important;
+}
+
+#news {
+    flex: 2 1 0%;
+    order: 2;
+    align-self: center;
+    height: 120px;
+}
+
+
+
+}
