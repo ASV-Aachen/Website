@@ -35,14 +35,12 @@ class nachricht(models.Model):
     )
         # Segelbar
     Rursee = 1
-    Roermond = 2
     Eschweiler = 3
     Aachen = 4
     Segellager = 5
     unterwegs = 6
     position_info = (
         (Rursee, 'Rursee'),
-        (Roermond, 'Roermond'),
         (Eschweiler, 'Eschweiler'),
         (Aachen, 'Aachen'),
         (Segellager, 'Segellager'),

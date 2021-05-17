@@ -58,7 +58,7 @@
             <div class="blog-post my-3 bg-asv-article">
                 <article>
                     <h3 class="blog-post-title">{{ New.titel }}</h3>
-                    <div class="blog-post-meta small">{{ New.date_Created | date:"F d, Y"}}  {% if user.is_authenticated %} by {{ New.author }} {% endif %}</div>
+                    <div class="blog-post-meta small">{{ New.date_Created | date:"F d, Y"}}  {% if user.is_authenticated %} by {{ New.author.first_name }} {% endif %}</div>
                     <div class="article-content">{{ New.text | safe }}</div>
                 </article>
             </div>

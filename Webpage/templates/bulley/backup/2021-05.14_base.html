@@ -1,0 +1,80 @@
+{# /templates/base.html #}
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{% block title %} ASV-Aachen - Home {% endblock title %}</title>
+             {# Bootstrap core CSS #}
+            <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+            {# Custom styles for this template #}
+            <link href="{% static 'css/bulley/main.css' %}" rel="stylesheet">
+            <link href="{% static 'css/bulley/blog.css' %}" rel="stylesheet">
+            <link rel=" shortcut icon" type="ico" href="{% static 'img/favicon.ico' %}">
+
+            {# <link href="{% static 'css/blog.css' %}" rel="stylesheet"> #}
+
+
+    {# Hier können app-spezifische  Styles dazugeladen werden #}
+{% block styles %}
+{% endblock styles %}
+
+</head>
+
+<body class="container-fluid px-0 flex-nowrap">
+    <header id="header" class="container-fluid no-gutters px-0">
+
+        {% include "bulley/includes/header.html" %}
+
+        <div id="header-image" class="container-fluid px-0 position-relative">
+            {% block headerimage%}
+                <img src="/static/img/header/cat_s0.jpg" alt="">
+            {% endblock headerimage%}
+        </div>
+    </header>
+
+    <main  role="main" class="container-fluid p-0 p-md-3">
+     {% block frontpage %} {% endblock frontpage %}
+
+       <div id="main-wrapper" class="container-fluid m-0 p-3">
+           <div id="content-wrapper" class="row">
+                <div id="content" class="col-md-8 px-3">
+                {% block content %}
+                {% endblock content %}
+                </div>
+
+                <aside class="col-md-4 px-3">
+                {% block aside %}
+                {% endblock aside %}
+                </aside>
+            </div>
+      </div>
+      <!-- /.row -->
+    </main>
+    <!-- /.container -->
+<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+    {% include "bulley/includes/footer.html" %}
+
+  {# Bootstrap core JavaScript =================================#}
+  {# Placed at the end of the document so the pages load faster #}
+
+  <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/js/popper.js' %}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'fontawesome-free/js/all.min.js' %}"></script>
+  <script src="{% static 'JS/bulley/custom.js' %}"></script>
+
+   {# Hier können app-spezifische  Skripte dazugeladen werden #}
+{% block scripts %}
+{% endblock scripts %}
+
+</body>
+
+</html>

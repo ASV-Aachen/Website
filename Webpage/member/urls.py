@@ -30,5 +30,6 @@ urlpatterns = [
     path('Menu/export', views.exportPage, name ="allMembers_Export"),
     path('Menu/editor', views.newMemberEditor, name ="memberEditor"),
     path('Menu/import', views.massenimport, name ="memberImport"),
-    path('Menu/delete', views.deleteUser, name="memberDelete")
+    path('Menu/delete', views.deleteUser, name="memberDelete"),
+    path('Menu/edit/<str:id>', views.editUserAsSchriftward, name="memberEdit")
 ]

@@ -27,7 +27,7 @@ def index(request):
 # Mitgliederverzeichnis
 @login_required
 def member_directory(request):
-    personFilter = userFilter(request.GET, queryset=profile.objects.all())
+    personFilter = userFilter(request.GET, queryset=profile.objects.all().order_by('user__last_name'))
     context = {
             'personen': profile.objects.all(),
             'filter': personFilter
@@ -171,3 +171,22 @@ def deleteUser(request):
             return redirect("MemberMenu")
     else:
         return redirect("MemberMenu")
+
+@login_required
+@user_passes_test(isUserPartOfGroup_Schriftwart)
+def editUserAsSchriftward(request, id):
+    Profil = get_object_or_404(profile, user=User.objects.get(id=id))
+
+    if request.method == "POST":
+        form = changePersonalInfo(request.POST, request.FILES, instance=Profil)
+        
+        if form.is_valid():
+
+            form.save(commit=False)
+            form.instance.user_id = request.user.id
+            form.save()
+
+            return redirect("allMembers")
+    else:
+        form = changePersonalInfo(instance=Profil)
+    return render(request, "member/Einstellungen_Schriftward.html", {"form": form, "profil": Profil})
