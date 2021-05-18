@@ -30,6 +30,7 @@ urlpatterns = [
     path('errorPage', views.errorPage, name='errorPage'),
     path('autopouate', views.autoPopulate, name='autoPopulate'),
     path('info', views.InfoPageView, name="info"),
+    path('sponsoren', views.show_all_Sponsor, name="sponsor"),
 
     path('info/<str:theme>', views.infoPage_singleHeader, name="InfoPage_Header"),
     path('info/<str:theme>/<str:name>', views.infoPage_singlePage, name="InfoPage"),
