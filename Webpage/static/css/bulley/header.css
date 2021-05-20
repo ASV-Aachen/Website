@@ -110,11 +110,11 @@
 }
 
 .navbar .nav-item .dropdown-menu {
-	display: none;
+/*	display: none;*/
 }
 
 .navbar .nav-item:hover .dropdown-menu {
-    display: block;
+/*    display: block;*/
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -133,54 +133,7 @@
 
 }
 
-/* Wird nur benötigt wenn ein Submenü gebraucht wird */
-
-.navbar .nav-item .dropdown-menu .submenu,
-.navbar .nav-item:hover .dropdown-menu .submenu {
-   display: none;
-}
-
-.nav-item:hover .dropdown-menu li:hover .submenu {
-    display: block;
-}
-
-.nav-item .submenu {
-	margin-left: 2rem;
-	border: 0 solid;
-/*	border-left: 0.2rem solid var(--asvcoloryellow);*/
-}
-
-
-.nav-item .submenu a:hover {
-
-    color:white;
-    background-color: var(--asvcolorgrey);
-}
-
-
-
-/* Emde Submenue Style
-
-
-/* Symbol Dropdownmenü Handy */
-
-.dropdown-toggle:after {
-    display: inline-block;
-    position: relative;
-    top: 3px; right: -5px;
-    content: "";
-    border-top: 0.3em solid;
-    border-right: 0.3em solid transparent;
-    border-bottom: 0;
-    border-left: 0.3em solid transparent;
-}
-
-/* Symbol Dropdownmenü auf erster Ebene ausschalten */
-
-.nav-link.dropdown-toggle:after {
-    display: none;
-}
-
+/* Layout Dropdownmenü */
 
 .dropdown-menu {
     left: 0rem;
@@ -222,6 +175,71 @@
 
 }
 
+/* Symbol Pfeil links Dropdownmenü Handy ausschalten */
+
+.dropleft .dropdown-toggle:before {
+    display: none;
+}
+
+.dropleft .dropdown-toggle:after {
+    display: inline-block;
+}
+
+/* Pfeil nach rechts einstellen im Mobile MenÜ */
+
+
+.dropdown-toggle:after {
+    display: inline-block;
+    position: relative;
+    top: 3px; right: -5px;
+    content: "";
+    border-top: 0.3em solid transparent;
+    border-right: 0;
+    border-bottom: 0.3em solid transparent;
+    border-left: 0.3em solid;
+}
+
+
+/* Symbol Pfeil down Dropdownmenü Handy aufgeklappt*/
+
+.navbar-light .navbar-nav .show > .dropdown-toggle:after,
+.navbar-light .navbar-nav .active > .dropdown-toggle:after {
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+/* Layout Dropdownmenü Ende
+
+
+/* Wird nur benötigt wenn ein Submenü gebraucht wird */
+
+.navbar .nav-item .dropdown-menu .submenu,
+.navbar .nav-item:hover .dropdown-menu .submenu {
+/*   display: none;*/
+}
+
+.nav-item:hover .dropdown-menu li:hover .submenu {
+/*    display: block;*/
+}
+
+.nav-item .submenu {
+	margin-left: 2rem;
+	border: 0 solid;
+/*	border-left: 0.2rem solid var(--asvcoloryellow);*/
+}
+
+
+.nav-item .submenu a:hover {
+
+    color:white;
+    background-color: var(--asvcolorgrey);
+}
+
+/* Emde Submenue Style
+
+
 
 
 /* Smart Phones und Tablets mit mittlerer Auflösung */
@@ -245,15 +263,14 @@
 
 /* Symbol Dropdownmenü Pfeil nach rechts*/
 
-.dropdown-toggle:after {
+/*.dropdown-toggle:after {
     top: 5px;
     border-top: 0.3em solid transparent;
     border-bottom: 0.3em solid transparent;
     border-right: 0;
     border-left: 0.3em solid;
 }
-
-
+*/
 
 #menue-wrapper {
 }
@@ -326,19 +343,59 @@
 /* Submenue Anpassungen für Desktop
 */
 
+/* Symbol Dropdownmenü auf erster Ebene ausschalten */
 
- .nav-item .submenu {
-	top: auto;
-	left: 100%; right: auto;
-	margin: -2.5rem 0 0 0;
+/*
+.nav-link.dropdown-toggle:after {
+    display: none;
+}
+*/
+navbar-light .navbar-nav .show > .dropdown-item .dropdown-toggle::after,
+.navbar-light .navbar-nav .active > dropdown-item .dropdown-toggle::after {
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+.dropdown-toggle:after,
+.dropright .dropdown-toggle:after,
+.dropleft .dropdown-toggle:after,
+.dropleft .dropdown-toggle:before {
+    display: none
+}
+
+
+.dropright .dropdown-menu {
+	margin: 0;
 	border: 0 solid;
 	border-left: 0.2rem solid var(--asvcoloryellow);
 }
-.nav-item .submenu-right {
+
+.dropleft .dropdown-menu {
+	margin:0;
+	border: 0 solid;
+	border-right: 0.2rem solid var(--asvcoloryellow);
+}
+
+
+.nav-item dropdown-menu-right .submenu {
 	left: auto; right: 100%;
 	border-left: 0rem solid;
 	border-right: 0.2rem solid var(--asvcoloryellow);
 
 }
+
+/* Wird benötigt wenn ein Submenü verwendet wird */
+
+.navbar .nav-item .dropdown-menu .submenu,
+.navbar .nav-item:hover .dropdown-menu .submenu {
+   display: none;
+}
+
+.nav-item:hover .dropdown-menu li:hover .submenu {
+    display: block;
+}
+
 
 }
