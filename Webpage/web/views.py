@@ -114,19 +114,6 @@ def unfertig(request):
 def errorPage(request):
     return render(request, "bulley/errorPage.html", {})
 
-def errorPage(request, exception):
-    return render(request, "bulley/errorPage.html", {})
-
-def ErrorPage400(request, exception):
-    return render(request, "400.html")
-
-def ErrorPage404(request, exception):
-    return render(request, "404.html")
-
-def ErrorPage500(request):
-    return render(request, "500.html")
-
-
 '''
 Eine einfache Übersicht über alle Infopages
 '''
@@ -190,12 +177,6 @@ def infoPageMenu(request):
 
     return render(request, "web/infoPageMenu.html", {"objects": Objects, "form": form})
 
-
-def ErrorPage(request, exception):
-    return render(request, "errorPage.html")
-
-def ErrorPage500(request):
-    return render(request, "errorPage.html")
 
 '''
 Editor für die Infoseiten
