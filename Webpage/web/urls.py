@@ -28,7 +28,7 @@ urlpatterns = [
     # path('UserTestPage', views.UserTest, name="UserTests"),
     path('unfertig', views.unfertig, name='unfertig'),
     path('errorPage', views.errorPage, name='errorPage'),
-    path('autopouate', views.autoPopulate, name='autoPopulate'),
+    path('autopopulate', views.autoPopulate, name='autoPopulate'),
     path('info', views.InfoPageView, name="info"),
     path('sponsoren', views.show_all_Sponsor, name="sponsor"),
 
