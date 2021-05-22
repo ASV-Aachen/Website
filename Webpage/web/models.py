@@ -94,3 +94,16 @@ class standartPages(models.Model):
 
     def __str__(self):
         return self.titel
+
+
+
+class sponsoren(models.Model):
+    name = models.CharField(max_length=200)
+    text = models.CharField(max_length=500)
+    link = models.CharField(max_length=200)
+
+    sponsorenBild   = ResizedImageField(size=[549,240], upload_to="sponsoren", crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
+    logo            = ResizedImageField(size=[549,240], upload_to="sponsoren", crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
+    
+    def __str__(self) -> str:
+        return self.name

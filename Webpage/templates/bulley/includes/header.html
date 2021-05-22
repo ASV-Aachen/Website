@@ -57,6 +57,9 @@
               {% endfor %}
               </ul>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'sponsor' %}"> Sponsoren</a>
+          </li>
         {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle px-2" role="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="{% url 'MeinASV' %}">

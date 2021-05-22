@@ -27,7 +27,7 @@ import random
 # Frontpage (DONE)
 from utils.menu import createMenuObject
 from web.forms import changeInfoPage, changeHeaderPage, changeLeftRight
-from web.models import infoPage, infoPageHistory, HeadPage, frontHeader, standartPages
+from web.models import infoPage, infoPageHistory, HeadPage, frontHeader, standartPages, sponsoren
 
 
 def MainPage(request):
@@ -42,16 +42,20 @@ def MainPage(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    sponsor = getSponsor()
+
     if (request.user.is_authenticated):    
         CurrentUser = request.user
         Name = CurrentUser.first_name
         return render(request, "web/home.html", context={
                 "News": page_obj,
                 "UserName": Name,
+                "sponsor": sponsor,
             })
     else:    
         return render(request, "web/home.html", context={
                 "News": page_obj,
+                "sponsor": sponsor,
             })
 
 # loginFunktion (DONE)
@@ -177,7 +181,6 @@ def infoPageMenu(request):
 
     return render(request, "web/infoPageMenu.html", {"objects": Objects, "form": form})
 
-
 '''
 Editor für die Infoseiten
 '''
@@ -295,3 +298,13 @@ def impressum(request):
 def datenschutz(request):
     Seite = get_object_or_404(standartPages, titel = "Datenschutz")
     return render(request, "web/standart.html", {"seite": Seite})
+
+
+def getSponsor():
+    items = sponsoren.objects.all()
+
+    return random.choice(items)
+
+def show_all_Sponsor(request):
+    sponsoren_All = sponsoren.objects.all()
+    return render(request, "web/show_all_Sponsor.html", {"sponsoren": sponsoren_All})
