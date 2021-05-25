@@ -25,55 +25,59 @@
       <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
         <ul class="navbar-nav mr-auto px-2 px-lg-0">
 
-
         {% load createMenuObject %}
         {% createMenuObject as menuObject %}
         {% createMenuObject_jollen as jollen%}
 
         {% for gruppen in menuObject%}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'InfoPage_Header' gruppen.Header.name %}"> {{ gruppen.Header.titel }} </a>
-            <ul class="dropdown-menu dropdown" aria-labelledby="dropdownMenuButton">
+            <a class="nav-link dropdown-toggle px-2" role="button"  data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="{% url 'InfoPage_Header' gruppen.Header.name %}">
+              {{ gruppen.Header.titel }}</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li class="d-flex d-lg-none"><a class="dropdown-item" href="{% url 'InfoPage_Header' gruppen.Header.name %}">
+                  {{ gruppen.Header.titel }}</a></li>
               {% for seite in gruppen.seiten %}
-                <li><a class="dropdown-item" href="{% url 'InfoPage' gruppen.Header.name seite.name %}"> {{ seite.titel }} </a></li>
+                <li><a class="dropdown-item" href="{% url 'InfoPage' gruppen.Header.name seite.name %}">
+                  {{ seite.titel }}</a></li>
               {% endfor %}
             </ul>
           </li>
         {% endfor %}
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'jollenÜbersicht' %}"> Unsere Jollen </a>
-            <ul class="dropdown-menu dropdown" aria-labelledby="dropdownMenuButton">
-            {% if request.user.is_authenticated %}
-                <li><a class="dropdown-item" href="{% url 'jollenStatus' %}"> Jollen Status </a></li>
-            {% endif %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2" role="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="{% url 'jollenÜbersicht' %}">
+              Unsere Jollen</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {% if request.user.is_authenticated %}
+                <li><a class="dropdown-item" href="{% url 'jollenStatus' %}"> Status </a></li>
+              {% endif %}
+                <li class="d-flex d-lg-none"><a class="dropdown-item" href=href="{% url 'jollenÜbersicht' %}">
+                  Jollenpark</a></li>
               {% for boot in jollen %}
                 <li><a class="dropdown-item" href="{% url 'jollen_description' boot.name %}"> {{ boot.klasse }} "{{ boot.name }}" </a></li>
               {% endfor %}
-            </ul>
+              </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'sponsor' %}"> Sponsoren</a>
           </li>
         {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'MeinASV' %}">
+            <a class="nav-link dropdown-toggle px-2" role="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="{% url 'MeinASV' %}">
             Mein ASV</a>
-            <ul class="dropdown-menu dropdown" aria-labelledby="dropdownMenuButton">
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <li class="d-flex d-lg-none"><a class="dropdown-item" href="{% url 'MeinASV' %}">Dashboard</a></li>
               <li><a class="dropdown-item" href="{% url 'Mitgliederverzeichnis' %}">Mitgliederverzeichnis</a></li>
               <li><a class="dropdown-item" href="{% url 'arbeitsstunden_home' %}">Arbeitsstunden</a></li>
               <li><a class="dropdown-item" href="/wiki">Wiki</a></li>
               <li><a class="dropdown-item" href="/cloud/index.php/apps/sociallogin/custom_oidc/Keycloak">Cloud</a></li>
-
-              {% if request.user|has_group:"Admin" %}
-              <li><a class="dropdown-item dropdown-toggle" href="/admin">Admin</a>
-                <ul class="submenu submenu- dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% if request.user|has_group:"Admin" %}
+              <li class="dropdown-submenu dropleft">
+                <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="/admin">
+                Admin</a>
+                <ul class="dropdown-menu submenu" aria-labelledby="dropdownMenuButton">
+                  <li class="d-flex d-lg-none"><a class="dropdown-item" href="/admin">Adminbereich</a></li>
 		          <li><a class="dropdown-item" href="{% url 'errorPage' %}"> ErrorPageTest</a></li>
-                  <li><a class="dropdown-item" href="#"> Admin 2</a></li>
-                   {% comment %}
-      <!--          <li><a class="dropdown-item" href="{% url 'unfertig' %}"> Third level 3 &raquo </a>
-			          <ul class="submenu dropdown-menu aria-labelledby="dropdownMenuButton">
-			            <li><a class="dropdown-item" href="#"> Fourth level 1</a></li>
-			            <li><a class="dropdown-item" href="{% url 'unfertig' %}"> Fourth level 2</a></li>
-			          </ul>
-                    </li>-->
-                  {% endcomment %}
+                  <li><a class="dropdown-item" href="{% url 'unfertig' %}"> Admin 2</a></li>
                 </ul>
               </li>
               {% endif %}
@@ -84,9 +88,10 @@
         <ul class="navbar-nav px-2 px-lg-0">
           {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenu Button"href="{% url 'Einstellungen' %}">
+            <a class="nav-link dropdown-toggle px-2" role="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="{% url 'Einstellungen' %}">
               Account</a>
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <li class="d-flex d-lg-none"><a class="dropdown-item" href="{% url 'Einstellungen' %}">Einstellungen</a></li>
               <li><a class="dropdown-item" href="/sso/auth/realms/ASV/account/">Password ändern</a></li>
               <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
             </ul>
@@ -101,5 +106,3 @@
     </nav>
 
   </div> <!-- end menue-wrapper -->
-
-
