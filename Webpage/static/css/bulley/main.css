@@ -193,7 +193,7 @@ body {
    margin-right: 0rem;*/
    font-family: ASV, Verdana, Arial, Helvetica, sans-serif;
    font-size: 1rem;
-   font-weight: 200;
+   font-weight: 300;
    line-height: 1.5rem;
    color: black; /*var(--asvcolorgrey);*/
    background: var(--asvcolorbackgroundgrey);
@@ -283,7 +283,7 @@ h5 {
     font-size: 1.2rem;
 }
 h6 {
-    font-weight: 300;
+    font-weight: 400;
     font-style: italic;
     margin-bottom: 0rem;
 }
