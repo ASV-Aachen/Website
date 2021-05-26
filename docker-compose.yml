@@ -235,7 +235,7 @@ services:
     labels:
       - traefik.enable=true
       - "traefik.http.routers.StaticFileServer.entrypoints=web"
-      - "traefik.http.routers.StaticFileServer.rule=PathPrefix(`/static{regex:$$|/.*}`) || PathPrefix(`/media/profile{regex:$$|/.*}`) || PathPrefix(`/media/boats{regex:$$|/.*}`)"
+      - "traefik.http.routers.StaticFileServer.rule=PathPrefix(`/static{regex:$$|/.*}`) || PathPrefix(`/media/profile{regex:$$|/.*}`) || PathPrefix(`/media/boats{regex:$$|/.*}`) || PathPrefix(`/media/sponsoren{regex:$$|/.*}`)"
       - "traefik.http.services.StaticFileServer.loadbalancer.server.port=80"
       - "traefik.http.routers.StaticFileServer.tls=true"
       - "traefik.http.routers.StaticFileServer.tls.certresolver=myresolver"
