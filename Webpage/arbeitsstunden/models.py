@@ -6,66 +6,74 @@ from django.db import models
 from member.models import profile
 
 
-class Saison(models.Model):
-    Jahr = models.IntegerField(primary_key=True)  # Erstes Jahr der Saison, z.B. "2020" => Saison 2020/21
+class season(models.Model):
+    year = models.IntegerField(primary_key=True)  # Erstes Jahr der Saison, z.B. "2020" => Saison 2020/21
 
     def __str__(self):
         return "Saison " + str(self.Jahr) + "/" + str(self.Jahr + 1)[-2:]
 
 
-class Tag(models.Model):
+class tag(models.Model):
     Name = models.CharField(max_length=256)
 
     def __str__(self):
         return self.Name
 
-class Projekt(models.Model):
-    Saison = models.ForeignKey(Saison, on_delete=models.RESTRICT)
-    Name = models.CharField(max_length=256)
-    Beschreibung = models.TextField(blank=True)
-    Verantwortlich = models.ManyToManyField(profile)
+class costCenter(models.Model):
+    name = models.CharField(max_length=256)
+    description = models.CharField(max_length=500)
 
-    @property
-    def Arbeitszeit(self):
-        arbeitseinheiten = Arbeitseinheit.objects.filter(Projekt=self)
-        return sum(arbeitseinheit.Arbeitszeit for arbeitseinheit in arbeitseinheiten)
+    def workedHours(self):
+        allProjects = project.objects.filter(costCenter=self)
 
-    def __str__(self):
-        return str(self.Saison) + ": " + self.Name
+    def workedHoursinSeason(self, season):
+        allProjects = project.objects.filter(costCenter=self)
+        allProjects = allProjects.filter(season = season)
 
+class project(models.Model):
+    name = models.CharField(max_length=256)
+    description = models.CharField(max_length=500, blank=True)
+    
+    tags = models.ManyToManyField(tag, blank=True)
+    responsible = models.ManyToManyField(User)
 
-class Arbeitsstundenausschreibung(models.Model):
-    Titel = models.CharField(max_length=512)
-    Beschreibung = models.TextField()
-    Projekt = models.ForeignKey(Projekt, on_delete=models.RESTRICT)
-    Tags = models.ManyToManyField(Tag, blank=True)
-    Umfang = models.CharField(max_length=512, blank=True)
-    Fertigstellungstermin = models.DateField(blank=True, null=True)
+    season = models.ForeignKey(season, on_delete=models.RESTRICT)
+    costCenter = models.ForeignKey(costCenter, on_delete=models.RESTRICT)
 
-    def __str__(self):
-        return self.Titel
+    planedHours = models.IntegerField(blank=True)
 
+    def hourDifferenz(self):
+        return self.planedHours - self.workedHours()
+    
+    def workedHours(self):
+        subprojects = subproject.objects.filter(project = self)
+        return sum(i.workedHours() for i in subprojects)
 
-class Arbeitseinheit(models.Model):
-    Projekt = models.ForeignKey(Projekt, on_delete=models.RESTRICT)
-    Beschreibung = models.CharField(max_length=1024)
-    Beteiligte = models.ManyToManyField(profile, through="Arbeitsbeteiligung")
-    Datum = models.DateField()
-    Ausschreibung = models.ForeignKey(Arbeitsstundenausschreibung, on_delete=models.SET_NULL, blank=True, null=True)
+class subproject(models.Model):
+    name = models.CharField(max_length=256)
+    description = models.CharField(max_length=500)
 
-    @property
-    def Arbeitszeit(self):
-        return sum(beteiligung.Arbeitszeit for beteiligung in Arbeitsbeteiligung.objects.filter(Arbeitseinheit_id=self.id))
+    project = models.ForeignKey(project, on_delete=models.RESTRICT)
 
-    def __str__(self):
-        return str(self.Projekt) + ": " + self.Beschreibung
+    voluntary = models.BooleanField(default=False)
+    parts = models.ManyToManyField(work, blank=True)
 
+    planed = models.BooleanField(default=True)
+    endDate = models.DateField(blank=True, null=True)
 
-class Arbeitsbeteiligung(models.Model):
-    Arbeitseinheit = models.ForeignKey(Arbeitseinheit, on_delete=models.RESTRICT)
-    Arbeitsleistender = models.ForeignKey(profile, on_delete=models.RESTRICT)
-    Arbeitszeit = models.FloatField()
+    planedHours = models.IntegerField(blank=True)
 
-    def __str__(self):
-        return str(self.Arbeitsleistender) + ": " + str(self.Arbeitszeit) + "h bei " + str(self.Arbeitseinheit)
+    def hourDifferenz(self):
+        return self.planedHours - self.workedHours()
 
+    def workedHours(self):
+        workingParts = self.parts
+        return sum(i.hours for i in workingParts)
+    
+    
+        
+class work(models.Model):
+    employee = models.ManyToManyField(User, blank=True)
+    hours = models.IntegerField(default = 0)
+    description = models.CharField(max_length=500)
+    date = models.DateField
