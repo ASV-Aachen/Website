@@ -7,6 +7,7 @@ import os
 from phonenumber_field.modelfields import PhoneNumberField
 from django_resized import ResizedImageField
 import secrets
+from Webpage.arbeitsstunden import account
 
 class role(models.Model):
     titel = models.CharField(max_length=70, null=False, primary_key=True)
@@ -56,6 +57,9 @@ class profile(models.Model):
     
     entry_date = models.DateField()
     # Konto Gehört zur Bierkasse #23 (TODO)
+
+    # Arbeitsstunden
+    workingHoursAccount = models.ForeignKey(account, on_delete=models.RESTRICT)
 
     # Pluggin: https://github.com/stefanfoulis/django-phonenumber-field
     phone = PhoneNumberField(null=True, blank=True, unique=False)

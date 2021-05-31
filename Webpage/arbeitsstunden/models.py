@@ -8,6 +8,7 @@ from member.models import profile
 
 class season(models.Model):
     year = models.IntegerField(primary_key=True)  # Erstes Jahr der Saison, z.B. "2020" => Saison 2020/21
+    hours = models.IntegerField()
 
     def __str__(self):
         return "Saison " + str(self.Jahr) + "/" + str(self.Jahr + 1)[-2:]
@@ -19,17 +20,43 @@ class tag(models.Model):
     def __str__(self):
         return self.Name
 
+class account(models.Model):
+    isNew = models.BooleanField(default=False)
+    hasShortenedHours = models.BooleanField(default=False)
+
+    customHours = models.IntegerField(null=True)
+
+    def HowManyHoursDoesUserHaveToWork(self, season):
+        if(self.customHours != null):
+            return self.customHours
+        else:
+            hours = season.hours
+            if self.hasShortenedHours:
+                hours = hours / 2
+            
+            if self.isNew:
+                hours = hours / 2
+            return hours
+    
+    def workedHours(self):
+        projects = work.objects.filter(employe = self)
+
+    def __str__(self):
+        return profile.Objects.filter(workingHoursAccount=self).user.first_name + " " + profile.Objects.filter(workingHoursAccount=self).user.last_name
+    
+
 class costCenter(models.Model):
     name = models.CharField(max_length=256)
     description = models.CharField(max_length=500)
 
     def workedHours(self):
         allProjects = project.objects.filter(costCenter=self)
+        return sum(i.workedHour() for i in allProjects)
 
     def workedHoursinSeason(self, season):
         allProjects = project.objects.filter(costCenter=self)
         allProjects = allProjects.filter(season = season)
-
+        return sum(i.workedHour() for i in allProjects)
 class project(models.Model):
     name = models.CharField(max_length=256)
     description = models.CharField(max_length=500, blank=True)
@@ -70,10 +97,8 @@ class subproject(models.Model):
         workingParts = self.parts
         return sum(i.hours for i in workingParts)
     
-    
-        
 class work(models.Model):
-    employee = models.ManyToManyField(User, blank=True)
+    employee = models.ManyToManyField(account, blank=True)
     hours = models.IntegerField(default = 0)
     description = models.CharField(max_length=500)
     date = models.DateField
