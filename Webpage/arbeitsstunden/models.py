@@ -1,7 +1,5 @@
 from pprint import pprint
-
 from django.db import models
-
 # Create your models here.
 from member.models import profile
 
@@ -57,6 +55,7 @@ class costCenter(models.Model):
         allProjects = project.objects.filter(costCenter=self)
         allProjects = allProjects.filter(season = season)
         return sum(i.workedHour() for i in allProjects)
+
 class project(models.Model):
     name = models.CharField(max_length=256)
     description = models.CharField(max_length=500, blank=True)
