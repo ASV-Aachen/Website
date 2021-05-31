@@ -23,6 +23,7 @@ from member.models import profile
 - Übersicht über letzte Eintragungen (Newsfead TODO: #159)
 '''
 def dashboard(request):
+    
     pass
 
 '''
