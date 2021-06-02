@@ -164,10 +164,67 @@ def deleteSubproject(request, idSubproject):
         # sende Seite
         return render(request, "arbeitsstunden/deleteUser.html", {"hash": key, "project": projekt})
 
-# API Endpunkt, einfügen eines neuen subProjektes. KEINE WEBSITE, HÖCHSTENS ERROR CODE
-def API_editWork(request, nameSubProject):    
-    pass
 
+
+# -----------------------------------------------------------------------------------------
+# API Endpunkt, einfügen eines neuen subProjektes. KEINE WEBSITE, HÖCHSTENS ERROR CODE
+def newWork(request, idSubProject):
+    project = get_object_or_404(work, id=idWork)
+    parent = get_object_or_404(subproject, id = idSubProject)
+
+    if(request.method == "POST"):
+        form = formProject(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            form.instance.id = idWork
+            form.save()
+            parent.parts.add(project)
+            # TODO
+            return redirect("")
+        
+        return redirect("ErrorPage")
+    else:
+        form = formProject(instance=project)
+        return render(request, "Arbeitsstunden/form_template.html", {
+            "form": form
+        })
+
+def editWork(request, idSubProject, idWork):    
+    project = get_object_or_404(work, id=idWork)
+
+    if(request.method == "POST"):
+        form = formProject(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            form.instance.id = idWork
+            form.save()
+            # TODO
+            return redirect("")
+        
+        return redirect("ErrorPage")
+    else:
+        form = formProject(instance=project)
+        return render(request, "Arbeitsstunden/form_template.html", {
+            "form": form
+        })
+
+def deleteWork(request, idSubProject, idWork):
+    projekt = get_object_or_404(work, id = idWork)
+
+    if 'key' in request.GET and request.GET['key'] != "":
+                # Lösche den Nutzer
+        givenKey = request.GET['key']
+        if givenKey == hashlib.sha512(str(projekt).encode('utf-8')).hexdigest():
+            projekt.delete()
+            return redirect("")
+    else:
+        key = hashlib.sha512(str(projekt).encode('utf-8')).hexdigest()
+        # sende Seite
+        return render(request, "arbeitsstunden/deleteUser.html", {"hash": key, "project": projekt})
+
+
+
+# -----------------------------------------------------------------------------------------
 # Übersicht mit Statistiken über alle seasons
 def seasonOverview(request):
     pass
