@@ -132,7 +132,37 @@ def newSubprojekt(request):
 
 # Edit eines Subprojektes
 def editSubproject(request, idSubproject):
-    pass
+    project = get_object_or_404(subproject, id=idSubproject)
+
+    if(request.method == "POST"):
+        form = formProject(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            form.instance.id = idSubproject
+            form.save()
+            # TODO
+            return redirect("")
+        
+        return redirect("ErrorPage")
+    else:
+        form = formProject(instance=project)
+        return render(request, "Arbeitsstunden/form_template.html", {
+            "form": form
+        })
+
+def deleteSubproject(request, idSubproject):
+    projekt = get_object_or_404(subproject, id = idSubproject)
+
+    if 'key' in request.GET and request.GET['key'] != "":
+                # Lösche den Nutzer
+        givenKey = request.GET['key']
+        if givenKey == hashlib.sha512(str(projekt).encode('utf-8')).hexdigest():
+            projekt.delete()
+            return redirect("")
+    else:
+        key = hashlib.sha512(str(projekt).encode('utf-8')).hexdigest()
+        # sende Seite
+        return render(request, "arbeitsstunden/deleteUser.html", {"hash": key, "project": projekt})
 
 # API Endpunkt, einfügen eines neuen subProjektes. KEINE WEBSITE, HÖCHSTENS ERROR CODE
 def API_editWork(request, nameSubProject):    
