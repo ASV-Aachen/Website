@@ -1,3 +1,4 @@
+from Webpage.arbeitsstunden.models import account, season
 from functools import reduce
 
 from django.db.models import F
@@ -241,8 +242,12 @@ def singleSeasonOverview(request, seasonId):
 # -----------------------------------------------------------------------------------------
 # Übersicht über die Kostenstellen, mit Einsicht in laufende Projekte in der aktuellen Season
 def costCenterOverview(request):
-    pass
+    return render(request, template_name="arbeitsstunden/costCenterOverview.html", context={
+        "center": costCenter.objects.all()
+    })
 
 
-def singleCostCenterOverview(request, seasonID):
-    pass
+def singleCostCenterOverview(request, centerID):
+    return render(request, template_name="arbeitsstunden/singleCostCenterOverview.html", context={
+        "center": costCenter.objects.filter(id = centerID)
+    })
