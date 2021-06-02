@@ -7,6 +7,7 @@ import os
 from phonenumber_field.modelfields import PhoneNumberField
 from django_resized import ResizedImageField
 import secrets
+from utils.member import *
 
 class role(models.Model):
     titel = models.CharField(max_length=70, null=False, primary_key=True)
@@ -43,6 +44,14 @@ class profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    GENDER_CHOICES = (
+        ('M', 'Mann'),
+        ('F', 'Frau'),
+        ('X', 'Divers')
+    )
+
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default= "M")
+
     roles = models.ManyToManyField(role)
     
     hometown = models.CharField(max_length=100, null=True, default='Aachen')
@@ -63,6 +72,14 @@ class profile(models.Model):
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # This code only happens if the objects is
+            # not in the database yet. Otherwise it would
+            # have pk
+            self.gender = getGender(self.user.first_name)
+        super().save(*args, **kwargs)
 
 
 class position_in_the_club(models.Model):
