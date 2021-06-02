@@ -23,3 +23,4 @@ django-sitetree~=1.14
 django-simple-history
 django-filter
 fontawesome-free
+gender-guesser

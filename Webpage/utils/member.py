@@ -7,6 +7,8 @@ from member.models import profile
 from keycloak import KeycloakAdmin
 import random
 
+import gender_guesser.detector as gender
+
 from utils.keycloak import getKeycloackAdmin
 
 
@@ -82,3 +84,14 @@ def createNewUserInKeycloak(username, vorname, nachname, Email) -> bool:
                                            "lastName": nachname})
 
     return True
+
+def getGender(name):
+    d = gender.Detector()
+    ergebniss = d.get_gender(name)
+
+    if ergebniss == "female":
+        return "F"
+    if ergebniss == "andy":
+        return "X"
+    return "M"
+    
