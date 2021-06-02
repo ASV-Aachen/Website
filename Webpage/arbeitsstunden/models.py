@@ -68,6 +68,8 @@ class project(models.Model):
 
     planedHours = models.IntegerField(blank=True)
 
+    aktiv = models.BooleanField(default=True)
+
     def hourDifferenz(self):
         return self.planedHours - self.workedHours()
     
