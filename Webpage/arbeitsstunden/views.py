@@ -227,12 +227,18 @@ def deleteWork(request, idSubProject, idWork):
 # -----------------------------------------------------------------------------------------
 # Übersicht mit Statistiken über alle seasons
 def seasonOverview(request):
-    pass
+    return render(request, template_name="arbeitsstunden/seasonOverview.html", context={
+        "seasons": season.objects.all()
+    })
+
 
 # Statistik über eine einzelne Season mit Statistik und allen entsprechenden Projekten
 def singleSeasonOverview(request, seasonId):
-    pass
+    return render(request, template_name="arbeitsstunden/singleSeasonOverview.html", context={
+        "season": season.objects.filter(id=seasonId)
+    })
 
+# -----------------------------------------------------------------------------------------
 # Übersicht über die Kostenstellen, mit Einsicht in laufende Projekte in der aktuellen Season
 def costCenterOverview(request):
     pass
