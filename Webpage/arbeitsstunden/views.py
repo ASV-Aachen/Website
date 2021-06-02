@@ -32,15 +32,103 @@ def dashboard(request):
         "last_Work": last_Works
     })
 
+
+# -----------------------------------------------------------------------------------------
 '''
 Alle Aktiven und geplante Projekte, sortiert nach Zeit, ein und ausklappbar
 '''
 def allAktivProjekts(request):
+
+    aktiveProjecte = project.objects.filter(aktiv = True)
+
+    return render(request, template_name="arbeitsstunden/allAktivProjects.html", context={
+        "projekte": aktiveProjecte
+    })
+
+def newProjekt(request):
+    if(request.method == "POST"):
+        form = formProject(request.POST)
+        if form.is_valid():
+            form.save()
+            # TODO
+            return redirect("")
+        
+        return redirect("ErrorPage")
+    else:
+        form = formProject()
+        return render(request, "Arbeitsstunden/form_template.html", {
+            "form": form
+        })
     pass
 
 # Projekt Edit mit allen subprojekten und Übersichten
-def editProjekt(request):
-    pass
+# bekommt daten über das Projekt und ein Formular zum ändern
+def editProjekt(request, projectID):
+    project = get_object_or_404(project, id=projectID)
+
+    if(request.method == "POST"):
+        form = formProject(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            form.instance.id = projectID
+            form.save()
+            # TODO
+            return redirect("")
+        
+        return redirect("ErrorPage")
+    else:
+        form = formProject(instance=project)
+        return render(request, "Arbeitsstunden/form_template.html", {
+            "form": form
+        })
+
+def deleteProjekt(request, projectID):
+    projekt = get_object_or_404(project, id = projectID)
+
+    if 'key' in request.GET and request.GET['key'] != "":
+                # Lösche den Nutzer
+        givenKey = request.GET['key']
+        if givenKey == hashlib.sha512(str(projekt).encode('utf-8')).hexdigest():
+            projekt.delete()
+            return redirect("")
+    else:
+        key = hashlib.sha512(str(projekt).encode('utf-8')).hexdigest()
+        # sende Seite
+        return render(request, "arbeitsstunden/deleteUser.html", {"hash": key, "project": projekt})
+
+
+
+# -----------------------------------------------------------------------------------------
+def newSubprojectToProject(request, idProject):
+    projekt = get_object_or_404(project, id = idProject)
+    if(request.method == "POST"):
+        form = formSubProject(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            form.instance.project = projekt
+            form.save()
+            # TODO
+            return redirect("")
+        return redirect("ErrorPage")
+    else:
+        form = formSubProject()
+        return render(request, "Arbeitsstunden/form_template.html", {
+            "form": form
+        })
+
+def newSubprojekt(request):
+    if(request.method == "POST"):
+        form = formSubProject(request.POST)
+        if form.is_valid():
+            form.save()
+            # TODO
+            return redirect("")
+        return redirect("ErrorPage")
+    else:
+        form = formSubProject()
+        return render(request, "Arbeitsstunden/form_template.html", {
+            "form": form
+        })
 
 # Edit eines Subprojektes
 def editSubproject(request, idSubproject):
