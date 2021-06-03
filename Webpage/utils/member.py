@@ -7,6 +7,8 @@ from member.models import profile
 from keycloak import KeycloakAdmin
 import random
 
+import gender_guesser.detector as gender
+
 from utils.keycloak import getKeycloackAdmin
 
 
@@ -82,3 +84,49 @@ def createNewUserInKeycloak(username, vorname, nachname, Email) -> bool:
                                            "lastName": nachname})
 
     return True
+
+def getGender(name):
+    d = gender.Detector()
+    ergebniss = d.get_gender(name)
+
+    if ergebniss == "female":
+        return "F"
+    if ergebniss == "andy":
+        return "X"
+    return "M"
+    
+
+register = template.Library()
+
+@register.simple_tag
+def genderTitel(titel, gender):
+    dict = {
+        "1. Vorsitzender": "1. Vorsitzende",
+        "2. Kassenwart bzw. Kassenwart der Altherrenschaft": "2. Kassenwartin bzw. Kassenwartin der Altherrenschaft",
+        "2. Vorsitzender bzw. Vorsitzender der Altherrenschschaft": "2. Vorsitzende bzw. Vorsitzende der Altherrenschschaft",
+        "Admin": "Admin",
+        "Ausbildungswart": "Ausbildungswartin",
+        "Bauchladenobmann": "Bauchladenobfrau",
+        "Bierwart": "Bierwartin",
+        "Entwickler": "Entwicklerin",
+        "Etagenobmann": "Etagenobfrau",
+        "Hallenobmann": "Hallenobfrau",
+        "Homepageobmann": "Homepageobfrau",
+        "Kassenwart": "Kassenwartin",
+        "Pressesprecher": "Pressesprecherin",
+        "Regattawart": "Regattawartin",
+        "Rurseeobmann": "Rurseeobfrau",
+        "Schifferratsvorsitzender": "Schifferratsvorsitzende",
+        "Schriftwart": "Schriftwartin",
+        "Seekartenobmann": "Seekartenobfrau",
+        "Seereisenkoordinator": "Seereisenkoordinatorin",
+        "Seeschiffobmann": "Seeschiffobfrau",
+        "Stegobmann": "Stegobfrau",
+        "Stellvertretender Vorstand": "",
+        "Takelmeister": "Takelmeisterin",
+        "Verbandsobmann": "Verbandsobfrau"
+    }
+    if (gender == "F") and titel in dict.keys():
+        return dict[titel]
+    return titel
+    

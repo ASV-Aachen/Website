@@ -37,7 +37,9 @@
                 <p id="Status" style="margin-left: 0;text-align: center;">{{profil.get_status_display}}</p>
                 <div id="Badges" style="margin-left: 2px;margin-bottom: 7px;">
                     {% for membersRole in profil.roles.all %}
-                        <span class="badge badge-primary" style="margin-left: 2px;padding-top: 5px;padding-right: 5;padding-bottom: 5;padding-left: 5;">{{membersRole}}</span>
+                        {% load genderTitel %%}
+                        {% genderTitel membersRole profil.gender as role %} 
+                        <span class="badge badge-primary" style="margin-left: 2px;padding-top: 5px;padding-right: 5;padding-bottom: 5;padding-left: 5;">{{ role }}</span>
                     {% endfor%}
                 </div>
             </div>
