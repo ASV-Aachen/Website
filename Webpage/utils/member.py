@@ -126,7 +126,7 @@ def genderTitel(titel, gender):
         "Takelmeister": "Takelmeisterin",
         "Verbandsobmann": "Verbandsobfrau"
     }
-    if (gender == "F"):
+    if (gender == "F") and titel in dict.keys():
         return dict[titel]
     return titel
     
