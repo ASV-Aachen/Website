@@ -2,7 +2,7 @@ from pprint import pprint
 from django.db import models
 # Create your models here.
 from member.models import profile
-
+import datetime
 
 class season(models.Model):
     year = models.IntegerField(primary_key=True)  # Erstes Jahr der Saison, z.B. "2020" => Saison 2020/21
@@ -102,4 +102,5 @@ class work(models.Model):
     employee = models.ManyToManyField(account, blank=True)
     hours = models.IntegerField(default = 0)
     description = models.CharField(max_length=500)
-    date = models.DateField
+    date = models.DateField()
+    setupDate = models.DateField(default=date.today)

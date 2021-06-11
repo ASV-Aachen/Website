@@ -1,7 +1,6 @@
-from Webpage.arbeitsstunden.models import account, season
+from .models import account, season
 from functools import reduce
 
-from django.db.models import F
 from django.db.models.functions import Coalesce
 from django.shortcuts import render, redirect, get_object_or_404
 import hashlib
@@ -62,6 +61,12 @@ def newProjekt(request):
         })
     pass
 
+def showProjekt(request, projectID):
+    project = get_object_or_404(project, id=projectID)
+    return render(request, "Arbeitsstunden/showProjekt.html", {
+            "project": project
+        })
+
 # Projekt Edit mit allen subprojekten und Übersichten
 # bekommt daten über das Projekt und ein Formular zum ändern
 def editProjekt(request, projectID):
@@ -95,7 +100,7 @@ def deleteProjekt(request, projectID):
     else:
         key = hashlib.sha512(str(projekt).encode('utf-8')).hexdigest()
         # sende Seite
-        return render(request, "arbeitsstunden/deleteUser.html", {"hash": key, "project": projekt})
+        return render(request, "arbeitsstunden/delete.html", {"hash": key, "project": projekt})
 
 
 
@@ -163,7 +168,7 @@ def deleteSubproject(request, idSubproject):
     else:
         key = hashlib.sha512(str(projekt).encode('utf-8')).hexdigest()
         # sende Seite
-        return render(request, "arbeitsstunden/deleteUser.html", {"hash": key, "project": projekt})
+        return render(request, "arbeitsstunden/delete.html", {"hash": key, "project": projekt})
 
 
 
@@ -190,7 +195,7 @@ def newWork(request, idSubProject):
             "form": form
         })
 
-def editWork(request, idSubProject, idWork):    
+def editWork(request, idWork):    
     project = get_object_or_404(work, id=idWork)
 
     if(request.method == "POST"):
@@ -209,7 +214,7 @@ def editWork(request, idSubProject, idWork):
             "form": form
         })
 
-def deleteWork(request, idSubProject, idWork):
+def deleteWork(request, idWork):
     projekt = get_object_or_404(work, id = idWork)
 
     if 'key' in request.GET and request.GET['key'] != "":
@@ -221,7 +226,7 @@ def deleteWork(request, idSubProject, idWork):
     else:
         key = hashlib.sha512(str(projekt).encode('utf-8')).hexdigest()
         # sende Seite
-        return render(request, "arbeitsstunden/deleteUser.html", {"hash": key, "project": projekt})
+        return render(request, "arbeitsstunden/delete.html", {"hash": key, "project": projekt})
 
 
 
