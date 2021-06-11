@@ -21,25 +21,22 @@ app_name: "arbeitsstunden"
 
 
 urlpatterns = [
-    path('', views.arbeitsstunden_home, name="arbeitsstunden_home"),
-    path('ausschreibungen', views.ausschreibungen_overview, name="ausschreibungen_overview"),
-    path('ausschreibungen/<int:pk>', views.ausschreibung_details, name="ausschreibung_details"),
-    path('ausschreibungen/new', views.createNewAusschreibung, name="ausschreibung_new"),
-    path('ausschreibungen/edit/<int:pk>', views.edit_ausschreibung, name='ausschreibung_edit'),
-    path('ausschreibungen/delete/<int:pk>', views.deleteAusschreibung, name='ausschreibung_delete'),
+    path('', views.dashboard, name="arbeitsstunden_home"),
 
-    path('projekte', views.projekte_overview, name="projekte_overview"),
-    path('projekte/<int:pk>', views.projekte_detail, name="projekte_detail"),
-    path('projekte/new', views.project_new, name="projekt_new"),
-    path('projekte/edit/<int:pk>', views.projekt_edit, name='projekt_edit'),
-    path('projekte/delete/<int:pk>', views.projekt_delete, name='projekt_delete'),
+    path('projekte', views.allAktivProjekts, name="projekte_overview"),
+    path('projekte/<int:projectID>', views.showProjekt, name="projekte_detail"),
+    path('projekte/new', views.newProjekt, name="projekt_new"),
+    path('projekte/edit/<int:projectID>', views.editProjekt, name='projekt_edit'),
+    path('projekte/delete/<int:projectID>', views.deleteProjekt, name='projekt_delete'),
 
-    path('arbeitseinheit/<int:pk>', views.arbeitseinheit_details, name="arbeitseinheit_details"),
-    path('arbeitseinheit/new', views.arbeitseinheit_new, name="arbeitseinheit_new"),
-    path('arbeitseinheit/edit/<int:pk>', views.arbeitseinheit_edit, name="arbeitseinheit_edit"),
-    path('arbeitseinheit/delete/<int:pk>', views.arbeitseinheit_delete, name="arbeitseinheit_delete"),
+    path('subproject/new', views.newSubprojekt, name="newSubprojekt"),
+    path('subproject/new/<int:idProject>', views.newSubprojectToProject, name="newSubprojectToProject"),
+    path('subproject/edit/<int:idSubproject>', views.editSubproject, name='editSubproject'),
+    path('subproject/delete/<int:idSubproject>', views.deleteSubproject, name='deleteSubproject'),
 
-    path('arbeitsbeteiligung/new', views.arbeitsbeteiligung_new, name="arbeitsbeteiligung_new"),
-    path('arbeitsbeteiligung/edit/<int:pk>', views.arbeitsbeteiligung_edit, name="arbeitsbeteiligung_edit"),
-    path('arbeitsbeteiligung/delete/<int:pk>', views.arbeitsbeteiligung_delete, name="arbeitsbeteiligung_delete")
+    path('season', views.seasonOverview, name="seasonOverview"),
+    path('season/<int:seasonID>', views.singleSeasonOverview, name="singleSeasonOverview"),
+
+    path('costCenter', views.costCenterOverview, name="costCenterOverview"),
+    path('singleCostCenterOverview/<int:centerID>', views.singleCostCenterOverview, name="singleCostCenterOverview"),
 ]
