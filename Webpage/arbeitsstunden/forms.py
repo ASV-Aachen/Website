@@ -21,3 +21,9 @@ class formWork(request):
     class Meta:
         model = work
         fields = ("employee", "hours", "description", "date")
+
+class hours(form.ModelForm):
+    
+    class Meta:
+        model = customHours
+        field = ("percentege")
