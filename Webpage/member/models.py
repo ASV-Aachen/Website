@@ -7,7 +7,7 @@ import os
 from phonenumber_field.modelfields import PhoneNumberField
 from django_resized import ResizedImageField
 import secrets
-from Webpage.arbeitsstunden import account
+from arbeitsstunden.models import account
 from utils.member import *
 
 class role(models.Model):

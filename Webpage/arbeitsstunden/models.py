@@ -1,8 +1,12 @@
+from Webpage.utils.member import createUsername
 from pprint import pprint
 from django.db import models
 # Create your models here.
-from member.models import profile
 import datetime
+
+# Returns the given Winter season of a year
+def getCurrentSeason(Year):
+    return season.objects.get(year=Year)
 
 class season(models.Model):
     year = models.IntegerField(primary_key=True)  # Erstes Jahr der Saison, z.B. "2020" => Saison 2020/21
@@ -10,19 +14,35 @@ class season(models.Model):
 
     def __str__(self):
         return "Saison " + str(self.Jahr) + "/" + str(self.Jahr + 1)[-2:]
+    
+    def save(self, *args, **kwargs):
+        hours = customHours.objects.filter(season = self)
+
+        for i in hours:
+            i.customHours = self.hours
+
+        super().save(*args, **kwargs)
+
+class customHours(models.Model):
+    season = models.ForeignKey(season, on_delete=models.CASCADE)
+    account = models.ForeignKey(account, on_delete=models.CASCADE)
+
+    customHours = models.IntegerField(null=True)
+    percentege = models.IntegerField(default=100, max=100, min=0)
 
 
-class tag(models.Model):
-    Name = models.CharField(max_length=256)
+    def getCustomHours(self):
+        # Prozentualer Anteil
+        return self.customHours * self.percentege / 100
+        pass
 
-    def __str__(self):
-        return self.Name
+    pass
 
 class account(models.Model):
     isNew = models.BooleanField(default=False)
     hasShortenedHours = models.BooleanField(default=False)
 
-    customHours = models.IntegerField(null=True)
+    name = models.CharField(default="TESTNUTZER")
 
     def HowManyHoursDoesUserHaveToWork(self, season):
         if(self.customHours != null):
@@ -40,8 +60,7 @@ class account(models.Model):
         projects = work.objects.filter(employe = self)
 
     def __str__(self):
-        return profile.Objects.filter(workingHoursAccount=self).user.first_name + " " + profile.Objects.filter(workingHoursAccount=self).user.last_name
-    
+        return self.id
 
 class costCenter(models.Model):
     name = models.CharField(max_length=256)
@@ -104,3 +123,9 @@ class work(models.Model):
     description = models.CharField(max_length=500)
     date = models.DateField()
     setupDate = models.DateField(default=date.today)
+
+class tag(models.Model):
+    Name = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.Name
