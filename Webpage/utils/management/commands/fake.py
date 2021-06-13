@@ -10,7 +10,7 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        self.stdout.write("creating News", ending='')
+        self.stdout.write("creating News", ending='\n')
         fakeNews(50)
-        self.stdout.write("creating Users", ending='')
+        self.stdout.write("creating Users", ending='\n')
         fakeNutzer(50)
