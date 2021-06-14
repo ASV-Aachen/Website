@@ -5,7 +5,8 @@ from django.db import models
 import datetime
 
 # Returns the given Winter season of a year
-def getCurrentSeason(Year):
+def getCurrentSeason():
+    Year = datetime.date.year
     return season.objects.get(year=Year)
 
 class season(models.Model):
