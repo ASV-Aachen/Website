@@ -20,6 +20,9 @@ from datetime import datetime
 - allgemeine Arbeitsstunden
 - Übersicht über aktuelle Projekte
 - Übersicht über letzte Eintragungen (Newsfead TODO: #159)
+
+MOVED TO THE MAIN DASHBOARD
+'''
 '''
 def dashboard(request):
     current_account = profile.objects.get(user=request.user).workingHoursAccount
@@ -31,7 +34,7 @@ def dashboard(request):
         "kostenstelle": costCenter.objects.all(),
         "last_Work": last_Works
     })
-
+'''
 
 # -----------------------------------------------------------------------------------------
 '''

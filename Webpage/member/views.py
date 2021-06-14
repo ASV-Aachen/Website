@@ -13,7 +13,7 @@ from .models import profile
 from django.contrib.auth.models import User
 from .forms import changePersonalInfo, createNewMember
 from .filters import userFilter
-
+from arbeitsstunden.models import *
 
 # Create your views here.
 
@@ -22,7 +22,16 @@ from .filters import userFilter
 
 @login_required
 def index(request):
-    return render(request, "member/Dashboard.html")
+
+    current_account = profile.objects.get(user=request.user).workingHoursAccount
+    last_Works = work.objects.filter(employee = current_account)
+
+    return render(request, template_name="member/Dashboard.html", context={
+        "konto": current_account,
+        "seasons": season.objects.all()[-5],
+        "kostenstelle": costCenter.objects.all(),
+        "last_Work": last_Works
+    })
 
 # Mitgliederverzeichnis
 @login_required
