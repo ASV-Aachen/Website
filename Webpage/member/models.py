@@ -67,8 +67,12 @@ class profile(models.Model):
     entry_date = models.DateField()
     # Konto Gehört zur Bierkasse #23 (TODO)
 
+    def default_group(self):
+        temp, _ = account.objects.get_or_create(name=self.user.username)
+        return temp
+
     # Arbeitsstunden
-    workingHoursAccount = models.ForeignKey(account, on_delete=models.RESTRICT)
+    workingHoursAccount = models.ForeignKey(account, on_delete=models.RESTRICT, default=default_group)
 
     # Pluggin: https://github.com/stefanfoulis/django-phonenumber-field
     phone = PhoneNumberField(null=True, blank=True, unique=False)
