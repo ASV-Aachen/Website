@@ -3,13 +3,13 @@ import os
 import datetime
 
 from django.contrib.auth.models import User
-from member.models import profile
+import member.models as memberModel
 from keycloak import KeycloakAdmin
 import random
-
+from django import template
 import gender_guesser.detector as gender
 
-from utils.keycloak import getKeycloackAdmin
+import utils.keycloak as keycloak
 
 
 def userToHash(username):
@@ -24,13 +24,13 @@ def deleteGivenUser(ID) -> bool:
 
     try:
         # Lösch von Keycloak
-        keycloak_admin = getKeycloackAdmin()
+        keycloak_admin = keycloak.getKeycloackAdmin()
 
         user_id_keycloak = keycloak_admin.get_user_id(user.username)
         response = keycloak_admin.delete_user(user_id=user_id_keycloak)
 
         # Lösch das Profil
-        Profil = profile.objects.get(user=user)
+        Profil = memberModel.profile.objects.get(user=user)
         Profil.delete()
 
         # Lösche den Nutzer
@@ -62,7 +62,7 @@ def newMember(vorname, nachname, country, hometown, Email)->bool:
         user.email = Email
         user.save()
 
-        newProfile = profile(user=user, status=random.randint(1, 6), entry_date=datetime.date.today())
+        newProfile = memberModel.profile(user=user, status=random.randint(1, 6), entry_date=datetime.date.today())
         newProfile.hometown = hometown
         newProfile.country = country
         newProfile.save()
@@ -75,7 +75,7 @@ def newMember(vorname, nachname, country, hometown, Email)->bool:
     Stelle eine verbindung zu Keycloak her und füge den gegebenen Nutzer neu in Keycloak ein
 '''
 def createNewUserInKeycloak(username, vorname, nachname, Email) -> bool:
-    keycloak_admin = getKeycloackAdmin()
+    keycloak_admin = keycloak.getKeycloackAdmin()
 
     new_user = keycloak_admin.create_user({"email": Email,
                                            "username": username,

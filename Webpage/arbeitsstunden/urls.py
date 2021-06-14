@@ -21,7 +21,7 @@ app_name: "arbeitsstunden"
 
 
 urlpatterns = [
-    path('', views.dashboard, name="arbeitsstunden_home"),
+    #path('', views.dashboard, name="arbeitsstunden_home"),
 
     path('projekte', views.allAktivProjekts, name="projekte_overview"),
     path('projekte/<int:projectID>', views.showProjekt, name="projekte_detail"),

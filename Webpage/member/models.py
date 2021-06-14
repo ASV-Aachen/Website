@@ -8,7 +8,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django_resized import ResizedImageField
 import secrets
 from arbeitsstunden.models import account
-from utils.member import *
+
 
 class role(models.Model):
     titel = models.CharField(max_length=70, null=False, primary_key=True)
@@ -82,7 +82,8 @@ class profile(models.Model):
             # This code only happens if the objects is
             # not in the database yet. Otherwise it would
             # have pk
-            self.gender = getGender(self.user.first_name)
+            import utils.member as member
+            self.gender = member.etGender(self.user.first_name)
         super().save(*args, **kwargs)
 
 

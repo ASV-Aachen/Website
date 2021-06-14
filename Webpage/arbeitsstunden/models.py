@@ -1,13 +1,20 @@
-from Webpage.utils.member import createUsername
+
 from pprint import pprint
 from django.db import models
 # Create your models here.
 import datetime
+from django.contrib.auth.models import User
 
 # Returns the given Winter season of a year
 def getCurrentSeason():
     Year = datetime.date.year
     return season.objects.get(year=Year)
+
+class tag(models.Model):
+    Name = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.Name
 
 class season(models.Model):
     year = models.IntegerField(primary_key=True)  # Erstes Jahr der Saison, z.B. "2020" => Saison 2020/21
@@ -24,26 +31,12 @@ class season(models.Model):
 
         super().save(*args, **kwargs)
 
-class customHours(models.Model):
-    season = models.ForeignKey(season, on_delete=models.CASCADE)
-    account = models.ForeignKey(account, on_delete=models.CASCADE)
-
-    customHours = models.IntegerField(null=True)
-    percentege = models.IntegerField(default=100, max=100, min=0)
-
-
-    def getCustomHours(self):
-        # Prozentualer Anteil
-        return self.customHours * self.percentege / 100
-        pass
-
-    pass
 
 class account(models.Model):
     isNew = models.BooleanField(default=False)
     hasShortenedHours = models.BooleanField(default=False)
 
-    name = models.CharField(default="TESTNUTZER")
+    name = models.CharField(max_length=256, default="TESTNUTZER")
 
     def HowManyHoursDoesUserHaveToWork(self, season):
         if(self.customHours != null):
@@ -76,6 +69,21 @@ class costCenter(models.Model):
         allProjects = allProjects.filter(season = season)
         return sum(i.workedHour() for i in allProjects)
 
+class customHours(models.Model):
+    season = models.ForeignKey(season, on_delete=models.CASCADE)
+    used_account = models.ForeignKey(account, on_delete=models.CASCADE)
+
+    customHours = models.IntegerField(null=True)
+    percentege = models.IntegerField(default=100)
+
+
+    def getCustomHours(self):
+        # Prozentualer Anteil
+        return self.customHours * self.percentege / 100
+        pass
+
+    pass
+
 class project(models.Model):
     name = models.CharField(max_length=256)
     description = models.CharField(max_length=500, blank=True)
@@ -96,6 +104,14 @@ class project(models.Model):
     def workedHours(self):
         subprojects = subproject.objects.filter(project = self)
         return sum(i.workedHours() for i in subprojects)
+
+class work(models.Model):
+    employee = models.ManyToManyField(account, blank=True)
+    hours = models.IntegerField(default = 0)
+    description = models.CharField(max_length=500)
+    date = models.DateField()
+    setupDate = models.DateField(default=datetime.date.today)
+
 
 class subproject(models.Model):
     name = models.CharField(max_length=256)
@@ -118,15 +134,3 @@ class subproject(models.Model):
         workingParts = self.parts
         return sum(i.hours for i in workingParts)
     
-class work(models.Model):
-    employee = models.ManyToManyField(account, blank=True)
-    hours = models.IntegerField(default = 0)
-    description = models.CharField(max_length=500)
-    date = models.DateField()
-    setupDate = models.DateField(default=date.today)
-
-class tag(models.Model):
-    Name = models.CharField(max_length=256)
-
-    def __str__(self):
-        return self.Name
