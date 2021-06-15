@@ -72,7 +72,7 @@ class profile(models.Model):
         return temp
 
     # Arbeitsstunden
-    workingHoursAccount = models.ForeignKey(account, on_delete=models.RESTRICT, default=default_group)
+    workingHoursAccount = models.ForeignKey(account, on_delete=models.RESTRICT, null = True)
 
     # Pluggin: https://github.com/stefanfoulis/django-phonenumber-field
     phone = PhoneNumberField(null=True, blank=True, unique=False)
@@ -88,6 +88,10 @@ class profile(models.Model):
             # have pk
             import utils.member as member
             self.gender = member.etGender(self.user.first_name)
+        
+        temp, _ = account.objects.get_or_create(name=self.user.username)
+        self.workingHoursAccount = temp
+
         super().save(*args, **kwargs)
 
 
