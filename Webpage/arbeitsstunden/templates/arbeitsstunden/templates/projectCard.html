@@ -1,0 +1,30 @@
+<div class="card m-3">
+    <div class="card-header">
+        {{ ausschreibung.Projekt.Name }}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"><a href=" {% url 'projekte_detail' Projekt.id %}">{{ Projekt.name }}</a></h5>
+        <p class="card-text">{{ Projekt.description }}</p>
+        <p class="card-text">
+            {% for tag in Projekt.tags.all %}
+                <span class="badge badge-info">{{ tag.Name }}</span>
+            {% endfor %}
+        </p>
+        {% if ausschreibung.Umfang %}
+            <p class="card-text">
+                <i class="bi bi-clock"></i> {{ausschreibung.Umfang}}
+            </p>
+        {% endif %}
+        {% if ausschreibung.Fertigstellungstermin %}
+            <p class="card-text">
+                <i class="bi bi-calendar-check"></i> {{ausschreibung.Fertigstellungstermin|date:"d.m.Y"}}
+            </p>
+        {% endif %}
+        {% for profil in Projekt.responsible.all %}
+            <p><a href="#" class="card-link">@{{ profil.first_name }} {{ profil.last_name }}</a></p>
+        {% endfor %}
+        <p class="card-text">Saison: {{ Projekt.season }}</p>
+        <p class="card-text">Kostenstelle: {{ Projekt.costCenter }}</p>
+        <p class="card-text">Stunden: {{ Projekt.workedHours }}/{{ Projekt.planedHours }}</p>
+    </div>
+</div>
