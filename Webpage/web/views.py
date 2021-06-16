@@ -303,7 +303,11 @@ def datenschutz(request):
 def getSponsor():
     items = sponsoren.objects.all()
 
-    return random.choice(items)
+    # Laden der Startseite auch ohne hinterlegte Sponsoren (init-Zustand)
+    if items.exists():
+        return random.choice(items)
+    else:
+        return None
 
 def show_all_Sponsor(request):
     sponsoren_All = sponsoren.objects.all()

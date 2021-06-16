@@ -13,9 +13,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.headerAndInfoPages()
         self.arbeitsstundenSeason()
+        self.StandartSeiten()
 
     def headerAndInfoPages(self):
-        self.stdout.write("Starting Headers", ending='')
+        self.stdout.write("Starting Headers init", ending='\n')
         text = "Diese Seite ist in Arbeit"
 
         right = HeadPage(titel="Segeln lernen", text=text, description=text, name="SL" )
@@ -47,7 +48,7 @@ class Command(BaseCommand):
         temp2 = infoPage(titel="Regatta", text=text, headPage=temp, name="Regatta")
         temp2.save()
 
-        self.stdout.write("Finished", ending='')
+        self.stdout.write("Finished Headers", ending='\n')
         # FrontPage init
         temp = frontHeader(left=left, right=right)
         temp.save()
@@ -55,11 +56,11 @@ class Command(BaseCommand):
 
 
     def arbeitsstundenSeason(self):
-        self.stdout.write("Season init", ending='')
+        self.stdout.write("Season Arbeitsstunden init", ending='\n')
         Saison(Jahr=2019).save()
         Saison(Jahr=2020).save()
 
     def StandartSeiten(self):
-        self.stdout("Standart Seiten", ending="")
-        standartPages(titel="Impressum", text="Diese Seite ist in Arbeit")
-        standartPages(titel="Datenschutz", text="Diese Seite ist in Arbeit")
+        self.stdout.write("Standart Seiten init", ending="\n")
+        standartPages(titel="Impressum", text="Diese Seite ist in Arbeit").save()
+        standartPages(titel="Datenschutz", text="Diese Seite ist in Arbeit").save()
