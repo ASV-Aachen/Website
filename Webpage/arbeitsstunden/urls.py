@@ -29,14 +29,13 @@ urlpatterns = [
     path('projekte/edit/<int:projectID>', views.editProjekt, name='projekt_edit'),
     path('projekte/delete/<int:projectID>', views.deleteProjekt, name='projekt_delete'),
 
-    path('subproject/new', views.newSubprojekt, name="newSubprojekt"),
-    path('subproject/new/<int:idProject>', views.newSubprojectToProject, name="newSubprojectToProject"),
-    path('subproject/edit/<int:idSubproject>', views.editSubproject, name='editSubproject'),
-    path('subproject/delete/<int:idSubproject>', views.deleteSubproject, name='deleteSubproject'),
+    path('projecte/<int:projectID>/work/add', views.addWork, name="addWork"),
+    path('projecte/<int:workID>/work/edit', views.editWork, name="editWork"),
+    path('projecte/<int:workID>/work/delete', views.deleteWork, name="deleteWork"),
 
     path('season', views.seasonOverview, name="seasonOverview"),
     path('season/<int:seasonID>', views.singleSeasonOverview, name="singleSeasonOverview"),
 
     path('costCenter', views.costCenterOverview, name="costCenterOverview"),
     path('singleCostCenterOverview/<int:centerID>', views.singleCostCenterOverview, name="singleCostCenterOverview"),
-]
+] 

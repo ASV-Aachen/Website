@@ -108,86 +108,17 @@ def deleteProjekt(request, projectID):
 
 
 # -----------------------------------------------------------------------------------------
-def newSubprojectToProject(request, idProject):
-    projekt = get_object_or_404(project, id = idProject)
-    if(request.method == "POST"):
-        form = formSubProject(request.POST)
-        if form.is_valid():
-            form.save(commit=False)
-            form.instance.project = projekt
-            form.save()
-            # TODO
-            return redirect("")
-        return redirect("ErrorPage")
-    else:
-        form = formSubProject()
-        return render(request, "Arbeitsstunden/form_template.html", {
-            "form": form
-        })
-
-def newSubprojekt(request):
-    if(request.method == "POST"):
-        form = formSubProject(request.POST)
-        if form.is_valid():
-            form.save()
-            # TODO
-            return redirect("")
-        return redirect("ErrorPage")
-    else:
-        form = formSubProject()
-        return render(request, "Arbeitsstunden/form_template.html", {
-            "form": form
-        })
-
-# Edit eines Subprojektes
-def editSubproject(request, idSubproject):
-    project = get_object_or_404(subproject, id=idSubproject)
-
-    if(request.method == "POST"):
-        form = formProject(request.POST)
-        if form.is_valid():
-            form.save(commit=False)
-            form.instance.id = idSubproject
-            form.save()
-            # TODO
-            return redirect("")
-        
-        return redirect("ErrorPage")
-    else:
-        form = formProject(instance=project)
-        return render(request, "Arbeitsstunden/form_template.html", {
-            "form": form
-        })
-
-def deleteSubproject(request, idSubproject):
-    projekt = get_object_or_404(subproject, id = idSubproject)
-
-    if 'key' in request.GET and request.GET['key'] != "":
-                # Lösche den Nutzer
-        givenKey = request.GET['key']
-        if givenKey == hashlib.sha512(str(projekt).encode('utf-8')).hexdigest():
-            projekt.delete()
-            return redirect("")
-    else:
-        key = hashlib.sha512(str(projekt).encode('utf-8')).hexdigest()
-        # sende Seite
-        return render(request, "arbeitsstunden/delete.html", {"hash": key, "project": projekt})
-
-
-
-# -----------------------------------------------------------------------------------------
 # API Endpunkt, einfügen eines neuen subProjektes. KEINE WEBSITE, HÖCHSTENS ERROR CODE
-def newWork(request, idSubProject):
-    project = get_object_or_404(work, id=idWork)
-    parent = get_object_or_404(subproject, id = idSubProject)
+def newWork(request, projectID):
+    project = get_object_or_404(work, id=projectID)
 
     if(request.method == "POST"):
         form = formProject(request.POST)
         if form.is_valid():
             form.save(commit=False)
-            form.instance.id = idWork
+            form.instance.id = workID
             form.save()
-            parent.parts.add(project)
+            project.parts.add(project)
             # TODO
             return redirect("")
         
@@ -198,14 +129,14 @@ def newWork(request, idSubProject):
             "form": form
         })
 
-def editWork(request, idWork):    
-    project = get_object_or_404(work, id=idWork)
+def editWork(request, workID):    
+    project = get_object_or_404(work, id=workID)
 
     if(request.method == "POST"):
         form = formProject(request.POST)
         if form.is_valid():
             form.save(commit=False)
-            form.instance.id = idWork
+            form.instance.id = workID
             form.save()
             # TODO
             return redirect("")
@@ -217,8 +148,8 @@ def editWork(request, idWork):
             "form": form
         })
 
-def deleteWork(request, idWork):
-    projekt = get_object_or_404(work, id = idWork)
+def deleteWork(request, workID):
+    projekt = get_object_or_404(work, id = workID)
 
     if 'key' in request.GET and request.GET['key'] != "":
                 # Lösche den Nutzer

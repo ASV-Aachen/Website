@@ -83,7 +83,19 @@ class customHours(models.Model):
         pass
 
     pass
+class work(models.Model):
+    name = models.CharField(max_length=256)
+    description = models.CharField(max_length=500)
 
+    employee = models.ManyToManyField(account, blank=True)
+    voluntary = models.BooleanField(default=False)
+    hours = models.IntegerField(default = 0)
+    
+    startDate = models.DateField(blank=True, null=True)
+    endDate = models.DateField(blank=True, null=True)
+
+    setupDate = models.DateField(default=datetime.date.today)
+    
 class project(models.Model):
     name = models.CharField(max_length=256)
     description = models.CharField(max_length=500, blank=True)
@@ -98,39 +110,14 @@ class project(models.Model):
 
     aktiv = models.BooleanField(default=True)
 
+    parts = models.ManyToManyField(work, blank=True)
+
     def hourDifferenz(self):
         return self.planedHours - self.workedHours()
     
     def workedHours(self):
-        subprojects = subproject.objects.filter(project = self)
-        return sum(i.workedHours() for i in subprojects)
-
-class work(models.Model):
-    employee = models.ManyToManyField(account, blank=True)
-    hours = models.IntegerField(default = 0)
-    description = models.CharField(max_length=500)
-    date = models.DateField()
-    setupDate = models.DateField(default=datetime.date.today)
-
-
-class subproject(models.Model):
-    name = models.CharField(max_length=256)
-    description = models.CharField(max_length=500)
-
-    project = models.ForeignKey(project, on_delete=models.RESTRICT)
-
-    voluntary = models.BooleanField(default=False)
-    parts = models.ManyToManyField(work, blank=True)
-
-    planed = models.BooleanField(default=True)
-    endDate = models.DateField(blank=True, null=True)
-
-    planedHours = models.IntegerField(blank=True)
-
-    def hourDifferenz(self):
-        return self.planedHours - self.workedHours()
-
-    def workedHours(self):
         workingParts = self.parts
         return sum(i.hours for i in workingParts)
+
+
     

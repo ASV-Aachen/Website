@@ -12,11 +12,6 @@ class formProject(forms.ModelForm):
         fields = ("name", "description", "tags", "responsible", "costCenter", "planedHours")
 
 
-class formSubProject(forms.ModelForm):
-    class Meta:
-        model = subproject
-        fields = ("name", "description", "voluntary", "planed", "endDate", "planedHours")
-
 class formWork(forms.ModelForm):
     class Meta:
         model = work
