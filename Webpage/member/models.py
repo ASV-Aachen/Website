@@ -51,7 +51,7 @@ class profile(models.Model):
         ('X', 'Divers')
     )
 
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default= "M")
+    gender_role = models.CharField(max_length=1, choices=GENDER_CHOICES, default= "M")
 
     roles = models.ManyToManyField(role)
     
