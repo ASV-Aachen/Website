@@ -4,7 +4,7 @@
 {% load static %}
 
 
-{% block title %} ASV-Aachen - Leere Seite {% endblock title %}
+{% block title %} Saison {{ curentSeason.year }} {% endblock title %}
 
 <!-- Hier können app-spezifische  Styles dazugeladen werden-->
 {% block styles %}
@@ -14,9 +14,21 @@
 {% endblock headerimage%}
 
 {% block content %}
-  <h1>Titel h1</h1>
-  <h2>Subtitle </h2>
-  <p> Leere Seite als Basis für die Gestaltung eigener Seiten</p>  
+  <div class="container">
+    geleistete Stunden: {{ curentSeason.getAllHours }}
+
+    HIER KOMMT NOCH EIN GRAPH HIN
+    {{ curentSeason.getAllDates }}
+
+  </div>
+
+  <div class="container">
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Projekte</h3>
+    <div class="card-columns">
+    {% for Projekt in projekte %}
+        {% include "arbeitsstunden/templates/ausschreibung_card.html" %}
+    {% endfor %}
+  </div>
  {% endblock contend %}
 
 <!-- Hier seitenbereich gestalten falls gewünscht -->
