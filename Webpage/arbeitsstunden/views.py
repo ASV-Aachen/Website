@@ -39,11 +39,11 @@ def dashboard(request):
 
 # Übersicht über alle Accounts die diese Saison schon was gemacht haben
 def overview(request):
-    # TODO:
     season = getCurrentSeason()
     allAccounts = account.objects.all()
 
-    personObjects = []
+    aktive = []
+    andereMitglieder = []
 
     for person in allAccounts:
         
@@ -60,15 +60,17 @@ def overview(request):
                 "name": person.name,
                 "darfSegeln": gebrauchteStunden == gearbeiteteStunden
             }
-            personObjects.append(custom_hours)
+            if profil.status == 1 or profil.status == 2:
+                aktive.append(custom_hours)
+            else:
+                andereMitglieder.append(custom_hours)
         except:
             continue
-
-        
         pass
 
     return render(request, template_name="arbeitsstunden/arbeitsstundenOverview.html", context={
-        "personen": personObjects,
+        "personen": aktive,
+        "andere": andereMitglieder,
         "season": season
     })
 
