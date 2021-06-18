@@ -4,7 +4,7 @@
 {% load static %}
 
 
-{% block title %} ASV-Aachen - Leere Seite {% endblock title %}
+{% block title %} Kostenstellen {% endblock title %}
 
 <!-- Hier können app-spezifische  Styles dazugeladen werden-->
 {% block styles %}
@@ -14,10 +14,61 @@
 {% endblock headerimage%}
 
 {% block content %}
-  <h1>Titel h1</h1>
-  <h2>Subtitle </h2>
-  <p> Leere Seite als Basis für die Gestaltung eigener Seiten</p>  
- {% endblock contend %}
+    <div class="container">
+      {% for center in centers %}
+        <div class="card text-left">
+          <div class="card-body">
+            <h4 class="card-title">{{ center.center.name }}</h4>
+            <p class="card-text"> 
+              {{ center.center.description }}
+
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Übersicht über die letzten Seasons
+                    </button>
+                  </h2>
+
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <table id="Table" class="table table-striped table-bordered">
+                          <thead>
+                              <tr>
+                                <th>Season</th>
+                                <th>geleistete Stunden</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for data in center.time %}
+                                <tr>
+                                  <td>{{ data.season.year }}</td>
+                                  <td>{{ data.hours }}</td>
+                                </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                      <a type="button" class="btn btn-success" href="#">Bearbeiten</a>
+                      <a type="button" class="btn btn-danger" href="#">Löschen</a>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            
+            </p>
+          </div> 
+        </div>
+
+
+
+      {% endfor %}
+    </div>
+{% endblock contend %}
 
 <!-- Hier seitenbereich gestalten falls gewünscht -->
 {% block aside %}
