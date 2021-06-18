@@ -36,6 +36,43 @@ def dashboard(request):
     })
 '''
 
+
+# Übersicht über alle Accounts die diese Saison schon was gemacht haben
+def overview(request):
+    # TODO:
+    season = getCurrentSeason()
+    allAccounts = account.objects.all()
+
+    personObjects = []
+
+    for person in allAccounts:
+        
+        try:
+            custom_hours = customHours.objects.get(used_account = person)
+            profil = profile.objects.get(workingHoursAccount = person)
+            gebrauchteStunden = custom_hours.getCustomHours()
+            gearbeiteteStunden = person.HowManyHoursDoesUserHaveToWork()
+            temp = {
+                "gebrauchteStunden": gebrauchteStunden,
+                "gearbeiteteStunden": gearbeiteteStunden,
+                "Profil": profil,
+                "user": profil.user, 
+                "name": person.name,
+                "darfSegeln": gebrauchteStunden == gearbeiteteStunden
+            }
+            personObjects.append(custom_hours)
+        except:
+            continue
+
+        
+        pass
+
+    return render(request, template_name="arbeitsstunden/arbeitsstundenOverview.html", context={
+        "personen": personObjects,
+        "season": season
+    })
+
+
 # -----------------------------------------------------------------------------------------
 '''
 Alle Aktiven und geplante Projekte, sortiert nach Zeit, ein und ausklappbar
@@ -109,14 +146,14 @@ def deleteProjekt(request, projectID):
 
 # -----------------------------------------------------------------------------------------
 # API Endpunkt, einfügen eines neuen subProjektes. KEINE WEBSITE, HÖCHSTENS ERROR CODE
-def newWork(request, projectID):
+def addWork(request, projectID):
     project = get_object_or_404(work, id=projectID)
 
     if(request.method == "POST"):
         form = formProject(request.POST)
         if form.is_valid():
             form.save(commit=False)
-            form.instance.id = workID
+            form.instance.id = projectID
             form.save()
             project.parts.add(project)
             # TODO
@@ -174,19 +211,48 @@ def seasonOverview(request):
 
 # Statistik über eine einzelne Season mit Statistik und allen entsprechenden Projekten
 def singleSeasonOverview(request, seasonId):
+    curentSeason = season.objects.filter(id=seasonId)
+    projectsOfthatSeason = project.objects.filter(season = curentSeason)
+    # projectsOfthatSeason = projectsOfthatSeason.filter(aktiv=True)
+
     return render(request, template_name="arbeitsstunden/singleSeasonOverview.html", context={
-        "season": season.objects.filter(id=seasonId)
+        "season": curentSeason,
+        "projekte": projectsOfthatSeason
     })
 
 # -----------------------------------------------------------------------------------------
 # Übersicht über die Kostenstellen, mit Einsicht in laufende Projekte in der aktuellen Season
 def costCenterOverview(request):
+    allCenters = costCenter.objects.all()
+    seasons = season.objects.all()[-5]
+    
+    data = []
+    
+    for i in allCenters:
+        
+        timedata = []
+        
+        projects = project.objects.filter(costCenter = i)
+        
+        for x in seasons:
+            counter = 0
+            seasonalData = projects.filter(season = x)
+            for b in seasonalData:
+                counter += b.workedHours()
+            
+            timedata.append({
+                "season": x,
+                "hours": counter
+            })
+        temp = {
+            "center": i,
+            "time": timedata
+        }
+        data.append(temp)  
+
     return render(request, template_name="arbeitsstunden/costCenterOverview.html", context={
-        "center": costCenter.objects.all()
+        "centers": data 
     })
 
 
-def singleCostCenterOverview(request, centerID):
-    return render(request, template_name="arbeitsstunden/singleCostCenterOverview.html", context={
-        "center": costCenter.objects.filter(id = centerID)
-    })
+

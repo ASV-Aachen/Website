@@ -23,6 +23,8 @@ app_name: "arbeitsstunden"
 urlpatterns = [
     #path('', views.dashboard, name="arbeitsstunden_home"),
 
+    path('', views.overview, name="arbeitsstundenOverview"),
+
     path('projekte', views.allAktivProjekts, name="projekte_overview"),
     path('projekte/<int:projectID>', views.showProjekt, name="projekte_detail"),
     path('projekte/new', views.newProjekt, name="projekt_new"),
@@ -37,5 +39,4 @@ urlpatterns = [
     path('season/<int:seasonID>', views.singleSeasonOverview, name="singleSeasonOverview"),
 
     path('costCenter', views.costCenterOverview, name="costCenterOverview"),
-    path('singleCostCenterOverview/<int:centerID>', views.singleCostCenterOverview, name="singleCostCenterOverview"),
 ] 
