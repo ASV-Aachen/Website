@@ -15,7 +15,7 @@ class formProject(forms.ModelForm):
 class formWork(forms.ModelForm):
     class Meta:
         model = work
-        fields = ("employee", "hours", "description", "date")
+        fields = ("name", "employee", "hours", "startDate", "endDate")
 
 class hours(forms.ModelForm):
     
