@@ -13,7 +13,9 @@
     <p>Möchten Sie das Object wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden!!!</p>
 
     <a id = "bestätigungsButton" class="btn btn-info" href="&key={{hash}}">Ja</a>
-    <a id = "zurückButton" class="btn btn-info" href="{% url 'arbeitsstunden_home' %}">NEIN, zurück zum Dashboard</a>
+    <form>
+        <input type="button" value="NEIN, ZURÜCK!" class="btn btn-info" onclick="history.back()">
+    </form>
 {% endblock %}
 
 
