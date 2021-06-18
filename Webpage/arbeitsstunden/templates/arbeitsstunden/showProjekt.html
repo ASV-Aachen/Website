@@ -4,7 +4,7 @@
 {% load static %}
 
 
-{% block title %} ASV-Aachen - Leere Seite {% endblock title %}
+{% block title %} {{ project.name }} {% endblock title %}
 
 <!-- Hier können app-spezifische  Styles dazugeladen werden-->
 {% block styles %}
@@ -14,9 +14,75 @@
 {% endblock headerimage%}
 
 {% block content %}
-  <h1>Titel h1</h1>
-  <h2>Subtitle </h2>
-  <p> Leere Seite als Basis für die Gestaltung eigener Seiten</p>  
+  <div class="container">
+    <div class="card text-left">
+      <div class="card-body">
+        <p class="card-text">{{ project.description }}</p>
+
+        <p class="card-text">
+            {% for tag in project.tags.all %}
+                <span class="badge badge-info">{{ tag.Name }}</span>
+            {% endfor %}
+        </p>
+        <p class="card-text">
+            <i class="bi bi-clock"></i> {{project.planedHours}}
+        </p>
+        {% for profil in project.responsible.all %}
+            <p><a href="#" class="card-link">@{{ profil.first_name }} {{ profil.last_name }}</a></p>
+        {% endfor %}
+        <p class="card-text">Saison: {{ project.season }}</p>
+        <p class="card-text">Kostenstelle: {{ project.costCenter }}</p>
+        <p class="card-text">Stunden: {{ project.workedHours }}/{{ project.planedHours }}</p>
+        <a type="button" class="btn btn-success" href="{% url 'projekt_edit' project.id %}">Bearbeiten</a>
+        <a type="button" class="btn btn-danger" href="{% url 'projekt_delete' project.id %}">Löschen</a>
+
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <i class="fas fa-h2">Geleistete Stunden</i>
+    {% for work in project.parts %}
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              {{ work.name }}
+            </button>
+          </h2>
+
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Stunden: {{ work.hours }}
+              Start: {{ work.startDate}}
+              Ende: {{ work.endDate }}
+              <table id="Table" class="table table-striped table-bordered">
+                  <thead>
+                      <tr>
+                        <th>Wer</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for worker in work.employee %}
+                        <tr>
+                          <td>{{ worker.name }}</td>
+                        </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+              <a type="button" class="btn btn-success" href="#">Bearbeiten</a>
+              <a type="button" class="btn btn-danger" href="#">Löschen</a>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <a type="button" class="btn btn-success" href="#">Arbeit hinzufügen</a>
+  
+
  {% endblock contend %}
 
 <!-- Hier seitenbereich gestalten falls gewünscht -->
