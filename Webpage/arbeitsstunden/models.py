@@ -30,6 +30,29 @@ class season(models.Model):
             i.customHours = self.hours
 
         super().save(*args, **kwargs)
+    
+    def getAllHours(self):
+        projectsOfthatSeason = project.objects.filter(season = self)
+        counter = 0 
+        for i in projectsOfthatSeason:
+            for x in i.parts:
+                counter += x.hours
+
+
+        return counter
+
+    def getAllDates(self):
+        projectsOfthatSeason = project.objects.filter(season = self)
+        projectsOfthatSeason = projectsOfthatSeason.filter(aktiv = True)
+
+        time = []
+        date = []
+
+        for i in projectsOfthatSeason:
+            for x in i.parts:
+                time.append(x.hours)
+                date.append(x.endDate)
+        return [time, date]
 
 
 class account(models.Model):
@@ -85,7 +108,6 @@ class customHours(models.Model):
     pass
 class work(models.Model):
     name = models.CharField(max_length=256)
-    description = models.CharField(max_length=500)
 
     employee = models.ManyToManyField(account, blank=True)
     voluntary = models.BooleanField(default=False)
