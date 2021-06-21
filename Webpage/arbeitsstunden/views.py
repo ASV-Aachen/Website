@@ -82,9 +82,11 @@ Alle Aktiven und geplante Projekte, sortiert nach Zeit, ein und ausklappbar
 def allAktivProjekts(request):
 
     aktiveProjecte = project.objects.filter(aktiv = True)
+    formForProject = formProject()
 
     return render(request, template_name="arbeitsstunden/allAktivProjects.html", context={
-        "projekte": aktiveProjecte
+        "projekte": aktiveProjecte,
+        "formForProject": formForProject
     })
 
 def newProjekt(request):
@@ -93,7 +95,7 @@ def newProjekt(request):
         if form.is_valid():
             form.save()
             # TODO
-            return redirect("")
+            return redirect("projekte_overview")
         
         return redirect("ErrorPage")
     else:
@@ -105,8 +107,14 @@ def newProjekt(request):
 
 def showProjekt(request, projectID):
     project = get_object_or_404(project, id=projectID)
+
+    Projektform = formProject(instance = project)
+    newWorkForm = formWork()
+    
     return render(request, "Arbeitsstunden/showProjekt.html", {
-            "project": project
+            "project": project,
+            "Projektform": Projektform,
+            "newWorkForm": newWorkForm
         })
 
 # Projekt Edit mit allen subprojekten und Übersichten
@@ -121,7 +129,7 @@ def editProjekt(request, projectID):
             form.instance.id = projectID
             form.save()
             # TODO
-            return redirect("")
+            return redirect("projekte_detail", projectID)
         
         return redirect("ErrorPage")
     else:
@@ -150,6 +158,7 @@ def deleteProjekt(request, projectID):
 # API Endpunkt, einfügen eines neuen subProjektes. KEINE WEBSITE, HÖCHSTENS ERROR CODE
 def addWork(request, projectID):
     project = get_object_or_404(work, id=projectID)
+    realprojektID = get_object_or_404(project, project in parts)
 
     if(request.method == "POST"):
         form = formProject(request.POST)
@@ -159,7 +168,7 @@ def addWork(request, projectID):
             form.save()
             project.parts.add(project)
             # TODO
-            return redirect("")
+            return redirect("projekte_detail", realprojektID)
         
         return redirect("ErrorPage")
     else:
@@ -170,6 +179,7 @@ def addWork(request, projectID):
 
 def editWork(request, workID):    
     project = get_object_or_404(work, id=workID)
+    realprojektID = get_object_or_404(project, project in parts)
 
     if(request.method == "POST"):
         form = formProject(request.POST)
@@ -178,7 +188,7 @@ def editWork(request, workID):
             form.instance.id = workID
             form.save()
             # TODO
-            return redirect("")
+            return redirect("projekte_detail", realprojektID)
         
         return redirect("ErrorPage")
     else:

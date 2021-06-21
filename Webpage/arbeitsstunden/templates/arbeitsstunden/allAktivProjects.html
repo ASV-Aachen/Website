@@ -15,6 +15,33 @@
 
 {% block content %}
     <h3 class="pb-3 mb-4 font-italic border-bottom">Arbeitsstundenausschreibung</h3>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Neues Projekt anlegen</button>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Neues Projekt eingügen</h4>
+            </div>
+            <div class="modal-body">
+                <form method="POST" class="post-form">{% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="save btn btn-primary">Speichern</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">abbrechen</button>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
     <div class="card-columns">
     {% for Projekt in projekte %}
         {% include "arbeitsstunden/templates/ausschreibung_card.html" %}
