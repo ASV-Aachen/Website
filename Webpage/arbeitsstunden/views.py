@@ -60,6 +60,8 @@ def overview(request):
                 "name": person.name,
                 "darfSegeln": gebrauchteStunden == gearbeiteteStunden
             }
+            if gearbeiteteStunden == 0:
+                continue
             if profil.status == 1 or profil.status == 2:
                 aktive.append(custom_hours)
             else:
