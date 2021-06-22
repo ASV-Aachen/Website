@@ -8,7 +8,12 @@ from django.contrib.auth.models import User
 # Returns the given Winter season of a year
 def getCurrentSeason():
     Year = datetime.date.year
-    return season.objects.get(year=Year)
+    try:
+        temp = season.objects.get(year=Year)
+    except:
+        temp = season(year = Year, hours = 40)
+        temp.save()
+    return 
 
 class tag(models.Model):
     Name = models.CharField(max_length=256)
