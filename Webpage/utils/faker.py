@@ -69,24 +69,27 @@ def fakeArbeitsstunden(AnzahlProKostenstelle: int):
 
     # projekte erstellen (pro Kostenstelle AnzahlProKostenstelle)
     for kostenstelle in costCenter.objects.all():
-        for _ in AnzahlProKostenstelle:
+        for _ in range(AnzahlProKostenstelle):
             newProject = project(
                     name=fake.text(max_nb_chars=60), 
                     description = fake.sentence(), 
-                    responsible = random.choice(Nutzer).user,
-                    season = season,
-                    costCenter = kostenstelle
+                    season = getCurrentSeason(),
+                    costCenter = kostenstelle,
+                    aktiv = random.choice([True,False])
                 )
-            for _ in random.randint(2,10):
+            newProject.save()
+            newProject.responsible.add(random.choice(Nutzer).user)
+            for _ in range(random.randint(2,10)):
                 # Work erstellen (zwischen 2 und 10 Pro Projekt)
                 tempWork = work(
                     name = fake.text(max_nb_chars=40),
                     hours = random.randint(2, 30)
                 )
-                for _ in random.randint(1,5):
+                tempWork.save()
+                for _ in range(random.randint(1,5)):
                     # zufällig accounts zuordnen
-                    tempWork.responsible.add(random.choice(Nutzer).user)
-                
+                    tempWork.employee.add(random.choice(Nutzer).workingHoursAccount)
+                tempWork.save()
                 newProject.parts.add(tempWork)
                 pass    
             newProject.save()
