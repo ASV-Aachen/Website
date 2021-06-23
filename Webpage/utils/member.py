@@ -99,7 +99,7 @@ def getGender(name):
 register = template.Library()
 
 @register.simple_tag
-def genderTitel(titel, gender):
+def genderTitel(titel, gender) -> str:
     dict = {
         "1. Vorsitzender": "1. Vorsitzende",
         "2. Kassenwart bzw. Kassenwart der Altherrenschaft": "2. Kassenwartin bzw. Kassenwartin der Altherrenschaft",
@@ -126,7 +126,14 @@ def genderTitel(titel, gender):
         "Takelmeister": "Takelmeisterin",
         "Verbandsobmann": "Verbandsobfrau"
     }
-    if (gender == "F") and titel in dict.keys():
-        return dict[titel]
+
+
+    value = str(titel)
+
+    if (gender is "F"):
+        try:
+            return dict[value]
+        except:
+            return titel
     return titel
     
