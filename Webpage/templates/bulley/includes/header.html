@@ -67,7 +67,7 @@
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
               <li class="d-flex d-lg-none"><a class="dropdown-item" href="{% url 'MeinASV' %}">Dashboard</a></li>
               <li><a class="dropdown-item" href="{% url 'Mitgliederverzeichnis' %}">Mitgliederverzeichnis</a></li>
-              <li><a class="dropdown-item" href="{% url 'arbeitsstunden_home' %}">Arbeitsstunden</a></li>
+              <li><a class="dropdown-item" href="{% url 'arbeitsstundenOverview' %}">Arbeitsstunden</a></li>
               <li><a class="dropdown-item" href="/wiki">Wiki</a></li>
               <li><a class="dropdown-item" href="/cloud/index.php/apps/sociallogin/custom_oidc/Keycloak">Cloud</a></li>
                 {% if request.user|has_group:"Admin" %}

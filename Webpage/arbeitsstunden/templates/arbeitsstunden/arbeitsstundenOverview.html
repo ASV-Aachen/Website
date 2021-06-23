@@ -9,6 +9,7 @@
 <!-- Hier können app-spezifische  Styles dazugeladen werden-->
 {% block styles %}
 {% endblock styles %}
+
 {% block headerimage%}
     <img src="/static/img/header/cat_s0.jpg" alt="">
 {% endblock headerimage%}
@@ -49,7 +50,7 @@
                 <th>Vorname</th>
                 <th>Nachname</th>
                 <th>gearbeitete Stunden</th>
-                <th>status</th>
+                <th>Status</th>
               </tr>
           </thead>
           <tbody>
@@ -63,7 +64,7 @@
               {% endfor %}
           </tbody>
       </table>
- {% endblock contend %}
+ {% endblock content %}
 
 <!-- Hier seitenbereich gestalten falls gewünscht -->
 {% block aside %}
