@@ -1,4 +1,3 @@
-from Webpage.jollen.views import description
 from faker import Faker
 from arbeitsstunden.models import *
 import random

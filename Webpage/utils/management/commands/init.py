@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from arbeitsstunden.models import Saison
+from arbeitsstunden.models import *
 from web.models import HeadPage, infoPage, frontHeader, standartPages
 
 
@@ -57,8 +57,7 @@ class Command(BaseCommand):
 
     def arbeitsstundenSeason(self):
         self.stdout.write("Season Arbeitsstunden init", ending='\n')
-        Saison(Jahr=2019).save()
-        Saison(Jahr=2020).save()
+        season = getCurrentSeason()
 
     def StandartSeiten(self):
         self.stdout.write("Standart Seiten init", ending="\n")

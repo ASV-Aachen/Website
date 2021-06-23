@@ -7,12 +7,11 @@ from django.contrib.auth.models import User
 
 # Returns the given Winter season of a year
 def getCurrentSeason():
-    Year = datetime.date.year
-    try:
-        temp = season.objects.get(year=Year)
-    except:
-        temp = season(year = Year, hours = 40)
-        temp.save()
+    Year = datetime.datetime.now().year
+    temp = season.objects.get_or_create(
+        year = Year,
+        hours = 40
+    )
     return 
 
 class tag(models.Model):
@@ -26,7 +25,7 @@ class season(models.Model):
     hours = models.IntegerField()
 
     def __str__(self):
-        return "Saison " + str(self.Jahr) + "/" + str(self.Jahr + 1)[-2:]
+        return "Saison " + str(self.year) + "/" + str(self.year + 1)[-2:]
     
     def save(self, *args, **kwargs):
         hours = customHours.objects.filter(season = self)
