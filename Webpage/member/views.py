@@ -28,7 +28,7 @@ def index(request):
 
     return render(request, template_name="member/Dashboard.html", context={
         "konto": current_account,
-        "seasons": season.objects.all()[-5],
+        "seasons": season.objects.all()[:5],
         "kostenstelle": costCenter.objects.all(),
         "last_Work": last_Works
     })

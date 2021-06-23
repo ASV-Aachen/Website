@@ -130,6 +130,7 @@ TEMPLATES = [
                     'has_group': 'utils.tags',
                     'getLeftFront': 'utils.tags',
                     'getRightFront': 'utils.tags',
+                    'genderTitel': 'utils.member',
             },
         },
     },

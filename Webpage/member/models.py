@@ -45,6 +45,10 @@ class profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name
+    
+
     GENDER_CHOICES = (
         ('M', 'Mann'),
         ('F', 'Frau'),
@@ -78,16 +82,13 @@ class profile(models.Model):
     phone = PhoneNumberField(null=True, blank=True, unique=False)
     mobile = PhoneNumberField(null=True, blank=True, unique=False)
 
-    def __str__(self):
-        return self.user.first_name + " " + self.user.last_name
-    
     def save(self, *args, **kwargs):
         if not self.pk:
             # This code only happens if the objects is
             # not in the database yet. Otherwise it would
             # have pk
             import utils.member as member
-            self.gender = member.etGender(self.user.first_name)
+            self.gender = member.getGender(self.user.first_name)
         
         temp, _ = account.objects.get_or_create(name=self.user.username)
         self.workingHoursAccount = temp

@@ -87,6 +87,9 @@ class costCenter(models.Model):
     name = models.CharField(max_length=256)
     description = models.CharField(max_length=500)
 
+    def __str__(self) -> str:
+        return self.name
+
     def workedHours(self):
         allProjects = project.objects.filter(costCenter=self)
         return sum(i.workedHour() for i in allProjects)
@@ -111,6 +114,9 @@ class customHours(models.Model):
 
     pass
 class work(models.Model):
+    def __str__(self):
+        return self.name
+        
     name = models.CharField(max_length=256)
 
     employee = models.ManyToManyField(account, blank=True)
@@ -121,18 +127,21 @@ class work(models.Model):
     endDate = models.DateField(blank=True, null=True)
 
     setupDate = models.DateField(default=datetime.date.today)
+
+
+    
     
 class project(models.Model):
     name = models.CharField(max_length=256)
     description = models.CharField(max_length=500, blank=True)
     
     tags = models.ManyToManyField(tag, blank=True)
-    responsible = models.ManyToManyField(User)
+    responsible = models.ManyToManyField(User, blank=True)
 
-    season = models.ForeignKey(season, on_delete=models.RESTRICT)
+    season = models.ForeignKey(season, on_delete=models.RESTRICT, null=True)
     costCenter = models.ForeignKey(costCenter, on_delete=models.RESTRICT)
 
-    planedHours = models.IntegerField(blank=True)
+    planedHours = models.IntegerField(blank=True, null = True)
 
     aktiv = models.BooleanField(default=True)
 
