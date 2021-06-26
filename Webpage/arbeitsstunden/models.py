@@ -114,19 +114,20 @@ class customHours(models.Model):
 
     pass
 class work(models.Model):
-    def __str__(self):
-        return self.name
         
     name = models.CharField(max_length=256)
 
-    employee = models.ManyToManyField(account, blank=True)
+    employee = models.ManyToManyField(account, blank=True, null=True)
     voluntary = models.BooleanField(default=False)
     hours = models.IntegerField(default = 0)
     
     startDate = models.DateField(blank=True, null=True)
     endDate = models.DateField(blank=True, null=True)
 
-    setupDate = models.DateField(default=datetime.date.today)
+    setupDate = models.DateField(default=datetime.date.today())
+    
+    def __str__(self):
+        return str(self.name)
 
 
     
