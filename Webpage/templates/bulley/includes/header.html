@@ -67,20 +67,33 @@
             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
               <li class="d-flex d-lg-none"><a class="dropdown-item" href="{% url 'MeinASV' %}">Dashboard</a></li>
               <li><a class="dropdown-item" href="{% url 'Mitgliederverzeichnis' %}">Mitgliederverzeichnis</a></li>
-              <li><a class="dropdown-item" href="{% url 'arbeitsstundenOverview' %}">Arbeitsstunden</a></li>
-              <li><a class="dropdown-item" href="/wiki">Wiki</a></li>
-              <li><a class="dropdown-item" href="/cloud/index.php/apps/sociallogin/custom_oidc/Keycloak">Cloud</a></li>
-                {% if request.user|has_group:"Admin" %}
+              
               <li class="dropdown-submenu dropleft">
                 <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="/admin">
-                Admin</a>
+                Arbeitsstunden</a>
                 <ul class="dropdown-menu submenu" aria-labelledby="dropdownMenuButton">
-                  <li class="d-flex d-lg-none"><a class="dropdown-item" href="/admin">Adminbereich</a></li>
-		          <li><a class="dropdown-item" href="{% url 'errorPage' %}"> ErrorPageTest</a></li>
-                  <li><a class="dropdown-item" href="{% url 'unfertig' %}"> Admin 2</a></li>
+                  <li class="d-flex d-lg-none"><a class="dropdown-item" href="{% url 'arbeitsstundenOverview' %}">Arbeitsstunden</a></li>
+                  <li><a class="dropdown-item" href="{% url 'projekte_overview' %}"> offene Projekte</a></li>
+                  <li><a class="dropdown-item" href="{% url 'costCenterOverview' %}"> Übersicht der Kostenstellen </a></li>
+                  <li><a class="dropdown-item" href="{% url 'seasonOverview' %}"> Saison </a></li>
                 </ul>
               </li>
+
+              <li><a class="dropdown-item" href="/wiki">Wiki</a></li>
+              <li><a class="dropdown-item" href="/cloud/index.php/apps/sociallogin/custom_oidc/Keycloak">Cloud</a></li>
+              
+              {% if request.user|has_group:"Admin" %}
+                <li class="dropdown-submenu dropleft">
+                  <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="/admin">
+                  Admin</a>
+                  <ul class="dropdown-menu submenu" aria-labelledby="dropdownMenuButton">
+                    <li class="d-flex d-lg-none"><a class="dropdown-item" href="/admin">Adminbereich</a></li>
+                <li><a class="dropdown-item" href="{% url 'errorPage' %}"> ErrorPageTest</a></li>
+                    <li><a class="dropdown-item" href="{% url 'unfertig' %}"> Admin 2</a></li>
+                  </ul>
+                </li>
               {% endif %}
+
             </ul>
           </li>
         {% endif %}
