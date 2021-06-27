@@ -1,4 +1,4 @@
-django~=3.1.4
+django~=3.2.4
 pip~=20.3.1
 wheel~=0.36.1
 pytz~=2020.4
