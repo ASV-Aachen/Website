@@ -34,7 +34,7 @@
                 {% endif %}
 
                 <h1 class="text-break" id="Name" style="text-align: center;font-size: 20px;">{{profil.user.first_name}} {{profil.user.last_name}}</h1>
-                <p id="Status" style="margin-left: 0;text-align: center;">{{profil.get_status_display}} & {{ profil.gender_role }}</p>     
+                <p id="Status" style="margin-left: 0;text-align: center;">{{profil.get_status_display}}</p>     
                 <div id="Badges" style="margin-left: 2px;margin-bottom: 7px;">
                     {% for membersRole in profil.roles.all %}
                         {% load genderTitel %}
