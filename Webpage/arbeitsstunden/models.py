@@ -81,7 +81,7 @@ class account(models.Model):
         projects = work.objects.filter(employe = self)
 
     def __str__(self):
-        return self.id
+        return self.name
 
 class costCenter(models.Model):
     name = models.CharField(max_length=256)
@@ -147,6 +147,10 @@ class project(models.Model):
     aktiv = models.BooleanField(default=True)
 
     parts = models.ManyToManyField(work, blank=True)
+
+
+    def __str__(self) -> str:
+        return self.name + "->" + "description"
 
     def hourDifferenz(self):
         return self.planedHours - self.workedHours()
