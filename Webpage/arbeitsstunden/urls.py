@@ -36,7 +36,7 @@ urlpatterns = [
     path('projecte/<int:workID>/work/delete', views.deleteWork, name="deleteWork"),
 
     path('season', views.seasonOverview, name="seasonOverview"),
-    path('season/<int:seasonID>', views.singleSeasonOverview, name="singleSeasonOverview"),
+    path('season/<int:year>', views.singleSeasonOverview, name="singleSeasonOverview"),
 
     path('costCenter', views.costCenterOverview, name="costCenterOverview"),
 ] 

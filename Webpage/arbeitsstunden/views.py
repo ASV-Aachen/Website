@@ -1,3 +1,4 @@
+from django.core import exceptions
 from .models import account, season
 from functools import reduce
 
@@ -39,36 +40,44 @@ def dashboard(request):
 
 # Übersicht über alle Accounts die diese Saison schon was gemacht haben
 def overview(request):
-    season = getCurrentSeason()
+    season = getCurrentSeason()[0]
     allAccounts = account.objects.all()
 
     aktive = []
     andereMitglieder = []
 
-    for person in allAccounts:
-        
-        try:
-            custom_hours = customHours.objects.get(used_account = person)
-            profil = profile.objects.get(workingHoursAccount = person)
+    for account_of_person in allAccounts:
+            # try:
+            custom_hours = customHours.objects.get(used_account = account_of_person)
+            all_profil = profile.objects.all()
+            users_profil = all_profil.get(workingHoursAccount = account_of_person)
+
             gebrauchteStunden = custom_hours.getCustomHours()
-            gearbeiteteStunden = person.HowManyHoursDoesUserHaveToWork()
+            gearbeiteteStunden = account_of_person.HowManyHoursDoesUserHaveToWork(season = season)
+            
             temp = {
                 "gebrauchteStunden": gebrauchteStunden,
                 "gearbeiteteStunden": gearbeiteteStunden,
-                "Profil": profil,
-                "user": profil.user, 
-                "name": person.name,
+                "Profil": users_profil,
+                "user": users_profil.user, 
+                "name": account_of_person.name,
                 "darfSegeln": gebrauchteStunden == gearbeiteteStunden
             }
+
             if gearbeiteteStunden == 0:
+                print("zero Hours")
                 continue
-            if profil.status == 1 or profil.status == 2:
+            if users_profil.status == 1 or users_profil.status == 2:
                 aktive.append(custom_hours)
             else:
                 andereMitglieder.append(custom_hours)
-        except:
-            continue
-        pass
+
+            try:
+                pass
+            except Exception as e:
+                print(e)
+                continue
+                pass
 
     return render(request, template_name="arbeitsstunden/arbeitsstundenOverview.html", context={
         "personen": aktive,
@@ -224,8 +233,8 @@ def seasonOverview(request):
 
 
 # Statistik über eine einzelne Season mit Statistik und allen entsprechenden Projekten
-def singleSeasonOverview(request, seasonId):
-    curentSeason = season.objects.filter(id=seasonId)
+def singleSeasonOverview(request, year):
+    curentSeason = season.objects.get(year=year)
     projectsOfthatSeason = project.objects.filter(season = curentSeason)
     # projectsOfthatSeason = projectsOfthatSeason.filter(aktiv=True)
 
@@ -238,7 +247,7 @@ def singleSeasonOverview(request, seasonId):
 # Übersicht über die Kostenstellen, mit Einsicht in laufende Projekte in der aktuellen Season
 def costCenterOverview(request):
     allCenters = costCenter.objects.all()
-    seasons = season.objects.all()[-5]
+    seasons = season.objects.all()[:5]
     
     data = []
     
