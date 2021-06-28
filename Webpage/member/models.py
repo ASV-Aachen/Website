@@ -90,7 +90,7 @@ class profile(models.Model):
             import utils.member as member
             self.gender = member.getGender(self.user.first_name)
         
-        temp, _ = account.objects.get_or_create(name=self.user.username)
+        temp, _ = account.objects.get_or_create(name=self.user.first_name + self.user.last_name)
         self.workingHoursAccount = temp
 
         super().save(*args, **kwargs)
