@@ -75,16 +75,13 @@ class account(models.Model):
     name = models.CharField(max_length=256, default="TESTNUTZER")
 
     def HowManyHoursDoesUserHaveToWork(self, season):
-        if(self.customHours != null):
-            return self.customHours
-        else:
-            hours = season.hours
-            if self.hasShortenedHours:
-                hours = hours / 2
-            
-            if self.isNew:
-                hours = hours / 2
-            return hours
+        hours = season.hours
+        if self.hasShortenedHours:
+            hours = hours / 2
+        
+        if self.isNew:
+            hours = hours / 2
+        return hours
     
     def workedHours(self):
         projects = work.objects.filter(employe = self)
@@ -115,6 +112,8 @@ class customHours(models.Model):
     customHours = models.IntegerField(null=True)
     percentege = models.IntegerField(default=100)
 
+    def __str__(self) -> str:
+        return self.used_account.name
 
     def getCustomHours(self):
         # Prozentualer Anteil
