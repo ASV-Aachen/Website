@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 
 {% block title %} aktive Projekte {% endblock title %}
 
@@ -25,7 +25,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Neues Projekt eingügen</h4>
+                <h4 class="modal-title">Neues Projekt einfügen</h4>
             </div>
             <div class="modal-body">
                 <form method="POST" class="post-form">{% csrf_token %}
@@ -34,7 +34,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">abbrechen</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">abbrechen</button>
             </div>
         </div>
 
@@ -44,7 +44,7 @@
 
     <div class="card-columns">
     {% for Projekt in projekte %}
-        {% include "arbeitsstunden/templates/ausschreibung_card.html" %}
+        {% include "arbeitsstunden/templates/projectCard.html" %}
     {% endfor %}
     </div>
 

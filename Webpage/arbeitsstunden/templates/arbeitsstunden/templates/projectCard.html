@@ -25,6 +25,6 @@
         {% endfor %}
         <p class="card-text">Saison: {{ Projekt.season }}</p>
         <p class="card-text">Kostenstelle: {{ Projekt.costCenter }}</p>
-        <p class="card-text">Stunden: {{ Projekt.workedHours }}/{{ Projekt.planedHours }}</p>
+        {% comment %} <p class="card-text">Stunden: {{ Projekt.workedHours }}/{{ Projekt.planedHours }}</p> {% endcomment %}
     </div>
 </div>

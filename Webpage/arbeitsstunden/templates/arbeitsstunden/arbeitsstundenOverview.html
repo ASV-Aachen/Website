@@ -15,7 +15,8 @@
 {% endblock headerimage%}
 
 {% block content %}
-  <h1>Saison Übersicht Aktivitas</h1>
+  <h1>Saison {{ season.year }}</h1>
+  <h2>Übersicht Aktivitas</h1>
   <table id="Table" class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -43,7 +44,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <h1>Andere Mitglieder</h1>
+    <h2>Andere Mitglieder</h1>
     <table id="Table" class="table table-striped table-bordered">
           <thead>
               <tr>

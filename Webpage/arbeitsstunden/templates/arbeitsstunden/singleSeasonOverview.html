@@ -16,7 +16,7 @@
 {% block content %}
   <div class="container">
     geleistete Stunden: {{ curentSeason.getAllHours }}
-
+    <br>
     HIER KOMMT NOCH EIN GRAPH HIN
     {{ curentSeason.getAllDates }}
 
@@ -26,7 +26,7 @@
     <h3 class="pb-3 mb-4 font-italic border-bottom">Projekte</h3>
     <div class="card-columns">
     {% for Projekt in projekte %}
-        {% include "arbeitsstunden/templates/ausschreibung_card.html" %}
+        {% include "arbeitsstunden/templates/projectCard.html" %}
     {% endfor %}
   </div>
  {% endblock content %}
