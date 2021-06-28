@@ -73,7 +73,7 @@ def fakeArbeitsstunden(AnzahlProKostenstelle: int):
             newProject = project(
                     name=fake.text(max_nb_chars=60), 
                     description = fake.sentence(), 
-                    season = getCurrentSeason(),
+                    season = getCurrentSeason()[0],
                     costCenter = kostenstelle,
                     aktiv = random.choice([True,False])
                 )
