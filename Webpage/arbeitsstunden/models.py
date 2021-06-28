@@ -12,7 +12,7 @@ def getCurrentSeason():
         year = Year,
         hours = 40
     )
-    return 
+    return temp
 
 class tag(models.Model):
     Name = models.CharField(max_length=256)
@@ -28,6 +28,15 @@ class season(models.Model):
         return "Saison " + str(self.year) + "/" + str(self.year + 1)[-2:]
     
     def save(self, *args, **kwargs):
+
+        if self.pk is None:
+            for i in account.objects.all():
+                customHours.objects.get_or_create(
+                    season=self,
+                    used_account = i
+                    )
+                pass
+
         hours = customHours.objects.filter(season = self)
 
         for i in hours:
@@ -157,7 +166,7 @@ class project(models.Model):
     
     def workedHours(self):
         workingParts = self.parts
-        return sum(i.hours for i in workingParts)
+        return sum(i.hours for i in workingParts.all() if i in workingParts.all())
 
 
     
