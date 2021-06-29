@@ -28,7 +28,7 @@
               <tr>
                 <td>{{ season.id }}</td>
                 <td>{{ season.year }}</td>
-                <td> <a type="button" class="btn" href="{% url 'singleSeasonOverview' season.id %}">mehr</a> </td>
+                <td> <a type="button" class="btn" href="{% url 'singleSeasonOverview' season.year %}">mehr</a> </td>
               </tr>
             {% endfor %}
         </tbody>

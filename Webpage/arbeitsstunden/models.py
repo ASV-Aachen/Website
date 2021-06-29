@@ -83,8 +83,16 @@ class account(models.Model):
             hours = hours / 2
         return hours
     
-    def workedHours(self):
-        projects = work.objects.filter(employe = self)
+    def workedHours(self, season):
+        
+        zahler = 0
+
+        projects = project.objects.filter(season=season)
+        for i in projects:
+            zahler += sum(t.hours for t in i.parts.filter(employee = self) if i in i.parts.filter(employee = self))
+
+        
+        return zahler
 
     def __str__(self):
         return self.name

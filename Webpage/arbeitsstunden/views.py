@@ -53,7 +53,7 @@ def overview(request):
             users_profil = all_profil.get(workingHoursAccount = account_of_person)
 
             gebrauchteStunden = custom_hours.getCustomHours()
-            gearbeiteteStunden = account_of_person.HowManyHoursDoesUserHaveToWork(season = season)
+            gearbeiteteStunden = account_of_person.workedHours(season = season)
             
             temp = {
                 "gebrauchteStunden": gebrauchteStunden,
@@ -68,9 +68,9 @@ def overview(request):
                 print("zero Hours")
                 continue
             if users_profil.status == 1 or users_profil.status == 2:
-                aktive.append(custom_hours)
+                aktive.append(temp)
             else:
-                andereMitglieder.append(custom_hours)
+                andereMitglieder.append(temp)
 
             try:
                 pass
