@@ -12,6 +12,14 @@ def getCurrentSeason():
         year = Year,
         hours = 40
     )
+    if temp[1]:
+        for i in account.objects.all():
+            try:
+                test = customHours(season=temp[0], used_account = i, customHours = temp[0].hours)
+                test.save()
+            except Exception as e:
+                print(e)
+                pass
     return temp
 
 class tag(models.Model):
@@ -28,20 +36,6 @@ class season(models.Model):
         return "Saison " + str(self.year) + "/" + str(self.year + 1)[-2:]
     
     def save(self, *args, **kwargs):
-
-        if self.pk is None:
-            for i in account.objects.all():
-                customHours.objects.get_or_create(
-                    season=self,
-                    used_account = i
-                    )
-                pass
-
-        hours = customHours.objects.filter(season = self)
-
-        for i in hours:
-            i.customHours = self.hours
-
         super().save(*args, **kwargs)
     
     def getAllHours(self):
@@ -89,7 +83,7 @@ class account(models.Model):
 
         projects = project.objects.filter(season=season)
         for i in projects:
-            zahler += sum(t.hours for t in i.parts.filter(employee = self) if i in i.parts.filter(employee = self))
+            zahler = zahler + sum(t.hours for t in i.parts.filter(employee = self))
 
         
         return zahler

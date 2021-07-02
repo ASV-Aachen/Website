@@ -47,7 +47,7 @@ def overview(request):
     andereMitglieder = []
 
     for account_of_person in allAccounts:
-            # try:
+            #try:
             custom_hours = customHours.objects.get(used_account = account_of_person)
             all_profil = profile.objects.all()
             users_profil = all_profil.get(workingHoursAccount = account_of_person)
@@ -61,19 +61,16 @@ def overview(request):
                 "Profil": users_profil,
                 "user": users_profil.user, 
                 "name": account_of_person.name,
-                "darfSegeln": gebrauchteStunden == gearbeiteteStunden
+                "darfSegeln": gebrauchteStunden < gearbeiteteStunden
             }
 
-            if gearbeiteteStunden == 0:
-                print("zero Hours")
-                continue
             if users_profil.status == 1 or users_profil.status == 2:
                 aktive.append(temp)
             else:
                 andereMitglieder.append(temp)
-
             try:
                 pass
+            
             except Exception as e:
                 print(e)
                 continue
@@ -97,7 +94,7 @@ def allAktivProjekts(request):
 
     return render(request, template_name="arbeitsstunden/allAktivProjects.html", context={
         "projekte": aktiveProjecte,
-        "formForProject": formForProject
+        "form": formForProject
     })
 
 def newProjekt(request):
@@ -111,19 +108,19 @@ def newProjekt(request):
         return redirect("ErrorPage")
     else:
         form = formProject()
-        return render(request, "Arbeitsstunden/form_template.html", {
+        return render(request, "arbeitsstunden/form_template.html", {
             "form": form
         })
     pass
 
 def showProjekt(request, projectID):
-    project = get_object_or_404(project, id=projectID)
+    projekteToShow = get_object_or_404(project, pk=projectID)
 
-    Projektform = formProject(instance = project)
+    Projektform = formProject(instance = projekteToShow)
     newWorkForm = formWork()
     
-    return render(request, "Arbeitsstunden/showProjekt.html", {
-            "project": project,
+    return render(request, "arbeitsstunden/showProjekt.html", {
+            "project": projekteToShow,
             "Projektform": Projektform,
             "newWorkForm": newWorkForm
         })
@@ -131,7 +128,7 @@ def showProjekt(request, projectID):
 # Projekt Edit mit allen subprojekten und Übersichten
 # bekommt daten über das Projekt und ein Formular zum ändern
 def editProjekt(request, projectID):
-    project = get_object_or_404(project, id=projectID)
+    projekteToShow = get_object_or_404(project, id=projectID)
 
     if(request.method == "POST"):
         form = formProject(request.POST)
@@ -145,7 +142,7 @@ def editProjekt(request, projectID):
         return redirect("ErrorPage")
     else:
         form = formProject(instance=project)
-        return render(request, "Arbeitsstunden/form_template.html", {
+        return render(request, "arbeitsstunden/form_template.html", {
             "form": form
         })
 
@@ -184,7 +181,7 @@ def addWork(request, projectID):
         return redirect("ErrorPage")
     else:
         form = formProject(instance=project)
-        return render(request, "Arbeitsstunden/form_template.html", {
+        return render(request, "arbeitsstunden/form_template.html", {
             "form": form
         })
 
@@ -204,7 +201,7 @@ def editWork(request, workID):
         return redirect("ErrorPage")
     else:
         form = formProject(instance=project)
-        return render(request, "Arbeitsstunden/form_template.html", {
+        return render(request, "arbeitsstunden/form_template.html", {
             "form": form
         })
 
