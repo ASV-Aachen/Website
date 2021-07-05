@@ -39,6 +39,7 @@ def dashboard(request):
 
 
 # Übersicht über alle Accounts die diese Saison schon was gemacht haben
+@login_required
 def overview(request):
     season = getCurrentSeason()[0]
     allAccounts = account.objects.all()
@@ -87,6 +88,7 @@ def overview(request):
 '''
 Alle Aktiven und geplante Projekte, sortiert nach Zeit, ein und ausklappbar
 '''
+@login_required
 def allAktivProjekts(request):
 
     aktiveProjecte = project.objects.filter(aktiv = True)
@@ -97,6 +99,7 @@ def allAktivProjekts(request):
         "form": formForProject
     })
 
+@login_required
 def newProjekt(request):
     if(request.method == "POST"):
         form = formProject(request.POST)
@@ -115,6 +118,7 @@ def newProjekt(request):
         })
     pass
 
+@login_required
 def showProjekt(request, projectID):
     projekteToShow = get_object_or_404(project, pk=projectID)
 
@@ -129,6 +133,7 @@ def showProjekt(request, projectID):
 
 # Projekt Edit mit allen subprojekten und Übersichten
 # bekommt daten über das Projekt und ein Formular zum ändern
+@login_required
 def editProjekt(request, projectID):
     projekteToShow = get_object_or_404(project, id=projectID)
 
@@ -148,6 +153,7 @@ def editProjekt(request, projectID):
             "form": form
         })
 
+@login_required
 def deleteProjekt(request, projectID):
     projekt = get_object_or_404(project, id = projectID)
 
@@ -166,6 +172,8 @@ def deleteProjekt(request, projectID):
 
 # -----------------------------------------------------------------------------------------
 # API Endpunkt, einfügen eines neuen subProjektes. KEINE WEBSITE, HÖCHSTENS ERROR CODE
+
+@login_required
 def addWork(request, projectID):
     project = get_object_or_404(work, id=projectID)
     realprojektID = get_object_or_404(project, project in parts)
@@ -187,6 +195,7 @@ def addWork(request, projectID):
             "form": form
         })
 
+@login_required
 def editWork(request, workID):    
     project = get_object_or_404(work, id=workID)
     realprojektID = get_object_or_404(project, project in parts)
@@ -207,6 +216,7 @@ def editWork(request, workID):
             "form": form
         })
 
+@login_required
 def deleteWork(request, workID):
     projekt = get_object_or_404(work, id = workID)
 
@@ -225,6 +235,7 @@ def deleteWork(request, workID):
 
 # -----------------------------------------------------------------------------------------
 # Übersicht mit Statistiken über alle seasons
+@login_required
 def seasonOverview(request):
     return render(request, template_name="arbeitsstunden/seasonOverview.html", context={
         "seasons": season.objects.all()
@@ -232,6 +243,7 @@ def seasonOverview(request):
 
 
 # Statistik über eine einzelne Season mit Statistik und allen entsprechenden Projekten
+@login_required
 def singleSeasonOverview(request, year):
     curentSeason = season.objects.get(year=year)
     projectsOfthatSeason = project.objects.filter(season = curentSeason)
@@ -244,6 +256,7 @@ def singleSeasonOverview(request, year):
 
 # -----------------------------------------------------------------------------------------
 # Übersicht über die Kostenstellen, mit Einsicht in laufende Projekte in der aktuellen Season
+@login_required
 def costCenterOverview(request):
     allCenters = costCenter.objects.all()
     seasons = season.objects.all()[:5]
