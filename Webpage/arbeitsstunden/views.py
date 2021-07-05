@@ -154,6 +154,7 @@ def editProjekt(request, projectID):
         })
 
 @login_required
+@user_passes_test(isUserPartOfGroup_Takel)
 def deleteProjekt(request, projectID):
     projekt = get_object_or_404(project, id = projectID)
 
@@ -217,6 +218,7 @@ def editWork(request, workID):
         })
 
 @login_required
+@user_passes_test(isUserPartOfGroup_Takel)
 def deleteWork(request, workID):
     projekt = get_object_or_404(work, id = workID)
 
@@ -244,6 +246,7 @@ def seasonOverview(request):
 
 # Statistik über eine einzelne Season mit Statistik und allen entsprechenden Projekten
 @login_required
+@user_passes_test(isUserPartOfGroup_Takel)
 def singleSeasonOverview(request, year):
     curentSeason = season.objects.get(year=year)
     projectsOfthatSeason = project.objects.filter(season = curentSeason)
