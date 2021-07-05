@@ -27,7 +27,7 @@
                 <h4 class="modal-title">Neues Projekt einfügen</h4>
             </div>
             <div class="modal-body">
-                <form method="POST" class="post-form">{% csrf_token %}
+                <form method="POST" class="post-form" action={% url 'projekt_new' %}>{% csrf_token %}
                     {{ form|crispy }}
                     <button type="submit" class="save btn btn-primary">Speichern</button>
                 </form>

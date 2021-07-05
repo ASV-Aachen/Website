@@ -101,8 +101,10 @@ def newProjekt(request):
     if(request.method == "POST"):
         form = formProject(request.POST)
         if form.is_valid():
+            form.save(commit=False)
+            form.instance.season = getCurrentSeason()[0]
             form.save()
-            # TODO
+
             return redirect("projekte_overview")
         
         return redirect("ErrorPage")
