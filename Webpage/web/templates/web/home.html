@@ -90,7 +90,7 @@
         <h4 class="font-italic">About</h4>
         <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
     </div>
-    <div class="p-3">
+    <div class="container no-gutters bg-asv-lightgrey p-3">
         <h4 class="font-italic">Elsewhere</h4>
         <ol class="list-unstyled">
         <li>
@@ -104,24 +104,30 @@
         </li>
     </ol>
     </div>
-    <div style="max-width: 350px; max-height: 240px; margin-left: auto; margin-right: auto;">
-        <div class="p-3">
-            <a href="{% url 'sponsor' %}">
-                <img style="border-radius: 10px;margin: 5px;" src="{{ sponsor.logo.url }}">
-            </a>
-        </div>
-        <hr>
-        <div class="p-3" style="padding:10px 5px; margin:1px; text-align:center;">
-                        
-            <a href="https://www.amazon.de/gp/product/3667111827/ref=as_li_tl?ie=UTF8&amp;camp=1638&amp;creative=6742&amp;creativeASIN=3667111827&amp;linkCode=as2&amp;tag=wwwasvaachend-21&amp;linkId=0db074b9e7cf73960a4a57625d5d6e35" target="_blank">
-            <img src="https://www.asv.rwth-aachen.de/cms/modules/mod_amazon/amazon.png" width="350" height="240" border="0"></a>
 
-            Kaufen Sie über den ASV bei
-            <a href="https://www.amazon.de/gp/product/3667111827/ref=as_li_tl?ie=UTF8&amp;camp=1638&amp;creative=6742&amp;creativeASIN=3667111827&amp;linkCode=as2&amp;tag=wwwasvaachend-21&amp;linkId=0db074b9e7cf73960a4a57625d5d6e35" target="_blank">Amazon</a> ein! 
+    <br>
+    <div class="container no-gutters bg-asv-lightgrey" style ="margin-left: auto; margin-right: auto; ">
+        <div style="max-width: 350px; margin-left: auto; margin-right: auto;">
+            <div class="p-3">
+                <a href="{% url 'sponsor' %}">
+                    <img style="border-radius: 10px;margin: 5px;" src="{{ sponsor.logo.url }}">
+                </a>
+            </div>
+            <br>
+            <hr>
+            <div class="p-3 " style="text-align:center;">
+                            
+                <a href="https://www.amazon.de/gp/product/3667111827/ref=as_li_tl?ie=UTF8&amp;camp=1638&amp;creative=6742&amp;creativeASIN=3667111827&amp;linkCode=as2&amp;tag=wwwasvaachend-21&amp;linkId=0db074b9e7cf73960a4a57625d5d6e35" target="_blank">
+                <img src="https://www.asv.rwth-aachen.de/cms/modules/mod_amazon/amazon.png" width="350" height="240" border="0"></a>
 
-            Als Amazon-Partner verdienen wir an qualifizierten Verkäufen.
+                Kaufen Sie über den ASV bei
+                <a href="https://www.amazon.de/gp/product/3667111827/ref=as_li_tl?ie=UTF8&amp;camp=1638&amp;creative=6742&amp;creativeASIN=3667111827&amp;linkCode=as2&amp;tag=wwwasvaachend-21&amp;linkId=0db074b9e7cf73960a4a57625d5d6e35" target="_blank">Amazon</a> ein! 
+
+                Als Amazon-Partner verdienen wir an qualifizierten Verkäufen.
+            </div>
         </div>
     </div>
+    
     
 {% endblock aside %}
 
