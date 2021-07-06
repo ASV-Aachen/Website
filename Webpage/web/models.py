@@ -102,8 +102,8 @@ class sponsoren(models.Model):
     text = models.CharField(max_length=500)
     link = models.CharField(max_length=200)
 
-    sponsorenBild   = ResizedImageField(size=[549,240], upload_to="sponsoren", crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
-    logo            = ResizedImageField(size=[549,240], upload_to="sponsoren", crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
+    sponsorenBild   = models.ImageField(upload_to="sponsoren")
+    logo            = models.ImageField(upload_to="sponsoren")
     
     def __str__(self) -> str:
         return self.name
