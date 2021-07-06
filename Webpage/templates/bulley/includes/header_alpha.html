@@ -97,7 +97,15 @@
             Mein ASV</a>
             <ul class="dropdown-menu dropdown" aria-labelledby="dropdownMenuButton">
               <li><a class="dropdown-item" href="{% url 'Mitgliederverzeichnis' %}">Mitgliederverzeichnis</a></li>
-              <li><a class="dropdown-item" href="{% url 'arbeitsstunden_home' %}">Arbeitsstunden</a></li>
+              
+              <li><a class="dropdown-item dropdown-toggle" href="{% url 'arbeitsstundenOverview' %}">Arbeitsstunden</a>
+                <ul class="submenu submenu- dropdown-menu" aria-labelledby="dropdownMenuButton">
+		              <li><a class="dropdown-item" href="{% url 'projekte_overview' %}"> Projekte</a></li>
+                  <li><a class="dropdown-item" href="{% url 'costCenterOverview' %}"> Center </a></li>
+                  <li><a class="dropdown-item" href="{% url 'seasonOverview' %}"> Saison </a></li>
+                </ul>
+              </li>
+              
               <li><a class="dropdown-item" href="/wiki">Wiki</a></li>
               <li><a class="dropdown-item" href="/cloud/index.php/apps/sociallogin/custom_oidc/Keycloak">Cloud</a></li>
 
