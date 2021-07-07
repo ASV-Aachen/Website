@@ -28,7 +28,9 @@
                 </div>
                 <div class="col-4">
                   <div>Obmann: {{ boot.obman }}</div>
-                  {% if boot.isboat %} <div>Status: {{ boot.message.get_status_display }}</div> {% endif %}
+                  {% if boot.isboat %} 
+                    <div style="{% if boot.message.get_status_display is "nicht segelbar" %}color: #BB0001;{% endif %}">Status: {{ boot.message.get_status_display }}</div> 
+                  {% endif %}
                   <div>Standort: {{ boot.message.get_standort_display }}</div>
                 </div>
               </div>
