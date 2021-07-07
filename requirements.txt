@@ -24,3 +24,4 @@ django-simple-history
 django-filter
 fontawesome-free
 gender-guesser
+django-ajax-selects
