@@ -29,7 +29,7 @@
                 <div class="col-4">
                   <div>Obmann: {{ boot.obman }}</div>
                   {% if boot.isboat %} 
-                    <div style="{% if boot.message.status == 3 %}border: solid;background: #BB0001;padding: 5px;{% endif %}">Status: {{ boot.message.get_status_display }}</div> 
+                    <div style="{% if boot.message.status == 3 %}border: solid;background: #BB0001;padding: 5px;border-radius: 8px;{% endif %}">Status: {{ boot.message.get_status_display }}</div> 
                   {% endif %}
                   <div>Standort: {{ boot.message.get_standort_display }}</div>
                 </div>
