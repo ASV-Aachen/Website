@@ -35,35 +35,13 @@
         </div>
     </div>
     <br>
-    <div id = "AdminFunktionen">
-            <div class="card">
-              <div class="card-header">
-                Einstellungen
-              </div>
-              <ul class="list-group list-group-flush">
-                {% if request.user|has_group:"Editor" %}
-                    <li class="list-group-item">
-                        <a class="dropdown-item" href="{% url 'writerView' %}"> News Editor </a>
-                    </li>
-                {% endif %}
-                {% if request.user|has_group:"Schriftwart" %}
-                    <li class="list-group-item">
-                        <a class="dropdown-item" href="{% url 'MemberMenu' %}"> Member Editor </a>
-                    </li>
-                {% endif %}
-                {% if request.user|has_group:"Entwickler" %}
-                    <li class="list-group-item">
-                        <a class="dropdown-item" href="{% url 'autoPopulate' %}"> Auto Poulate Page </a>
-                    </li>
-                {% endif %}
-                {% if request.user|has_group:"Editor" %}
-                    <li class="list-group-item">
-                        <a class="dropdown-item" href="{% url 'infoMenu' %}"> InfoPages Menu </a>
-                    </li>
-                {% endif %}
-              </ul>
-            </div>
+    {% comment "Kontainer Vorlage" %}
+    <div id = "Funktionen">
+        <div class="card">
+          
         </div>
+    </div>
+    {% endcomment %}
  {% endblock %}
 
 

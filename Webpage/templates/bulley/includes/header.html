@@ -81,7 +81,20 @@
 
               <li><a class="dropdown-item" href="/wiki">Wiki</a></li>
               <li><a class="dropdown-item" href="/cloud/index.php/apps/sociallogin/custom_oidc/Keycloak">Cloud</a></li>
-              
+              {% if request.user|has_group:"Schriftwart" %}
+                <li><a class="dropdown-item" href="{% url 'MemberMenu' %}"> Member Editor </a></li>
+              {% endif %}
+              {% if request.user|has_group:"Editor" %}
+                <li class="dropdown-submenu dropleft">
+                  <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="#">Editor Menüs</a>
+
+                  <ul class="dropdown-menu submenu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="{% url 'infoMenu' %}"> Menu für die Infoseiten </a></li>
+                    <li><a class="dropdown-item" href="{% url 'writerView' %}"> Blog </a></li>
+                  </ul>
+                </li>
+              {% endif %}
+
               {% if request.user|has_group:"Admin" %}
                 <li class="dropdown-submenu dropleft">
                   <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="/admin">
