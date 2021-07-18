@@ -114,8 +114,12 @@ class customHours(models.Model):
     customHours = models.IntegerField(null=True)
     percentege = models.IntegerField(default=100)
 
+    class Meta:
+        unique_together = (("season", "used_account"),)
+
     def __str__(self) -> str:
-        return self.used_account.name
+        return self.used_account.name + " - " + str(self.season)
+        
 
     def getCustomHours(self):
         # Prozentualer Anteil
