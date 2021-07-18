@@ -1,4 +1,7 @@
 from faker import Faker
+from arbeitsstunden.models import *
+import random
+from member.models import profile
 
 '''
 Erstellt die gewünschte Anzahl an fakeNews.
@@ -42,3 +45,59 @@ def fakeNutzer(Anzahl: int) -> []:
         Ergebnis.append(newNews)
 
     return Ergebnis
+
+
+def fakeArbeitsstunden(AnzahlProKostenstelle: int):
+    # aktuelle Season eintragen, falls noch nicht existent
+    season = getCurrentSeason()
+    fake = Faker()
+
+    Nutzer = profile.objects.all()
+
+    Kostenstelen_namen = [
+            "Etage",
+            "AGIV",
+            "Amme",
+            "Rudolf",
+            "Halle Eschweiler",
+            "Halle Aachen"
+        ]
+    # Kostenstellen einfügen
+    for i in Kostenstelen_namen:
+        new = costCenter(name=i, description="----")
+        new.save()
+
+    # projekte erstellen (pro Kostenstelle AnzahlProKostenstelle)
+    for kostenstelle in costCenter.objects.all():
+        for _ in range(AnzahlProKostenstelle):
+            newProject = project(
+                    name=fake.text(max_nb_chars=60), 
+                    description = fake.sentence(), 
+                    season = getCurrentSeason()[0],
+                    costCenter = kostenstelle,
+                    aktiv = random.choice([True,False])
+                )
+            newProject.save()
+            newProject.responsible.add(random.choice(Nutzer).user)
+            for _ in range(random.randint(2,10)):
+                # Work erstellen (zwischen 2 und 10 Pro Projekt)
+                tempWork = work(
+                    name = fake.text(max_nb_chars=40),
+                    hours = random.randint(2, 30)
+                )
+                tempWork.save()
+                for _ in range(random.randint(1,5)):
+                    # zufällig accounts zuordnen
+                    tempWork.employee.add(random.choice(Nutzer).workingHoursAccount)
+                tempWork.save()
+                newProject.parts.add(tempWork)
+                pass    
+            newProject.save()
+
+
+
+    
+    
+
+
+    pass

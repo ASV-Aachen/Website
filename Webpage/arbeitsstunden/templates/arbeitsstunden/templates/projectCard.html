@@ -3,10 +3,10 @@
         {{ ausschreibung.Projekt.Name }}
     </div>
     <div class="card-body">
-        <h5 class="card-title">{{ ausschreibung.Titel }}</h5>
-        <p class="card-text">{{ ausschreibung.Beschreibung }}</p>
+        <h5 class="card-title"><a href=" {% url 'projekte_detail' Projekt.id %}">{{ Projekt.name }}</a></h5>
+        <p class="card-text">{{ Projekt.description }}</p>
         <p class="card-text">
-            {% for tag in ausschreibung.Tags.all %}
+            {% for tag in Projekt.tags.all %}
                 <span class="badge badge-info">{{ tag.Name }}</span>
             {% endfor %}
         </p>
@@ -20,12 +20,11 @@
                 <i class="bi bi-calendar-check"></i> {{ausschreibung.Fertigstellungstermin|date:"d.m.Y"}}
             </p>
         {% endif %}
-        {% for profil in ausschreibung.Projekt.Verantwortlich.all %}
-            <p><a href="#" class="card-link">@{{ profil.user.first_name }} {{ profil.user.last_name }}</a></p>
+        {% for profil in Projekt.responsible.all %}
+            <p><a href="#" class="card-link">@{{ profil.first_name }} {{ profil.last_name }}</a></p>
         {% endfor %}
-        {% if not disable_details_button %}
-            <p><a href="{% url 'ausschreibung_details' pk=ausschreibung.pk %}" class="card-link">Details ansehen</a></p>
-        {% endif %}
-        <p><a href="{% url 'ausschreibung_edit' pk=ausschreibung.pk %}" class="card-link">Bearbeiten</a></p>
+        <p class="card-text">Saison: {{ Projekt.season }}</p>
+        <p class="card-text">Kostenstelle: {{ Projekt.costCenter }}</p>
+        {% comment %} <p class="card-text">Stunden: {{ Projekt.workedHours }}/{{ Projekt.planedHours }}</p> {% endcomment %}
     </div>
 </div>

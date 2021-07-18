@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Projekt, Tag, Arbeitsstundenausschreibung, Saison, Arbeitsbeteiligung, Arbeitseinheit
+from .models import *
 
-admin.site.register(Projekt)
-admin.site.register(Tag)
-admin.site.register(Arbeitsstundenausschreibung)
-admin.site.register(Saison)
-admin.site.register(Arbeitsbeteiligung)
-admin.site.register(Arbeitseinheit)
+admin.site.register(season)
+admin.site.register(account)
+admin.site.register(costCenter)
+admin.site.register(project)
+admin.site.register(work)
+admin.site.register(customHours)

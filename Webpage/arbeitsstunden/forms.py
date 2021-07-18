@@ -1,38 +1,24 @@
 from django import forms
+from django.db.models import fields
 from django.forms import CheckboxSelectMultiple, DateInput
+from django.http import request
 
-from .models import Arbeitsstundenausschreibung, Projekt, Arbeitseinheit, Arbeitsbeteiligung
+from .models import *
 
 
-class ArbeitsstundenausschreibungForm(forms.ModelForm):
+class formProject(forms.ModelForm):
     class Meta:
-        model = Arbeitsstundenausschreibung
-        fields = ("Titel", "Beschreibung", "Projekt", "Tags", "Umfang", "Fertigstellungstermin")
-        widgets = {
-            "Tags": CheckboxSelectMultiple(),
-            # "Fertigstellungstermin": DateField()
-        }
+        model = project
+        fields = ("name", "description", "tags", "responsible", "costCenter", "planedHours")
 
 
-class ProjectForm(forms.ModelForm):
+class formWork(forms.ModelForm):
     class Meta:
-        model = Projekt
-        fields = ("Saison", "Name", "Beschreibung", "Verantwortlich")
-        widgets = {
-            "Verantwortlich": CheckboxSelectMultiple(),
-        }
+        model = work
+        fields = ("name", "employee", "hours", "startDate", "endDate")
 
-
-class ArbeitseinheitForm(forms.ModelForm):
+class hours(forms.ModelForm):
+    
     class Meta:
-        model = Arbeitseinheit
-        fields = ("Projekt", "Beschreibung", "Datum", "Ausschreibung")
-        widgets = {
-            "Datum": DateInput(format='%d.%m.%Y', attrs={'type': 'date'})
-        }
-
-
-class ArbeitsbeteiligungForm(forms.ModelForm):
-    class Meta:
-        model = Arbeitsbeteiligung
-        fields = ("Arbeitseinheit", "Arbeitsleistender", "Arbeitszeit")
+        model = customHours
+        fields = ("percentege", )
