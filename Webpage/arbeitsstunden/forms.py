@@ -13,6 +13,7 @@ class formProject(forms.ModelForm):
     class Meta:
         model = project
         fields = ("name", "description", "costCenter", "planedHours")
+        
     tags = AutoCompleteSelectMultipleField('tags', required=False, help_text=None)
     responsible = AutoCompleteSelectMultipleField('responsible', help_text="Bitte füge einen Verantwortlichen ein")
 

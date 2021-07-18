@@ -48,29 +48,27 @@ def overview(request):
     andereMitglieder = []
 
     for account_of_person in allAccounts:
-            #try:
-            custom_hours = customHours.objects.get(used_account = account_of_person)
-            all_profil = profile.objects.all()
-            users_profil = all_profil.get(workingHoursAccount = account_of_person)
-
-            gebrauchteStunden = custom_hours.getCustomHours()
-            gearbeiteteStunden = account_of_person.workedHours(season = season)
-            
-            temp = {
-                "gebrauchteStunden": gebrauchteStunden,
-                "gearbeiteteStunden": gearbeiteteStunden,
-                "Profil": users_profil,
-                "user": users_profil.user, 
-                "name": account_of_person.name,
-                "darfSegeln": gebrauchteStunden < gearbeiteteStunden
-            }
-
-            if users_profil.status == 1 or users_profil.status == 2:
-                aktive.append(temp)
-            else:
-                andereMitglieder.append(temp)
             try:
-                pass
+                custom_hours = customHours.objects.get(used_account = account_of_person)
+                all_profil = profile.objects.all()
+                users_profil = all_profil.get(workingHoursAccount = account_of_person)
+
+                gebrauchteStunden = custom_hours.getCustomHours()
+                gearbeiteteStunden = account_of_person.workedHours(season = season)
+                
+                temp = {
+                    "gebrauchteStunden": gebrauchteStunden,
+                    "gearbeiteteStunden": gearbeiteteStunden,
+                    "Profil": users_profil,
+                    "user": users_profil.user, 
+                    "name": account_of_person.name,
+                    "darfSegeln": gebrauchteStunden < gearbeiteteStunden
+                }
+
+                if users_profil.status == 1 or users_profil.status == 2:
+                    aktive.append(temp)
+                else:
+                    andereMitglieder.append(temp)
             
             except Exception as e:
                 print(e)
