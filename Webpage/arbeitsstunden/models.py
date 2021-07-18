@@ -151,7 +151,7 @@ class project(models.Model):
     description = models.CharField(max_length=500, blank=True)
     
     tags = models.ManyToManyField(tag, blank=True)
-    responsible = models.ManyToManyField(User, blank=True)
+    responsible = models.ManyToManyField(account, blank=True)
 
     season = models.ForeignKey(season, on_delete=models.RESTRICT, null=True)
     costCenter = models.ForeignKey(costCenter, on_delete=models.RESTRICT)
