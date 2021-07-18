@@ -49,6 +49,7 @@
                   <div class="modal-body">
                       <form method="POST" class="post-form" action="{% url 'projekt_edit' project.id %}">
                           {% csrf_token %}
+                          {{ Projektform.media }}
                           {{ Projektform | crispy }}
                           <button type="submit" class="save btn btn-primary">Speichern</button>
                       </form>

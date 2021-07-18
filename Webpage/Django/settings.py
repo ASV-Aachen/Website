@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'fontawesome_free',
     # 'django-filter',
     # 'django.contrib.sites',
+    'ajax_select',
 
     # ASV-Apps
     'utils',
