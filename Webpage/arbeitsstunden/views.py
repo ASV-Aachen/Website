@@ -176,18 +176,19 @@ def deleteProjekt(request, projectID):
 
 @login_required
 def addWork(request, projectID):
-    project = get_object_or_404(work, id=projectID)
-    realprojektID = get_object_or_404(project, project in parts)
+    used_Projekt = get_object_or_404(project, id=projectID)
+    # realprojektID = get_object_or_404(project, project in parts)
+    id = used_Projekt.id
 
     if(request.method == "POST"):
-        form = formProject(request.POST)
+        form = formWork(request.POST)
         if form.is_valid():
             form.save(commit=False)
-            form.instance.id = projectID
+            # form.instance.id = projectID
             form.save()
-            project.parts.add(project)
+            used_Projekt.parts.add(form.instance)
             # TODO
-            return redirect("projekte_detail", realprojektID)
+            return redirect("projekte_detail", projectID=id)
         
         return redirect("ErrorPage")
     else:
@@ -202,7 +203,7 @@ def editWork(request, workID):
     realprojektID = get_object_or_404(project, project in parts)
 
     if(request.method == "POST"):
-        form = formProject(request.POST)
+        form = formWork(request.POST)
         if form.is_valid():
             form.save(commit=False)
             form.instance.id = workID
