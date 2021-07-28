@@ -199,6 +199,7 @@ def addWork(request, projectID):
 def editWork(request, workID):    
     project = get_object_or_404(work, id=workID)
     realprojektID = get_object_or_404(project, project in parts)
+    id = project.id
 
     if(request.method == "POST"):
         form = formWork(request.POST)
@@ -207,7 +208,7 @@ def editWork(request, workID):
             form.instance.id = workID
             form.save()
             # TODO
-            return redirect("projekte_detail", realprojektID)
+            return redirect("projekte_detail", projectID = id)
         
         return redirect("ErrorPage")
     else:
