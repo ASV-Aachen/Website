@@ -2,7 +2,7 @@
 from ajax_select import register, LookupChannel
 from .models import *
 from django.db.models import Q
-
+from django.core.exceptions import PermissionDenied
 
 @register('responsible')
 class responsibleLookup(LookupChannel):
@@ -15,6 +15,12 @@ class responsibleLookup(LookupChannel):
 
     def format_item_display(self, item):
         return u"<span class='tag'>%s %s</span>" % (item.first_name, item.last_name)
+    
+    def check_auth(self, request):
+        if request.user.is_authenticated:
+            return True
+        raise PermissionDenied
+        return False
 
 @register('employee')
 class employeeLookup(LookupChannel):
@@ -27,6 +33,12 @@ class employeeLookup(LookupChannel):
     def format_item_display(self, item):
         return u"<span class='tag'>%s</span>" % item.name
 
+    def check_auth(self, request):
+        if request.user.is_authenticated:
+            return True
+        raise PermissionDenied
+        return False
+
 @register('tags')
 class TagsLookup(LookupChannel):
 
@@ -37,3 +49,9 @@ class TagsLookup(LookupChannel):
 
     def format_item_display(self, item):
         return u"<span class='tag'>%s</span>" % item.name
+
+    def check_auth(self, request):
+        if request.user.is_authenticated:
+            return True
+        raise PermissionDenied
+        return False
