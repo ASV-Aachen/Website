@@ -1,4 +1,5 @@
 from django.core import exceptions
+from django.core.checks.messages import Error
 from .models import account, season
 from functools import reduce
 
@@ -193,7 +194,13 @@ def addWork(request, projectID):
             # form.instance.id = projectID
             form.save()
             used_Projekt.parts.add(form.instance)
-            # TODO
+            
+            for i in request.POST["employe"][1:-1].split('|'):
+                idx = int(i)
+                responsible = get_object_or_404(account, id=idx)
+                
+                form.instance.employee.add(responsible)
+
             return redirect("projekte_detail", projectID=id)
         
         return redirect("ErrorPage")
