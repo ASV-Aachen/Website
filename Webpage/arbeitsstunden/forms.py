@@ -15,7 +15,7 @@ class formProject(forms.ModelForm):
         fields = ("name", "description", "costCenter", "planedHours")
         
     tags = AutoCompleteSelectMultipleField('tags', required=False, help_text=None)
-    responsible = AutoCompleteSelectMultipleField('responsible', help_text="Bitte füge einen Verantwortlichen ein")
+    responsible = AutoCompleteSelectMultipleField('responsible', help_text="Bitte füge einen Verantwortlichen ein", required=True)
 
 
 class formWork(forms.ModelForm):
@@ -24,7 +24,7 @@ class formWork(forms.ModelForm):
 
         model = work
         fields = ("name", "hours", "startDate", "endDate")
-    employe = AutoCompleteSelectMultipleField('employee', help_text="Wer hat mitgearbeitet?")
+    employe = AutoCompleteSelectMultipleField('employee', help_text="Wer hat mitgearbeitet?", required=True)
 
 
 class hours(forms.ModelForm):
