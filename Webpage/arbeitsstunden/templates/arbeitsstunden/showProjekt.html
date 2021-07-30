@@ -102,12 +102,12 @@
         <div class="card">
           <div class="card-header" id="headingOne">
             <h2 class="mb-0">
-              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#Test" aria-expanded="true" aria-controls="collapseOne">
+              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#heading{{work.id}}" aria-expanded="true" aria-controls="collapseOne">
                 {{ work.name }}
               </button>
             </h2>
           </div>
-          <div id="Test" class="collapse" aria-labelledby="headingOne" data-bs-parent="#{{ work.pk }}">
+          <div id="heading{{work.id}}" class="collapse" aria-labelledby="headingOne" data-bs-parent="#{{ work.pk }}">
             <div class="accordion-body">
               Stunden: {{ work.hours }}
               {% if work.startDate %}Start: {{ work.startDate}}{% endif %}

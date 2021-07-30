@@ -139,17 +139,25 @@ def editProjekt(request, projectID):
         form = formProject(request.POST)
         if form.is_valid():
             form.save(commit=False)
+
             form.instance.id = projectID
             form.save()
+
+            if request.POST["responsible"] is not "|":
+                for x in projekteToShow.responsible.all():
+                    projekteToShow.responsible.remove(x)
+
+            for i in request.POST["responsible"][1:-1].split('|'):
+                id = int(i)
+                responsible = get_object_or_404(User, id=id)
+                
+                projekteToShow.responsible.add(responsible)
+
             # TODO
             return redirect("projekte_detail", projectID)
         
-        return redirect("ErrorPage")
-    else:
-        form = formProject(instance=project)
-        return render(request, "arbeitsstunden/form_template.html", {
-            "form": form
-        })
+        # return redirect("ErrorPage")
+    return redirect("projekte_detail", projectID)
 
 @login_required
 # @user_passes_test(isUserPartOfGroup_Takel)
