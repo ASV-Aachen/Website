@@ -44,11 +44,19 @@ def member_directory(request):
     return render(request, template_name="member/Mitgliderverzeichnis.html", context=context)
 
 # Anzeige für den Einzelnen Nutzer
-def single_user(request):
+def single_user(request, id):
     if (request.user.is_authenticated):
-        User = request.GET.get('id', '')
-        context = {'User': profile.objects.get(id=User)}
-        return render(request, template_name="member/Nutzer.html", context=context)
+        User = get_object_or_404(profile, id=id)
+        Info = {
+            'workingHours': User.workingHoursAccount.workedHours(getCurrentSeason()[0]),
+            'yearsInASV': (datetime.date.today().year - User.entry_date.year)
+        }
+        
+        context = {
+            'profil': User,
+            'infos': Info
+            }
+        return render(request, template_name="member/member.html", context=context)
     else:
         return redirect("ASV")
     pass
