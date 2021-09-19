@@ -113,6 +113,23 @@ class customHours(models.Model):
 
     customHours = models.IntegerField(null=True)
     percentege = models.IntegerField(default=100)
+    
+    active = 1
+    guest = 2
+    inactive = 3
+    old_man = 4
+    prospect = 5
+    quit = 6
+    status_info = {
+        (active, 'ACTIVE')
+        (guest, 'GUEST')
+        (inactive, 'INACTIVE')
+        (old_man, 'OLD_MAN')
+        (prospect, 'PROSPECT')
+        (quit, 'QUIT')
+    }
+    
+    status = models.SmallIntegerField(choices=status_info, null=True)
 
     class Meta:
         unique_together = (("season", "used_account"),)
