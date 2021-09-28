@@ -14,6 +14,7 @@ from pathlib import Path
 import crispy_forms
 import json
 from django.urls import reverse_lazy
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +30,9 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = True
 
 Host = os.environ["Host"]
-ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
+ALLOWED_HOSTS = []
+ALLOWED_HOSTS.append("." + os.environ["ALLOWED_HOSTS"])
+
 X_FRAME_OPTIONS = 'ALLOWALL'
 
 XS_SHARING_ALLOWED_METHODS = ['POST','GET']
@@ -58,6 +61,9 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = Host + "/auth/realms/ASV/protocol/openid-connect/logout?redirect_uri=" + Host
 
 
+sys.modules['fontawesome_free'] = __import__('fontawesome-free')
+
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -67,7 +73,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'fontawesome_free',
+    # 'django-filter',
     # 'django.contrib.sites',
+    'ajax_select',
 
     # ASV-Apps
     'utils',
@@ -124,6 +133,7 @@ TEMPLATES = [
                     'has_group': 'utils.tags',
                     'getLeftFront': 'utils.tags',
                     'getRightFront': 'utils.tags',
+                    'genderTitel': 'utils.member',
             },
         },
     },

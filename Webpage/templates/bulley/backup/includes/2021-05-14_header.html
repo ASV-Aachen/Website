@@ -1,0 +1,105 @@
+{# templates/bulley/includes/header.html #}
+<!doctype html>
+{% load static %}
+{% load has_group %}
+
+<link href="{% static 'css/bulley/main.css' %}" rel="stylesheet">
+<link href="{% static 'css/bulley/header.css' %}" rel="stylesheet">
+
+
+  <div id="header-wrapper" class="row no-gutters flex-nowrap align-items-center py-lg-3">
+    <div class="asv-logo-alpha col-auto mx-3 text-nowrap d-none d-lg-flex ">
+      <a class="py-3 px-5" href="{% url 'ASV' %}"></a>
+    </div>
+    <div id="header-text"  class="col-auto ml-6 text-nowrap d-none d-lg-flex">
+      <a href="{% url 'ASV' %}">Akademischer Seglerverein in Aachen e.V.</a>
+    </div>
+  </div> <!-- end #header-wrapper -->
+
+  <div id="menue-wrapper" class="container-fluid flex-wrap px-0 px-0 align-items-baseline">
+      <nav id="main-nav" class="navbar navbar-expand-lg navbar-light bg-light asvcolorblue">
+      <a href="{% url 'ASV' %}" class="navbar-brand asv-logo-alpha align-text-top d-lg-none"></a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto px-2 px-lg-0">
+
+
+        {% load createMenuObject %}
+        {% createMenuObject as menuObject %}
+        {% createMenuObject_jollen as jollen%}
+
+        {% for gruppen in menuObject%}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'InfoPage_Header' gruppen.Header.name %}"> {{ gruppen.Header.titel }} </a>
+            <ul class="dropdown-menu dropdown" aria-labelledby="dropdownMenuButton">
+              {% for seite in gruppen.seiten %}
+                <li><a class="dropdown-item" href="{% url 'InfoPage' gruppen.Header.name seite.name %}"> {{ seite.titel }} </a></li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'jollenÜbersicht' %}"> Unsere Jollen </a>
+            <ul class="dropdown-menu dropdown" aria-labelledby="dropdownMenuButton">
+            {% if request.user.is_authenticated %}
+                <li><a class="dropdown-item" href="{% url 'jollenStatus' %}"> Jollen Status </a></li>
+            {% endif %}
+              {% for boot in jollen %}
+                <li><a class="dropdown-item" href="{% url 'jollen_description' boot.name %}"> {{ boot.klasse }} "{{ boot.name }}" </a></li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% if request.user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'MeinASV' %}">
+            Mein ASV</a>
+            <ul class="dropdown-menu dropdown" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="{% url 'Mitgliederverzeichnis' %}">Mitgliederverzeichnis</a></li>
+              <li><a class="dropdown-item" href="{% url 'arbeitsstundenOverview' %}">Arbeitsstunden</a></li>
+              <li><a class="dropdown-item" href="/wiki">Wiki</a></li>
+              <li><a class="dropdown-item" href="/cloud/index.php/apps/sociallogin/custom_oidc/Keycloak">Cloud</a></li>
+
+              {% if request.user|has_group:"Admin" %}
+              <li><a class="dropdown-item dropdown-toggle" href="/admin">Admin</a>
+                <ul class="submenu submenu- dropdown-menu" aria-labelledby="dropdownMenuButton">
+		          <li><a class="dropdown-item" href="{% url 'errorPage' %}"> ErrorPageTest</a></li>
+                  <li><a class="dropdown-item" href="#"> Admin 2</a></li>
+                   {% comment %}
+      <!--          <li><a class="dropdown-item" href="{% url 'unfertig' %}"> Third level 3 &raquo </a>
+			          <ul class="submenu dropdown-menu aria-labelledby="dropdownMenuButton">
+			            <li><a class="dropdown-item" href="#"> Fourth level 1</a></li>
+			            <li><a class="dropdown-item" href="{% url 'unfertig' %}"> Fourth level 2</a></li>
+			          </ul>
+                    </li>-->
+                  {% endcomment %}
+                </ul>
+              </li>
+              {% endif %}
+            </ul>
+          </li>
+        {% endif %}
+        </ul>
+        <ul class="navbar-nav px-2 px-lg-0">
+          {% if request.user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenu Button"href="{% url 'Einstellungen' %}">
+              Account</a>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="/sso/auth/realms/ASV/account/">Password ändern</a></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+          </li>
+          {% else %}
+          <li class="nav-item" >
+            <a class="nav-link px-2" href="{% url 'login' %}">Login</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+  </div> <!-- end menue-wrapper -->
+
+

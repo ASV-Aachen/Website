@@ -1,17 +1,19 @@
 # Website
-Repo für die Website des ASV Aachen
+Repo für die Website des ASV Aachen. 
+Alle Adressen sind nur noch unter https erreichbar.
 
 ## First Start
+1. `make start` ausführen um Docker Container zu starten.
+1. `make firstStart` ausführen um initiale Seiten der Webseite zu erstellen.
 ### SSO
 Beim ersten Start vom Keycloak müssen einige Einstellungen angepasst werden:
-1. Keycloak Admin Console unter "/sso/auth" öffnen und mit den Zugangsdaten für den Admin aus der Docker-Compose einloggen.
+1. Keycloak Admin Console unter `/sso/auth` öffnen und mit den Zugangsdaten für den Admin aus der Docker-Compose einloggen.
 2. der Realm ASV sollte bereits geladen sein. Falls nicht muss die Realm.json Datei importiert werden (unten links gibt es einen Import Button), die entsprechende Datei liegt unter initfiles/sso/realms.json. 
 3. Unter User muss ein erster Nutzer angelegt werden. Auch wenn nur das Feld "Username" als required markiert ist sind "Email" und "Password" (unter Credentials) erforderlich.
 4. Look and Feel ist auf ASV angepasst. Hierzu unter General die Themen "asv" und die deutsche Sprache als Standard ausgewählen. Überschriften anpassen: 
-> - ASV Realm: Name: ASV; Anzeigename und HTML-Anzeigebereich: "Mitgliederbereich". 
-> - Master Realm: General: Name: ASV; Anzeigename und HTML-Anzeigebereich: "Nutzermanagement". 
+> - Master Realm: General: Name: master; Anzeigename und HTML-Anzeigebereich: "Nutzermanagement". 
 Das Thema kann im Ordner "InitFiles/sso/thems/asv" weiter customized werden.       
-5. Keycloak ist fertig eingerichtet. Zum Testen kann man sich unter "/login" anmelden. Der Django User wird dabei beim ersten Anmelden automatisch erstellt. 
+5. Keycloak ist fertig eingerichtet. Zum Testen kann man sich unter `/login` anmelden. Der Django User wird dabei beim ersten Anmelden automatisch erstellt. 
 
 ### Website
 
@@ -25,20 +27,26 @@ services:
   webpage:
     environment: 
       # Einstellungen für die Verbindung zum Keycloak
-      # Host muss in der Form "http://HOSTNAME:PORT" gesetzt werden. 
-      # ACHTUNG, kein Localhost. Im Zweifel den Namen des Computers im Netzwerk nutzen. 
-      Host: http://192.168.0.XXX:11100
-      ALLOWED_HOSTS: "192.168.0.XXX"
-
-      # Einstellung für den Client im Keycloak. 
-      OIDC_RP_CLIENT_SECRET: 'xxx-xxx-x-xx'
+      # Host muss in der Form "https://HOSTNAME" gesetzt werden. ACHTUNG, kein Localhost. Im Zweifel den Namen des Computers im Netzwerk nutzen oder IP im lokalen Netzwerk (z.B. 192.168.0.X).
+      Host: https://***
+      ALLOWED_HOSTS: "***"
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      # Secret Key fürs Django
+      SECRET_KEY: '+p32r=0@5ab%chynmfculz8bm9yyo_ot7-3q1-!#8+t0z*llz!'
+      #MYSQL
+      MYSQL_USER: website
+      MYSQL_PASSWORD: my-secret-pw
 
 ```
 1. Secret kopieren und in dieser Docker-Compose Datei unter __OIDC_RP_CLIENT_SECRET__ eintragen.
 1. __Host__ und __ALLOWED_HOSTS__ in der Docker-Compose eintragen.
-1. Website neu starten
+1. Website neu starten (`make stop` und `make start`)
+
+**ACHTUNG: ** In der aktuellen Version arbeiten wir mit HTTPS!!!
+
 #### Admin
-Wird ein Keycloak Nutzer beim ersten anmelden neu erstellt, haben diese zunächst keinerlei Rechte. Es muss also ein Superuser manuell eingerichtet werden, welcher das erste bearbeiten übernimmt. Sobald man einen weiteren Admin bestimmt hat, kann dieser Account aber gelöscht werden.
+Wird ein Keycloak Nutzer beim ersten anmelden neu erstellt, haben diese zunächst keinerlei Rechte in Django-Admin. Es muss also ein Superuser (`make createRootUser`) manuell eingerichtet werden, welcher das Erste bearbeiten übernimmt. Sobald man einen weiteren Admin bestimmt hat, kann dieser Account aber gelöscht werden.
 
 ### Cloud
 Eine Konfigurationen der (Next)Cloud sind derzeit nicht automatisiert und müssen manuell vorgenommen werden.

@@ -12,7 +12,8 @@ from utils.member import newMember, userToHash, deleteGivenUser
 from .models import profile
 from django.contrib.auth.models import User
 from .forms import changePersonalInfo, createNewMember
-
+from .filters import userFilter
+from arbeitsstunden.models import *
 
 # Create your views here.
 
@@ -21,7 +22,16 @@ from .forms import changePersonalInfo, createNewMember
 
 @login_required
 def index(request):
-    return render(request, "member/Dashboard.html")
+
+    current_account = profile.objects.get(user=request.user).workingHoursAccount
+    last_Works = work.objects.filter(employee = current_account)
+
+    return render(request, template_name="member/Dashboard.html", context={
+        "konto": current_account,
+        "seasons": season.objects.all()[:5],
+        "kostenstelle": costCenter.objects.all(),
+        "last_Work": last_Works
+    })
 
 # Mitgliederverzeichnis
 @login_required
@@ -30,11 +40,19 @@ def member_directory(request):
     return render(request, template_name="member/Mitgliderverzeichnis.html", context=context)
 
 # Anzeige für den Einzelnen Nutzer
-def single_user(request):
+def single_user(request, id):
     if (request.user.is_authenticated):
-        User = request.GET.get('id', '')
-        context = {'User': profile.objects.get(id=User)}
-        return render(request, template_name="member/Nutzer.html", context=context)
+        User = get_object_or_404(profile, id=id)
+        Info = {
+            'workingHours': User.workingHoursAccount.workedHours(getCurrentSeason()[0]),
+            'yearsInASV': (datetime.date.today().year - User.entry_date.year)
+        }
+        
+        context = {
+            'profil': User,
+            'infos': Info
+            }
+        return render(request, template_name="member/member.html", context=context)
     else:
         return redirect("ASV")
     pass

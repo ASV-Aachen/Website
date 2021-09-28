@@ -1,38 +1,34 @@
+
 from django import forms
+from django.db.models import fields
 from django.forms import CheckboxSelectMultiple, DateInput
+from django.http import request
 
-from .models import Arbeitsstundenausschreibung, Projekt, Arbeitseinheit, Arbeitsbeteiligung
+from ajax_select.fields import AutoCompleteSelectField, AutoCompleteSelectMultipleField
+
+from .models import *
 
 
-class ArbeitsstundenausschreibungForm(forms.ModelForm):
+class formProject(forms.ModelForm):
     class Meta:
-        model = Arbeitsstundenausschreibung
-        fields = ("Titel", "Beschreibung", "Projekt", "Tags", "Umfang", "Fertigstellungstermin")
-        widgets = {
-            "Tags": CheckboxSelectMultiple(),
-            # "Fertigstellungstermin": DateField()
-        }
+        model = project
+        fields = ("name", "description", "costCenter", "planedHours")
+        
+    tags = AutoCompleteSelectMultipleField('tags', required=False, help_text=None)
+    responsible = AutoCompleteSelectMultipleField('responsible', help_text="Bitte füge einen Verantwortlichen ein", required=True)
 
 
-class ProjectForm(forms.ModelForm):
+class formWork(forms.ModelForm):
+    #employee = AutoCompleteSelectMultipleField('account')
     class Meta:
-        model = Projekt
-        fields = ("Saison", "Name", "Beschreibung", "Verantwortlich")
-        widgets = {
-            "Verantwortlich": CheckboxSelectMultiple(),
-        }
+
+        model = work
+        fields = ("name", "hours", "startDate", "endDate")
+    employe = AutoCompleteSelectMultipleField('employee', help_text="Wer hat mitgearbeitet?", required=True)
 
 
-class ArbeitseinheitForm(forms.ModelForm):
+class hours(forms.ModelForm):
+    
     class Meta:
-        model = Arbeitseinheit
-        fields = ("Projekt", "Beschreibung", "Datum", "Ausschreibung")
-        widgets = {
-            "Datum": DateInput(format='%d.%m.%Y', attrs={'type': 'date'})
-        }
-
-
-class ArbeitsbeteiligungForm(forms.ModelForm):
-    class Meta:
-        model = Arbeitsbeteiligung
-        fields = ("Arbeitseinheit", "Arbeitsleistender", "Arbeitszeit")
+        model = customHours
+        fields = ("percentege", )

@@ -20,12 +20,16 @@
                 {% else %}
                     <img style="width: 155px;height: 233px;min-width: 166px;min-height: 233px;border-radius: 10px;margin: 5px;" src="{% static 'img/standard_profile_picture_cropt.png' %}" />
                 {% endif %}
-
-                <h1 class="text-break" id="Name" style="text-align: center;font-size: 20px;">{{profil.user.first_name}} {{profil.user.last_name}}</h1>
-                <p id="Status" style="margin-left: 0;text-align: center;">{{profil.get_status_display}}</p>
+                
+                <h1 class="text-break" id="Name" style="text-align: center;font-size: 20px;">
+                    <a href="{% url 'User' profil.user.id %}">{{profil.user.first_name}} {{profil.user.last_name}}</a>
+                </h1>
+                <p id="Status" style="margin-left: 0;text-align: center;">{{profil.get_status_display}}</p>     
                 <div id="Badges" style="margin-left: 2px;margin-bottom: 7px;">
                     {% for membersRole in profil.roles.all %}
-                        <span class="badge badge-primary" style="margin-left: 2px;padding-top: 5px;padding-right: 5;padding-bottom: 5;padding-left: 5;">{{membersRole}}</span>
+                        {% load genderTitel %}
+                        {% genderTitel membersRole profil.gender_role as role %} 
+                        <span class="badge badge-primary" style="margin-left: 2px;padding-top: 5px;padding-right: 5;padding-bottom: 5;padding-left: 5;">{{ role }}</span>
                     {% endfor%}
                 </div>
             </div>

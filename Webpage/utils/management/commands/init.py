@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
-from arbeitsstunden.models import Saison
-from web.models import HeadPage, infoPage, frontHeader
+from arbeitsstunden.models import *
+from web.models import HeadPage, infoPage, frontHeader, standartPages
 
 
 class Command(BaseCommand):
@@ -13,9 +13,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.headerAndInfoPages()
         self.arbeitsstundenSeason()
+        self.StandartSeiten()
 
     def headerAndInfoPages(self):
-        self.stdout.write("Starting Headers", ending='')
+        self.stdout.write("Starting Headers init", ending='\n')
         text = "Diese Seite ist in Arbeit"
 
         right = HeadPage(titel="Segeln lernen", text=text, description=text, name="SL" )
@@ -47,7 +48,7 @@ class Command(BaseCommand):
         temp2 = infoPage(titel="Regatta", text=text, headPage=temp, name="Regatta")
         temp2.save()
 
-        self.stdout.write("Finished", ending='')
+        self.stdout.write("Finished Headers", ending='\n')
         # FrontPage init
         temp = frontHeader(left=left, right=right)
         temp.save()
@@ -55,6 +56,11 @@ class Command(BaseCommand):
 
 
     def arbeitsstundenSeason(self):
-        self.stdout.write("Season init", ending='')
-        Saison(Jahr=2019).save()
-        Saison(Jahr=2020).save()
+        self.stdout.write("Season Arbeitsstunden init", ending='\n')
+        season = getCurrentSeason()
+
+    def StandartSeiten(self):
+        self.stdout.write("Standart Seiten init", ending="\n")
+        standartPages(titel="Impressum", text="Diese Seite ist in Arbeit").save()
+        standartPages(titel="Datenschutz", text="Diese Seite ist in Arbeit").save()
+        standartPages(titel="Datenschutz", text="Diese Seite ist in Arbeit").save()

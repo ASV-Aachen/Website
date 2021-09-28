@@ -1,6 +1,8 @@
 {
   "id": "ASV",
   "realm": "ASV",
+  "displayName": "Mitgliederbereich",
+  "displayNameHtml": "Mitgliederbereich",
   "notBefore": 1612730498,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,

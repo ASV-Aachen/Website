@@ -1,0 +1,43 @@
+<!--/templates/custom.html-->
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} Saison {{ curentSeason.year }} {% endblock title %}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+{% endblock styles %}
+{% block headerimage%}
+    <img src="/static/img/header/cat_s0.jpg" alt="">
+{% endblock headerimage%}
+
+{% block content %}
+  <div class="container">
+    geleistete Stunden: {{ curentSeason.getAllHours }}
+    <br>
+    HIER KOMMT NOCH EIN GRAPH HIN
+    {{ curentSeason.getAllDates }}
+
+  </div>
+
+  <div class="container">
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Projekte</h3>
+    <div class="card-columns">
+    {% for Projekt in projekte %}
+        {% include "arbeitsstunden/templates/projectCard.html" %}
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+<!-- Hier seitenbereich gestalten falls gewünscht -->
+{% block aside %}
+   Hallo hier ist der Seitenbereich
+{% endblock aside %}
+
+
+
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+{% endblock scripts %}

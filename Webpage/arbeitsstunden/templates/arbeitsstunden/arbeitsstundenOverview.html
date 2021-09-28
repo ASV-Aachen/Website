@@ -1,0 +1,81 @@
+<!--/templates/custom.html-->
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} Arbeitsstunden Übersicht - Season {{ season.year }} {% endblock title %}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+
+{% endblock styles %}
+
+{% block headerimage%}
+    <img src="/static/img/header/cat_s0.jpg" alt="">
+{% endblock headerimage%}
+
+{% block content %}
+  <h1>Saison {{ season.year }}</h1>
+  <h2>Übersicht Aktivitas</h1>
+  <table id="Table" class="table table-striped table-bordered sortable searchable">
+        <thead>
+            <tr>
+              <th>Vorname</th>
+              <th>Nachname</th>
+              <th>gearbeitete Stunden</th>
+              <th>braucht Stunden</th>
+              <th>Darf segeln</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for person in personen %}
+              <tr>
+                <td>{{ person.user.first_name }}</td>
+                <td>{{ person.user.last_name }}</td>
+                <td>{{ person.gearbeiteteStunden }}</td>
+                <td>{{ person.gebrauchteStunden }}</td>
+                <td>{% if person.darfSegeln %}
+                        👍
+                    {% else %}
+                        👎
+                    {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Andere Mitglieder</h1>
+    <table id="Table" class="table table-striped table-bordered">
+          <thead>
+              <tr>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>gearbeitete Stunden</th>
+                <th>Status</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for person in andere %}
+                <tr>
+                  <td>{{ person.user.first_name }}</td>
+                  <td>{{ person.user.last_name }}</td>
+                  <td>{{ person.gearbeiteteStunden }}</td>
+                  <td>{{ person.Profil.get_status_display }}</td>
+                </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+ {% endblock content %}
+
+<!-- Hier seitenbereich gestalten falls gewünscht -->
+{% block aside %}
+   Hallo hier ist der Seitenbereich
+{% endblock aside %}
+
+
+
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+
+{% endblock scripts %}

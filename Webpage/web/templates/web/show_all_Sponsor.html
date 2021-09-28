@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Mein ASV - Infos {% endblock %}
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+
+{% endblock styles %}
+
+{% block content %}
+    <h2>Unsere Sponsoren</h2>
+    Teilnahmen an internationalen Regatten sowie das weltweite Segeln sind nur mit der Unterstützung von zahlreichen Sponsoren und Partnern möglich.
+
+    Wir freuen uns daher, die folgenden Firmen mit an Bord zu haben und möchten uns bei ihnen bedanken: 
+
+    {% for sponsor in sponsoren%}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <a href="{{ sponsor.link }}">
+                        <img style="max-width: 549px;max-height: 240px;min-height: 240px;border-radius: 10px;margin: 5px;" src="{{ sponsor.sponsorenBild.url }}">
+                    </a>
+                </div>
+                <div class="col">
+                    {{ sponsor.text }}
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+ {% endblock %}

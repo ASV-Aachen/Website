@@ -14,10 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.conf.urls import include, url
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from filebrowser.sites import site
+from ajax_select import urls as ajax_select_urls
 
 
 urlpatterns = [
@@ -30,4 +32,6 @@ urlpatterns = [
     path('admin/filebrowser/', site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('oidc/', include('mozilla_django_oidc.urls')),
+    path('jollen/', include('jollen.urls')),
+    url(r'^ajax_select/', include(ajax_select_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

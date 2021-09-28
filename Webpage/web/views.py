@@ -286,3 +286,27 @@ def infoPageEditor_Header(request):
 
     return redirect("infoMenu")
 
+# Impressum
+def impressum(request):
+    Seite = get_object_or_404(standartPages, titel = "Impressum")
+    return render(request, "web/standart.html", {"seite": Seite})
+
+# Datenschutz
+def datenschutz(request):
+    Seite = get_object_or_404(standartPages, titel = "Datenschutz")
+    return render(request, "web/standart.html", {"seite": Seite})
+
+
+def getSponsor():
+    items = sponsoren.objects.all()
+
+    # Laden der Startseite auch ohne hinterlegte Sponsoren (init-Zustand)
+    if items.exists():
+        return random.choice(items)
+    else:
+        return None
+
+def show_all_Sponsor(request):
+    sponsoren_All = sponsoren.objects.all()
+    return render(request, "web/show_all_Sponsor.html", {"sponsoren": sponsoren_All})
+    return render(request, "web/show_all_Sponsor.html", {"sponsoren": sponsoren_All})

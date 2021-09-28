@@ -56,24 +56,49 @@
 
 
     {% block aside %}
-    <div class="p-3 mb-3 bg-light rounded">
+    {% comment %} <div class="p-3 mb-3 bg-light rounded">
         <h4 class="font-italic">About</h4>
         <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-    </div>
-    <div class="p-3">
-        <h4 class="font-italic">Elsewhere</h4>
+    </div> {% endcomment %}
+    <div class="container no-gutters bg-asv-lightgrey p-3">
+        <h4 class="font-italic">Wir sind auch bei</h4>
         <ol class="list-unstyled">
         <li>
-            <a href="#">GitHub</a>
+            <a href="https://www.instagram.com/asv_aachen/">Instagram</a>
         </li>
         <li>
-            <a href="#">Twitter</a>
+            <a href="https://www.facebook.com/ASV.Aachen/">Facebook</a>
         </li>
         <li>
-            <a href="#">Facebook</a>
+            <a href="https://github.com/ASV-Aachen">GitHub</a>
         </li>
     </ol>
     </div>
+
+    <br>
+    <div class="container no-gutters bg-asv-lightgrey" style ="margin-left: auto; margin-right: auto; ">
+        <div style="max-width: 350px; margin-left: auto; margin-right: auto;">
+            <div class="p-3">
+                <a href="{% url 'sponsor' %}">
+                    <img style="border-radius: 10px;margin: 5px;" src="{{ sponsor.logo.url }}">
+                </a>
+            </div>
+            <br>
+            <hr>
+            <div class="p-3 " style="text-align:center;">
+                            
+                <a href="https://www.amazon.de/gp/product/3667111827/ref=as_li_tl?ie=UTF8&amp;camp=1638&amp;creative=6742&amp;creativeASIN=3667111827&amp;linkCode=as2&amp;tag=wwwasvaachend-21&amp;linkId=0db074b9e7cf73960a4a57625d5d6e35" target="_blank">
+                <img src="https://www.asv.rwth-aachen.de/cms/modules/mod_amazon/amazon.png" width="350" height="240" border="0"></a>
+
+                Kaufen Sie über den ASV bei
+                <a href="https://www.amazon.de/gp/product/3667111827/ref=as_li_tl?ie=UTF8&amp;camp=1638&amp;creative=6742&amp;creativeASIN=3667111827&amp;linkCode=as2&amp;tag=wwwasvaachend-21&amp;linkId=0db074b9e7cf73960a4a57625d5d6e35" target="_blank">Amazon</a> ein! 
+
+                Als Amazon-Partner verdienen wir an qualifizierten Verkäufen.
+            </div>
+        </div>
+    </div>
+    
+    
 {% endblock aside %}
 
 

@@ -6,6 +6,9 @@ from django.dispatch import receiver
 import os
 from phonenumber_field.modelfields import PhoneNumberField
 from django_resized import ResizedImageField
+import secrets
+from arbeitsstunden.models import account
+
 
 class role(models.Model):
     titel = models.CharField(max_length=70, null=False, primary_key=True)
@@ -37,6 +40,18 @@ class profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name
+    
+
+    GENDER_CHOICES = (
+        ('M', 'Mann'),
+        ('F', 'Frau'),
+        ('X', 'Divers')
+    )
+
+    gender_role = models.CharField(max_length=1, choices=GENDER_CHOICES, default= "M")
+
     roles = models.ManyToManyField(role)
     
     hometown = models.CharField(max_length=100, null=True, default='Aachen')
@@ -51,12 +66,29 @@ class profile(models.Model):
     entry_date = models.DateField()
     # Konto Gehört zur Bierkasse #23 (TODO)
 
+    def default_group(self):
+        temp, _ = account.objects.get_or_create(name=self.user.username)
+        return temp
+
+    # Arbeitsstunden
+    workingHoursAccount = models.ForeignKey(account, on_delete=models.RESTRICT, null = True)
+
     # Pluggin: https://github.com/stefanfoulis/django-phonenumber-field
     phone = PhoneNumberField(null=True, blank=True, unique=False)
     mobile = PhoneNumberField(null=True, blank=True, unique=False)
 
-    def __str__(self):
-        return self.user.first_name + " " + self.user.last_name
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # This code only happens if the objects is
+            # not in the database yet. Otherwise it would
+            # have pk
+            import utils.member as member
+            self.gender = member.getGender(self.user.first_name)
+        
+        temp, _ = account.objects.get_or_create(name=self.user.first_name + self.user.last_name)
+        self.workingHoursAccount = temp
+
+        super().save(*args, **kwargs)
 
 
 class position_in_the_club(models.Model):

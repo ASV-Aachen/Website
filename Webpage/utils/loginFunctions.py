@@ -23,9 +23,9 @@ def isUserPartOfGroup_Schriftwart(user)-> bool:
         return True
     return False
 
-def isUserPartOfGroup_Seereisenkoordinator(user)-> bool:
+def isUserPartOfGroup_Takel(user)-> bool:
     # Bist du ein Admin darfst du alles
-    if user.groups.filter(name='Admin').exists() or user.groups.filter(name="Seereisenkoordinator").exists():
+    if user.groups.filter(name='Admin').exists() or user.groups.filter(name="Takelmeister").exists():
         return True
     return False
 

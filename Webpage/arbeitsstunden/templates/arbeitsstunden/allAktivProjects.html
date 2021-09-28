@@ -1,0 +1,62 @@
+<!--/templates/custom.html-->
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %} aktive Projekte {% endblock title %}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+{% endblock styles %}
+{% block headerimage%}
+    <img src="/static/img/header/cat_s0.jpg" alt="">
+{% endblock headerimage%}
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Arbeitsstundenausschreibung</h3>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Neues Projekt anlegen</button>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Neues Projekt einfügen</h4>
+            </div>
+            <div class="modal-body">
+                <form method="POST" class="post-form" action={% url 'projekt_new' %}>{% csrf_token %}
+                    {{ form.media }}
+                    {{ form|crispy }}
+                    <button type="submit" class="save btn btn-primary">Speichern</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">abbrechen</button>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
+    <div class="card-columns">
+    {% for Projekt in projekte %}
+        {% include "arbeitsstunden/templates/projectCard.html" %}
+    {% endfor %}
+    </div>
+
+{% endblock content %}
+
+<!-- Hier seitenbereich gestalten falls gewünscht -->
+{% block aside %}
+   Hallo hier ist der Seitenbereich
+{% endblock aside %}
+
+
+
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+{% endblock scripts %}
