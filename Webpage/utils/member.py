@@ -52,7 +52,7 @@ def createUsername(vorname, nachname) -> str:
 '''
 Erstelle einen neuen Nutzer und füge ihn den
 '''
-def newMember(vorname, nachname, country, hometown, Email)->bool:
+def newMember(vorname, nachname, country, hometown, Email, eintrittsdatum=datetime.date.today(), status=1)->bool:
     username = createUsername(vorname, nachname)
     if createNewUserInKeycloak(username, vorname, nachname, Email):
         user = User()
@@ -62,9 +62,10 @@ def newMember(vorname, nachname, country, hometown, Email)->bool:
         user.email = Email
         user.save()
 
-        newProfile = memberModel.profile(user=user, status=random.randint(1, 6), entry_date=datetime.date.today())
+        newProfile = memberModel.profile(user=user, status=status, entry_date=datetime.date.today())
         newProfile.hometown = hometown
         newProfile.country = country
+        newProfile.entry_date = eintrittsdatum
         newProfile.save()
         return True
     else:
