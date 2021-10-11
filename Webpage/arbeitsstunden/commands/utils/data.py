@@ -7,22 +7,27 @@ class Nutzer:
     E_Mail: str
 
 class user:
+    id: str
+    member_id: str
     email: str
     password: str
     role: str
 
 class member:
+    id: str
     user_id: user
     first_name: str
     last_name: str
     
 class project:
+    id: str
     name: str
     description: str
     first_season: str
     last_season: str
     
 class project_item:
+    id: str
     project_id: project
     season: str
     date: str
@@ -30,6 +35,7 @@ class project_item:
     description: str
     
 class project_item_hour:
+    id: str
     project_item_id: project_item
     member_id: member
     duration: int
