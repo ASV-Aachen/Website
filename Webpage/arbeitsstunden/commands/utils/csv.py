@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Match
 
 from Webpage.arbeitsstunden.commands.utils.data import member, project, project_item, project_item_hour, season, user
+from Webpage.arbeitsstunden.commands.utils.import_functions import Arbeitsstunden, Nutzerliste
 
 
 path = "../import/"
@@ -188,6 +189,14 @@ def importCSV():
     print(bcolors.OKCYAN + "[INFO]" + bcolors.OKCYAN + str(len(Array_nutzer)) + " Starting import")
     
 
-        
+    Nutzerliste(Array_nutzer)
+    Arbeitsstunden(
+        Array_user, 
+        Array_project,
+        Array_project_item,
+        Array_project_item_hour,
+        Array_season,
+        Array_member
+    )
         
     pass
