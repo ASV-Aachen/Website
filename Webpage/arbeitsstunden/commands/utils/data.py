@@ -37,7 +37,7 @@ class project_item:
 class project_item_hour:
     id: str
     project_item_id: project_item
-    member_id: member
+    member_id: str
     duration: int
 
 class season:
