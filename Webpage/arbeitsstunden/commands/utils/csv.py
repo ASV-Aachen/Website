@@ -149,7 +149,7 @@ def importfiles(newFiles):
     return Array_user, Array_project,Array_project_item,Array_project_item_hour,Array_season,Array_member
 
 
-def importCSV():
+async def importCSV():
         
     # Check which data file can be found
     importable_files, listeIsThere = checkForImport()
