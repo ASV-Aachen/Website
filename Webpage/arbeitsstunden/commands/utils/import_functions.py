@@ -2,7 +2,7 @@ from functools import _Descriptor
 from os import access, name
 from typing import List
 from Webpage.arbeitsstunden.commands.utils.csv import bcolors
-from Webpage.arbeitsstunden.models import costCenter, project, season, work
+from Webpage.arbeitsstunden.models import account, costCenter, project, season, work
 from Webpage.utils.member import newMember
 import Webpage.arbeitsstunden.commands.utils.data as interfaces
 
@@ -42,69 +42,58 @@ def Arbeitsstunden(
     
     # season
     for i in Array_season:
-        temp = season.objects.get_or_create(
+        temp, _ = season.objects.get_or_create(
             year = i.year,
             hours = i.obligatory_minutes
         )
-    
-    
-    
-    
 
     newCostcenter = costCenter(name="import", description="----")
     newCostcenter.save()
     
     for i in Array_project:
-        currentCenter = costCenter.objects.get_or_create(
+        currentCenter, _ = costCenter.objects.get_or_create(
             name = i.name,
             description = i.description,
         )
         
-        currentProjects = []
+        currentProjects: List[interfaces.project_item] = []
         for x in Array_project_item:
             if x.project_id == i.id: 
                 currentProjects.append(x)
+                Array_project_item.pop(x)
 
         for projects_items in currentProjects:
-            currentProject = project.objects.get_or_create(
+            currentProject, _ = project.objects.get_or_create(
                 name = projects_items.title,
                 season = projects_items.season,
                 description = projects_items.description,
                 costCenter = currentCenter,
             )
             
-            workingParts = []
+            workingParts: List[interfaces.project_item_hour] = []
             for y in Array_project_item_hour:
                 if y.project_item_id == projects_items.id:
                     workingParts.append(y)
+                    Array_project_item_hour.pop(y)
             
             for works in workingParts:
-                currentWork = work.objects.get_or_create(
+                currentWork, _ = work.objects.get_or_create(
                     name = "imported",
                     hours = works.duration,
                     startDate = projects_items.date
                 )
                 
-                # employyes einfügen
-            
-            
-            
-    for i in Array_project_item:
-        project.objects.get_or_create(
-            name=i.title,
-            description = i.description,
-            costCenter = newCostcenter,
-        )
-        for workingPart in [b in Array_project_item_hour if b.project_item_id == i.]
-    
-    
-    # project_item
-    
-    # user
-    # Abgleich mit existierenden Nutzern
-
-    # member
-    
-    # project_item_hour
+                # add current work to Project
+                currentProject.parts.add(currentWork)
+                
+                # employye Namen suchen
+                employeeIndex = next((index for (index, d) in enumerate(Array_member) if d.id == works.member_id), None)
+                
+                # Employye account suchen und hinzufügen
+                temp, _ = account.objects.get_or_create(
+                        name = Array_member[employeeIndex].Vorname + " " + Array_member[employeeIndex].Nachname
+                    )
+                currentWork.add(temp)
+                
     pass
 
