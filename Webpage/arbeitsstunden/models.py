@@ -9,8 +9,7 @@ from django.contrib.auth.models import User
 def getCurrentSeason():
     Year = datetime.datetime.now().year
     temp = season.objects.get_or_create(
-        year = Year,
-        hours = 40
+        year = Year
     )
     if temp[1]:
         for i in account.objects.all():
@@ -120,14 +119,14 @@ class customHours(models.Model):
     old_man = 4
     prospect = 5
     quit = 6
-    status_info = {
-        (active, 'ACTIVE')
-        (guest, 'GUEST')
-        (inactive, 'INACTIVE')
-        (old_man, 'OLD_MAN')
-        (prospect, 'PROSPECT')
-        (quit, 'QUIT')
-    }
+    status_info = (
+        (active, 'ACTIVE'),
+        (guest, 'GUEST'),
+        (inactive, 'INACTIVE'),
+        (old_man, 'OLD_MAN'),
+        (prospect, 'PROSPECT'),
+        (quit, 'QUIT'),
+    )
     
     status = models.SmallIntegerField(choices=status_info, null=True)
 
