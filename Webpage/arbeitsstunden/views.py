@@ -43,12 +43,12 @@ def dashboard(request):
 @login_required
 def overview(request):
     season = getCurrentSeason()[0]
-    allAccounts = profile.objects.all()
+    allProfiles = profile.objects.all()
 
     aktive = []
     andereMitglieder = []
 
-    for users_profil in allAccounts:
+    for users_profil in allProfiles:
             try:
                 account_of_person = users_profil.workingHoursAccount
 
