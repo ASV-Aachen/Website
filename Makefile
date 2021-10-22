@@ -36,3 +36,6 @@ updateFromKeycloak: ## Gets the Data from Keyclaok and updates the Webservice
 
 createRootUser: ## Create a superuser for Django
 	./bin/superuser.sh
+
+setupFirstStart: ## Script for the initial start
+	./bin/setupFirstStart.sh
