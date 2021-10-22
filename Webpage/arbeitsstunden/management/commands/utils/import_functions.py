@@ -110,6 +110,5 @@ def Arbeitsstunden(
                             name = Array_member[employeeIndex].first_name + " " + Array_member[employeeIndex].last_name
                         )
                     currentWork.employee.add(temp)
-                
-    pass
+
 
