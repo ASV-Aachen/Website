@@ -39,6 +39,3 @@ createRootUser: ## Create a superuser for Django
 
 setupFirstStart: ## Script for the initial start
 	./bin/setupFirstStart.sh
-
-test: ## Starts the Django test Framework
-	./bin/test.sh

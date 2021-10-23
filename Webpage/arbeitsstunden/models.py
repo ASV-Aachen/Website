@@ -29,7 +29,7 @@ class tag(models.Model):
 
 class season(models.Model):
     year = models.IntegerField(primary_key=True)  # Erstes Jahr der Saison, z.B. "2020" => Saison 2020/21
-    hours = models.IntegerField(default = 40)
+    hours = models.IntegerField()
 
     def __str__(self):
         return "Saison " + str(self.year) + "/" + str(self.year + 1)[-2:]
@@ -66,8 +66,18 @@ class account(models.Model):
     hasShortenedHours = models.BooleanField(default=False)
 
     name = models.CharField(max_length=256, default="TESTNUTZER")
+
+    def HowManyHoursDoesUserHaveToWork(self, season):
+        hours = season.hours
+        if self.hasShortenedHours:
+            hours = hours / 2
+        
+        if self.isNew:
+            hours = hours / 2
+        return hours
     
     def workedHours(self, season):
+        
         zahler = 0
 
         projects = project.objects.filter(season=season)
@@ -129,7 +139,7 @@ class customHours(models.Model):
 
     def getCustomHours(self):
         # Prozentualer Anteil
-        return self.season.hours * self.percentege / 100
+        return self.customHours * self.percentege / 100
         pass
 
     pass
@@ -171,6 +181,9 @@ class project(models.Model):
 
     def __str__(self) -> str:
         return self.name + "->" + "description"
+
+    def hourDifferenz(self):
+        return self.planedHours - self.workedHours()
     
     def workedHours(self):
         workingParts = self.parts

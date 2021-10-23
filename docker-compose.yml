@@ -192,7 +192,7 @@ services:
     image: webpageimage:0.1
     restart: always
     command: >
-      bash -c "python manage.py runserver 0.0.0.0:8080 --settings=Django.settings.work"
+      bash -c "python manage.py runserver 0.0.0.0:8080"
     volumes:
       - website:/webpage
       - ./Webpage:/opt/Webpage
