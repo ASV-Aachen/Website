@@ -1,6 +1,11 @@
 
 from datetime import datetime
+from sys import exec_prefix
 from typing import List
+
+from django.contrib.auth.models import User
+from arbeitsstunden.models import customHours
+from arbeitsstunden.management.commands.utils.data import member
 from arbeitsstunden.models import account, costCenter, project, season, work
 from utils.member import newMember
 import arbeitsstunden.management.commands.utils.data as interfaces
@@ -18,7 +23,6 @@ def Nutzerliste(Liste: List[interfaces.Nutzer]):
     
     import requests
     requests.packages.urllib3.disable_warnings() 
-
     
     from arbeitsstunden.management.commands.utils.csv import bcolors
     import sys
@@ -33,9 +37,19 @@ def Nutzerliste(Liste: List[interfaces.Nutzer]):
             sys.stdout.write("\033[F") # Cursor up one line
         except Exception as inst:
             print(bcolors.FAIL + "[FAIL]" + bcolors.ENDC + i.Nachname + " couldn't be imported: " + str(inst))
-        pass
-    
-    pass
+            print(bcolors.OKBLUE + "[INFO]" + bcolors.ENDC + " Trying to Update")
+            
+            import member.models as memberModel
+            try:
+                user = User.objects.all().filter(
+                    last_name = i.Nachname,
+                    first_name = i.Vorname
+                )
+                tempMember = memberModel.profile.objects.get(user=user)
+                tempMember.status = i.status
+            except: 
+                pass
+
 
 def Arbeitsstunden(
         Array_user: List[interfaces.user], 
@@ -43,7 +57,8 @@ def Arbeitsstunden(
         Array_project_item: List[interfaces.project_item], 
         Array_project_item_hour: List[interfaces.project_item_hour], 
         Array_season: List[interfaces.season], 
-        Array_member: List[interfaces.member]
+        Array_member: List[interfaces.member],
+        Array_reduction: List[interfaces.reduction]
     ):
     
     # season
@@ -51,16 +66,37 @@ def Arbeitsstunden(
         try:
             temp, _ = season.objects.get_or_create(
                 year = i.year,
-                hours = i.obligatory_minutes/60
+                hours = int(i.obligatory_minutes)/60
             )
         except:
             temp = season.objects.get(year = i.year)
-            temp.hours = i.obligatory_minutes
+            temp.hours = int(i.obligatory_minutes)
             temp.save()
 
     newCostcenter = costCenter(name="import", description="----")
     newCostcenter.save()
     
+    for thing in Array_reduction:
+        if thing.reduction == 0:
+            continue
+        
+        currentSeason, _ = season.objects.get_or_create(year = thing.season_id)
+        employeeIndex = next((index for (index, d) in enumerate(Array_member) if d.id == thing.member_id), None)
+        currentAccount, _ = account.objects.get_or_create(
+            name = Array_member[employeeIndex].first_name + " " + Array_member[employeeIndex].last_name
+        )
+        
+        try:
+            
+            currentReduction, _ = customHours.objects.get_or_create(
+                customHours = int(thing.reduction) / 60,
+                season = currentSeason,
+                used_account = currentAccount,
+                status = next((index for (index, d) in enumerate(customHours.status_info) if d[1] == thing.status))
+            )
+        except:
+            pass
+            
     import sys 
     
     for i in Array_project:
@@ -94,7 +130,7 @@ def Arbeitsstunden(
             for works in workingParts:
                 currentWork, _ = work.objects.get_or_create(
                     name = works.id,
-                    hours = works.duration,
+                    hours = int(works.duration)/60,
                     startDate = projects_items.date
                 )
                 

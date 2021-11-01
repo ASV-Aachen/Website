@@ -29,7 +29,7 @@ class tag(models.Model):
 
 class season(models.Model):
     year = models.IntegerField(primary_key=True)  # Erstes Jahr der Saison, z.B. "2020" => Saison 2020/21
-    hours = models.IntegerField()
+    hours = models.IntegerField(default = 40)
 
     def __str__(self):
         return "Saison " + str(self.year) + "/" + str(self.year + 1)[-2:]
@@ -139,7 +139,7 @@ class customHours(models.Model):
 
     def getCustomHours(self):
         # Prozentualer Anteil
-        return self.customHours * self.percentege / 100
+        return self.customHours
         pass
 
     pass

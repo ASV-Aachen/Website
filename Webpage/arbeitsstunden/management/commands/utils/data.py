@@ -45,6 +45,7 @@ class season:
     obligatory_minutes: int
 
 class reduction: 
+    id: int
     season_id: season
     member_id: member
     status: str

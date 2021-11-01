@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Match
+from arbeitsstunden.management.commands.utils.data import reduction
 
 from arbeitsstunden.management.commands.utils.data import member, project, project_item, project_item_hour, season, user, Nutzer
 from arbeitsstunden.management.commands.utils.import_functions import Arbeitsstunden, Nutzerliste
@@ -64,6 +65,7 @@ def importfiles(newFiles):
     Array_project_item_hour = []
     Array_season = []
     Array_member = []
+    Array_reduction = []
     
     import csv 
     
@@ -137,9 +139,21 @@ def importfiles(newFiles):
             temp.last_name = row[3].replace("\"", "")
             Array_member.append(temp)
     
+    # reduction
+    with open(( newPath + "reduction" + ".csv"), newline='') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        for row in spamreader:
+            temp = reduction()
+            temp.id = row[0]
+            temp.season_id = row[1]
+            temp.member_id = row[2]
+            temp.status = row[3]
+            temp.reduction = row[4]
+            Array_reduction.append(temp)
     
     
-    return Array_user, Array_project,Array_project_item,Array_project_item_hour,Array_season,Array_member
+    
+    return Array_user, Array_project,Array_project_item,Array_project_item_hour,Array_season,Array_member, Array_reduction
 
 
 def importCSV():
@@ -150,7 +164,7 @@ def importCSV():
     
     Array_nutzer = []
     
-    Array_user, Array_project, Array_project_item, Array_project_item_hour, Array_season, Array_member = importfiles(importable_files)
+    Array_user, Array_project, Array_project_item, Array_project_item_hour, Array_season, Array_member, Array_reduction = importfiles(importable_files)
     
     # import Nutzer Liste
     if listeIsThere:
@@ -186,7 +200,8 @@ def importCSV():
         Array_project_item,
         Array_project_item_hour,
         Array_season,
-        Array_member
+        Array_member,
+        Array_reduction
     )
     print(bcolors.OKGREEN + "[SUCCESS]" + bcolors.ENDC + " Finished")
     
