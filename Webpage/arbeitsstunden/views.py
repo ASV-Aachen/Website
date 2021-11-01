@@ -43,18 +43,22 @@ def dashboard(request):
 @login_required
 def overview(request):
     season = getCurrentSeason()[0]
-    allAccounts = account.objects.all()
+    allProfiles = profile.objects.all()
 
     aktive = []
     andereMitglieder = []
 
-    for account_of_person in allAccounts:
+    for users_profil in allProfiles:
             try:
-                custom_hours = customHours.objects.get(used_account = account_of_person)
-                all_profil = profile.objects.all()
-                users_profil = all_profil.get(workingHoursAccount = account_of_person)
+                account_of_person = users_profil.workingHoursAccount
 
-                gebrauchteStunden = custom_hours.getCustomHours()
+                try:
+                    custom_hours = customHours.objects.get(used_account = account_of_person)
+                    custom_hours = custom_hours.objects.get(season = season)
+                    gebrauchteStunden = custom_hours.getCustomHours()
+                except:
+                    gebrauchteStunden = season.hours
+                
                 gearbeiteteStunden = account_of_person.workedHours(season = season)
                 
                 temp = {
@@ -69,7 +73,8 @@ def overview(request):
                 if users_profil.status == 1 or users_profil.status == 2:
                     aktive.append(temp)
                 else:
-                    andereMitglieder.append(temp)
+                    if temp['gearbeiteteStunden'] != 0:
+                        andereMitglieder.append(temp)
             
             except Exception as e:
                 print(e)

@@ -36,3 +36,6 @@ updateFromKeycloak: ## Gets the Data from Keyclaok and updates the Webservice
 
 createRootUser: ## Create a superuser for Django
 	./bin/superuser.sh
+
+importData: ## Script to import given csv Data
+	./bin/importData.sh

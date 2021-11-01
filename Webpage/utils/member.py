@@ -3,6 +3,7 @@ import os
 import datetime
 
 from django.contrib.auth.models import User
+from arbeitsstunden.models import account
 import member.models as memberModel
 from keycloak import KeycloakAdmin
 import random
@@ -45,14 +46,15 @@ def deleteGivenUser(ID) -> bool:
 '''
 def createUsername(vorname, nachname) -> str:
     while True:
-        ergebnis = vorname[0] + nachname[-1:3] + str(random.randrange(1,999))
+        ergebnis = vorname + nachname + str(random.randrange(1,999))
         if User.objects.filter(username = ergebnis).exists() is False:
+            ergebnis = ergebnis.replace(" ", "")
             return ergebnis
 
 '''
 Erstelle einen neuen Nutzer und füge ihn den
 '''
-def newMember(vorname, nachname, country, hometown, Email)->bool:
+def newMember(vorname, nachname, country, hometown, Email, eintrittsdatum=datetime.date.today(), status=1)->bool:
     username = createUsername(vorname, nachname)
     if createNewUserInKeycloak(username, vorname, nachname, Email):
         user = User()
@@ -61,10 +63,14 @@ def newMember(vorname, nachname, country, hometown, Email)->bool:
         user.first_name = vorname
         user.email = Email
         user.save()
+        
+        temp, _ = account.objects.get_or_create(name=user.first_name + " " + user.last_name)
+        user.workingHoursAccount = temp
 
-        newProfile = memberModel.profile(user=user, status=random.randint(1, 6), entry_date=datetime.date.today())
+        newProfile = memberModel.profile(user=user, status=status, entry_date=datetime.date.today())
         newProfile.hometown = hometown
         newProfile.country = country
+        newProfile.entry_date = eintrittsdatum
         newProfile.save()
         return True
     else:
