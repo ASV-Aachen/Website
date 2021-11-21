@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}  
+{% block title %} Mein ASV - Kalender {% endblock title%}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+
+{% endblock styles %}
+
+
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">ASV Kalender</h3>
+    
+    <iframe src="https://calendar.google.com/calendar/embed?src=vorsitz%40asv-aachen.de&ctz=Europe%2FBerlin" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>    
+
+{% endblock %}
+
+
