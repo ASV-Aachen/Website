@@ -24,6 +24,7 @@ urlpatterns = [
     path('Mitgliederverzeichnis', views.member_directory, name="Mitgliederverzeichnis"),
     path('User/<str:id>', views.single_user, name="User"),
     path('Einstellungen', views.settings, name="Einstellungen"),
+    path('Kalender', views.kalender, name='Kalender'),
 
     path('Menu', views.memberMenu, name="MemberMenu"),
     path('Menu/allMembers', views.alleMember, name="allMembers"),

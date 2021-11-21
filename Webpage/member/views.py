@@ -207,3 +207,7 @@ def editUserAsSchriftward(request, id):
     else:
         form = changePersonalInfo(instance=Profil)
     return render(request, "member/Einstellungen_Schriftward.html", {"form": form, "profil": Profil})
+
+@login_required
+def Kalender(request):
+    return render(request, "member/Kalender.html")
