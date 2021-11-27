@@ -64,20 +64,9 @@ def newCruise(request):
     pass
 
 def deleteCruise(request):
-    if ('id' in request.GET) and request.GET['id'] != "" and cruise.objects.get(id=id).exists():
+    if ('id' in request.GET) and request.GET['id'] != "":
 
         id = request.GET['id']
-
-        if 'key' in request.GET and request.GET['key'] != "":
-            # Lösche den Nutzer
-            givenKey = request.GET['key']
-            if givenKey == userToHash(id):
-                cruise.objects.get(id=id).delete()
-                return redirect("cruisesOverview")
-        else:
-            key = userToHash(id)
-            # sende Seite
-            return render(request, "cruise/delete.html", {"hash": key, "cruise": cruise.objects.get(id=id)})
-
+        cruise.objects.get(id=id).delete()
 
     return redirect("cruisesOverview")
