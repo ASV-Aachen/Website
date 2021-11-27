@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">{{model_name}} {% if form.instance.id %}bearbeiten{% else %}anlegen{%endif%}</h3>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <button type="submit" class="save btn btn-primary">Speichern</button>
+    </form>
+    <form>
+        <input type="button" value="Go back!" onclick="history.back()">
+    </form>
+{% endblock content %}

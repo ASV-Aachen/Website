@@ -32,6 +32,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('oidc/', include('mozilla_django_oidc.urls')),
     path('jollen/', include('jollen.urls')),
+    path('cruises/', include('cruises.urls')),
     url(r'^ajax_select/', include(ajax_select_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
