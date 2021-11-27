@@ -22,6 +22,7 @@ app_name: "cruises"
 
 urlpatterns = [
     path('', views.overview, name="cruisesOverview"),
+    path('cruisesOverview', views.overview, name="cruisesOverview"),
     path('newCruise', views.newCruise, name="newCruise"),
     path('deleteCruise', views.deleteCruise, name="deleteCruise")
 ]

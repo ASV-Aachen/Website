@@ -24,11 +24,15 @@ from utils.member import userToHash
 
 
 def overview(request):
-
-    cruises = cruise.objects.all()
-    return render(request, "cruises/cruisesOverview.html", context={
-        "cruises": cruises
-    })
+    if ('id' in request.GET):
+        id = request.GET['id']
+        if(cruise.objects.filter(id=id).exists()):
+            cruises = cruise.objects.all().order_by('startDate')
+            reise = cruise.objects.get(id=id)
+            return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise})
+    else:
+        cruises = cruise.objects.all().order_by('startDate')
+        return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises})
 
 
 def newCruise(request):

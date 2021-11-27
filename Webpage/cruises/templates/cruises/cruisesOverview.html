@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
+{% load has_group %}
 {% load crispy_forms_tags %}
 
 
@@ -21,6 +22,13 @@
 <!-- <h3 class="pb-3 mb-4 font-italic border-bottom">Seereisenplan</h3> -->
   
   <table id="Table" class="table table-striped table-bordered">
+        <col style="width:40%">
+        <col style="width:20%">
+        <col style="width:20%">
+        <col style="width:8%">
+        <col style="width:4%">
+        <col style="width:4%">
+        <col style="width:4%">
         <thead>
             <tr>
               <th>Name</th>
@@ -28,7 +36,10 @@
               <th>Nach</th>
               <th>Crewstärke</th>
               <th></th>
+              {% if request.user|has_group:"Seereisenkoordinator" %}
               <th></th>
+              <th></th>
+              {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -38,8 +49,11 @@
                 <td>{{ cruise.startPort }} <br/> {{ cruise.startDate }}</td>
                 <td>{{ cruise.endPort }} <br/> {{ cruise.endDate }}</td>
                 <td>{{ cruise.maxBerths }}</td>
-                <td> <a type="button" class="btn btn-success" href="{% url 'newCruise' %}?id={{ cruise.id }}">Bearbeiten</a> </td>
-                <td> <a type="button" class="btn btn-danger" href="{% url 'deleteCruise' %}?id={{ cruise.id }}">Löschen</a> </td>
+                <td> <a type="button" class="btn btn-info" href="{% url 'cruisesOverview' %}?id={{ cruise.id }}">O</a> </td>
+                {% if request.user|has_group:"Seereisenkoordinator" %}
+                  <td> <a type="button" class="btn btn-success" href="{% url 'newCruise' %}?id={{ cruise.id }}">B</a> </td>
+                  <td> <a type="button" class="btn btn-danger" href="{% url 'deleteCruise' %}?id={{ cruise.id }}">x</a> </td>
+                {% endif %}
               </tr>
             {% endfor %}
         </tbody>
@@ -48,8 +62,16 @@
 
 <!-- Hier seitenbereich gestalten falls gewünscht -->
 {% block aside %}
-  <h3 class="pb-3 mb-4 font-italic border-bottom">Admin-Tools</h3>
-  <a type="button" class="btn btn-info" href="{% url 'newCruise' %}">+ Reise</a>
+  <h2 class="pb-2 mb-2 border-bottom">{{ reise.name }}</h2>
+  Die Reise geht von {{ reise.startPort }} ({{ reise.startDate }}) nach {{ reise.endPort }} ({{ reise.endDate }}).<br>
+  <br>
+  {{reise.description}}
+  <br>
+  
+  {% if request.user|has_group:"Seereisenkoordinator" %}
+    <h2 class="pb-2 mb-2 font-italic border-bottom">Admin-Tools</h2>
+    <a type="button" class="btn btn-info" href="{% url 'newCruise' %}">+ Reise</a>
+  {% endif %}
 {% endblock aside %}
 
 <!-- Hier können app-spezifische  Skripte dazugeladen werden-->
