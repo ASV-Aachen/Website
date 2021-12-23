@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from filebrowser.sites import site
 from ajax_select import urls as ajax_select_urls
-from ..web.views import upload_image
+from web.views import upload_image
 
 urlpatterns = [
     path('', include('web.urls')),

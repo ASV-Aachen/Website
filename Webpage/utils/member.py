@@ -136,7 +136,7 @@ def genderTitel(titel, gender) -> str:
 
     value = str(titel)
 
-    if (gender is "F"):
+    if (gender == "F"):
         try:
             return dict[value]
         except:

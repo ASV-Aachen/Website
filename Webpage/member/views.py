@@ -209,5 +209,5 @@ def editUserAsSchriftward(request, id):
     return render(request, "member/Einstellungen_Schriftward.html", {"form": form, "profil": Profil})
 
 @login_required
-def Kalender(request):
+def kalender(request):
     return render(request, "member/Kalender.html")
