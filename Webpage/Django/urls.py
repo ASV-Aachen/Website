@@ -10,7 +10,6 @@ from web.views import upload_image
 urlpatterns = [
     path('', include('web.urls')),
     path('admin/', admin.site.urls),
-    path('arbeitsstunden/', include('arbeitsstunden.urls')),
     path('news/', include('blog.urls')),
     path('mitglieder/', include('member.urls')),
     path('admin/filebrowser/', site.urls),

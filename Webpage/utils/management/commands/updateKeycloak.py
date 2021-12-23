@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from arbeitsstunden.models import account, customHours, getCurrentSeason
+# from arbeitsstunden.models import account, customHours, getCurrentSeason
 
 from utils.keycloak import *
 
@@ -29,19 +29,19 @@ class Command(BaseCommand):
             pass
 
         # Account anlegen
-        for user in profile.objects.all():
-            if user.workingHoursAccount is None:
-                temp, _ = account.objects.get_or_create(name=user.user.first_name + user.user.last_name)
-                user.workingHoursAccount = temp
-        season = getCurrentSeason()
+        # for user in profile.objects.all():
+        #     if user.workingHoursAccount is None:
+        #         temp, _ = account.objects.get_or_create(name=user.user.first_name + user.user.last_name)
+        #         user.workingHoursAccount = temp
+        # season = getCurrentSeason()
 
         # Custom Hours anlegen
-        for i in account.objects.all():
-            try:
-                test = customHours(season=season[0], used_account = i, customHours = season[0].hours)
-                test.save()
-            except Exception as e:
-                print(e)
-                pass
+        # for i in account.objects.all():
+        #     try:
+        #         test = customHours(season=season[0], used_account = i, customHours = season[0].hours)
+        #         test.save()
+        #     except Exception as e:
+        #         print(e)
+        #         pass
 
 
