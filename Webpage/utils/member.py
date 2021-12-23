@@ -92,12 +92,12 @@ def createNewUserInKeycloak(username, vorname, nachname, Email) -> bool:
     return True
 
 def getGender(name):
-    d = gender.Detector()
+    d = gender.Detector(case_sensitive=False)
     ergebniss = d.get_gender(name)
 
     if ergebniss == "female":
         return "F"
-    if ergebniss == "andy":
+    if ergebniss == "andy" or ergebniss == "unknown":
         return "X"
     return "M"
     
