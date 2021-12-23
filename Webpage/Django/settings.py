@@ -91,7 +91,7 @@ INSTALLED_APPS = [
     'filebrowser',
     'django_resized',
     'simple_history',
-    'arbeitsstunden',
+    # 'arbeitsstunden',
     'jollen',
 ]
 
