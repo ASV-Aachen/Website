@@ -3,7 +3,7 @@ Repo für die Website des ASV Aachen.
 
 [![CodeQL](https://github.com/ASV-Aachen/Website/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/ASV-Aachen/Website/actions/workflows/codeql-analysis.yml)
 [![OSSAR](https://github.com/ASV-Aachen/Website/actions/workflows/ossar-analysis.yml/badge.svg?branch=main)](https://github.com/ASV-Aachen/Website/actions/workflows/ossar-analysis.yml)
-[![Test and publish a Django image](https://github.com/ASV-Aachen/Website/actions/workflows/testAndPublish.yml/badge.svg?branch=main)](https://github.com/ASV-Aachen/Website/actions/workflows/testAndPublish.yml)
+[![Test and publish a Django image](https://github.com/ASV-Aachen/Website/actions/workflows/testDjango.yml/badge.svg?branch=main)](https://github.com/ASV-Aachen/Website/actions/workflows/testDjango.yml)
 
 ## Development Guide
 Zum Testen kann die Website im Deployment gestartet werden, siehe Repo _Deployment_
