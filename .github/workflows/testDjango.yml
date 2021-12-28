@@ -1,5 +1,5 @@
 
-name: Test and publish a Django image
+name: Test a Django image
 
 on:
   pull_request:
