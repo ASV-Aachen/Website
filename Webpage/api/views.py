@@ -1,6 +1,5 @@
 from django.http.response import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
-from Webpage.member import models
 from member.models import profile
 from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -47,7 +46,7 @@ def groupMember(request, status:int):
 
 @user_passes_test(isUserPartOfGroup_Developer)
 @login_required
-def addMemeber(request):
+def addMember(request):
     if request.method != "POST":
         return HttpResponse("only Post allowed", status=405)
         

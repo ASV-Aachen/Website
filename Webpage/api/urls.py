@@ -22,5 +22,5 @@ app_name: "api"
 urlpatterns = [
     path('member',          views.member, name="allMembers"),
     path('member/<int:status>', views.groupMember, name="membersFromGroup"),
-    path('addMember',       views.addmember, name="addMember"),
+    path('addMember',       views.addMember, name="addMember"),
 ]
