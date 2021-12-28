@@ -70,13 +70,10 @@
               <li><a class="dropdown-item" href="{% url 'Kalender' %}">Kalender</a></li>
               
               <li class="dropdown-submenu dropleft">
-                <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="{% url 'arbeitsstundenOverview' %}">
+                <a class="dropdown-item dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="">
                 Arbeitsstunden</a>
                 <ul class="dropdown-menu submenu" aria-labelledby="dropdownMenuButton">
-                  <li class="d-flex d-lg-none"><a class="dropdown-item" href="{% url 'arbeitsstundenOverview' %}">Arbeitsstunden</a></li>
-                  <li><a class="dropdown-item" href="{% url 'projekte_overview' %}"> offene Projekte</a></li>
-                  <li><a class="dropdown-item" href="{% url 'costCenterOverview' %}"> Übersicht der Kostenstellen </a></li>
-                  {% comment "SaisonÜbersicht (TODO:) " %}<li><a class="dropdown-item" href="{% url 'seasonOverview' %}"> Saison </a></li>{% endcomment %}
+                  {% comment %} <li><a class="dropdown-item" href="{% url 'projekte_overview' %}"> Projekte</a></li> {% endcomment %}
                 </ul>
               </li>
 
