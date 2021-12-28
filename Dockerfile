@@ -6,7 +6,6 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY Webpage/ /opt/Webpage/
-COPY import/ /opt/import/
 
 # Add our custom crt
 ADD certs/server.crt /usr/local/share/ca-certificates/foo.crt
