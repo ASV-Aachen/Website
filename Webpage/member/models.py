@@ -7,7 +7,7 @@ import os
 from phonenumber_field.modelfields import PhoneNumberField
 from django_resized import ResizedImageField
 import secrets
-from arbeitsstunden.models import account
+# from arbeitsstunden.models import account
 
 
 class role(models.Model):
@@ -71,12 +71,12 @@ class profile(models.Model):
     entry_date = models.DateField()
     # Konto Gehört zur Bierkasse #23 (TODO)
 
-    def default_group(self):
-        temp, _ = account.objects.get_or_create(name=self.user.username)
-        return temp
+    # def default_group(self):
+    #     temp, _ = account.objects.get_or_create(name=self.user.username)
+    #     return temp
 
     # Arbeitsstunden
-    workingHoursAccount = models.ForeignKey(account, on_delete=models.RESTRICT, null = True)
+    # workingHoursAccount = models.ForeignKey(account, on_delete=models.RESTRICT, null = True)
 
     # Pluggin: https://github.com/stefanfoulis/django-phonenumber-field
     phone = PhoneNumberField(null=True, blank=True, unique=False)
@@ -90,8 +90,8 @@ class profile(models.Model):
             import utils.member as member
             self.gender = member.getGender(self.user.first_name)
         
-        temp, _ = account.objects.get_or_create(name=self.user.first_name + " " + self.user.last_name)
-        self.workingHoursAccount = temp
+        # temp, _ = account.objects.get_or_create(name=self.user.first_name + " " + self.user.last_name)
+        # self.workingHoursAccount = temp
 
         super().save(*args, **kwargs)
 

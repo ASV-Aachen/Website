@@ -10,7 +10,6 @@ from web.views import upload_image
 urlpatterns = [
     path('', include('web.urls')),
     path('admin/', admin.site.urls),
-    path('arbeitsstunden/', include('arbeitsstunden.urls')),
     path('news/', include('blog.urls')),
     path('mitglieder/', include('member.urls')),
     path('admin/filebrowser/', site.urls),
@@ -19,5 +18,6 @@ urlpatterns = [
     path('oidc/', include('mozilla_django_oidc.urls')),
     path('jollen/', include('jollen.urls')),
     url(r'^ajax_select/', include(ajax_select_urls)),
+    path('api/', include('api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

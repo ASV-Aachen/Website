@@ -13,7 +13,7 @@ from .models import profile
 from django.contrib.auth.models import User
 from .forms import changePersonalInfo, createNewMember
 from .filters import userFilter
-from arbeitsstunden.models import *
+# from arbeitsstunden.models import *
 
 # Create your views here.
 
@@ -24,13 +24,13 @@ from arbeitsstunden.models import *
 def index(request):
 
     current_account = profile.objects.get(user=request.user).workingHoursAccount
-    last_Works = work.objects.filter(employee = current_account)
+    # last_Works = work.objects.filter(employee = current_account)
 
     return render(request, template_name="member/Dashboard.html", context={
         "konto": current_account,
-        "seasons": season.objects.all()[:5],
-        "kostenstelle": costCenter.objects.all(),
-        "last_Work": last_Works
+        # "seasons": season.objects.all()[:5],
+        # "kostenstelle": costCenter.objects.all(),
+        # "last_Work": last_Works
     })
 
 # Mitgliederverzeichnis
@@ -47,14 +47,14 @@ def member_directory(request):
 def single_user(request, id):
     if (request.user.is_authenticated):
         User = get_object_or_404(profile, id=id)
-        Info = {
-            'workingHours': User.workingHoursAccount.workedHours(getCurrentSeason()[0]),
-            'yearsInASV': (datetime.date.today().year - User.entry_date.year)
-        }
+        # Info = {
+        #     'workingHours': User.workingHoursAccount.workedHours(getCurrentSeason()[0]),
+        #     'yearsInASV': (datetime.date.today().year - User.entry_date.year)
+        # }
         
         context = {
             'profil': User,
-            'infos': Info
+            # 'infos': Info
             }
         return render(request, template_name="member/member.html", context=context)
     else:

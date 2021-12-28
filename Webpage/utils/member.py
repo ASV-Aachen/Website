@@ -3,7 +3,7 @@ import os
 import datetime
 
 from django.contrib.auth.models import User
-from arbeitsstunden.models import account
+# from arbeitsstunden.models import account
 import member.models as memberModel
 from keycloak import KeycloakAdmin
 import random
@@ -64,8 +64,8 @@ def newMember(vorname, nachname, country, hometown, Email, eintrittsdatum=dateti
         user.email = Email
         user.save()
         
-        temp, _ = account.objects.get_or_create(name=user.first_name + " " + user.last_name)
-        user.workingHoursAccount = temp
+        # temp, _ = account.objects.get_or_create(name=user.first_name + " " + user.last_name)
+        # user.workingHoursAccount = temp
 
         newProfile = memberModel.profile(user=user, status=status, entry_date=datetime.date.today())
         newProfile.hometown = hometown
@@ -92,12 +92,12 @@ def createNewUserInKeycloak(username, vorname, nachname, Email) -> bool:
     return True
 
 def getGender(name):
-    d = gender.Detector()
+    d = gender.Detector(case_sensitive=False)
     ergebniss = d.get_gender(name)
 
     if ergebniss == "female":
         return "F"
-    if ergebniss == "andy":
+    if ergebniss == "andy" or ergebniss == "unknown":
         return "X"
     return "M"
     
