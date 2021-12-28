@@ -1,10 +1,14 @@
 # Website
 Repo für die Website des ASV Aachen. 
-Alle Adressen sind nur noch unter https erreichbar.
+
+[![CodeQL](https://github.com/ASV-Aachen/Website/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/ASV-Aachen/Website/actions/workflows/codeql-analysis.yml)
+[![OSSAR](https://github.com/ASV-Aachen/Website/actions/workflows/ossar-analysis.yml/badge.svg?branch=main)](https://github.com/ASV-Aachen/Website/actions/workflows/ossar-analysis.yml)
+[![Test and publish a Django image](https://github.com/ASV-Aachen/Website/actions/workflows/testAndPublish.yml/badge.svg?branch=main)](https://github.com/ASV-Aachen/Website/actions/workflows/testAndPublish.yml)
 
 ## Development Guide
 Zum Testen kann die Website im Deployment gestartet werden, siehe Repo _Deployment_
 
+Alle Adressen sind nur noch unter https erreichbar.
 ### Scripts
 
 * Wer unter Windows entwickelt und keine Makefiles ausfuehren kann, kann in die Makefile schauen oder in den `./bin/` Ordner. Dort sind alle commands gelistet.
