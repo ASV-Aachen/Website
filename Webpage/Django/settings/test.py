@@ -7,8 +7,7 @@ SECRET_KEY = "secretKey"
 DEBUG = True
 
 Host = 'localhost'
-ALLOWED_HOSTS = []
-ALLOWED_HOSTS.append("." + os.environ["ALLOWED_HOSTS"])
+ALLOWED_HOSTS = ['localhost']
 
 # Conection to Keycloak as OIDC
 
