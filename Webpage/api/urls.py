@@ -20,9 +20,7 @@ from . import views
 app_name: "api"
 
 urlpatterns = [
-    path('',                views.help, name="help"),
     path('member',          views.member, name="allMembers"),
-    path('member/<str:id>', views.singlemember, name="specificMember"),
+    path('member/<int:status>', views.groupMember, name="membersFromGroup"),
     path('addMember',       views.addmember, name="addMember"),
-    path('updateMember',    views.update, name="updateMember"),
 ]
