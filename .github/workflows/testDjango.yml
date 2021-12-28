@@ -31,4 +31,4 @@ jobs:
     - name: Run Tests
       run: |
         cd Webpage
-        python manage.py test --settings=Django.settings.test
+        python manage.py test

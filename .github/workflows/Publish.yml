@@ -38,5 +38,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: |
+            ghcr.io/asv-aachen/website:latest
+          # labels: ${{ steps.meta.outputs.labels }}
