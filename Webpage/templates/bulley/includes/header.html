@@ -79,6 +79,8 @@
                 </ul>
               </li>
 
+              <li><a class="dropdown-item" href="{% url 'cruisesOverview' %}">Seereisenplan</a></li>
+
               <li><a class="dropdown-item" href="/wiki">Wiki</a></li>
               <li><a class="dropdown-item" href="/cloud/index.php/apps/sociallogin/custom_oidc/Keycloak">Cloud</a></li>
               {% if request.user|has_group:"Schriftwart" %}

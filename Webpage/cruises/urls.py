@@ -24,5 +24,6 @@ urlpatterns = [
     path('', views.overview, name="cruisesOverview"),
     path('cruisesOverview', views.overview, name="cruisesOverview"),
     path('newCruise', views.newCruise, name="newCruise"),
+    path('editCruise', views.editCruise, name="editCruise"),
     path('deleteCruise', views.deleteCruise, name="deleteCruise")
 ]

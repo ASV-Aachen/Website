@@ -5,6 +5,15 @@ from django.db import models
 # Create your models here.
 import datetime
 from django.contrib.auth.models import User
+from arbeitsstunden.models import account
+
+class sailor(models.Model):
+    isNew = models.BooleanField(default=False)
+
+    name = models.CharField(max_length=256, default="TESTNUTZER")
+
+    def __str__(self):
+        return self.name
 
 class cruise(models.Model):
     name = models.CharField(max_length=128)
@@ -14,14 +23,14 @@ class cruise(models.Model):
     startPort = models.CharField(max_length=128)
     endPort = models.CharField(max_length=128)
     maxBerths = models.IntegerField()
-    sailors = models.ManyToManyField(User, blank=True, through="CruiseShare")
+    sailors = models.ManyToManyField(account, blank=True, null=True, through="cruiseShare")
     
     def __str__(self):
         return self.name
 
 class cruiseShare(models.Model):
     Cruise = models.ForeignKey(cruise, on_delete=models.RESTRICT)
-    profile = models.ForeignKey(User, on_delete=models.RESTRICT)
+    cosailor = models.ForeignKey(account, on_delete=models.RESTRICT)
 
     SKIPPER = 'S'
     WATCH = 'W'
@@ -32,10 +41,10 @@ class cruiseShare(models.Model):
         (CREW, 'Crew'),
     ]
     SailAs = models.CharField(max_length=2, choices=PATENT_TYPE, default=CREW)
-    Distance = models.FloatField()
+    Distance = models.FloatField(default=0.0)
 
     def __str__(self):
-        return str(self.profile) + " sailed at " + str(self.Cruise) + str(self.Distance) + " nm as " + str(self.SailAs)
+        return str(self.cosailor) + " sailed at " + str(self.Cruise) + str(self.Distance) + " nm as " + str(self.SailAs)
 
 class patent(models.Model):
     Owner = models.ForeignKey(User, on_delete=models.CASCADE)

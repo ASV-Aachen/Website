@@ -51,7 +51,7 @@
                 <td>{{ cruise.maxBerths }}</td>
                 <td> <a type="button" class="btn btn-info" href="{% url 'cruisesOverview' %}?id={{ cruise.id }}">O</a> </td>
                 {% if request.user|has_group:"Seereisenkoordinator" %}
-                  <td> <a type="button" class="btn btn-success" href="{% url 'newCruise' %}?id={{ cruise.id }}">B</a> </td>
+                  <td> <a type="button" class="btn btn-success" href="{% url 'editCruise' %}?id={{ cruise.id }}">B</a> </td>
                   <td> <a type="button" class="btn btn-danger" href="{% url 'deleteCruise' %}?id={{ cruise.id }}">x</a> </td>
                 {% endif %}
               </tr>

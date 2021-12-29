@@ -40,10 +40,48 @@ def newCruise(request):
         form = formCruise(request.POST)
         if form.is_valid():
             form.save(commit=False)
+#            if request.GET['id'] != "":
+#                if (cruise.objects.filter(id = request.GET['id']).exists()):
+#                    form.instance.id = request.GET['id']
+            form.save()
+
+            return redirect("cruisesOverview")
+        form.errors.as_data()
+        return redirect("cruisesOverview")
+    else:
+        if ('id' in request.GET):
+            id = request.GET['id']
+            # ID gegeben, also Daten laden
+            if(cruise.objects.filter(id=id).exists()):
+                # ID existiert, also zurückgeben
+                reise = cruise.objects.get(id=id)
+                form = formCruise(instance=reise)
+                return render(request, "cruises/form_template.html", {"form": form, "cruise": reise})
+            else:
+                # ID ist zwar gegeben, existiert aber nicht
+                return redirect("cruisesOverview")
+
+        else:
+            # Keine ID gegeben, neuen Artikel anlegen
+            form = formCruise()
+            return render(request, "cruises/form_template.html", {"form": form})
+    pass
+
+def editCruise(request):
+    if(request.method == "POST"):
+        form = formCruise(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
             if request.GET['id'] != "":
                 if (cruise.objects.filter(id = request.GET['id']).exists()):
                     form.instance.id = request.GET['id']
             form.save()
+            for i in request.POST["sailor"][1:-1].split('|'):
+                idx = int(i)
+                responsible = get_object_or_404(account, id=idx)
+                
+                form.instance.sailors.add(responsible)
+
 
             return redirect("cruisesOverview")
         form.errors.as_data()

@@ -12,4 +12,4 @@ class formCruise(forms.ModelForm):
     class Meta:
         model = cruise
         fields = ['name', 'description', 'startDate', 'endDate', 'startPort', 'endPort', 'maxBerths']
-    #skipper = AutoCompleteSelectMultipleField('skipper', help_text="Bitte füge einen Verantwortlichen ein", required=True)
+    sailor = AutoCompleteSelectMultipleField('sailors', help_text="Bitte füge einen Verantwortlichen ein", required=False)

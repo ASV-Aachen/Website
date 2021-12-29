@@ -4,3 +4,5 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register(cruise)
+admin.site.register(sailor)
+admin.site.register(cruiseShare)
