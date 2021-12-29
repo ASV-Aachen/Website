@@ -29,7 +29,8 @@ def overview(request):
         if(cruise.objects.filter(id=id).exists()):
             cruises = cruise.objects.all().order_by('startDate')
             reise = cruise.objects.get(id=id)
-            return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise})
+            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+            return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares})
     else:
         cruises = cruise.objects.all().order_by('startDate')
         return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises})
