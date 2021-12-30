@@ -26,5 +26,10 @@ urlpatterns = [
     path('newCruise', views.newCruise, name="newCruise"),
     path('editCruise', views.editCruise, name="editCruise"),
     path('deleteCruise', views.deleteCruise, name="deleteCruise"),
-    path('deleteCruiseShare', views.deleteCruiseShare, name="deleteCruiseShare")
+    path('deleteCruiseShare', views.deleteCruiseShare, name="deleteCruiseShare"),
+    path('makeCrew', views.makeCrew, name="makeCrew"),
+    path('makeWatch', views.makeWatch, name="makeWatch"),
+    path('makeSkipper', views.makeSkipper, name="makeSkipper")
+
+
 ]

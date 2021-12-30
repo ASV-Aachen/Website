@@ -96,7 +96,11 @@ def editCruise(request):
                 # ID existiert, also zurückgeben
                 reise = cruise.objects.get(id=id)
                 form = formCruise(instance=reise)
-                return render(request, "cruises/form_template.html", {"form": form, "cruise": reise})
+                cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+#                sailors = []
+#                for share in cruiseShares:
+#                    sailors.append(share.cosailor)
+                return render(request, "cruises/form_template.html", {"form": form, "cruise": reise, "cruiseShares" : cruiseShares}) #, "sailors": sailors
             else:
                 # ID ist zwar gegeben, existiert aber nicht
                 return redirect("cruisesOverview")
@@ -125,4 +129,31 @@ def deleteCruiseShare(request):
             cid = request.GET['cid']
             return render(request, "cruisesOverview.html", {"id": cid})
 
+    return redirect("cruisesOverview")
+
+def makeCrew(request):
+    if ('id' in request.GET) and request.GET['id'] != "":
+
+        id = request.GET['id']
+        share = cruiseShare.objects.get(id=id)
+        share.SailAs = 'C'
+        share.save()
+    return redirect("cruisesOverview")
+
+def makeWatch(request):
+    if ('id' in request.GET) and request.GET['id'] != "":
+
+        id = request.GET['id']
+        share = cruiseShare.objects.get(id=id)
+        share.SailAs = 'W'
+        share.save()
+    return redirect("cruisesOverview")
+
+def makeSkipper(request):
+    if ('id' in request.GET) and request.GET['id'] != "":
+
+        id = request.GET['id']
+        share = cruiseShare.objects.get(id=id)
+        share.SailAs = 'S'
+        share.save()
     return redirect("cruisesOverview")
