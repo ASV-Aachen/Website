@@ -1,10 +1,23 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% load has_group %}
 {% load crispy_forms_tags %}
 
+
+{% block title %} ASV i. A. - Seeschiff {% endblock title%}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+<link href="{% static 'member/css/Mitgliederverzeichnis.css' %}" rel="stylesheet">
+{% endblock styles %}
+{% block headerimage%}
+    <img src="/static/img/header/cat_s0.jpg" alt="">
+{% endblock headerimage%}
+
 {% block content %}
-    <h3 class="pb-3 mb-4 font-italic border-bottom">{{model_name}} {% if form.instance.id %}bearbeiten{% else %}anlegen{%endif%}</h3>
-    <form method="POST" class="post-form">{% csrf_token %}
+    <h2 class="pb-3 mb-4 font-italic border-bottom">{{model_name}} {% if form.instance.id %}bearbeiten{% else %}anlegen{%endif%}</h3>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
         {{ form.media }}
         {{ form|crispy }}
         <button type="submit" class="save btn btn-primary">Speichern</button>
@@ -13,3 +26,43 @@
         <input type="button" value="Go back!" onclick="history.back()">
     </form>
 {% endblock content %}
+
+<!-- Hier seitenbereich gestalten falls gewünscht -->
+{% block aside %}
+  <h2 class="pb-2 mb-2 border-bottom">{{ cruise.name }}</h2>
+  Die Reise startet in {{ cruise.startPort }} ({{ cruise.startDate }}) und endet in {{ cruise.endPort }} ({{ cruise.endDate }}).<br>
+  <br>
+  {{cruise.description}}
+  <br>
+
+  <table id="Table" class="table table-striped table-bordered">
+    <col style="width:80%">
+    {% if request.user|has_group:"Seereisenkoordinator" %}
+    <col style="width:80%">
+    <col style="width:10%">
+    <col style="width:10%">
+    {% else %}
+    <col style="width:85%">
+    <col style="width:15%">
+    {% endif %}
+
+    <tbody>
+        {% for share in cruiseShares %}
+          <tr>
+            <td>{{ share.cosailor }}</td>
+            <td>{{ share.SailAs }}</td>
+            {% if request.user|has_group:"Seereisenkoordinator" %}
+              <td> <a type="button" class="btn btn-danger btn-sm" href="{% url 'deleteCruiseShare' %}?id={{ share.id }}&?cid={{ reise.id }}">X</a> </td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+  </br>
+  
+  {% if request.user|has_group:"Seereisenkoordinator" %}
+    <h2 class="pb-2 mb-2 font-italic border-bottom">Admin-Tools</h2>
+    <a type="button" class="btn btn-info" href="{% url 'newCruise' %}">+ Reise</a>
+  {% endif %}
+{% endblock aside %}

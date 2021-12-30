@@ -77,11 +77,12 @@ def editCruise(request):
                 if (cruise.objects.filter(id = request.GET['id']).exists()):
                     form.instance.id = request.GET['id']
             form.save()
-            for i in request.POST["sailor"][1:-1].split('|'):
-                idx = int(i)
-                responsible = get_object_or_404(account, id=idx)
-                
-                form.instance.sailors.add(responsible)
+            if request.POST['sailors'] != "|":
+                for i in request.POST["sailors"][1:-1].split('|'):
+                    idx = int(i)
+                    responsible = get_object_or_404(account, id=idx)
+                    
+                    form.instance.sailors.add(responsible)
 
 
             return redirect("cruisesOverview")
@@ -111,5 +112,17 @@ def deleteCruise(request):
 
         id = request.GET['id']
         cruise.objects.get(id=id).delete()
+
+    return redirect("cruisesOverview")
+
+def deleteCruiseShare(request):
+    if ('id' in request.GET) and request.GET['id'] != "":
+
+        id = request.GET['id']
+        cruiseShare.objects.get(id=id).delete()
+
+        if ('cid' in request.GET) and request.GET['cid'] != "":
+            cid = request.GET['cid']
+            return render(request, "cruisesOverview.html", {"id": cid})
 
     return redirect("cruisesOverview")
