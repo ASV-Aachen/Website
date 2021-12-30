@@ -18,7 +18,7 @@ def member(request)-> JsonResponse:
     for i in AllUsers:
         erg.append(model_to_dict(i))
     
-    return JsonResponse(erg)
+    return JsonResponse(erg, safe=False)
 
 @user_passes_test(isUserPartOfGroup_Developer)
 @login_required
@@ -29,7 +29,7 @@ def groupMember(request, status:int):
     for i in foundUsers:
         erg.append(model_to_dict(i))
     
-    return JsonResponse(erg)
+    return JsonResponse(erg, safe=False)
 
 '''
 {
