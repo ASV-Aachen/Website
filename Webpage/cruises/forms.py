@@ -9,9 +9,10 @@ from ajax_select.fields import AutoCompleteSelectField, AutoCompleteSelectMultip
 from .models import *
 
 class formCruise(forms.ModelForm):
+    
     class Meta:
         model = cruise
         fields = ['name', 'description', 'startDate', 'endDate', 'startPort', 'endPort', 'maxBerths']
-    sailor = AutoCompleteSelectMultipleField('skippers', help_text="Schiffer", required=False)
-    sailor = AutoCompleteSelectMultipleField('watches', help_text="Wachführer", required=False)
-    sailor = AutoCompleteSelectMultipleField('sailors', help_text="Crewmitglieder", required=False)
+    #sailor = AutoCompleteSelectMultipleField('skippers', help_text="Schiffer", required=False)
+    #sailor = AutoCompleteSelectMultipleField('watches', help_text="Wachführer", required=False)
+    sailors = AutoCompleteSelectMultipleField('sailors', help_text="Crewmitglieder", required=False)

@@ -35,6 +35,13 @@ def overview(request):
         cruises = cruise.objects.all().order_by('startDate')
         return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises})
 
+def overviewx(request, id):
+    if(cruise.objects.filter(id=id).exists()):
+        cruises = cruise.objects.all().order_by('startDate')
+        reise = cruise.objects.get(id=id)
+        cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+        return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares})
+
 
 def newCruise(request):
     if(request.method == "POST"):
@@ -125,9 +132,9 @@ def deleteCruiseShare(request):
         id = request.GET['id']
         cruiseShare.objects.get(id=id).delete()
 
-        if ('cid' in request.GET) and request.GET['cid'] != "":
-            cid = request.GET['cid']
-            return render(request, "cruisesOverview.html", {"id": cid})
+    if ('cid' in request.GET) and request.GET['cid'] != "":
+        cid = request.GET['cid']
+        return redirect('cruisesOverview', id=cid)
 
     return redirect("cruisesOverview")
 
@@ -138,6 +145,11 @@ def makeCrew(request):
         share = cruiseShare.objects.get(id=id)
         share.SailAs = 'C'
         share.save()
+
+    if ('cid' in request.GET) and request.GET['cid'] != "":
+        cid = request.GET['cid']
+        return redirect('cruisesOverview', id=cid)
+
     return redirect("cruisesOverview")
 
 def makeWatch(request):
@@ -147,6 +159,11 @@ def makeWatch(request):
         share = cruiseShare.objects.get(id=id)
         share.SailAs = 'W'
         share.save()
+        
+    if ('cid' in request.GET) and request.GET['cid'] != "":
+        cid = request.GET['cid']
+        return redirect('cruisesOverview', id=cid)
+
     return redirect("cruisesOverview")
 
 def makeSkipper(request):
@@ -156,4 +173,9 @@ def makeSkipper(request):
         share = cruiseShare.objects.get(id=id)
         share.SailAs = 'S'
         share.save()
+    
+    if ('cid' in request.GET) and request.GET['cid'] != "":
+        cid = request.GET['cid']
+        return redirect('cruisesOverview', id=cid)
+
     return redirect("cruisesOverview")
