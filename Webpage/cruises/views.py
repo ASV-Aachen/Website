@@ -166,6 +166,8 @@ def deleteCruiseShare(request):
     yearDropdown = []
     for y in range((datetime.datetime.now().year), 2011, -1):
         yearDropdown.append(y)
+    pos = ['S', 'W', 'C']
+    order = Case(*[When(SailAs=SailAs, then=en) for en, SailAs in enumerate(pos)])
     
     if ('id' in request.GET) and request.GET['id'] != "":
         id = request.GET['id']
@@ -176,7 +178,7 @@ def deleteCruiseShare(request):
         if ('year' in request.GET):
             year = request.GET['year']
             reise = cruise.objects.get(id=cid)
-            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise).order_by(order,'cosailor')
             cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
             return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
         return redirect('cruisesOverview', id=cid)
@@ -187,6 +189,8 @@ def makeCrew(request):
     yearDropdown = []
     for y in range((datetime.datetime.now().year), 2011, -1):
         yearDropdown.append(y)
+    pos = ['S', 'W', 'C']
+    order = Case(*[When(SailAs=SailAs, then=en) for en, SailAs in enumerate(pos)])
 
     if ('id' in request.GET) and request.GET['id'] != "":
         id = request.GET['id']
@@ -199,7 +203,7 @@ def makeCrew(request):
         if ('year' in request.GET):
             year = request.GET['year']
             reise = cruise.objects.get(id=cid)
-            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise).order_by(order,'cosailor')
             cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
             return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
         return redirect('cruisesOverview', id=cid)
@@ -209,6 +213,8 @@ def makeWatch(request):
     yearDropdown = []
     for y in range((datetime.datetime.now().year), 2011, -1):
         yearDropdown.append(y)
+    pos = ['S', 'W', 'C']
+    order = Case(*[When(SailAs=SailAs, then=en) for en, SailAs in enumerate(pos)])
     
     if ('id' in request.GET) and request.GET['id'] != "":
         id = request.GET['id']
@@ -221,7 +227,7 @@ def makeWatch(request):
         if ('year' in request.GET):
             year = request.GET['year']
             reise = cruise.objects.get(id=cid)
-            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise).order_by(order,'cosailor')
             cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
             return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
         return redirect('cruisesOverview', id=cid)
@@ -231,6 +237,8 @@ def makeSkipper(request):
     yearDropdown = []
     for y in range((datetime.datetime.now().year), 2011, -1):
         yearDropdown.append(y)
+    pos = ['S', 'W', 'C']
+    order = Case(*[When(SailAs=SailAs, then=en) for en, SailAs in enumerate(pos)])
    
     if ('id' in request.GET) and request.GET['id'] != "":
         id = request.GET['id']
@@ -243,7 +251,7 @@ def makeSkipper(request):
         if ('year' in request.GET):
             year = request.GET['year']
             reise = cruise.objects.get(id=cid)
-            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise).order_by(order,'cosailor')
             cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
             return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
         return redirect('cruisesOverview', id=cid)
