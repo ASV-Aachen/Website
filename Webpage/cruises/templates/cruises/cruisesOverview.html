@@ -39,13 +39,11 @@
         <col style="width:20%">
         <col style="width:20%">
         {% if request.user|has_group:"Seereisenkoordinator" %}
-        <col style="width:8%">
-        <col style="width:4%">
-        <col style="width:4%">
-        <col style="width:4%">
+        <col style="width:10%">
+        <col style="width:10%">
         {% else %}
-        <col style="width:14%">
-        <col style="width:14%">
+        <col style="width:10%">
+        <col style="width:10%">
         {% endif %}
         <thead>
             <tr>
@@ -54,10 +52,6 @@
               <th>Nach</th>
               <th>Crewstärke</th>
               <th></th>
-              {% if request.user|has_group:"Seereisenkoordinator" %}
-              <th></th>
-              <th></th>
-              {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -66,12 +60,16 @@
                 <td>{{ cruise.name }}</td>
                 <td>{{ cruise.startPort }} <br/> {{ cruise.startDate }}</td>
                 <td>{{ cruise.endPort }} <br/> {{ cruise.endDate }}</td>
-                <td>{{ cruise.maxBerths }}</td>
-                <td> <a type="button" class="btn btn-info btn-sm" href="{% url 'cruisesOverview' %}?year={{ selectedYear }}&id={{ cruise.id }}">I</a> </td>
+                <td>{{ cruise.getCrewsize }} / {{cruise.maxBerths}} </td>
+                <td>  
                 {% if request.user|has_group:"Seereisenkoordinator" %}
-                  <td> <a type="button" class="btn btn-success btn-sm" href="{% url 'editCruise' %}?year={{ selectedYear }}&id={{ cruise.id }}">B</a> </td>
-                  <td> <a type="button" class="btn btn-danger btn-sm" href="{% url 'deleteCruise' %}?year={{ selectedYear }}&id={{ cruise.id }}">X</a> </td>
+                  <a type="button" class="btn btn-info btn-sm" href="{% url 'cruisesOverview' %}?year={{ selectedYear }}&id={{ cruise.id }}">I</a>
+                  <a type="button" class="btn btn-success btn-sm" href="{% url 'editCruise' %}?year={{ selectedYear }}&id={{ cruise.id }}">B</a>
+                  <a type="button" class="btn btn-danger btn-sm" href="{% url 'deleteCruise' %}?year={{ selectedYear }}&id={{ cruise.id }}">X</a>
+                {% else %}
+                  <a type="button" class="btn btn-info btn-sm" href="{% url 'cruisesOverview' %}?year={{ selectedYear }}&id={{ cruise.id }}">Details</a>
                 {% endif %}
+                </td>
               </tr>
             {% endfor %}
         </tbody>
@@ -90,8 +88,9 @@
   <table id="Table" class="table table-striped table-bordered">
     {% if request.user|has_group:"Seereisenkoordinator" %}
     <col style="width:60%">
-    <col style="width:30%">
     <col style="width:10%">
+    <col style="width:21%">
+    <col style="width:9%">
     {% else %}
     <col style="width:85%">
     <col style="width:15%">
@@ -101,15 +100,14 @@
         {% for share in cruiseShares %}
           <tr>
             <td>{{ share.cosailor }}</td>
-            <td>{{ share.SailAs }}
-              {% if request.user|has_group:"Seereisenkoordinator" %}
+            <td>{{ share.SailAs }}</td>
+            {% if request.user|has_group:"Seereisenkoordinator" %}
+            <td>
               <a type="button" class="btn btn-info btn-sm" href="{% url 'makeCrew' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ reise.id }}">C</a>
               <a type="button" class="btn btn-info btn-sm" href="{% url 'makeWatch' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ reise.id }}">W</a>
               <a type="button" class="btn btn-info btn-sm" href="{% url 'makeSkipper' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ reise.id }}">S</a>
-            {% endif %}
-          </td>
-            {% if request.user|has_group:"Seereisenkoordinator" %}
-              <td> <a type="button" class="btn btn-danger btn-sm" href="{% url 'deleteCruiseShare' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ reise.id }}">X</a> </td>
+            </td>
+            <td><a type="button" class="btn btn-danger btn-sm" href="{% url 'deleteCruiseShare' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ reise.id }}">X</a></td>
             {% endif %}
           </tr>
         {% endfor %}

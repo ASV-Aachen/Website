@@ -1,6 +1,6 @@
 from functools import reduce
 
-from django.db.models import F
+from django.db.models import F, Case, When
 from django.db.models.functions import Coalesce
 
 from django.contrib.auth import authenticate, login, logout
@@ -27,11 +27,13 @@ def overview(request):
     yearDropdown = []
     for y in range((datetime.datetime.now().year), 2011, -1):
         yearDropdown.append(y)
+    pos = ['S', 'W', 'C']
+    order = Case(*[When(SailAs=SailAs, then=en) for en, SailAs in enumerate(pos)])
     if ('id' in request.GET):
         id = request.GET['id']
         if(cruise.objects.filter(id=id).exists()):
             reise = cruise.objects.get(id=id)
-            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise).order_by(order,'cosailor')
             if ('year' in request.GET):
                 year = request.GET['year']
                 cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
@@ -43,20 +45,20 @@ def overview(request):
         cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
         return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "yearDropdown": yearDropdown, "selectedYear": year})
     else:
-        selectedYear=datetime.datetime.now().year
-        cruises = cruise.objects.filter(startDate__year=selectedYear).order_by('startDate')
-
-        return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "yearDropdown": yearDropdown, "selectedYear": selectedYear})
-
-def overviewx(request, id):
-    if(cruise.objects.filter(id=id).exists()):
-        cruises = cruise.objects.all().order_by('startDate')
-        reise = cruise.objects.get(id=id)
-        cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
-        return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares})
-
+        year=datetime.datetime.now().year
+        cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
+        return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "yearDropdown": yearDropdown, "selectedYear": year})
 
 def newCruise(request):
+    yearDropdown = []
+    for y in range((datetime.datetime.now().year), 2011, -1):
+        yearDropdown.append(y)
+    if ('year' in request.GET):
+        year = request.GET['year']
+    else:
+        year = datetime.datetime.now().year
+    pos = ['S', 'W', 'C']
+    order = Case(*[When(SailAs=SailAs, then=en) for en, SailAs in enumerate(pos)])
     if(request.method == "POST"):
         form = formCruise(request.POST)
         if form.is_valid():
@@ -65,10 +67,19 @@ def newCruise(request):
 #                if (cruise.objects.filter(id = request.GET['id']).exists()):
 #                    form.instance.id = request.GET['id']
             form.save()
-
+            if request.POST['sailors'] != "|":
+                for i in request.POST["sailors"][1:-1].split('|'):
+                    idx = int(i)
+                    responsible = get_object_or_404(sailor, id=idx)
+                    form.instance.sailors.add(responsible)
+        
             return redirect("cruisesOverview")
         form.errors.as_data()
-        return redirect("cruisesOverview")
+        cruises = cruise.objects.filter(startDate__year=year).order_by('startDate') 
+        cid=form.id
+        reise = cruise.objects.get(id=cid)
+        cruiseShares = cruiseShare.objects.all().filter(Cruise=reise).order_by(order,'cosailor')
+        return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
     else:
         if ('id' in request.GET):
             id = request.GET['id']
@@ -89,8 +100,22 @@ def newCruise(request):
     pass
 
 def editCruise(request):
+    yearDropdown = []
+    for y in range((datetime.datetime.now().year), 2011, -1):
+        yearDropdown.append(y)
+    if ('year' in request.GET):
+        year = request.GET['year']
+    else:
+        year = datetime.datetime.now().year
+    if ('id' in request.GET):
+        cid = request.GET['id']
+    else:
+        cid = 1
+    pos = ['S', 'W', 'C']
+    order = Case(*[When(SailAs=SailAs, then=en) for en, SailAs in enumerate(pos)])
     if(request.method == "POST"):
         form = formCruise(request.POST)
+        cruises = cruise.objects.filter(startDate__year=year).order_by('startDate') 
         if form.is_valid():
             form.save(commit=False)
             if request.GET['id'] != "":
@@ -100,14 +125,15 @@ def editCruise(request):
             if request.POST['sailors'] != "|":
                 for i in request.POST["sailors"][1:-1].split('|'):
                     idx = int(i)
-                    responsible = get_object_or_404(account, id=idx)
-                    
+                    responsible = get_object_or_404(sailor, id=idx)
                     form.instance.sailors.add(responsible)
-
-
-            return redirect("cruisesOverview")
+         #   return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "yearDropdown": yearDropdown, "reise": 1, "selectedYear": year})
         form.errors.as_data()
-        return redirect("cruisesOverview")
+        reise = cruise.objects.get(id=cid)
+        cruiseShares = cruiseShare.objects.all().filter(Cruise=reise).order_by(order,'cosailor')
+        return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
+        
+        #return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "yearDropdown": yearDropdown, "id": cid, "selectedYear": year})
     else:
         if ('id' in request.GET):
             id = request.GET['id']
@@ -117,14 +143,11 @@ def editCruise(request):
                 reise = cruise.objects.get(id=id)
                 form = formCruise(instance=reise)
                 cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
-#                sailors = []
-#                for share in cruiseShares:
-#                    sailors.append(share.cosailor)
-                return render(request, "cruises/form_template.html", {"form": form, "cruise": reise, "cruiseShares" : cruiseShares}) #, "sailors": sailors
+                return render(request, "cruises/form_template.html", {"form": form, "cruise": reise, "cruiseShares" : cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year}) 
             else:
                 # ID ist zwar gegeben, existiert aber nicht
-                return redirect("cruisesOverview")
-
+                cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
+                return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "yearDropdown": yearDropdown, "selectedYear": year})
         else:
             # Keine ID gegeben, neuen Artikel anlegen
             form = formCruise()

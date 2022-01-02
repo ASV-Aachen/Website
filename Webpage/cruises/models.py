@@ -5,11 +5,8 @@ from django.db import models
 # Create your models here.
 import datetime
 from django.contrib.auth.models import User
-from arbeitsstunden.models import account
 
 class sailor(models.Model):
-    isNew = models.BooleanField(default=False)
-
     name = models.CharField(max_length=256, default="TESTNUTZER")
 
     def __str__(self):
@@ -23,14 +20,20 @@ class cruise(models.Model):
     startPort = models.CharField(max_length=128)
     endPort = models.CharField(max_length=128)
     maxBerths = models.IntegerField()
-    sailors = models.ManyToManyField(account, blank=True, null=True, through="cruiseShare")
+    sailors = models.ManyToManyField(sailor, blank=True, null=True, through="cruiseShare")
     
+    def getCrewsize(self):
+        size = 23
+        size = cruiseShare.objects.all().filter(Cruise=self).count()
+        return size
+
+
     def __str__(self):
         return self.name
 
 class cruiseShare(models.Model):
     Cruise = models.ForeignKey(cruise, on_delete=models.RESTRICT)
-    cosailor = models.ForeignKey(account, on_delete=models.RESTRICT)
+    cosailor = models.ForeignKey(sailor, on_delete=models.RESTRICT)
 
     SKIPPER = 'S'
     WATCH = 'W'

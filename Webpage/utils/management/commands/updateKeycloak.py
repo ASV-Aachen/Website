@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from arbeitsstunden.models import account, customHours, getCurrentSeason
+from cruises.models import sailor
 
 from utils.keycloak import *
 
@@ -44,4 +45,8 @@ class Command(BaseCommand):
                 print(e)
                 pass
 
-
+        # Sailor anlegen
+        for user in profile.objects.all():
+            if user.sailorID is None:
+                temp, _ = sailor.objects.get_or_create(name=user.user.first_name + " " + user.user.last_name)
+                user.sailorID = temp
