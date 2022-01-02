@@ -23,7 +23,9 @@ app_name: "cruises"
 urlpatterns = [
     path('', views.overview, name="cruisesOverview"),
     path('cruisesOverview', views.overview, name="cruisesOverview"),
-    path('cruisesOverview/<int:id>', views.overviewx, name="cruisesOverview"),
+    path('cruisesOverview/<int:id>', views.overview, name="cruisesOverview"),
+    path('cruisesOverview/<int:year>/<int:id>', views.overview, name="cruisesOverview"),
+    path('cruisesOverview/<int:year>', views.overview, name="cruisesOverview"),
     path('newCruise', views.newCruise, name="newCruise"),
     path('editCruise', views.editCruise, name="editCruise"),
     path('deleteCruise', views.deleteCruise, name="deleteCruise"),

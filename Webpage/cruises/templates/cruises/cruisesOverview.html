@@ -17,7 +17,20 @@
 {% endblock headerimage%}
 
 {% block content %}
-<h2>Seereisenplan</h2>
+
+<nav id="cruise-nav" class="navbar navbar-expand-lg navbar-light bg-light asvcolorblue">
+  <ul class="navbar-nav mr-auto px-0 px-lg-0">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle px-0" role="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="{% url 'cruisesOverview' %}">
+        <h2>Seereisenplan {{selectedYear}}</h2></a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for year in yearDropdown %}
+          <li><a class="dropdown-item" href="{% url 'cruisesOverview' %}?year={{ year }}"> {{ year }} </a></li>
+        {% endfor %}
+        </ul>
+    </li>
+  </ul>
+</nav>
   
 <!-- <h3 class="pb-3 mb-4 font-italic border-bottom">Seereisenplan</h3> -->
   
@@ -54,10 +67,10 @@
                 <td>{{ cruise.startPort }} <br/> {{ cruise.startDate }}</td>
                 <td>{{ cruise.endPort }} <br/> {{ cruise.endDate }}</td>
                 <td>{{ cruise.maxBerths }}</td>
-                <td> <a type="button" class="btn btn-info btn-sm" href="{% url 'cruisesOverview' %}?id={{ cruise.id }}">I</a> </td>
+                <td> <a type="button" class="btn btn-info btn-sm" href="{% url 'cruisesOverview' %}?year={{ selectedYear }}&id={{ cruise.id }}">I</a> </td>
                 {% if request.user|has_group:"Seereisenkoordinator" %}
-                  <td> <a type="button" class="btn btn-success btn-sm" href="{% url 'editCruise' %}?id={{ cruise.id }}">B</a> </td>
-                  <td> <a type="button" class="btn btn-danger btn-sm" href="{% url 'deleteCruise' %}?id={{ cruise.id }}">X</a> </td>
+                  <td> <a type="button" class="btn btn-success btn-sm" href="{% url 'editCruise' %}?year={{ selectedYear }}&id={{ cruise.id }}">B</a> </td>
+                  <td> <a type="button" class="btn btn-danger btn-sm" href="{% url 'deleteCruise' %}?year={{ selectedYear }}&id={{ cruise.id }}">X</a> </td>
                 {% endif %}
               </tr>
             {% endfor %}
@@ -90,13 +103,13 @@
             <td>{{ share.cosailor }}</td>
             <td>{{ share.SailAs }}
               {% if request.user|has_group:"Seereisenkoordinator" %}
-              <a type="button" class="btn btn-info btn-sm" href="{% url 'makeCrew' %}?id={{ share.id }}&cid={{ reise.id }}">C</a>
-              <a type="button" class="btn btn-info btn-sm" href="{% url 'makeWatch' %}?id={{ share.id }}&cid={{ reise.id }}">W</a>
-              <a type="button" class="btn btn-info btn-sm" href="{% url 'makeSkipper' %}?id={{ share.id }}&cid={{ reise.id }}">S</a>
+              <a type="button" class="btn btn-info btn-sm" href="{% url 'makeCrew' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ reise.id }}">C</a>
+              <a type="button" class="btn btn-info btn-sm" href="{% url 'makeWatch' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ reise.id }}">W</a>
+              <a type="button" class="btn btn-info btn-sm" href="{% url 'makeSkipper' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ reise.id }}">S</a>
             {% endif %}
           </td>
             {% if request.user|has_group:"Seereisenkoordinator" %}
-              <td> <a type="button" class="btn btn-danger btn-sm" href="{% url 'deleteCruiseShare' %}?id={{ share.id }}&cid={{ reise.id }}">X</a> </td>
+              <td> <a type="button" class="btn btn-danger btn-sm" href="{% url 'deleteCruiseShare' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ reise.id }}">X</a> </td>
             {% endif %}
           </tr>
         {% endfor %}

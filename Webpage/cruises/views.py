@@ -24,16 +24,29 @@ from utils.member import userToHash
 
 
 def overview(request):
+    yearDropdown = []
+    for y in range((datetime.datetime.now().year), 2011, -1):
+        yearDropdown.append(y)
     if ('id' in request.GET):
         id = request.GET['id']
         if(cruise.objects.filter(id=id).exists()):
-            cruises = cruise.objects.all().order_by('startDate')
             reise = cruise.objects.get(id=id)
             cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+            if ('year' in request.GET):
+                year = request.GET['year']
+                cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
+                return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
+            cruises = cruise.objects.all().order_by('startDate')
             return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares})
+    elif ('year' in request.GET):
+        year = request.GET['year']
+        cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
+        return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "yearDropdown": yearDropdown, "selectedYear": year})
     else:
-        cruises = cruise.objects.all().order_by('startDate')
-        return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises})
+        selectedYear=datetime.datetime.now().year
+        cruises = cruise.objects.filter(startDate__year=selectedYear).order_by('startDate')
+
+        return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "yearDropdown": yearDropdown, "selectedYear": selectedYear})
 
 def overviewx(request, id):
     if(cruise.objects.filter(id=id).exists()):
@@ -127,20 +140,32 @@ def deleteCruise(request):
     return redirect("cruisesOverview")
 
 def deleteCruiseShare(request):
+    yearDropdown = []
+    for y in range((datetime.datetime.now().year), 2011, -1):
+        yearDropdown.append(y)
+    
     if ('id' in request.GET) and request.GET['id'] != "":
-
         id = request.GET['id']
         cruiseShare.objects.get(id=id).delete()
 
     if ('cid' in request.GET) and request.GET['cid'] != "":
         cid = request.GET['cid']
+        if ('year' in request.GET):
+            year = request.GET['year']
+            reise = cruise.objects.get(id=cid)
+            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+            cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
+            return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
         return redirect('cruisesOverview', id=cid)
-
     return redirect("cruisesOverview")
 
-def makeCrew(request):
-    if ('id' in request.GET) and request.GET['id'] != "":
 
+def makeCrew(request):
+    yearDropdown = []
+    for y in range((datetime.datetime.now().year), 2011, -1):
+        yearDropdown.append(y)
+
+    if ('id' in request.GET) and request.GET['id'] != "":
         id = request.GET['id']
         share = cruiseShare.objects.get(id=id)
         share.SailAs = 'C'
@@ -148,13 +173,21 @@ def makeCrew(request):
 
     if ('cid' in request.GET) and request.GET['cid'] != "":
         cid = request.GET['cid']
+        if ('year' in request.GET):
+            year = request.GET['year']
+            reise = cruise.objects.get(id=cid)
+            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+            cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
+            return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
         return redirect('cruisesOverview', id=cid)
-
     return redirect("cruisesOverview")
 
 def makeWatch(request):
+    yearDropdown = []
+    for y in range((datetime.datetime.now().year), 2011, -1):
+        yearDropdown.append(y)
+    
     if ('id' in request.GET) and request.GET['id'] != "":
-
         id = request.GET['id']
         share = cruiseShare.objects.get(id=id)
         share.SailAs = 'W'
@@ -162,20 +195,33 @@ def makeWatch(request):
         
     if ('cid' in request.GET) and request.GET['cid'] != "":
         cid = request.GET['cid']
+        if ('year' in request.GET):
+            year = request.GET['year']
+            reise = cruise.objects.get(id=cid)
+            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+            cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
+            return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
         return redirect('cruisesOverview', id=cid)
-
     return redirect("cruisesOverview")
 
 def makeSkipper(request):
+    yearDropdown = []
+    for y in range((datetime.datetime.now().year), 2011, -1):
+        yearDropdown.append(y)
+   
     if ('id' in request.GET) and request.GET['id'] != "":
-
         id = request.GET['id']
         share = cruiseShare.objects.get(id=id)
         share.SailAs = 'S'
         share.save()
-    
+   
     if ('cid' in request.GET) and request.GET['cid'] != "":
         cid = request.GET['cid']
+        if ('year' in request.GET):
+            year = request.GET['year']
+            reise = cruise.objects.get(id=cid)
+            cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+            cruises = cruise.objects.filter(startDate__year=year).order_by('startDate')
+            return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
         return redirect('cruisesOverview', id=cid)
-
     return redirect("cruisesOverview")
