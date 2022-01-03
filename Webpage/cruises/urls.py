@@ -26,13 +26,14 @@ urlpatterns = [
     path('cruisesOverview/<int:id>', views.overview, name="cruisesOverview"),
     path('cruisesOverview/<int:year>/<int:id>', views.overview, name="cruisesOverview"),
     path('cruisesOverview/<int:year>', views.overview, name="cruisesOverview"),
+    path('sailorOverview', views.sailorOverview, name="sailorOverview"),
     path('newCruise', views.newCruise, name="newCruise"),
     path('editCruise', views.editCruise, name="editCruise"),
     path('deleteCruise', views.deleteCruise, name="deleteCruise"),
     path('deleteCruiseShare', views.deleteCruiseShare, name="deleteCruiseShare"),
     path('makeCrew', views.makeCrew, name="makeCrew"),
     path('makeWatch', views.makeWatch, name="makeWatch"),
-    path('makeSkipper', views.makeSkipper, name="makeSkipper")
-
-
+    path('makeSkipper', views.makeSkipper, name="makeSkipper"),
+    path('setWatch', views.setWatch, name="setWatch"),
+    path('setSkipper', views.setSkipper, name="setSkipper")
 ]

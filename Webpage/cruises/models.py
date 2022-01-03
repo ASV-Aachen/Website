@@ -6,8 +6,26 @@ from django.db import models
 import datetime
 from django.contrib.auth.models import User
 
+class patent(models.Model):
+    SKIPPER = 'S'
+    WATCH = 'W'
+    CREW = 'C'
+    PATENT_TYPE = [
+        (SKIPPER, 'Schiffer'),
+        (WATCH, 'Wachführer'),
+        (CREW, 'Crewmitglied')
+    ]
+    Type = models.CharField(max_length=1, choices=PATENT_TYPE, default='C')
+    Since = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return self.Type
+
 class sailor(models.Model):
     name = models.CharField(max_length=256, default="TESTNUTZER")
+    givenName = models.CharField(max_length=128, default="TEST")
+    sirName = models.CharField(max_length=128, default="NUTZER")
+    ownedPatent = models.OneToOneField(patent, blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -48,18 +66,6 @@ class cruiseShare(models.Model):
 
     def __str__(self):
         return str(self.cosailor) + " sailed at " + str(self.Cruise) + str(self.Distance) + " nm as " + str(self.SailAs)
-
-class patent(models.Model):
-    Owner = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    SKIPPER = 'S'
-    WATCH = 'W'
-    PATENT_TYPE = [
-        (SKIPPER, 'Schiffer'),
-        (WATCH, 'Wachführer'),
-    ]
-    Type = models.CharField(max_length=1, choices=PATENT_TYPE)
-    Since = models.DateField()
 
 class license(models.Model):
     Owner = models.ForeignKey(User, on_delete=models.CASCADE)

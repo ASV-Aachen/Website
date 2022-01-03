@@ -115,12 +115,28 @@
           {% endfor %}
       </tbody>
     </table>
+    {% else %}
+    Aktuelle Crewliste:
+    <table id="Table" class="table table-striped table-bordered">
+      <col style="width:85%">
+      <col style="width:15%">
+
+      <tbody>
+          {% for share in cruiseShares %}
+            <tr>
+              <td>{{ share.cosailor.givenName }}</td>
+              <td>{{ share.SailAs }}</td>
+            </tr>
+          {% endfor %}
+      </tbody>
+    </table>
     {% endif %}
   {% endif %}
   </br>
   
   {% if request.user|has_group:"Seereisenkoordinator" %}
     <a type="button" class="btn btn-info" href="{% url 'newCruise' %}">+ Reise</a>
+    <a type="button" class="btn btn-info" href="{% url 'sailorOverview' %}">Segler</a>
   {% endif %}
 {% endblock aside %}
 

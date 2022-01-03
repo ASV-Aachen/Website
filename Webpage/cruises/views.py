@@ -22,6 +22,9 @@ from member.models import profile
 from utils.loginFunctions import *
 from utils.member import userToHash
 
+def sailorOverview(request):
+    sailors = sailor.objects.all().order_by('givenName')
+    return render(request, "cruises/sailorOverview.html", context={"sailors": sailors})
 
 def overview(request):
     yearDropdown = []
@@ -125,8 +128,11 @@ def editCruise(request):
             if request.POST['sailors'] != "|":
                 for i in request.POST["sailors"][1:-1].split('|'):
                     idx = int(i)
-                    responsible = get_object_or_404(sailor, id=idx)
-                    form.instance.sailors.add(responsible)
+                    person = get_object_or_404(sailor, id=idx)
+                    cs1 = cruiseShare(cosailor = person, Cruise = form.instance)
+                    if (person.ownedPatent):
+                        cs1.SailAs=person.ownedPatent.Type
+                    cs1.save()
          #   return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "yearDropdown": yearDropdown, "reise": 1, "selectedYear": year})
         form.errors.as_data()
         reise = cruise.objects.get(id=cid)
@@ -256,3 +262,23 @@ def makeSkipper(request):
             return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "reise": reise, "cruiseShares": cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year})
         return redirect('cruisesOverview', id=cid)
     return redirect("cruisesOverview")
+
+def setWatch(request):
+    if ('id' in request.GET) and request.GET['id'] != "":
+        id = request.GET['id']
+        sailorId = sailor.objects.get(id=id)
+        p1 = patent(Type = 'W')
+        p1.save()
+        sailorId.ownedPatent = p1
+        sailorId.save()
+    return redirect("sailorOverview")
+
+def setSkipper(request):
+    if ('id' in request.GET) and request.GET['id'] != "":
+        id = request.GET['id']
+        sailorId = sailor.objects.get(id=id)
+        p1 = patent(Type = 'S')
+        p1.save()
+        sailorId.ownedPatent = p1
+        sailorId.save()
+    return redirect("sailorOverview")
