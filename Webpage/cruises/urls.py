@@ -35,5 +35,9 @@ urlpatterns = [
     path('makeWatch', views.makeWatch, name="makeWatch"),
     path('makeSkipper', views.makeSkipper, name="makeSkipper"),
     path('setWatch', views.setWatch, name="setWatch"),
-    path('setSkipper', views.setSkipper, name="setSkipper")
+    path('setSkipper', views.setSkipper, name="setSkipper"),
+    path('sailorDetails', views.sailorDetails, name="sailorDetails"),
+    path('sailorDetails/<int:id>', views.sailorDetails, name="sailorDetails"),
+    path('addLicense/<int:id>', views.addLicense, name="addLicense"),
+    path('addLicense', views.addLicense, name="addLicense")
 ]

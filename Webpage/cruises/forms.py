@@ -16,3 +16,9 @@ class formCruise(forms.ModelForm):
     #sailor = AutoCompleteSelectMultipleField('skippers', help_text="Schiffer", required=False)
     #sailor = AutoCompleteSelectMultipleField('watches', help_text="Wachführer", required=False)
     sailors = AutoCompleteSelectMultipleField('sailors', help_text="Crewmitglieder", required=False)
+
+class formLicense(forms.ModelForm):
+    
+    class Meta:
+        model = license
+        fields = ['Type', 'Since', 'LicenseNumber']

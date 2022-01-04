@@ -16,13 +16,15 @@
     <img src="/static/img/header/cat_s0.jpg" alt="">
 {% endblock headerimage%}
 
+
 {% block content %}
+{% if request.user.is_authenticated %}
 
 <nav id="cruise-nav" class="navbar navbar-expand-lg asvcolorblue">
   <ul class="navbar-nav mr-auto px-0 px-lg-0">
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle px-0" role="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="{% url 'cruisesOverview' %}">
-        <h2>Seereisenplan {{selectedYear}}</h2></a>
+        <h2>Übersicht Segler {{selectedYear}}</h2></a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         {% for year in yearDropdown %}
           <li><a class="dropdown-item" href="{% url 'cruisesOverview' %}?year={{ year }}"> {{ year }} </a></li>
@@ -35,14 +37,16 @@
 <!-- <h3 class="pb-3 mb-4 font-italic border-bottom">Seereisenplan</h3> -->
   
   <table id="Table" class="table table-striped table-bordered">
-        <col style="width:40%">
-        <col style="width:20%">
-        <col style="width:20%">
-        <col style="width:20%">
+        <col style="width:25%">
+        <col style="width:25%">
+        <col style="width:15%">
+        <col style="width:10%">
+        <col style="width:15%">
         <thead>
             <tr>
               <th>Vorname</th>
               <th>Nachname</th>
+              <th>Meilen</th>
               <th>Patent</th>
               <th></th>
             </tr>
@@ -50,8 +54,9 @@
         <tbody>
             {% for sailor in sailors %}
               <tr>
-                <td>{{ sailor.name }}</td>
+                <td><a href="{% url 'sailorDetails' %}?id={{ sailor.id }}">{{ sailor.name }}</a></td>
                 <td>{{ sailor.sirName }} </td>
+                <td>{{ sailor.getMiles }} </td>
                 <td> {% if sailor.ownedPatent %} {{ sailor.ownedPatent }} {% endif %}</td>
                 <td>
                 {% if request.user|has_group:"Seereisenkoordinator" %}
@@ -63,7 +68,9 @@
             {% endfor %}
         </tbody>
     </table>
- {% endblock content %}
+{% endif %}
+{% endblock content %}
+
 
 <!-- Hier seitenbereich gestalten falls gewünscht -->
 {% block aside %}

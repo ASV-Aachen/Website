@@ -26,6 +26,54 @@ def sailorOverview(request):
     sailors = sailor.objects.all().order_by('givenName')
     return render(request, "cruises/sailorOverview.html", context={"sailors": sailors})
 
+def sailorDetails(request):
+    if ('id' in request.GET):
+        id = request.GET['id']
+        sailorId = sailor.objects.get(id=id)
+        cruiseShares = cruiseShare.objects.all().filter(cosailor=id).order_by('Cruise__startDate')
+        licenses = license.objects.all().filter(Owner=id)
+        return render(request, "cruises/sailorDetails.html", context={"sailor": sailorId, "shares": cruiseShares, "licenses":licenses})
+    else:
+        sailors = sailor.objects.all().order_by('givenName')
+        return render(request, "cruises/sailorOverview.html", context={"sailors": sailors})
+
+def addLicense(request):
+    if(request.method == "POST"):
+        form = formLicense(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            id = request.GET['id']
+            sailorId = sailor.objects.get(id=id)
+            form.instance.Owner=sailorId
+            form.save()
+        if ('id' in request.GET):
+            id = request.GET['id']
+            sailorId = sailor.objects.get(id=id)
+            cruiseShares = cruiseShare.objects.all().filter(cosailor=id).order_by('Cruise__startDate')
+            licenses = license.objects.all().filter(Owner=id)
+            return render(request, "cruises/sailorDetails.html", context={"sailor": sailorId, "shares": cruiseShares, "licenses":licenses})
+        else:
+            sailors = sailor.objects.all().order_by('givenName')
+            return render(request, "cruises/sailorOverview.html", context={"sailors": sailors})
+    else:
+        if ('id' in request.GET):
+            id = request.GET['id']
+            # ID gegeben, also Daten laden
+            if(sailor.objects.filter(id=id).exists()):
+                # ID existiert, also zurückgeben
+                owner = sailor.objects.get(id=id)
+                form = formLicense()
+                return render(request, "cruises/form_template.html", {"form": form, "Owner": owner})
+            else:
+                # ID ist zwar gegeben, existiert aber nicht
+                return redirect("sailorOverview")
+
+        else:
+            # Keine ID gegeben, neuen Artikel anlegen
+            form = formLicense()
+            return render(request, "cruises/form_template.html", {"form": form})
+    pass
+
 def overview(request):
     yearDropdown = []
     for y in range((datetime.datetime.now().year), 2011, -1):

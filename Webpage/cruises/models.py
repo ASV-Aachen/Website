@@ -27,6 +27,13 @@ class sailor(models.Model):
     sirName = models.CharField(max_length=128, default="NUTZER")
     ownedPatent = models.OneToOneField(patent, blank=True, null=True, on_delete=models.CASCADE)
 
+    def getMiles(self):
+        cruiseShares = cruiseShare.objects.all().filter(cosailor=self)
+        miles = 0
+        for share in cruiseShares:
+            miles+=share.Distance
+        return miles
+
     def __str__(self):
         return self.name
 
@@ -68,7 +75,7 @@ class cruiseShare(models.Model):
         return str(self.cosailor) + " sailed at " + str(self.Cruise) + str(self.Distance) + " nm as " + str(self.SailAs)
 
 class license(models.Model):
-    Owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    Owner = models.ForeignKey(sailor, on_delete=models.CASCADE)
 
     SHS = 'SHS'
     SSS = 'SSS'
@@ -80,14 +87,13 @@ class license(models.Model):
     LICENSE_TYPE = [
         (SHS, 'Sporthochseeschifferschein'),
         (SSS, 'Sportseeschifferschein'),
-        (SKS, 'Sportlüstenschifferschein'),
+        (SKS, 'Sportküstenschifferschein'),
         (SBS, 'Sportbootführerschein See'),
         (SBB, 'Sportbootführerschein Binnen'),
         (SRC, 'Short Range Certificate'),
         (LRC, 'Long Range Certificate'),
     ]
 
-
     Type = models.CharField(max_length=3, choices=LICENSE_TYPE)
     Since = models.DateField()
-    LicenseNumber = models.CharField(max_length=16)
+    LicenseNumber = models.CharField(max_length=16, blank=True)
