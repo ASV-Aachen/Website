@@ -181,7 +181,11 @@ def editCruise(request):
                     if (person.ownedPatent):
                         cs1.SailAs=person.ownedPatent.Type
                     cs1.save()
-         #   return render(request, "cruises/cruisesOverview.html", context={"cruises": cruises, "yearDropdown": yearDropdown, "reise": 1, "selectedYear": year})
+            if request.POST['distance'] != "":
+                cruiseShares = cruiseShare.objects.all().filter(Cruise=form.instance).order_by(order,'cosailor')
+                for share in cruiseShares:
+                    share.Distance=request.POST['distance']
+                    share.save()
         form.errors.as_data()
         reise = cruise.objects.get(id=cid)
         cruiseShares = cruiseShare.objects.all().filter(Cruise=reise).order_by(order,'cosailor')
@@ -196,7 +200,7 @@ def editCruise(request):
                 # ID existiert, also zurückgeben
                 reise = cruise.objects.get(id=id)
                 form = formCruise(instance=reise)
-                cruiseShares = cruiseShare.objects.all().filter(Cruise=reise)
+                cruiseShares = cruiseShare.objects.all().filter(Cruise=reise).order_by(order,'cosailor')
                 return render(request, "cruises/form_template.html", {"form": form, "cruise": reise, "cruiseShares" : cruiseShares, "yearDropdown": yearDropdown, "selectedYear": year}) 
             else:
                 # ID ist zwar gegeben, existiert aber nicht

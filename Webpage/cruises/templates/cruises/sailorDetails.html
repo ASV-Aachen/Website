@@ -89,6 +89,9 @@
           {% if request.user|has_group:"Seereisenkoordinator" %}
           <th>Nummer</th>
           {% endif %}
+          {% if request.user.sailorId == sailor %}
+          <th>Nummer</th>
+          {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -104,8 +107,9 @@
     </tbody>
 </table>
 
-<a type="button" class="btn btn-info" href="{% url 'addLicense' %}?id={{ sailor.id }}">Schein hinzufügen</a>
-
+{% if request.user|has_group:"Seereisenkoordinator" %}
+    <a type="button" class="btn btn-info" href="{% url 'addLicense' %}?id={{ sailor.id }}">Schein hinzufügen</a>
+{% endif %}
 <br/>
 <br/>
   

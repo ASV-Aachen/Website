@@ -15,7 +15,8 @@ class formCruise(forms.ModelForm):
         fields = ['name', 'description', 'startDate', 'endDate', 'startPort', 'endPort', 'maxBerths']
     #sailor = AutoCompleteSelectMultipleField('skippers', help_text="Schiffer", required=False)
     #sailor = AutoCompleteSelectMultipleField('watches', help_text="Wachführer", required=False)
-    sailors = AutoCompleteSelectMultipleField('sailors', help_text="Crewmitglieder", required=False)
+    sailors = AutoCompleteSelectMultipleField('sailors', required=False)
+    distance = forms.CharField(required=False, max_length=10)
 
 class formLicense(forms.ModelForm):
     
