@@ -58,8 +58,8 @@
             {% for cruise in cruises %}
               <tr>
                 <td>{{ cruise.name }}</td>
-                <td>{{ cruise.startPort }} <br/> {{ cruise.startDate }}</td>
-                <td>{{ cruise.endPort }} <br/> {{ cruise.endDate }}</td>
+                <td>{{ cruise.startPort }} <br/> {{ cruise.startDate|date:'d.m.Y' }}</td>
+                <td>{{ cruise.endPort }} <br/> {{ cruise.endDate|date:'d.m.Y' }}</td>
                 <td>{{ cruise.getCrewsize }} / {{cruise.maxBerths}} </td>
                 <td>  
                 {% if request.user|has_group:"Seereisenkoordinator" %}
@@ -80,7 +80,7 @@
 {% block aside %}
   {% if reise != null %}
     <h2 class="pb-2 mb-2 border-bottom">{{ reise.name }}</h2>
-    Die Reise startet in {{ reise.startPort }} ({{ reise.startDate }}) und endet in {{ reise.endPort }} ({{ reise.endDate }}).<br>
+    Die Reise startet in {{ reise.startPort }} ({{ reise.startDate|date:'d.m.Y' }}) und endet in {{ reise.endPort }} ({{ reise.endDate|date:'d.m.Y' }}).<br>
     <br>
     {{reise.description}}<br>
     <br>

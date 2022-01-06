@@ -13,6 +13,10 @@ class formCruise(forms.ModelForm):
     class Meta:
         model = cruise
         fields = ['name', 'description', 'startDate', 'endDate', 'startPort', 'endPort', 'maxBerths']
+        widgets = {
+            "startDate": DatePickerInput(format='%d.%m.%Y'),
+            "endDate": DatePickerInput(format='%d.%m.%Y')
+        }
     #sailor = AutoCompleteSelectMultipleField('skippers', help_text="Schiffer", required=False)
     #sailor = AutoCompleteSelectMultipleField('watches', help_text="Wachführer", required=False)
     sailors = AutoCompleteSelectMultipleField('sailors', required=False)

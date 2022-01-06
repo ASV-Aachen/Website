@@ -15,7 +15,7 @@
 {% endblock headerimage%}
 
 {% block content %}
-    <h2 class="pb-3 mb-4 font-italic border-bottom">{{model_name}} {% if form.instance.id %}bearbeiten{% else %}anlegen{%endif%}</h3>
+    <h2 class="pb-2 mb-2 border-bottom">{{ model__name }} {% if form.instance.id %}Bearbeiten{% else %}Anlegen{%endif%}</h2>
     <form method="POST" class="post-form">
         {% csrf_token %}
         {{ form.media }}
@@ -30,7 +30,7 @@
 <!-- Hier seitenbereich gestalten falls gewünscht -->
 {% block aside %}
   <h2 class="pb-2 mb-2 border-bottom">{{ cruise.name }}</h2>
-  Die Reise startet in {{ cruise.startPort }} ({{ cruise.startDate }}) und endet in {{ cruise.endPort }} ({{ cruise.endDate }}).<br>
+  Die Reise startet in {{ cruise.startPort }} ({{ cruise.startDate|date:'d.m.Y' }}) und endet in {{ cruise.endPort }} ({{ cruise.endDate|date:'d.m.Y' }}).<br>
   <br>
   {{cruise.description}}
   <br>

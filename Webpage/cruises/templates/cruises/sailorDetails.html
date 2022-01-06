@@ -60,8 +60,8 @@
         {% for share in shares %}
           <tr>
             <td>{{ share.Cruise.name }}</td>
-            <td>{{ share.Cruise.startPort }} <br/> {{ share.Cruise.startDate }}</td>
-            <td>{{ share.Cruise.endPort }} <br/> {{ share.Cruise.endDate }}</td>
+            <td>{{ share.Cruise.startPort }} <br/> {{ share.Cruise.startDate|date:'d.m.Y' }}</td>
+            <td>{{ share.Cruise.endPort }} <br/> {{ share.Cruise.endDate|date:'d.m.Y' }}</td>
             <td>{{ share.SailAs }}</td>
             <td>{{ share.Distance}}</td>
           </tr>
@@ -98,7 +98,7 @@
         {% for license in licenses %}
           <tr>
             <td>{{ license.Type }}</td>
-            <td>{{ license.Since }}</td>
+            <td>{{ license.Since|date:'d.m.Y' }}</td>
             {% if request.user|has_group:"Seereisenkoordinator" %}
             <td>{{ license.LicenseNumber }}</td>
             {% endif %}
