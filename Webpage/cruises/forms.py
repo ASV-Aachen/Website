@@ -8,14 +8,18 @@ from ajax_select.fields import AutoCompleteSelectField, AutoCompleteSelectMultip
 
 from .models import *
 
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
 class formCruise(forms.ModelForm):
     
     class Meta:
         model = cruise
         fields = ['name', 'description', 'startDate', 'endDate', 'startPort', 'endPort', 'maxBerths']
         widgets = {
-            "startDate": DatePickerInput(format='%d.%m.%Y'),
-            "endDate": DatePickerInput(format='%d.%m.%Y')
+            "startDate": DateInput(),
+            "endDate": DateInput()
         }
     #sailor = AutoCompleteSelectMultipleField('skippers', help_text="Schiffer", required=False)
     #sailor = AutoCompleteSelectMultipleField('watches', help_text="Wachführer", required=False)
