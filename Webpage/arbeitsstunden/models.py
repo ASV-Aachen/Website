@@ -9,8 +9,7 @@ from django.contrib.auth.models import User
 def getCurrentSeason():
     Year = datetime.datetime.now().year
     temp = season.objects.get_or_create(
-        year = Year,
-        hours = 40
+        year = Year
     )
     if temp[1]:
         for i in account.objects.all():
@@ -30,7 +29,7 @@ class tag(models.Model):
 
 class season(models.Model):
     year = models.IntegerField(primary_key=True)  # Erstes Jahr der Saison, z.B. "2020" => Saison 2020/21
-    hours = models.IntegerField()
+    hours = models.IntegerField(default = 40)
 
     def __str__(self):
         return "Saison " + str(self.year) + "/" + str(self.year + 1)[-2:]
@@ -113,6 +112,23 @@ class customHours(models.Model):
 
     customHours = models.IntegerField(null=True)
     percentege = models.IntegerField(default=100)
+    
+    active = 1
+    guest = 2
+    inactive = 3
+    old_man = 4
+    prospect = 5
+    quit = 6
+    status_info = (
+        (active, 'ACTIVE'),
+        (guest, 'GUEST'),
+        (inactive, 'INACTIVE'),
+        (old_man, 'OLD_MAN'),
+        (prospect, 'PROSPECT'),
+        (quit, 'QUIT'),
+    )
+    
+    status = models.SmallIntegerField(choices=status_info, null=True)
 
     class Meta:
         unique_together = (("season", "used_account"),)
@@ -123,7 +139,7 @@ class customHours(models.Model):
 
     def getCustomHours(self):
         # Prozentualer Anteil
-        return self.customHours * self.percentege / 100
+        return self.customHours
         pass
 
     pass

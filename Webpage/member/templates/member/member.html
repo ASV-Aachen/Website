@@ -1,0 +1,90 @@
+<!--/templates/custom.html-->
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} ASV-Aachen - Leere Seite {% endblock title %}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+{% endblock styles %}
+{% block headerimage%}
+    <img src="/static/img/header/cat_s0.jpg" alt="">
+{% endblock headerimage%}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% if profil.profile_image%}
+                <div class="col-sm-2 col-md-2">
+                    <img src="{{profil.profile_image.url}}"
+                    alt="" class="img-rounded img-responsive" />
+                </div>
+            {% comment %} <img style="width: 155px;height: 233px;min-width: 166px;min-height: 233px;border-radius: 10px;margin: 5px;" src="{{profil.profile_image.url}}"> {% endcomment %}
+        {% else %}
+            {% comment %} <img style="width: 155px;height: 233px;min-width: 166px;min-height: 233px;border-radius: 10px;margin: 5px;" src="{% static 'img/standard_profile_picture_cropt.png' %}" > {% endcomment %}
+            <div class="col-sm-2 col-md-2"> 
+                <img src="{% static 'img/standard_profile_picture_cropt.png' %}" alt="" class="img-rounded img-responsive" />
+        </div>
+        {% endif %}
+        
+
+        <div class="col-sm-4 col-md-4">
+            <blockquote>
+                <p>{{profil.user.first_name}} {{profil.user.last_name}}</p> 
+                {% if profil.country%}
+                    <small><cite title="Source Title">{{ profil.hometown }}, {{ profil.country }} <i class="glyphicon glyphicon-map-marker"></i></cite></small>
+                {% endif %}
+            </blockquote>
+            <p> 
+            <i class="glyphicon glyphicon-envelope"></i> 
+                {{ profil.user.email }}
+                <br /> 
+                <i class="glyphicon glyphicon-gift"></i> {{ profil.get_status_display }} </p>
+
+                {% for membersRole in profil.roles.all %}
+                    {% load genderTitel %}
+                    {% genderTitel membersRole profil.gender_role as role %} 
+                    <div id="role" class="badge badge-pill badge-secondary" style="margin-left: 3px;">{{role}} </div>
+                {% endfor%}
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="row">
+        <div class="row w-100">
+            <div class="col-md-3">
+                <div class="card border-info mx-sm-1 p-3">
+                    <div class="text-info text-center mt-3"><h4>Arbeitsstunden</h4></div>
+                    <div class="text-info text-center mt-2"><h1> {{infos.workingHours}} </h1></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-success mx-sm-1 p-3">
+                    <div class="text-success text-center mt-3"><h4> Jahre im Verein </h4></div>
+                    {% if infos.yearsInASV is 0%}
+                        <div class="text-success text-center mt-2"><h1> >1 </h1></div>
+                    {% else %}
+                        <div class="text-success text-center mt-2"><h1> {{infos.yearsInASV}} </h1></div>    
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+ {% endblock content %}
+
+<!-- Hier seitenbereich gestalten falls gewünscht -->
+{% block aside %}
+    Hier kommen Auswertungen über den Nutzer hin
+{% endblock aside %}
+
+
+
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+{% endblock scripts %}

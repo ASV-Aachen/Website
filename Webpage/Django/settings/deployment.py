@@ -93,7 +93,6 @@ INSTALLED_APPS = [
     'simple_history',
     # 'arbeitsstunden',
     'jollen',
-    'cruises',
     'api',
 ]
 
