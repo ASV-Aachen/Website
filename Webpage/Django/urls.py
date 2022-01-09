@@ -17,6 +17,7 @@ urlpatterns = [
     path('upload_image/', upload_image),
     path('oidc/', include('mozilla_django_oidc.urls')),
     path('jollen/', include('jollen.urls')),
+    path('cruises/', include('cruises.urls')),
     url(r'^ajax_select/', include(ajax_select_urls)),
     path('api/', include('api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

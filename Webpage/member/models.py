@@ -8,6 +8,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django_resized import ResizedImageField
 import secrets
 # from arbeitsstunden.models import account
+from cruises.models import sailor
+# from arbeitsstunden.models import account
 
 
 class role(models.Model):
@@ -77,6 +79,9 @@ class profile(models.Model):
 
     # Arbeitsstunden
     # workingHoursAccount = models.ForeignKey(account, on_delete=models.RESTRICT, null = True)
+
+    # Seereisendatenbank
+    sailorID = models.ForeignKey(sailor, on_delete=models.RESTRICT, null = True)
 
     # Pluggin: https://github.com/stefanfoulis/django-phonenumber-field
     phone = PhoneNumberField(null=True, blank=True, unique=False)
