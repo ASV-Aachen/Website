@@ -29,6 +29,12 @@ def isUserPartOfGroup_Takel(user)-> bool:
         return True
     return False
 
+def isUserPartOfGroup_Seereisenkoordinator(user)-> bool:
+    # Bist du ein Admin darfst du alles
+    if user.groups.filter(name='Admin').exists() or user.groups.filter(name="Seereisenkoordinator").exists():
+        return True
+    return False
+
 # @user_passes_test(isUserPartOfGroup_Editor)
 # @user_passes_test(isUserPartOfGroup_Developer)
 # @user_passes_test(isUserPartOfGroup_Schriftwart)

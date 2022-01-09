@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% load has_group %}
+{% load crispy_forms_tags %}
+
+
+{% block title %} ASV i. A. - Seeschiff {% endblock title%}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+<link href="{% static 'member/css/Mitgliederverzeichnis.css' %}" rel="stylesheet">
+{% endblock styles %}
+{% block headerimage%}
+    <img src="/static/img/header/cat_s0.jpg" alt="">
+{% endblock headerimage%}
+
+{% block content %}
+    <h2 class="pb-2 mb-2 border-bottom">{{ model__name }} {% if form.instance.id %}Bearbeiten{% else %}Anlegen{%endif%}</h2>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <button type="submit" class="save btn btn-primary">Speichern</button>
+    </form>
+    <form>
+        <input type="button" value="Go back!" onclick="history.back()">
+    </form>
+{% endblock content %}
+
+<!-- Hier seitenbereich gestalten falls gewünscht -->
+{% block aside %}
+  <h2 class="pb-2 mb-2 border-bottom">{{ cruise.name }}</h2>
+  Die Reise startet in {{ cruise.startPort }} ({{ cruise.startDate|date:'d.m.Y' }}) und endet in {{ cruise.endPort }} ({{ cruise.endDate|date:'d.m.Y' }}).<br>
+  <br>
+  {{cruise.description}}
+  <br>
+
+  {% if request.user.is_authenticated %}
+  <table id="Table" class="table table-striped table-bordered">
+    <!--
+    {% if request.user|has_group:"Seereisenkoordinator" %}
+    <col style="width:60%">
+    <col style="width:10%">
+    <col style="width:21%">
+    <col style="width:9%">
+    {% else %}
+    -->
+    <col style="width:85%">
+    <col style="width:15%">
+    <!--
+    {% endif %}
+    -->
+
+    <tbody>
+        {% for share in cruiseShares %}
+          <tr>
+            <td>{{ share.cosailor }}</td>
+            <td>{{ share.SailAs }}</td>
+            <!--
+            {% if request.user|has_group:"Seereisenkoordinator" %}
+            <td>
+              <a type="button" class="btn btn-info btn-sm" href="{% url 'makeCrew' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ cruise.id }}">C</a>
+              <a type="button" class="btn btn-info btn-sm" href="{% url 'makeWatch' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ cruise.id }}">W</a>
+              <a type="button" class="btn btn-info btn-sm" href="{% url 'makeSkipper' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ cruise.id }}">S</a>
+            </td>
+            <td><a type="button" class="btn btn-danger btn-sm" href="{% url 'deleteCruiseShare' %}?year={{ selectedYear }}&id={{ share.id }}&cid={{ cruise.id }}">X</a></td>
+            {% endif %}
+            -->
+          </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  </br>
+  
+  {% if request.user|has_group:"Seereisenkoordinator" %}
+    <a type="button" class="btn btn-info" href="{% url 'newCruise' %}">+ Reise</a>
+  {% endif %}
+{% endblock aside %}

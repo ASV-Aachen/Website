@@ -1,0 +1,82 @@
+<!--/templates/custom.html-->
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% load has_group %}
+{% load crispy_forms_tags %}
+
+
+{% block title %} ASV i. A. - Seeschiff {% endblock title%}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+<link href="{% static 'member/css/Mitgliederverzeichnis.css' %}" rel="stylesheet">
+{% endblock styles %}
+{% block headerimage%}
+    <img src="/static/img/header/cat_s0.jpg" alt="">
+{% endblock headerimage%}
+
+
+{% block content %}
+{% if request.user.is_authenticated %}
+
+<nav id="cruise-nav" class="navbar navbar-expand-lg asvcolorblue">
+  <ul class="navbar-nav mr-auto px-0 px-lg-0">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle px-0" role="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="{% url 'cruisesOverview' %}">
+        <h2>Übersicht Segler {{selectedYear}}</h2></a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for year in yearDropdown %}
+          <li><a class="dropdown-item" href="{% url 'cruisesOverview' %}?year={{ year }}"> {{ year }} </a></li>
+        {% endfor %}
+        </ul>
+    </li>
+  </ul>
+</nav>
+  
+<!-- <h3 class="pb-3 mb-4 font-italic border-bottom">Seereisenplan</h3> -->
+  
+  <table id="Table" class="table table-striped table-bordered">
+        <col style="width:25%">
+        <col style="width:25%">
+        <col style="width:15%">
+        <col style="width:10%">
+        <col style="width:15%">
+        <thead>
+            <tr>
+              <th>Vorname</th>
+              <th>Nachname</th>
+              <th>Meilen</th>
+              <th>Patent</th>
+              <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sailor in sailors %}
+              <tr>
+                <td><a href="{% url 'sailorDetails' %}?id={{ sailor.id }}">{{ sailor.name }}</a></td>
+                <td>{{ sailor.sirName }} </td>
+                <td>{{ sailor.getMiles }} </td>
+                <td> {% if sailor.ownedPatent %} {{ sailor.ownedPatent }} {% endif %}</td>
+                <td>
+                {% if request.user|has_group:"Seereisenkoordinator" %}
+                <a type="button" class="btn btn-info btn-sm" href="{% url 'setWatch' %}?id={{ sailor.id }}">W</a>
+                <a type="button" class="btn btn-info btn-sm" href="{% url 'setSkipper' %}?id={{ sailor.id }}">S</a>
+                {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock content %}
+
+
+<!-- Hier seitenbereich gestalten falls gewünscht -->
+{% block aside %}
+  
+{% endblock aside %}
+
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+{% endblock scripts %}

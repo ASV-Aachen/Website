@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+
+<title>{% block title %} ASV i. A. - Seeschiff {% endblock %}</title>
+
+{% load crispy_forms_tags %}
+
+{% block styles %}
+    <link href="{% static 'css/Einstellungen.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block content %}
+    <h3 class="pb-3 mb-4 font-italic border-bottom">Seereisen anlegen / bearbeiten</h3>
+    <form method="POST" class="post-form" action='{{ action_url }}?id={{cruise.id}}' enctype='multipart/form-data'>
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="col-lg-4">
+                {{ form.CruiseName|as_crispy_field }}
+            </div>
+            <div class="col-lg-4">
+                {{ form.StartPort|as_crispy_field }}
+            </div>
+			<div class="col-lg-4">
+                {{ form.EndPort|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+                {{ form.MaxBerths|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {{ form.StartDate|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {{ form.EndDate|as_crispy_field }}
+            </div> 
+        </div>
+       		
+		{{ form.CruiseDescription|as_crispy_field }}
+        
+        <button type="submit" class="btn btn-primary">Speichern</button>
+    </form>
+    <form>
+        <input type="button" class="btn btn-primary" value="Go back!" onclick="history.back()">
+    </form>
+{% endblock content %}

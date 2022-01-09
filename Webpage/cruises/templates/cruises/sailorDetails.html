@@ -1,0 +1,120 @@
+<!--/templates/custom.html-->
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% load has_group %}
+{% load crispy_forms_tags %}
+
+
+{% block title %} ASV i. A. - Seeschiff {% endblock title%}
+
+<!-- Hier können app-spezifische  Styles dazugeladen werden-->
+{% block styles %}
+<link href="{% static 'member/css/Mitgliederverzeichnis.css' %}" rel="stylesheet">
+{% endblock styles %}
+{% block headerimage%}
+    <img src="/static/img/header/cat_s0.jpg" alt="">
+{% endblock headerimage%}
+
+
+{% block content %}
+{% if request.user.is_authenticated %}
+<!--
+<nav id="cruise-nav" class="navbar navbar-expand-lg asvcolorblue">
+  <ul class="navbar-nav mr-auto px-0 px-lg-0">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle px-0" role="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="{% url 'cruisesOverview' %}">
+        <h2>Übersicht Segler {{selectedYear}}</h2></a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for year in yearDropdown %}
+          <li><a class="dropdown-item" href="{% url 'cruisesOverview' %}?year={{ year }}"> {{ year }} </a></li>
+        {% endfor %}
+        </ul>
+    </li>
+  </ul>
+</nav>
+-->  
+<h2>Seereisen von {{sailor.givenName}} {{sailor.sirName}}</h2>
+
+<table id="Table" class="table table-striped table-bordered">
+    <col style="width:40%">
+    <col style="width:20%">
+    <col style="width:20%">
+    {% if request.user|has_group:"Seereisenkoordinator" %}
+    <col style="width:10%">
+    <col style="width:10%">
+    {% else %}
+    <col style="width:10%">
+    <col style="width:10%">
+    {% endif %}
+    <thead>
+        <tr>
+          <th>Reise</th>
+          <th>Von</th>
+          <th>Nach</th>
+          <th>Position</th>
+          <th>Distanz</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for share in shares %}
+          <tr>
+            <td>{{ share.Cruise.name }}</td>
+            <td>{{ share.Cruise.startPort }} <br/> {{ share.Cruise.startDate|date:'d.m.Y' }}</td>
+            <td>{{ share.Cruise.endPort }} <br/> {{ share.Cruise.endDate|date:'d.m.Y' }}</td>
+            <td>{{ share.SailAs }}</td>
+            <td>{{ share.Distance}}</td>
+          </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock content %}
+
+
+<!-- Hier seitenbereich gestalten falls gewünscht -->
+{% block aside %}
+<h2>Segelscheine von {{sailor.givenName}} {{sailor.sirName}}</h2>
+
+<table id="Table" class="table table-striped table-bordered">
+    <col style="width:30%">
+    <col style="width:30%">
+    {% if request.user|has_group:"Seereisenkoordinator" %}
+    <col style="width:40%">
+    {% endif %}
+    <thead>
+        <tr>
+          <th>Schein</th>
+          <th>Erwerb</th>
+          {% if request.user|has_group:"Seereisenkoordinator" %}
+          <th>Nummer</th>
+          {% endif %}
+          {% if request.user.sailorId == sailor %}
+          <th>Nummer</th>
+          {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for license in licenses %}
+          <tr>
+            <td>{{ license.Type }}</td>
+            <td>{{ license.Since|date:'d.m.Y' }}</td>
+            {% if request.user|has_group:"Seereisenkoordinator" %}
+            <td>{{ license.LicenseNumber }}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if request.user|has_group:"Seereisenkoordinator" %}
+    <a type="button" class="btn btn-info" href="{% url 'addLicense' %}?id={{ sailor.id }}">Schein hinzufügen</a>
+{% endif %}
+<br/>
+<br/>
+  
+{% endblock aside %}
+
+<!-- Hier können app-spezifische  Skripte dazugeladen werden-->
+{% block scripts %}
+{% endblock scripts %}
