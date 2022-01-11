@@ -13,7 +13,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 @user_passes_test(isUserPartOfGroup_Developer)
 @login_required
 def member(request)-> JsonResponse:
-    AllUsers = profile.objects.all()
+    AllUsers = profile.objects.values_list('user', 'gender_role', 'hometown', 'status')
     erg: list = []
     for i in AllUsers:
         erg.append(model_to_dict(i))
@@ -23,7 +23,7 @@ def member(request)-> JsonResponse:
 @user_passes_test(isUserPartOfGroup_Developer)
 @login_required
 def groupMember(request, status:int):
-    foundUsers = profile.objects.get(status=status)
+    foundUsers = profile.objects.get(status=status).values('user', 'gender_role', 'hometown', 'status')
     
     erg: list = []
     for i in foundUsers:
