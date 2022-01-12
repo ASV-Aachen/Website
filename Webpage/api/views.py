@@ -13,31 +13,29 @@ from django.shortcuts import render, redirect, get_object_or_404
 @user_passes_test(isUserPartOfGroup_Developer)
 @login_required
 def member(request)-> JsonResponse:
-    AllUsers = profile.objects.values_list('user', 'gender_role', 'hometown', 'status')
+    AllUsers = profile.objects.all()
     erg: list = []
     for i in AllUsers:
-        erg.append(model_to_dict(i))
-    
-    return JsonResponse(erg, safe=False)
-
-@user_passes_test(isUserPartOfGroup_Developer)
-@login_required
-def user(request)-> JsonResponse:
-    AllUsers = User.objects.all()
-    erg: list = []
-    for i in AllUsers:
-        erg.append(model_to_dict(i))
+        erg.append({
+            "vorname": i.user.first_name,
+            "nachname": i.user.last_name,
+            "status": i.status
+        })
     
     return JsonResponse(erg, safe=False)
 
 @user_passes_test(isUserPartOfGroup_Developer)
 @login_required
 def groupMember(request, status:int):
-    foundUsers = profile.objects.get(status=status).values('user', 'gender_role', 'hometown', 'status')
+    foundUsers = profile.objects.all().filter(status=status)
     
     erg: list = []
     for i in foundUsers:
-        erg.append(model_to_dict(i))
+        erg.append({
+            "vorname": i.user.first_name,
+            "nachname": i.user.last_name,
+            "status": i.status
+        })
     
     return JsonResponse(erg, safe=False)
 
@@ -48,7 +46,9 @@ def groupMember(request, status:int):
     person: {
         vorname: 
         nachname: 
-        
+        eintrittsdatum:
+        status:
+        e-mail:
     }
     genderUpdate: True,
 }
@@ -78,8 +78,7 @@ def addMember(request):
             newMember(
                 vorname         =jsonData["vorname"],
                 nachname        =jsonData["nachname"],
-                hometown        =jsonData["hometown"],
-                Email           =jsonData["Email"],
+                Email           =jsonData["e-mail"],
                 eintrittsdatum  =jsonData["eintrittsdatum"],
                 status          =jsonData["status"],
             )
