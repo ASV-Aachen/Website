@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from utils.faker import fakeNews, fakeNutzer, fakeArbeitsstunden
+from utils.faker import fakeNews, fakeNutzer
 from utils.member import newMember
 from blog.models import blogPost
 from member.models import profile
@@ -35,7 +35,7 @@ class Command(BaseCommand):
             new = blogPost(text = i['Text'], titel = i['Titel'], author = aktuellerUser, last_editor = "FAKENEWSTEST")
             new.save()
         
-        self.stdout.write("creating Arbeitsstunden", ending='\n')
-        fakeArbeitsstunden(10)
+        # self.stdout.write("creating Arbeitsstunden", ending='\n')
+        # fakeArbeitsstunden(10)
 
         self.stdout.write("SUCCESS", ending='\n')

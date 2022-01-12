@@ -12,7 +12,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.headerAndInfoPages()
-        self.arbeitsstundenSeason()
+        # self.arbeitsstundenSeason()
         self.StandartSeiten()
 
     def headerAndInfoPages(self):
