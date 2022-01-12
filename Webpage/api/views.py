@@ -8,6 +8,7 @@ import json
 from utils.member import newMember, getGender
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
+import datetime
 # Create your views here.
 
 @user_passes_test(isUserPartOfGroup_Developer)
@@ -54,6 +55,15 @@ def groupMember(request, status:int):
 }
 '''
 
+def getStatus(Status: str)-> int:
+    if(Status == "Anwärter"): return 1
+    if(Status == "Aktives Mitglied"): return 2
+    if(Status == "Inaktives Mitglied"): return 3
+    if(Status == "Alter Herr"): return 4
+    if(Status == "Außerordentliches Mitglied"): return 5
+    if(Status == "Ehrenmitglied"): return 6
+    return 1
+
 @user_passes_test(isUserPartOfGroup_Developer)
 @login_required
 def addMember(request):
@@ -65,7 +75,7 @@ def addMember(request):
         if jsonData["update"] == True:
             person_profile = get_object_or_404(profile, id=jsonData["id"])
             
-            person_profile.status = jsonData["person"]['status']
+            person_profile.status = getStatus(jsonData["person"]['status'])
             
             if jsonData['genderUpdate']:
                 person_profile.gender = getGender(person_profile.user.first_name)
@@ -75,12 +85,15 @@ def addMember(request):
             
         else:
             jsonData = jsonData["person"]
+            current_user_eintrittsdatum = jsonData["eintrittsdatum"].split(".")[2] + "-" + jsonData["eintrittsdatum"].split(".")[1] + "-" + jsonData["eintrittsdatum"].split(".")[0]
             newMember(
-                vorname         =jsonData["vorname"],
-                nachname        =jsonData["nachname"],
-                Email           =jsonData["e-mail"],
-                eintrittsdatum  =jsonData["eintrittsdatum"],
-                status          =jsonData["status"],
+                jsonData["vorname"],
+                jsonData["nachname"],
+                "Deutschland", 
+                "Aachen",
+                jsonData["e-mail"],
+                eintrittsdatum  = datetime.fromisoformat(current_user_eintrittsdatum),
+                status          =getStatus(jsonData["status"]),
             )
             return HttpResponse("added new User", status = 200)
     
