@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 from .forms import changePersonalInfo, createNewMember
 from .filters import userFilter
 # from arbeitsstunden.models import *
+import datetime
 
 # Create your views here.
 
@@ -47,14 +48,14 @@ def member_directory(request):
 def single_user(request, id):
     if (request.user.is_authenticated):
         User = get_object_or_404(profile, id=id)
-        # Info = {
+        Info = {
         #     'workingHours': User.workingHoursAccount.workedHours(getCurrentSeason()[0]),
-        #     'yearsInASV': (datetime.date.today().year - User.entry_date.year)
-        # }
+            'yearsInASV': (datetime.date.today().year - User.entry_date.year)
+        }
         
         context = {
             'profil': User,
-            # 'infos': Info
+            'infos': Info
             }
         return render(request, template_name="member/member.html", context=context)
     else:
