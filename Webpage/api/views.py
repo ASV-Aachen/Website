@@ -8,7 +8,8 @@ import json
 from utils.member import newMember, getGender
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
-import datetime
+from datetime import datetime
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 @user_passes_test(isUserPartOfGroup_Developer)
@@ -65,6 +66,7 @@ def getStatus(Status: str)-> int:
     return 1
 
 @user_passes_test(isUserPartOfGroup_Developer)
+@csrf_exempt
 @login_required
 def addMember(request):
     if request.method != "POST":
@@ -73,7 +75,8 @@ def addMember(request):
     try:
         jsonData = json.loads((request.body))
         if jsonData["update"] == True:
-            person_profile = get_object_or_404(profile, id=jsonData["id"])
+            user = get_object_or_404(User, email=jsonData['person']['e-mail'])
+            person_profile = get_object_or_404(profile, user=user)
             
             person_profile.status = getStatus(jsonData["person"]['status'])
             
@@ -93,7 +96,7 @@ def addMember(request):
                 "Aachen",
                 jsonData["e-mail"],
                 eintrittsdatum  = datetime.fromisoformat(current_user_eintrittsdatum),
-                status          =getStatus(jsonData["status"]),
+                status          = getStatus(jsonData["status"]),
             )
             return HttpResponse("added new User", status = 200)
     

@@ -13,7 +13,7 @@ def isUserPartOfGroup_Editor(user)-> bool:
 
 def isUserPartOfGroup_Developer(user)-> bool:
     # Bist du ein Admin darfst du alles
-    if user.groups.filter(name='Admin').exists() or user.groups.filter(name="Developer").exists():
+    if user.groups.filter(name='Admin').exists() or user.groups.filter(name="Entwickler").exists():
         return True
     return False
 
