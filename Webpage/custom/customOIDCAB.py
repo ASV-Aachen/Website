@@ -13,6 +13,9 @@ def updateRoles(userProfile, claims):
 
     # insert new roles
     for i in claims.get('Roles'):
+        if i == "default-roles-asv":
+            continue
+
         newRole, created = role.objects.get_or_create(titel=i)
         userProfile.roles.add(newRole)
 
