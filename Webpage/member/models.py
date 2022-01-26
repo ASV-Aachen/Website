@@ -59,7 +59,7 @@ class profile(models.Model):
 
     gender_role = models.CharField(max_length=1, choices=GENDER_CHOICES, default= "M")
 
-    roles = models.ManyToManyField(role)
+    roles = models.ManyToManyField(role, blank=True)
     
     hometown = models.CharField(max_length=100, null=True, default='Aachen')
     plz = models.IntegerField(null=True, default=52062)
