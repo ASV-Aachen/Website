@@ -21,7 +21,8 @@ def member(request)-> JsonResponse:
         erg.append({
             "vorname": i.user.first_name,
             "nachname": i.user.last_name,
-            "status": i.status
+            "status": i.status,
+            "mail": i.user.email
         })
     
     return JsonResponse(erg, safe=False)
