@@ -53,3 +53,4 @@ class Command(BaseCommand):
             if user.sailorID is None:
                 temp, _ = sailor.objects.get_or_create(name=user.user.first_name + " " + user.user.last_name, givenName=user.user.first_name, sirName=user.user.last_name)
                 user.sailorID = temp
+                user.save()
