@@ -2,9 +2,12 @@ from django.core.management.base import BaseCommand
 
 # from arbeitsstunden.models import account, customHours, getCurrentSeason
 from cruises.models import sailor
-
 from utils.keycloak import *
 
+import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class Command(BaseCommand):
     help = 'Update from Keycloak'
