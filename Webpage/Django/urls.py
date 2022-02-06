@@ -15,6 +15,7 @@ urlpatterns = [
     path('admin/filebrowser/', site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('upload_image/', upload_image),
+    path('EditorUpload', upload_image),
     path('oidc/', include('mozilla_django_oidc.urls')),
     path('jollen/', include('jollen.urls')),
     path('cruises/', include('cruises.urls')),
