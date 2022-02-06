@@ -228,7 +228,7 @@ TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "tinymce/")
 TINYMCE_DEFAULT_CONFIG = {
     "content_css": "/static/css/tinymce/asv-content.css",
     "height": "500px",
-    "images_upload_url": '/EditorUpload/',
+    "images_upload_url": '/upload_image/',
     "width": "Auto",
     "menubar": "file edit view insert format tools table help",
     "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
