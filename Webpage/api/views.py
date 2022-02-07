@@ -22,7 +22,8 @@ def member(request)-> JsonResponse:
             "vorname": i.user.first_name,
             "nachname": i.user.last_name,
             "status": i.status,
-            "mail": i.user.email
+            "mail": i.user.email,
+            "username": i.user.username
         })
     
     return JsonResponse(erg, safe=False)
