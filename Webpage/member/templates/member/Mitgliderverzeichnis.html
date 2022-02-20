@@ -17,6 +17,9 @@
                     <input type="submit" value="Suche 🔎"/>
                 </form>
         </div>
+        {% if has_filter %}
+            <button type="button" class="btn btn-secondary"><a href="{%  url 'products' %}">Filter zurücksetzen</a></button>
+        {% endif %}
     </div>
 {% endblock aside %}
 
