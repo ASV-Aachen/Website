@@ -38,9 +38,11 @@ def index(request):
 @login_required
 def member_directory(request):
     personFilter = userFilter(request.GET, queryset=profile.objects.all().order_by('user__last_name'))
+    has_filter = any(field in request.GET for field in set(personFilter.get_fields()))
     context = {
             'personen': profile.objects.all(),
-            'filter': personFilter
+            'filter': personFilter,
+            'has_filter': has_filter
         }
     return render(request, template_name="member/Mitgliderverzeichnis.html", context=context)
 
