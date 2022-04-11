@@ -21,7 +21,7 @@ app_name: "api"
 
 urlpatterns = [
     path('member',          views.member, name="API_allMembers"),
-    path('member/<int:status>', views.groupMember, name="API_membersFromGroup"),
+    # path('member/<int:status>', views.groupMember, name="API_membersFromGroup"),
     path('addMember',       views.addUser, name="API_addMember"),
     path('sync', views.sync_everything, name="API_syncData")
 ]
