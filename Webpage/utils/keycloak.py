@@ -1,12 +1,13 @@
 import os
 
 from django.contrib.auth.models import User, Group
-from keycloak import KeycloakAdmin
+from keycloak import KeycloakAdmin, KeycloakOpenID
+from cruises.models import sailor
 
 from member.models import role, profile
 
 
-def getKeycloackAdmin():
+def getKeycloackAdmin()-> KeycloakAdmin:
     keycloak_admin = KeycloakAdmin(server_url=os.environ["Host"] + "/sso/auth/",
                                    username=os.environ["KEYCLOAK_USER"],
                                    password=os.environ["KEYCLOAK_PASSWORD"],
@@ -15,6 +16,12 @@ def getKeycloackAdmin():
                                    user_realm_name="master",)
     return keycloak_admin
 
+def getKeycloakOpenID()->KeycloakOpenID:
+    keycloak_openid = KeycloakOpenID(server_url=os.environ["Host"] + "/sso/auth/",
+                    client_id=os.environ["OIDC_RP_CLIENT_ID"],
+                    realm_name="ASV",
+                    client_secret_key=os.environ["OIDC_RP_CLIENT_SECRET"])
+    return keycloak_openid
 
 '''
 Get all Roles from Keycloak and add to Django
@@ -118,6 +125,6 @@ def update_all_Users():
         except:
             print(user.firstName + user.lastName)
             continue
-
+    
     return
 
