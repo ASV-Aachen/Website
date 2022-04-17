@@ -32,6 +32,8 @@ DEBUG = os.environ["DEBUG"] == "True"
 Host = os.environ["Host"]
 ALLOWED_HOSTS = []
 ALLOWED_HOSTS.append("." + os.environ["ALLOWED_HOSTS"])
+ALLOWED_HOSTS.append("webpage:8080")
+ALLOWED_HOSTS.append("webpage")
 
 X_FRAME_OPTIONS = 'ALLOWALL'
 
