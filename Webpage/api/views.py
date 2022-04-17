@@ -27,6 +27,7 @@ from django.views.decorators.clickjacking import xframe_options_sameorigin
 GroupsWithAccess = [
     "Entwickler",
     "Admin",
+    "Schriftwart"
 ]
 
 def checkforToken(request):
@@ -140,11 +141,7 @@ def addUser(request):
     
     return HttpResponse("Update Successfull", status=200)
 
-def addUser_Image(request):
-    userInfo = checkforToken(request)
-    if userInfo is None:
-        return HttpResponse(status=401)
-    pass
+
 
 @user_passes_test(isUserPartOfGroup_Developer)
 @login_required
