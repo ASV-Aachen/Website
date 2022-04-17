@@ -30,11 +30,11 @@ GroupsWithAccess = [
 ]
 
 def checkforToken(request):
-    token = getToken(request) 
-
-    if token is None:
-        print("No Token")
+    try: 
+        token = getToken(request) 
+    except:
         return None
+
     userInfo = checkToken(token, GroupsWithAccess)
     return userInfo
 
