@@ -1,3 +1,4 @@
+from cProfile import Profile
 from http.client import HTTPS_PORT
 from turtle import home
 from django.http import HttpResponseForbidden, HttpResponsePermanentRedirect
@@ -47,7 +48,7 @@ def sync_everything(request):
     # Sync website with Keycloak
     try:
         auto_Update_Roles() 
-        auto_Update_Groups()
+        # auto_Update_Groups()
         update_all_Users()
         createSailors()
         return HttpResponse(status=200)
@@ -126,6 +127,8 @@ def addUser(request):
     
     # Add image (if it's there)
     # TODO:
+    file = request.FILES
+    user = profile.objects.get(id)
     
     return HttpResponse("Update Successfull", status=200)
 

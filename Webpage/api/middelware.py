@@ -43,9 +43,7 @@ def checkToken(token: str, GroupsWithAccess)-> bool:
     except:
         return None
     
-    print(userinfo)
     groups = getUserGroups(userinfo["sub"])
-    print(groups)
     
     # Done: Check for correct Group
     for groupName in groups:
