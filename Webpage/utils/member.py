@@ -3,6 +3,8 @@ import os
 import datetime
 
 from django.contrib.auth.models import User
+from cruises.models import sailor
+from member.models import profile
 # from arbeitsstunden.models import account
 import member.models as memberModel
 from keycloak import KeycloakAdmin
@@ -72,7 +74,7 @@ def newMember(vorname, nachname, country, hometown, Email, eintrittsdatum=dateti
         newProfile.country = country
         newProfile.entry_date = eintrittsdatum
         newProfile.save()
-        return True
+        return True, username
     else:
         return False
     pass
@@ -142,4 +144,12 @@ def genderTitel(titel, gender) -> str:
         except:
             return titel
     return titel
-    
+
+
+def createSailors():
+        
+    for user in profile.objects.all():
+        if user.sailorID is None:
+            temp, _ = sailor.objects.get_or_create(name=user.user.first_name + " " + user.user.last_name, givenName=user.user.first_name, sirName=user.user.last_name)
+            user.sailorID = temp
+            user.save()
