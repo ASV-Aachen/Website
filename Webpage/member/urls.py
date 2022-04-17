@@ -26,11 +26,11 @@ urlpatterns = [
     path('Einstellungen', views.settings, name="Einstellungen"),
     path('Kalender', views.kalender, name='Kalender'),
 
-    path('Menu', views.memberMenu, name="MemberMenu"),
-    path('Menu/allMembers', views.alleMember, name="allMembers"),
-    path('Menu/export', views.exportPage, name ="allMembers_Export"),
-    path('Menu/editor', views.newMemberEditor, name ="memberEditor"),
-    path('Menu/import', views.massenimport, name ="memberImport"),
-    path('Menu/delete', views.deleteUser, name="memberDelete"),
-    path('Menu/edit/<str:id>', views.editUserAsSchriftward, name="memberEdit")
+    # path('Menu', views.memberMenu, name="MemberMenu"),
+    # path('Menu/allMembers', views.alleMember, name="allMembers"),
+    # path('Menu/export', views.exportPage, name ="allMembers_Export"),
+    # path('Menu/editor', views.newMemberEditor, name ="memberEditor"),
+    # path('Menu/import', views.massenimport, name ="memberImport"),
+    # path('Menu/delete', views.deleteUser, name="memberDelete"),
+    # path('Menu/edit/<str:id>', views.editUserAsSchriftward, name="memberEdit")
 ]
