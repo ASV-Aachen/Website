@@ -65,15 +65,16 @@ def addUser(request):
     if request.method != "POST":
         return HttpResponse(status=405)
     
+    print(request.POST)
+    
     # daten aus request schälen
     try:
-        jsonData = json.loads((request.body))
         # current_user_eintrittsdatum = jsonData["entryDate"].split(".")[2] + "-" + jsonData["entryDate"].split(".")[1] + "-" + jsonData["entryDate"].split(".")[0]
-        current_user_eintrittsdatum = jsonData["entryDate"]
-        mail: str                   = jsonData["mail"]
-        first_name: str             = jsonData["first_name"]
-        last_name: str              = jsonData["last_name"]
-        status: str                 = jsonData["status"]
+        current_user_eintrittsdatum = request.POST["entryDate"]
+        mail: str                   = request.POST["mail"]
+        first_name: str             = request.POST["first_name"]
+        last_name: str              = request.POST["last_name"]
+        status: str                 = request.POST["status"]
         password: str
         mail: str
         username: str
@@ -126,9 +127,16 @@ def addUser(request):
     sendMail(TO= mail,mail=mailToSend)
     
     # Add image (if it's there)
-    # TODO:
-    file = request.FILES
-    user = profile.objects.get(id)
+    try: 
+        file = request.FILES['userImage']
+        print(file)
+        temp_profile = profile.objects.get(user = User.objects.get(username=username))
+        
+        temp_profile.profile_image = file
+        temp_profile.save()
+        
+    except:
+        pass
     
     return HttpResponse("Update Successfull", status=200)
 
