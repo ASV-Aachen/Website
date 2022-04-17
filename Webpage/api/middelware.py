@@ -1,35 +1,55 @@
+from distutils.log import error
+from operator import truediv
 from urllib.request import Request
 from django.http import Http404, HttpRequest, HttpResponseNotAllowed
 from keycloak import KeycloakAdmin,KeycloakOpenID
 
 from utils.keycloak import getKeycloackAdmin, getKeycloakOpenID
+import requests
+import os
 
-def basicAuthMiddelware(get_response):
-    # One-time configuration and initialization.
-    admin: KeycloakAdmin    = getKeycloackAdmin()
-    openId: KeycloakOpenID  = getKeycloakOpenID()
+def getUserInfo(token:str):
+    url = os.environ["Host"] + "/sso/auth/realms/asv/protocol/openid-connect/userinfo"
 
-    def middleware(request: Request):
-        # Code to be executed for each request before
-        # the view (and later middleware) are called.
+    payload = ""
+    headers = {"Authorization": "Bearer " + token}
 
-        response = get_response(request)
-        token = request.META.get('HTTP_AUTHORIZATION')
+    response = requests.request("GET", url, data=payload, headers=headers, verify=False)
+    
+    if (response.status_code == 200):
+        return response.json(), False
+    else:
+        return None, True
+   
+def getUserGroups(userID: str):
+    Keycloak = getKeycloackAdmin()
+    return Keycloak.get_user_groups(userID)
         
-        try: 
-            userinfo = openId.userinfo(token)
-        except:
-            return HttpResponseNotAllowed
-        print(userinfo)
-        
-        # TODO: Check for correct Group
+def getToken(request):
+    cookies = request.META.get('HTTP_COOKIE')
+    cookies = cookies.split(";")
+    token: str
+    for i in cookies:
+        if "token=" in i:
+            token = i.replace('token=', '')
+    return token
 
-        # TODO:
-        # Code to be executed for each request/response after
-        # the view is called.
+def checkToken(token: str, GroupsWithAccess)-> bool:
+    
+    try: 
+        userinfo, iswrong = getUserInfo(token)
+        if iswrong:
+            return None
+    except:
+        return None
+    
+    print(userinfo)
+    groups = getUserGroups(userinfo["sub"])
+    print(groups)
+    
+    # Done: Check for correct Group
+    for groupName in groups:
+        if groupName["name"] in GroupsWithAccess:
+            return True
         
-        
-
-        return response
-
-    return middleware
+    return None

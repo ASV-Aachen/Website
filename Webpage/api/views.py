@@ -1,13 +1,10 @@
 from http.client import HTTPS_PORT
-import struct
 from turtle import home
-from urllib import request
-from warnings import catch_warnings
-from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponseForbidden, HttpResponsePermanentRedirect
 from django.http.response import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
+from api.middelware import checkToken, getToken
 from utils.member import createSailors
-from api.middelware import basicAuthMiddelware
 from utils.keycloak_f.utils import sendPasswordToKeycloak, set_aktiv
 from utils.mail.createMails import createMail
 from utils.mail.password import createPassword
@@ -24,10 +21,29 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import decorator_from_middleware
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
-@decorator_from_middleware(basicAuthMiddelware)
+GroupsWithAccess = [
+    "Entwickler",
+    "Admin",
+]
+
+def checkforToken(request):
+    token = getToken(request) 
+
+    if token is None:
+        print("No Token")
+        return None
+    userInfo = checkToken(token, GroupsWithAccess)
+    return userInfo
+
+@xframe_options_sameorigin
+@csrf_exempt
 def sync_everything(request):
+    userInfo = checkforToken(request)
+    if userInfo is None:
+        return HttpResponse(status=401)
+        
     # Sync website with Keycloak
     try:
         auto_Update_Roles() 
@@ -37,10 +53,13 @@ def sync_everything(request):
         return HttpResponse(status=200)
     except Exception as e:
         return HttpResponse(e, status=500)
-        
 
-@decorator_from_middleware(basicAuthMiddelware)
+@xframe_options_sameorigin      
+@csrf_exempt
 def addUser(request):
+    userInfo = checkforToken(request)
+    if userInfo is None:
+        return HttpResponse(status=401)
     
     if request.method != "POST":
         return HttpResponse(status=405)
@@ -48,7 +67,8 @@ def addUser(request):
     # daten aus request schälen
     try:
         jsonData = json.loads((request.body))
-        current_user_eintrittsdatum = jsonData["entryDate"].split(".")[2] + "-" + jsonData["entryDate"].split(".")[1] + "-" + jsonData["entryDate"].split(".")[0]
+        # current_user_eintrittsdatum = jsonData["entryDate"].split(".")[2] + "-" + jsonData["entryDate"].split(".")[1] + "-" + jsonData["entryDate"].split(".")[0]
+        current_user_eintrittsdatum = jsonData["entryDate"]
         mail: str                   = jsonData["mail"]
         first_name: str             = jsonData["first_name"]
         last_name: str              = jsonData["last_name"]
@@ -57,22 +77,32 @@ def addUser(request):
         mail: str
         username: str
         id: str
-    except:
-        return HttpResponse("Missing Values", status=400)
+    except Exception as e:
+        return HttpResponse(e, status=400)
     # ----------------------------
     
     keycloak_admin = getKeycloackAdmin()
     
     # in Keycloak && Website einfügen
-    sucess, username = newMember(
-                vorname=first_name,
-                nachname= last_name,
-                country= "Deutschland",
-                hometown="Aachen",
-                Email=mail,
-                status=getStatus(status),
-                eintrittsdatum=current_user_eintrittsdatum
-            )
+    if current_user_eintrittsdatum == "":
+        sucess, username = newMember(
+                    vorname=first_name,
+                    nachname= last_name,
+                    country= "Deutschland",
+                    hometown="Aachen",
+                    Email=mail,
+                    status=getStatus(status)
+                )
+    else: 
+        sucess, username = newMember(
+                    vorname=first_name,
+                    nachname= last_name,
+                    country= "Deutschland",
+                    hometown="Aachen",
+                    Email=mail,
+                    status=getStatus(status),
+                    eintrittsdatum=current_user_eintrittsdatum
+                )
     if (not sucess):
         return HttpResponse("User konnte nicht angelegt werden", status=500)
     
@@ -89,16 +119,21 @@ def addUser(request):
     set_aktiv(id=id, keycloak_admin=keycloak_admin)
     
     # create Mail
-    mail = createMail(password)
+    mailToSend = createMail(password)
 
     # Mail versenden
-    sendMail(mail=mail)
+    sendMail(TO= mail,mail=mailToSend)
     
     # Add image (if it's there)
     # TODO:
     
     return HttpResponse("Update Successfull", status=200)
 
+def addUser_Image(request):
+    userInfo = checkforToken(request)
+    if userInfo is None:
+        return HttpResponse(status=401)
+    pass
 
 @user_passes_test(isUserPartOfGroup_Developer)
 @login_required
