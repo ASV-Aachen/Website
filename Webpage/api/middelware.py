@@ -26,12 +26,10 @@ def getUserGroups(userID: str):
     return Keycloak.get_user_groups(userID)
         
 def getToken(request):
-    cookies = request.META.get('HTTP_COOKIE')
-    cookies = cookies.split(";")
+    headers = request.headers['Authorization']
     token: str
-    for i in cookies:
-        if "token=" in i:
-            token = i.replace('token=', '')
+
+    token = headers.replace('Bearer ', '')
     return token
 
 def checkToken(token: str, GroupsWithAccess)-> bool:
