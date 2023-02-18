@@ -21,15 +21,37 @@
             <div style="border-style: solid;box-shadow: 2px 0px 5px; padding:8px">
               <div class="row">
                 <div class="col-8">
-                  <h5 class="fw-bold">
+                  <h3 class="fw-bold">
                     {{ boot.klasse }} {{ boot.name }}
-                    <small class="text-muted">Letztes Update vom: {{ boot.message.date | date:"F d, Y"}}</small>
-                  </h5>
+                  </h3>
+                  <small class="text-muted">Letztes Update vom: {{ boot.message.date | date:"F d, Y"}}</small>
                 </div>
                 <div class="col-4">
-                  <div>Obmann: {{ boot.obman }}</div>
+                  <div>
+                    {% if boot.obman.all|length == 0 %}
+                      Obmann: <b>We want you!</b>
+                    {% else %}
+                      <!-- when only one obman exists write "Obmann: " else "Obleute: "-->
+                      {% if boot.obman.all|length == 1 %}
+                        Obmann:
+                      {% else %}
+                        Obleute:
+                      {% endif %}                    
+                      {% for obman in boot.obman.all %}
+                      <a href="/mitglieder/User/{{ obman.id }}">{{ obman.first_name }} {{ obman.last_name }}</a>{% if forloop.last %}{% else %}, {% endif %}{% endfor %}
+                    {% endif %}  
+                  </div>
                   {% if boot.isboat %} 
-                    <div style="{% if boot.message.status == 3 %}border: solid;background: #BB0001;padding: 5px;border-radius: 8px;{% endif %}">Status: {{ boot.message.get_status_display }}</div> 
+                    {% if boot.message.status == 1 %}
+                      <div style="border: solid;background: #00BB00;padding: 5px;border-radius: 8px;">
+                    {% elif boot.message.status == 2 or boot.message.status == 4%}
+                      <div style="border: solid;background: #BBB000;padding: 5px;border-radius: 8px;">
+                    {% elif boot.message.status == 3 %}
+                      <div style="border: solid;background: #BB0001;padding: 5px;border-radius: 8px;">
+                    {% else %}
+                      <div>
+                    {% endif %}
+                    Status: {{ boot.message.get_status_display }}</div> 
                   {% endif %}
                   <div>Standort: {{ boot.message.get_standort_display }}</div>
                 </div>
