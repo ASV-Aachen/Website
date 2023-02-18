@@ -260,3 +260,7 @@ TINYMCE_DEFAULT_CONFIG = {
 TINYMCE_SPELLCHECKER = False    # TODO: Prüfen ob Schreibprüfung implementiert werden kann.
 TINYMCE_COMPRESSOR = True
 TINYMCE_STYLE_FORMATS_MERGE: True
+
+# default autofield type for models
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
