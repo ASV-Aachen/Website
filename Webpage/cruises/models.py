@@ -45,7 +45,7 @@ class cruise(models.Model):
     startPort = models.CharField(max_length=128)
     endPort = models.CharField(max_length=128)
     maxBerths = models.IntegerField()
-    sailors = models.ManyToManyField(sailor, blank=True, null=True, through="cruiseShare")
+    sailors = models.ManyToManyField(sailor, blank=True, through="cruiseShare")
     
     def getCrewsize(self):
         size = 23
