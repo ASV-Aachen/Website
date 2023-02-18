@@ -63,7 +63,7 @@ class boot(models.Model):
     klasse = models.ForeignKey(bootsklasse, on_delete=models.SET_NULL, null=True)
     description = HTMLField()
     image = ResizedImageField(size=[166,233], upload_to='boats', crop=['middle', 'center'], keep_meta=False, quality=100, blank=True, null=True)
-    obman = models.CharField(max_length=100, null=False)
+    obman = models.ManyToManyField(User, blank=True)
 
     isboat = models.BooleanField(default=True)
     
