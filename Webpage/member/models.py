@@ -40,7 +40,7 @@ class profile(models.Model):
         (Anwärter, 'Anwärter'),        
         (Aktiv, 'Aktiv'),
         (Inaktiv, 'Inaktiv'),
-        (AlterHerr, 'Alter Herr'),
+        (AlterHerr, 'Alumni'),
         (Außerordentliches_Mitglied, "Außerordentliches Mitglied"),
         (Ehrenmitglied, 'Ehrenmitglied'),
     )
