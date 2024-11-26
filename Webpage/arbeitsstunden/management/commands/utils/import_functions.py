@@ -15,6 +15,7 @@ def getStatus(Status: str)-> int:
     if(Status == "Aktives Mitglied"): return 2
     if(Status == "Inaktives Mitglied"): return 3
     if(Status == "Alter Herr"): return 4
+    if(Status == "Alumni"): return 4
     if(Status == "Außerordentliches Mitglied"): return 5
     if(Status == "Ehrenmitglied"): return 6
     return 1
