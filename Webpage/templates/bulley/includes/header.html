@@ -84,7 +84,7 @@
               {% endcomment %}
 
               <li><a class="dropdown-item" href="/wiki" target="_blank">Wiki</a></li>
-              <li><a class="dropdown-item" href="/cloud/index.php/apps/sociallogin/custom_oidc/Keycloak" target="_blank">Cloud</a></li>
+              <li><a class="dropdown-item" href="/cloud" target="_blank">Cloud</a></li>
               {% if request.user|has_group:"Schriftwart" %}
                 <li><a class="dropdown-item" href="{% url 'MemberMenu' %}"> Member Editor </a></li>
               {% endif %}
