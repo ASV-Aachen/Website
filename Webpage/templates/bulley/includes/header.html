@@ -60,7 +60,10 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle px-2" aria-labelledby="dropdownMenuButton" href="{% url 'sponsor' %}"> Sponsoren</a>
           </li>
-        {% if request.user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="dropdown-item" href="Seereisenplan">Seereisenplan</a></li>
+          </li>
+          {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle px-2" role="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false" href="{% url 'MeinASV' %}">
             Mein ASV</a>
@@ -79,8 +82,6 @@
                 </ul>
               </li> 
               {% endcomment %}
-
-              <li><a class="dropdown-item" href="{% url 'cruisesOverview' %}">Seereisenplan</a></li>
 
               <li><a class="dropdown-item" href="/wiki" target="_blank">Wiki</a></li>
               <li><a class="dropdown-item" href="/cloud/index.php/apps/sociallogin/custom_oidc/Keycloak" target="_blank">Cloud</a></li>
